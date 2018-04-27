@@ -31,6 +31,7 @@ module Fabrica
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.enforce_available_locales = false
+    config.i18n.load_path += Dir["#{Rails.root.to_s}/config/locales/**/*.{rb,yml}"]
     config.i18n.default_locale = :'pt-BR'
     config.i18n.available_locales = ["pt-BR"]
 
@@ -52,15 +53,23 @@ module Fabrica
       :enable_starttls_auto   => true
     }
 
+    config.to_prepare do
+      Devise::SessionsController.layout "devise"
+      Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "devise" }
+      Devise::ConfirmationsController.layout "devise"
+      Devise::UnlocksController.layout "devise"
+      Devise::PasswordsController.layout "devise"
+    end
+
     # Don't generate system test files.
     config.generators.system_tests = nil
 
     config.generators do |g|
       g.test_framework :rspec,
-        fixtures: false,
-        view_specs: false,
-        helper_specs: false,
-        routing_specs: false
+      fixtures: false,
+      view_specs: false,
+      helper_specs: false,
+      routing_specs: false
     end
   end
 end
