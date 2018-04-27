@@ -17,16 +17,19 @@
 
   <body>
 
-    <main role="main">
-      <div class="container">
-        <% flash.each do |name, msg| %>
-            <%= content_tag(:div, msg, class: "alert alert-info") %>
-        <% end %>
-        <div class="my-3 p-3 bg-white rounded box-shadow">
-          <%= yield %>
+    <div class="container ">
+      <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+          <% flash.each do |name, msg| %>
+              <%= content_tag(:div, msg, class: "alert alert-info") %>
+          <% end %>
+          <div class="my-3 p-3 bg-white rounded box-shadow">
+            <%= yield %>
+          </div>
         </div>
       </div>
-    </main>
+    </div>
+
     <%= javascript_include_tag 'login', 'data-turbolinks-track': 'reload' %>
   </body>
 </html>
