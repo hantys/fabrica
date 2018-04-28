@@ -1,25 +1,33 @@
-# README
+# Ruby version
+  * 2.5.1
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Install yarn
 
-Things you may want to cover:
+Debian / Ubuntu
+On Debian or Ubuntu Linux, you can install Yarn via our Debian package repository. You will first need to configure the repository:
+```
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+```
 
-* Ruby version
+On Ubuntu 16.04 or below and Debian Stable, you will also need to configure the NodeSource repository to get a new enough version of Node.js.
 
-* System dependencies
+Then you can simply:
 
-* Configuration
+```
+sudo apt-get update && sudo apt-get install yarn
+```
 
-* Database creation
+# Run
 
-* Database initialization
+```
+bundle exec spring binstub --all
+```
 
-* How to run the test suite
+```
+rails db:create
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# fabrica
+```
+rails db:migrate
+```
