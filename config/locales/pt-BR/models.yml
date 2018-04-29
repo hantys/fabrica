@@ -24,7 +24,7 @@ pt-BR:
         percent: Disconto em %?
         status: Situação
       user:
-        store_name: 'Nome da Loja'
+        login: "Nome de Usuário ou E-mail"
         store_description: 'Descrição'
         name: 'Nome completo'
         email: 'Email'

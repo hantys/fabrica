@@ -31,3 +31,11 @@ rails db:create
 ```
 rails db:migrate
 ```
+
+# Espeficicações iniciais
+
+Devise configurado com:
+  
+  * Username habilitado
+  * Cancelamento de conta sem destruir o usuário
+  * Enviando email de redefinir senha 

@@ -39,18 +39,33 @@ module Fabrica
 
     config.action_controller.include_all_helpers = true
 
+    # if Rails.env.development?
+    #   config.action_mailer.default_url_options = { :host => 'http://127.0.0.1', :port => 3000 }
+    # else
+    #   config.action_mailer.default_url_options = { :host => 'https://nacionalservicos.com.br' }
+    # end
+    # config.action_mailer.delivery_method = :smtp
+    # # 3rf454y65her
+    # # sistema@nacionalservicos.com.br
+    # config.action_mailer.smtp_settings = {
+    #   :address                => "smtp.nacionalservicos.com.br",
+    #   :port                   => 587,
+    #   :domain                 => 'nacionalservicos.com.br',
+    #   :user_name              => 'sistema@nacionalservicos.com.br',
+    #   :password               => '3rf454y65her',
+    #   :authentication         => 'plain',
+    #   :enable_starttls_auto   => true
+    # }
+
+    config.action_mailer.default_url_options = { :host => 'http://localhost', :port => 3000 }
     config.action_mailer.delivery_method = :smtp
-    config.action_mailer.default_url_options = { :host => 'nacionalservicos.com.br' }
-    # 3rf454y65her
-    # sistema@nacionalservicos.com.br
     config.action_mailer.smtp_settings = {
-      :address                => "smtp.nacionalservicos.com.br",
-      :port                   => 587,
-      :domain                 => 'nacionalservicos.com.br',
-      :user_name              => 'sistema@nacionalservicos.com.br',
-      :password               => '3rf454y65her',
-      :authentication         => 'plain',
-      :enable_starttls_auto   => true
+      :address              => 'smtp.gmail.com',
+      :port                 => 587,
+      :user_name            => 'junior123nelson@gmail.com',
+      :password             => 'junior@123',
+      :authentication       => :plain,
+      :enable_starttls_auto => true
     }
 
     config.to_prepare do

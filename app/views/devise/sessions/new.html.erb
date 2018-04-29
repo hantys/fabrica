@@ -6,12 +6,12 @@
     <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
   </div>
   <div class="form-label-group">
-    <%= f.text_field :email, required: true, autofocus: true, id: "inputEmail", class: "form-control", placeholder: "Email address" %>
-    <label for="inputEmail">Email address</label>
+    <%= f.email_field :login, required: true, autofocus: true, id: "inputLogin", class: "form-control", placeholder: "Login address" %>
+    <label for="inputLogin">Login address</label>
   </div>
 
   <div class="form-label-group">
-    <%= f.text_field  :password, required: true, autofocus: true, id: "inputPassword", class: "form-control", placeholder: "Password" %>
+    <%= f.password_field  :password, required: true, autofocus: true, id: "inputPassword", class: "form-control", placeholder: "Password" %>
     <label for="inputPassword">Password</label>
   </div>
 
