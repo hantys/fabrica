@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @raw_material.name %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @raw_material.amount %>
+</p>
+
+<%= link_to 'Edit', edit_raw_material_path(@raw_material) %> |
+<%= link_to 'Back', raw_materials_path %>

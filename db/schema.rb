@@ -10,10 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_28_222129) do
+ActiveRecord::Schema.define(version: 2018_04_29_041449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "compositionals", force: :cascade do |t|
+    t.integer "raw_material_id"
+    t.integer "composition_id"
+    t.float "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["raw_material_id", "composition_id"], name: "index_compositionals_on_raw_material_id_and_composition_id"
+  end
+
+  create_table "compositions", force: :cascade do |t|
+    t.string "name"
+    t.float "weight"
+    t.integer "kind"
+    t.integer "parent_composition_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_composition_id"], name: "index_compositions_on_parent_composition_id"
+  end
+
+  create_table "raw_materials", force: :cascade do |t|
+    t.string "name"
+    t.float "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

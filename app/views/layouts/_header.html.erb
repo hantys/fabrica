@@ -1,12 +1,17 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
   <a class="navbar-brand" href="#">Fixed navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      <li class='nav-item dropdown <%= "#{active_class(raw_materials_path)} #{active_class(compositions_path)} #{active_class(users_path)}" %>'>
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cadastros</a>
+        <div class="dropdown-menu">
+          <%= link_to 'Matéria-Prima', raw_materials_path, class: "dropdown-item #{active_class(raw_materials_path)}" %>
+          <%= link_to 'Compósições', compositions_path, class: "dropdown-item" %>
+          <%= link_to 'Usuários', users_path, class: "dropdown-item" %>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>

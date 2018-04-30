@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @composition.name %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @composition.weight %>
+</p>
+
+<p>
+  <strong>Kind:</strong>
+  <%= @composition.kind %>
+</p>
+
+<%= link_to 'Edit', edit_composition_path(@composition) %> |
+<%= link_to 'Back', compositions_path %>
