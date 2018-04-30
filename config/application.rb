@@ -44,6 +44,8 @@ module Fabrica
     else
       config.action_mailer.default_url_options = { :host => 'https://nacionalservicos.com.br' }
     end
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.perform_deliveries = true
     config.action_mailer.delivery_method = :smtp
     # # 3rf454y65her
     # # sistema@nacionalservicos.com.br

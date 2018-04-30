@@ -9,8 +9,8 @@
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cadastros</a>
         <div class="dropdown-menu">
           <%= link_to 'Matéria-Prima', raw_materials_path, class: "dropdown-item #{active_class(raw_materials_path)}" %>
-          <%= link_to 'Compósições', compositions_path, class: "dropdown-item" %>
-          <%= link_to 'Usuários', users_path, class: "dropdown-item" %>
+          <%= link_to 'Compósições', compositions_path, class: "dropdown-item #{active_class(raw_materials_path)}" %>
+          <%= link_to 'Usuários', users_path, class: "dropdown-item #{active_class(raw_materials_path)}" %>
         </div>
       </li>
       <li class="nav-item">

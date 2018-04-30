@@ -42,7 +42,6 @@ gem 'pry-rails'
 gem 'pry-meta'
 
 gem 'devise'
-gem 'bootstrap', '~> 4.1.0'
 gem 'simple_form'
 gem 'nested_form'
 gem 'ransack'

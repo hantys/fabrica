@@ -1,5 +1,3 @@
-// //= require jquery3
-// //= require anime-min
 // var current = null;
 // document.querySelector('#email').addEventListener('focus', function(e) {
 //   if (current) current.pause();

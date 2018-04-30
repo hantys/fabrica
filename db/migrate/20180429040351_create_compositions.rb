@@ -9,6 +9,6 @@ class CreateCompositions < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_index :compositions, :parent_composition_id
+    # add_index :compositions, :parent_composition_id
   end
 end
