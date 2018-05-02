@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Compositional, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context 'New Compositional' do
+    it 'Create valid new user' do
+      compositional = create(:compositional)
+      expect(compositional).to be_valid
+    end
+  end
 end
