@@ -1,0 +1,25 @@
+.page-header {
+  @include media-breakpoint-down(sm) {
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
+}
+
+.btn {
+  &.has-icon {
+    display: inline-flex;
+    @include media-breakpoint-up(lg) {
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      i {
+        margin-right: 5px;
+      }
+    }
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+  }
+}

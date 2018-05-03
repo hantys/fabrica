@@ -1,7 +1,11 @@
-// $primary: #3f51b5 !default;
+$primary: #3f51b5 !default;
 
-// @import "bootstrap/scss/bootstrap";
-@import "bootstrap-material-design/dist/css/bootstrap-material-design";
+@import "bootstrap/scss/bootstrap";
+@import "material-design-icons/iconfont/material-icons";
+// @import "bootstrap-material-design/dist/css/bootstrap-material-design";
 @import "navbar-top-fixed";
 @import "home";
+@import "variables";
+@import "functions";
+@import "custom";
 

@@ -1,31 +1,40 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1>Matéria-Prima</h1>
+  <%= link_to 'New Raw Material', new_raw_material_path, class: "btn btn-primary" %>
+</div>
 
-<h1>Raw Materials</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Slug</th>
-      <th>Amount</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @raw_materials.each do |raw_material| %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
       <tr>
-        <td><%= raw_material.name %></td>
-        <td><%= raw_material.slug_name %></td>
-        <td><%= raw_material.amount %></td>
-        <td><%= link_to 'Show', raw_material %></td>
-        <td><%= link_to 'Edit', edit_raw_material_path(raw_material) %></td>
-        <td><%= link_to 'Destroy', raw_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Qnt.</th>
+        <th scope="col">Ação</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Raw Material', new_raw_material_path %>
+    </thead>
+    <tbody>
+      <% @raw_materials.each do |raw_material| %>
+      <tr>
+        <td scope="row"><%= raw_material.id %></td>
+        <td><%= raw_material.name %></td>
+        <td><%= raw_material.amount %></td>
+        <td>
+          <%= link_to raw_material, class: 'btn btn-info has-icon' do %>
+            <i class="material-icons">remove_red_eye</i>
+            Show
+          <% end %>
+          <%= link_to edit_raw_material_path(raw_material), class: 'btn btn-primary has-icon' do %>
+            <i class="material-icons">edit</i>
+            Editar
+          <% end %>
+          <%= link_to raw_material, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger has-icon' do %>
+            <i class="material-icons">delete</i>
+            Excluir
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

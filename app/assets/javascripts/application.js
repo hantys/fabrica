@@ -16,5 +16,5 @@
 //= require jquery_nested_form
 //= require default
 //= require popper.js/dist/umd/popper
-//= require bootstrap-material-design/dist/js/bootstrap-material-design
+//= require bootstrap/dist/js/bootstrap
 // require_tree .
