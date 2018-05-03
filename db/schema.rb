@@ -26,17 +26,18 @@ ActiveRecord::Schema.define(version: 2018_04_29_041449) do
 
   create_table "compositions", force: :cascade do |t|
     t.string "name"
-    t.float "weight"
+    t.float "weight", default: 0.0
+    t.float "amount", default: 0.0
     t.integer "kind"
     t.integer "parent_composition_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["parent_composition_id"], name: "index_compositions_on_parent_composition_id"
   end
 
   create_table "raw_materials", force: :cascade do |t|
     t.string "name"
-    t.float "amount"
+    t.string "slug_name"
+    t.float "amount", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
