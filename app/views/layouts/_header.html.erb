@@ -9,7 +9,7 @@
     <ul class="navbar-nav mr-auto">
       <li class='nav-item dropdown <%= "#{active_class(raw_materials_path)} #{active_class(compositions_path)} #{active_class(users_path)}" %>'>
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cadastros</a>
-        <div class="dropdown-menu">
+        <div class="dropdown-menu hasDropboxAnimation">
           <%= link_to 'Matéria-Prima', raw_materials_path, class: "dropdown-item #{active_class(raw_materials_path)}" %>
           <%= link_to 'Compósições', compositions_path, class: "dropdown-item #{active_class(raw_materials_path)}" %>
           <%= link_to 'Usuários', users_path, class: "dropdown-item #{active_class(raw_materials_path)}" %>

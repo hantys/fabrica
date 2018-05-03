@@ -2,10 +2,10 @@
   "name": "fabrica",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.1.0",
+    "bootstrap": "^4.1.1",
     "bootstrap-material-design": "^4.1.1",
+    "bootstrap-sass": "^3.3.7",
     "jquery": "^3.3.1",
-    "popper.js": "^1.14.3",
-    "yarn": "^1.6.0"
+    "popper.js": "^1.14.3"
   }
 }

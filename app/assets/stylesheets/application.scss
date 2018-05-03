@@ -1,5 +1,7 @@
-/*
- * require bootstrap/dist/css/bootstrap
- *= require bootstrap-material-design/dist/css/bootstrap-material-design
- *= require navbar-top-fixed
-*/
+// $primary: #3f51b5 !default;
+
+// @import "bootstrap/scss/bootstrap";
+@import "bootstrap-material-design/dist/css/bootstrap-material-design";
+@import "navbar-top-fixed";
+@import "home";
+

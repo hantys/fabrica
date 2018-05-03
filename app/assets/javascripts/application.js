@@ -11,7 +11,10 @@
 // about supported directives.
 //
 //= require rails-ujs
+//= require jquery/dist/jquery
 //= require activestorage
 //= require jquery_nested_form
 //= require default
-//= require_tree .
+//= require popper.js/dist/umd/popper
+//= require bootstrap-material-design/dist/js/bootstrap-material-design
+// require_tree .

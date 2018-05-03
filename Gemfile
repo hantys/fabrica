@@ -40,7 +40,7 @@ gem 'puma_worker_killer'
 
 gem 'pry-rails'
 gem 'pry-meta'
-
+gem 'bootstrap-material-design'
 gem 'devise'
 gem 'simple_form'
 gem 'nested_form'
