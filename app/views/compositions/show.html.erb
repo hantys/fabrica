@@ -15,5 +15,14 @@
   <%= @composition.kind %>
 </p>
 
+<p>
+  <strong>raw_material:</strong>
+  <ul>
+    <% @composition.raw_materials.each do |raw_material| %>
+      <li><%= raw_material.name %></li>
+    <% end %>
+  </ul>
+</p>
+
 <%= link_to 'Edit', edit_composition_path(@composition) %> |
 <%= link_to 'Back', compositions_path %>

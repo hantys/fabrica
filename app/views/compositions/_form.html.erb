@@ -1,13 +1,23 @@
 
-<%= simple_form_for(@composition) do |f| %>
+<%= simple_nested_form_for(@composition) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :weight %>
-    <%= f.input :kind %>
+    <%= f.input :kind, as: :select, collection: [[Composition.kinds_i18n.values[0], Composition.kinds_i18n.keys[0]],[Composition.kinds_i18n.values[1], Composition.kinds_i18n.keys[1]] ] %>
   </div>
+
+  <table id="compositionals">
+    <%= f.fields_for :compositionals, :wrapper => false do |compositionals_form| %>
+      <tr class="fields">
+        <td><%= compositionals_form.input :raw_material_id, as: :select, collection: RawMaterial.order(:name) %></td>
+        <td><%= compositionals_form.link_to_remove "Remove this compositionals" %></td>
+      </tr>
+    <% end %>
+  </table>
+  <p><%= f.link_to_add "Add a compositionals", :compositionals, :data => { :target => "#compositionals" } %></p>
 
   <div class="form-actions">
     <%= f.button :submit %>

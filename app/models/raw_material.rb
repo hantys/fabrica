@@ -1,6 +1,6 @@
 class RawMaterial < ApplicationRecord
-  has_many :compositional, dependent: :destroy
-  has_many :compositions, through: :compositional
+  has_many :compositionals, dependent: :destroy
+  has_many :compositions, through: :compositionals
 
   validates :name, presence: true
   # validates :slug_name, presence: true
