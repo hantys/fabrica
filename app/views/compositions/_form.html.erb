@@ -2,22 +2,31 @@
 <%= simple_nested_form_for(@composition) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
+  <% if @composition.errors.full_messages.any? %>
+    <ul>
+      <% @composition.errors.full_messages.each do |error_message| %>
+        <li class="alert alert-danger">
+          <%= error_message if @composition.errors.full_messages.first == error_message %> <br />
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :weight %>
-    <%= f.input :kind, as: :select, collection: [[Composition.kinds_i18n.values[0], Composition.kinds_i18n.keys[0]],[Composition.kinds_i18n.values[1], Composition.kinds_i18n.keys[1]] ] %>
+    <div class="d-block my-3 kind_radio">
+      <label>Tipo</label>
+      <div class="custom-control custom-radio">
+        <input id="raw_material" value="<%= Composition.kinds_i18n.keys[0] %>" name="composition[kind]" type="radio" class="custom-control-input" <%= 'checked' if params[:composition][:kind] == 'raw_material' if params[:composition].present? %> required>
+        <label class="custom-control-label" for="raw_material"><%= Composition.kinds_i18n.values[0] %></label>
+      </div>
+      <div class="custom-control custom-radio">
+        <input id="composition" value="<%= Composition.kinds_i18n.keys[1] %>" name="composition[kind]" type="radio" class="custom-control-input" <%= 'checked' if params[:composition][:kind] == 'composition' if params[:composition].present? %> required>
+        <label class="custom-control-label" for="composition"><%= Composition.kinds_i18n.values[1] %></label>
+      </div>
+    </div>
   </div>
-
-  <table id="compositionals">
-    <%= f.fields_for :compositionals, :wrapper => false do |compositionals_form| %>
-      <tr class="fields">
-        <td><%= compositionals_form.input :raw_material_id, as: :select, collection: RawMaterial.order(:name) %></td>
-        <td><%= compositionals_form.link_to_remove "Remove this compositionals" %></td>
-      </tr>
-    <% end %>
-  </table>
-  <p><%= f.link_to_add "Add a compositionals", :compositionals, :data => { :target => "#compositionals" } %></p>
+  <span id='compositionals_or_compositions'></span>
 
   <div class="form-actions">
     <%= f.button :submit %>

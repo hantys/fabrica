@@ -1,0 +1,9 @@
+<table id="sub_compositions">
+  <%= f.fields_for :sub_compositions, :wrapper => false do |sub_compositions_form| %>
+  <tr class="fields">
+    <td><%= sub_compositions_form.input :parent_composition_id, as: :select, collection: Composition.order(:name) %></td>
+    <td><%= sub_compositions_form.link_to_remove "Remove this sub_compositions" %></td>
+  </tr>
+  <% end %>
+</table>
+<p><%= f.link_to_add "Add a sub_compositions", :sub_compositions, :data => { :target => "#sub_compositions" } %></p>

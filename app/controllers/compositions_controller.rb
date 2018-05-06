@@ -21,6 +21,12 @@ class CompositionsController < ApplicationController
   def edit
   end
 
+  def compositionals_or_compositions
+    @kind = params[:kind]
+    @composition = Composition.new
+    render :layout => false
+  end
+
   # POST /compositions
   # POST /compositions.json
   def create
