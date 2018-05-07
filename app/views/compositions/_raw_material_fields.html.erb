@@ -1,9 +1,0 @@
-<table id="compositionals">
-  <%= f.fields_for :compositionals do |compositionals_form| %>
-  <tr class="nested_fields">
-    <td><%= compositionals_form.input :raw_material_id, as: :select, collection: RawMaterial.order(:name) %></td>
-    <td><%= compositionals_form.link_to_remove "Remove this compositionals" %></td>
-  </tr>
-  <% end %>
-</table>
-<p><%= f.link_to_add "Add a compositionals", :compositionals, :data => { :target => "#compositionals" } %></p>

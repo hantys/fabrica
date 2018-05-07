@@ -18,9 +18,10 @@ ActiveRecord::Schema.define(version: 2018_05_07_045601) do
   create_table "compositionals", force: :cascade do |t|
     t.integer "raw_material_id"
     t.integer "composition_id"
-    t.float "weight"
+    t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["parent_id", "composition_id"], name: "index_compositionals_on_parent_id_and_composition_id"
     t.index ["raw_material_id", "composition_id"], name: "index_compositionals_on_raw_material_id_and_composition_id"
   end
 
@@ -29,7 +30,6 @@ ActiveRecord::Schema.define(version: 2018_05_07_045601) do
     t.float "weight", default: 0.0
     t.float "amount", default: 0.0
     t.integer "kind"
-    t.integer "parent_composition_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2018_05_07_045601) do
     t.float "amount", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_raw_materials_on_name", unique: true
   end
 
   create_table "stock_final_products", force: :cascade do |t|

@@ -5,11 +5,7 @@ class CreateCompositions < ActiveRecord::Migration[5.2]
       t.float :weight, default: 0
       t.float :amount, default: 0
       t.integer :kind
-      t.integer :parent_composition_id
-
       t.timestamps
     end
-
-    # add_index :compositions, :parent_composition_id
   end
 end

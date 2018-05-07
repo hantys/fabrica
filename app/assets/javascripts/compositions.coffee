@@ -3,10 +3,17 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
-  $("##{$('input:radio[name="composition[kind]"]:checked').val()}_fields").removeClass('d-none')
+  unless $('input:radio[name="composition[kind]"]:checked').val() == undefined
+    $(".associations").removeClass('d-none')
+
   $('input:radio[name="composition[kind]"]').change ->
-    $("#raw_material_fields").addClass('d-none')
-    $("#composition_fields").addClass('d-none')
-    $("#sub_compositions").html('')
     $("#compositionals").html('')
-    $("##{$(this).val()}_fields").removeClass('d-none')
+
+    $(".associations").removeClass('d-none')
+
+$(document).on 'nested:fieldAdded', (event) ->
+  # this field was just inserted into your form
+  if $('input:radio[name="composition[kind]"]:checked').val() == 'raw_material'
+    $(".composition_select").remove()
+  else if $('input:radio[name="composition[kind]"]:checked').val() == 'composition'
+    $(".raw_material_select").remove()

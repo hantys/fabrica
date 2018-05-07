@@ -1,33 +1,42 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1>Composições</h1>
+  <%= link_to 'Nova Composição', new_composition_path, class: "btn btn-primary" %>
+</div>
 
-<h1>Compositions</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Weight</th>
-      <th>Kind</th>
-      <th>raw_material</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @compositions.each do |composition| %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
       <tr>
-        <td><%= composition.name %></td>
-        <td><%= composition.weight %></td>
-        <td><%= composition.kind %></td>
-        <td><%= composition.raw_materials.size %></td>
-        <td><%= link_to 'Show', composition %></td>
-        <td><%= link_to 'Edit', edit_composition_path(composition) %></td>
-        <td><%= link_to 'Destroy', composition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Qnt. de compostos</th>
+        <th scope="col">Ação</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Composition', new_composition_path %>
+    </thead>
+    <tbody>
+      <% @compositions.each do |composition| %>
+      <tr>
+        <td scope="row"><%= composition.id %></td>
+        <td><%= composition.name %></td>
+        <td><%= composition.kind %></td>
+        <td><%= composition.kind == 'raw_material' ? composition.raw_materials.size : composition.sub_compositions.size %></td>
+        <td>
+          <%= link_to composition, class: 'btn btn-info has-icon' do %>
+            <i class="material-icons">remove_red_eye</i>
+            Show
+          <% end %>
+          <%= link_to edit_composition_path(composition), class: 'btn btn-primary has-icon' do %>
+            <i class="material-icons">edit</i>
+            Editar
+          <% end %>
+          <%= link_to composition, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger has-icon' do %>
+            <i class="material-icons">delete</i>
+            Excluir
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
