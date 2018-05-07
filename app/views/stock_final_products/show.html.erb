@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Composition:</strong>
+  <%= @stock_final_product.composition %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @stock_final_product.weight %>
+</p>
+
+<p>
+  <strong>Estimated weight:</strong>
+  <%= @stock_final_product.estimated_weight %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @stock_final_product.cost %>
+</p>
+
+<%= link_to 'Edit', edit_stock_final_product_path(@stock_final_product) %> |
+<%= link_to 'Back', stock_final_products_path %>

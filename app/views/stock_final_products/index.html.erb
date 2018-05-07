@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Stock Final Products</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Composition</th>
+      <th>Weight</th>
+      <th>Estimated weight</th>
+      <th>Cost</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_final_products.each do |stock_final_product| %>
+      <tr>
+        <td><%= stock_final_product.composition %></td>
+        <td><%= stock_final_product.weight %></td>
+        <td><%= stock_final_product.estimated_weight %></td>
+        <td><%= stock_final_product.cost %></td>
+        <td><%= link_to 'Show', stock_final_product %></td>
+        <td><%= link_to 'Edit', edit_stock_final_product_path(stock_final_product) %></td>
+        <td><%= link_to 'Destroy', stock_final_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stock Final Product', new_stock_final_product_path %>

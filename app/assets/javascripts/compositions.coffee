@@ -3,6 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
+  $("##{$('input:radio[name="composition[kind]"]:checked').val()}_fields").removeClass('d-none')
   $('input:radio[name="composition[kind]"]').change ->
-    $.ajax
-      url: "/render/compositionals_or_compositions/#{$(this).val()}"
+    $("#raw_material_fields").addClass('d-none')
+    $("#composition_fields").addClass('d-none')
+    $("#sub_compositions").html('')
+    $("#compositionals").html('')
+    $("##{$(this).val()}_fields").removeClass('d-none')

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Raw material:</strong>
+  <%= @stock_raw_material.raw_material %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @stock_raw_material.weight %>
+</p>
+
+<p>
+  <strong>Weight out:</strong>
+  <%= @stock_raw_material.weight_out %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @stock_raw_material.price %>
+</p>
+
+<%= link_to 'Edit', edit_stock_raw_material_path(@stock_raw_material) %> |
+<%= link_to 'Back', stock_raw_materials_path %>

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Stock Raw Materials</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Raw material</th>
+      <th>Weight</th>
+      <th>Weight out</th>
+      <th>Price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_raw_materials.each do |stock_raw_material| %>
+      <tr>
+        <td><%= stock_raw_material.raw_material %></td>
+        <td><%= stock_raw_material.weight %></td>
+        <td><%= stock_raw_material.weight_out %></td>
+        <td><%= stock_raw_material.price %></td>
+        <td><%= link_to 'Show', stock_raw_material %></td>
+        <td><%= link_to 'Edit', edit_stock_raw_material_path(stock_raw_material) %></td>
+        <td><%= link_to 'Destroy', stock_raw_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stock Raw Material', new_stock_raw_material_path %>

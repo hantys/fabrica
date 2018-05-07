@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_29_041449) do
+ActiveRecord::Schema.define(version: 2018_05_07_045601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,26 @@ ActiveRecord::Schema.define(version: 2018_04_29_041449) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "stock_final_products", force: :cascade do |t|
+    t.bigint "composition_id"
+    t.float "weight"
+    t.float "estimated_weight"
+    t.float "cost"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["composition_id"], name: "index_stock_final_products_on_composition_id"
+  end
+
+  create_table "stock_raw_materials", force: :cascade do |t|
+    t.bigint "raw_material_id"
+    t.float "weight"
+    t.float "weight_out"
+    t.float "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["raw_material_id"], name: "index_stock_raw_materials_on_raw_material_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -62,4 +82,6 @@ ActiveRecord::Schema.define(version: 2018_04_29_041449) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "stock_final_products", "compositions"
+  add_foreign_key "stock_raw_materials", "raw_materials"
 end

@@ -26,7 +26,12 @@
       </div>
     </div>
   </div>
-  <span id='compositionals_or_compositions'></span>
+  <span id='raw_material_fields' class="d-none">
+    <%= render 'raw_material_fields', f: f %>
+  </span>
+  <span id='composition_fields' class="d-none">
+    <%= render 'composition_fields', f: f %>
+  </span>
 
   <div class="form-actions">
     <%= f.button :submit %>
