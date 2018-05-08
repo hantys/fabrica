@@ -17,11 +17,11 @@
     <div class="d-block my-3 kind_radio">
       <label>Tipo</label>
       <div class="custom-control custom-radio">
-        <input id="raw_material" value="<%= Composition.kinds_i18n.keys[0] %>" name="composition[kind]" type="radio" class="custom-control-input" <%= 'checked' if params[:composition][:kind] == 'raw_material' if params[:composition].present? %> required>
+        <input id="raw_material" value="<%= Composition.kinds_i18n.keys[0] %>" name="composition[kind]" type="radio" class="custom-control-input" <%= 'checked' if params[:composition][:kind] == 'raw_material' if params[:composition].present? %> <%= 'checked' if @composition.kind == 'raw_material' %>  required>
         <label class="custom-control-label" for="raw_material"><%= Composition.kinds_i18n.values[0] %></label>
       </div>
       <div class="custom-control custom-radio">
-        <input id="composition" value="<%= Composition.kinds_i18n.keys[1] %>" name="composition[kind]" type="radio" class="custom-control-input" <%= 'checked' if params[:composition][:kind] == 'composition' if params[:composition].present? %> required>
+        <input id="composition" value="<%= Composition.kinds_i18n.keys[1] %>" name="composition[kind]" type="radio" class="custom-control-input" <%= 'checked' if params[:composition][:kind] == 'composition' if params[:composition].present? %> <%= 'checked' if @composition.kind == 'composition' %> required>
         <label class="custom-control-label" for="composition"><%= Composition.kinds_i18n.values[1] %></label>
       </div>
     </div>
@@ -32,14 +32,16 @@
       <tr class="nested_fields">
         <td><%= compositionals_form.input :raw_material_id, as: :select, collection: RawMaterial.order(:name), input_html: {class: 'raw_material_select'}, label_html: {class: 'raw_material_select'} %></td>
         <td><%= compositionals_form.input :parent_id, as: :select, collection: Composition.order(:name), input_html: {class: 'composition_select'}, label_html: {class: 'composition_select'} %></td>
-        <td><%= compositionals_form.link_to_remove "Remove this compositionals" %></td>
+        <td><%= compositionals_form.link_to_remove "Remove this compositionals", class: 'btn btn-outline-danger' %></td>
       </tr>
       <% end %>
     </table>
-    <p><%= f.link_to_add "Add a compositionals", :compositionals, :data => { :target => "#compositionals" } %></p>
+    <hr>
+    <p><%= f.link_to_add "Adicionar Composto", :compositionals, :data => { :target => "#compositionals" }, class: 'btn btn-outline-primary' %></p>
   </span>
-
+  <hr>
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, :class => 'btn btn-success' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")), compositions_path, :class => 'btn btn-danger' %>
   </div>
 <% end %>

@@ -2,8 +2,8 @@ class Composition < ApplicationRecord
   enum kind: {raw_material: 0, composition: 1}
   # enum kind: [ :raw_material, :composition ]
 
-  has_many :compositionals, foreign_key: "raw_material", dependent: :destroy
-  has_many :sub_compositionals, class_name: "Compositional", foreign_key: "parent_id", dependent: :destroy
+  has_many :compositionals, dependent: :destroy
+  has_many :sub_compositionals, class_name: "Compositional", dependent: :destroy
   has_many :raw_materials, through: :compositionals
   has_many :sub_compositions, through: :sub_compositionals
 

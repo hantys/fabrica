@@ -6,6 +6,12 @@ jQuery ->
   unless $('input:radio[name="composition[kind]"]:checked').val() == undefined
     $(".associations").removeClass('d-none')
 
+  if $('input:radio[name="composition[kind]"]:checked').val() == 'raw_material'
+    $(".composition_select").remove()
+
+  if $('input:radio[name="composition[kind]"]:checked').val() == 'composition'
+    $(".raw_material_select").remove()
+
   $('input:radio[name="composition[kind]"]').change ->
     $("#compositionals").html('')
 

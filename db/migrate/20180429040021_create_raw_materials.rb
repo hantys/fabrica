@@ -4,6 +4,7 @@ class CreateRawMaterials < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :slug_name
       t.float :amount, default: 0
+      t.float :weight, default: 0
 
       t.timestamps
     end

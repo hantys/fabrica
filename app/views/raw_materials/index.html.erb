@@ -1,6 +1,7 @@
+<%- model_class = RawMaterial -%>
 <div class="page-header d-flex justify-content-lg-between align-items-center">
-  <h1>Matéria-Prima</h1>
-  <%= link_to 'Nova matéria-prima', new_raw_material_path, class: "btn btn-primary" %>
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_raw_material_path, class: "btn btn-primary" %>
 </div>
 
 <div class="table-responsive">
@@ -8,9 +9,9 @@
     <thead class="thead-light">
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Nome</th>
-        <th scope="col">Qnt.</th>
-        <th scope="col">Ação</th>
+        <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:amount) %></th>
+        <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
     </thead>
     <tbody>
@@ -22,15 +23,15 @@
         <td>
           <%= link_to raw_material, class: 'btn btn-info has-icon' do %>
             <i class="material-icons">remove_red_eye</i>
-            Show
+            <%= t('.show', :default => t("helpers.links.show")) %>
           <% end %>
           <%= link_to edit_raw_material_path(raw_material), class: 'btn btn-primary has-icon' do %>
             <i class="material-icons">edit</i>
-            Editar
+            <%= t('.edit', :default => t("helpers.links.edit")) %>
           <% end %>
-          <%= link_to raw_material, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger has-icon' do %>
+          <%= link_to raw_material, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
             <i class="material-icons">delete</i>
-            Excluir
+            <%= t('.destroy', :default => t("helpers.links.destroy")) %>
           <% end %>
         </td>
       </tr>

@@ -1,6 +1,5 @@
-<h1>Editing Composition</h1>
-
+<%- model_class = Composition -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
 <%= render 'form', composition: @composition %>
-
-<%= link_to 'Show', @composition %> |
-<%= link_to 'Back', compositions_path %>
