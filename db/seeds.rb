@@ -9,5 +9,6 @@ end
 end
 
 5.times do
-  Composition.create! name: Faker::Commerce.product_name, kind: 1, sub_compositions: Composition.order('RANDOM()').limit(rand(1..2))
+  composition = Composition.new name: Faker::Commerce.product_name, kind: 1, sub_compositions: Composition.order('RANDOM()').limit(rand(1..2))
+  composition.save(validate: false)
 end
