@@ -1,6 +1,9 @@
 {
   "name": "fabrica",
   "private": true,
+  "engines": {
+    "yarn": "1.4.0"
+  },
   "dependencies": {
     "bootstrap": "^4.1.1",
     "bootstrap-material-design": "^4.1.1",
