@@ -3,17 +3,14 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/rvm'
 require 'mina/puma'
-require 'mina/sitemap_generator'
-require 'mina_sidekiq/tasks'
-require 'mina/multi_server'
 
 
 set :application, 'fabrica'
 
 # set :servers, ['34.205.119.35'] #jobs
-set :servers, ['162.243.169.133']
+set :domain, '162.243.169.133'
 
-set :user, "deploy"
+set :user, "root"
 # set :identity_file, '/home/pedro/.ssh/AdminRuafabrica.pem'
 
 # set :domain, '34.234.164.212' #homologacao
@@ -27,11 +24,11 @@ set :branch, 'master'
 
 set :forward_agent, true
 
-set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/assets', 'public/sitemaps', 'public/sitemaps_images')
+set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/assets')
 set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/application.yml', 'config/secrets.yml')
 
 set :rvm_use_path, '/usr/local/rvm/scripts/rvm'
-set :sidekiq_pid, "#{fetch(:shared_path)}/tmp/pids/sidekiq.pid"
+
 set :keep_releases, 10
 
 set :force_asset_precompile, true
@@ -75,7 +72,6 @@ task :deploy do
   deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
-    # invoke :'sidekiq:quiet'
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
