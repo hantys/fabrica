@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Providers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Company name</th>
+      <th>Fantasy name</th>
+      <th>Cpf</th>
+      <th>Cnpj</th>
+      <th>Street</th>
+      <th>Number</th>
+      <th>Neighborhood</th>
+      <th>Cep</th>
+      <th>Ie</th>
+      <th>Bank</th>
+      <th>Ag</th>
+      <th>Cc</th>
+      <th>Variation</th>
+      <th>State</th>
+      <th>City</th>
+      <th>Phone1</th>
+      <th>Phone2</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @providers.each do |provider| %>
+      <tr>
+        <td><%= provider.company_name %></td>
+        <td><%= provider.fantasy_name %></td>
+        <td><%= provider.cpf %></td>
+        <td><%= provider.cnpj %></td>
+        <td><%= provider.street %></td>
+        <td><%= provider.number %></td>
+        <td><%= provider.neighborhood %></td>
+        <td><%= provider.cep %></td>
+        <td><%= provider.ie %></td>
+        <td><%= provider.bank %></td>
+        <td><%= provider.ag %></td>
+        <td><%= provider.cc %></td>
+        <td><%= provider.variation %></td>
+        <td><%= provider.state %></td>
+        <td><%= provider.city %></td>
+        <td><%= provider.phone1 %></td>
+        <td><%= provider.phone2 %></td>
+        <td><%= link_to 'Show', provider %></td>
+        <td><%= link_to 'Edit', edit_provider_path(provider) %></td>
+        <td><%= link_to 'Destroy', provider, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Provider', new_provider_path %>

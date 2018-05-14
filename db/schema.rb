@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_07_045601) do
+ActiveRecord::Schema.define(version: 2018_05_14_185249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.boolean "capital"
+    t.bigint "state_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["state_id"], name: "index_cities_on_state_id"
+  end
 
   create_table "compositionals", force: :cascade do |t|
     t.integer "raw_material_id"
@@ -41,6 +50,15 @@ ActiveRecord::Schema.define(version: 2018_05_07_045601) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_raw_materials_on_name", unique: true
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.string "acronym"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["acronym"], name: "index_states_on_acronym"
+    t.index ["name"], name: "index_states_on_name"
   end
 
   create_table "stock_final_products", force: :cascade do |t|
@@ -83,6 +101,7 @@ ActiveRecord::Schema.define(version: 2018_05_07_045601) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "cities", "states"
   add_foreign_key "stock_final_products", "compositions"
   add_foreign_key "stock_raw_materials", "raw_materials"
 end

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :providers
+  resources :clients
+  resources :employees
   resources :stock_raw_materials
   resources :stock_final_products
   resources :compositions
