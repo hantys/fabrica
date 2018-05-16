@@ -11,7 +11,6 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
       t.string :variation
       t.string :street
       t.string :number
-      t.string :string
       t.string :neighborhood
       t.string :cep
       t.references :state, foreign_key: true

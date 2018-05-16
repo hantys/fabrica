@@ -1,35 +1,38 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Employee -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_employee_path, class: "btn btn-primary" %>
+</div>
 
-<h1>Employees</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Cpf</th>
-      <th>Email</th>
-      <th>Office</th>
-      <th>Bank</th>
-      <th>Ag</th>
-      <th>Cc</th>
-      <th>Variation</th>
-      <th>Street</th>
-      <th>Number</th>
-      <th>String</th>
-      <th>Neighborhood</th>
-      <th>Cep</th>
-      <th>State</th>
-      <th>City</th>
-      <th>Phone1</th>
-      <th>Phone2</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @employees.each do |employee| %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
       <tr>
+        <th scope="col">#</th>
+        <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:cpf) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:email) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:office) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:bank) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:ag) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:cc) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:variation) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:street) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:number) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:neighborhood) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:cep) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:state) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:city) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:phone1) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:phone2) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:user) %></th>
+        <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @employees.each do |employee| %>
+      <tr>
+        <td scope="row"><%= employee.id %></td>
         <td><%= employee.name %></td>
         <td><%= employee.cpf %></td>
         <td><%= employee.email %></td>
@@ -48,14 +51,22 @@
         <td><%= employee.phone1 %></td>
         <td><%= employee.phone2 %></td>
         <td><%= employee.user %></td>
-        <td><%= link_to 'Show', employee %></td>
-        <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
-        <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to employee, class: 'btn btn-info has-icon' do %>
+            <i class="material-icons">remove_red_eye</i>
+            <%= t('.show', :default => t("helpers.links.show")) %>
+          <% end %>
+          <%= link_to edit_employee_path(employee), class: 'btn btn-primary has-icon' do %>
+            <i class="material-icons">edit</i>
+            <%= t('.edit', :default => t("helpers.links.edit")) %>
+          <% end %>
+          <%= link_to employee, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
+            <i class="material-icons">delete</i>
+            <%= t('.destroy', :default => t("helpers.links.destroy")) %>
+          <% end %>
+        </td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Employee', new_employee_path %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

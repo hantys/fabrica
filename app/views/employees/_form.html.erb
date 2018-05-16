@@ -2,29 +2,33 @@
 <%= simple_form_for(@employee) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :cpf %>
-    <%= f.input :email %>
-    <%= f.input :office %>
-    <%= f.input :bank %>
-    <%= f.input :ag %>
-    <%= f.input :cc %>
-    <%= f.input :variation %>
-    <%= f.input :street %>
-    <%= f.input :number %>
-    <%= f.input :string %>
-    <%= f.input :neighborhood %>
-    <%= f.input :cep %>
-    <%= f.association :state %>
-    <%= f.association :city %>
-    <%= f.input :phone1 %>
-    <%= f.input :phone2 %>
-    <%= f.association :user %>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= f.input :name %>
+      <%= f.input :cpf %>
+      <%= f.input :email %>
+      <%= f.input :office %>
+      <%= f.input :bank %>
+      <%= f.input :ag %>
+      <%= f.input :cc %>
+      <%= f.input :variation %>
+    </div>
+    <div class="col-lg-6">
+      <%= f.input :street %>
+      <%= f.input :number %>
+      <%= f.input :string %>
+      <%= f.input :neighborhood %>
+      <%= f.input :cep %>
+      <%= f.association :state %>
+      <%= f.association :city %>
+      <%= f.input :phone1 %>
+      <%= f.input :phone2 %>
+      <%= f.association :user %>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <hr>
+  <%= f.button :submit, class: 'btn btn-success' %>
+  <%= link_to 'Cancelar', employees_path, class: 'btn btn-danger' %>
+
 <% end %>
