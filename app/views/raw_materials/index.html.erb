@@ -19,7 +19,7 @@
       <tr>
         <td scope="row"><%= raw_material.id %></td>
         <td><%= raw_material.name %></td>
-        <td><%= raw_material.amount %></td>
+        <td><%= raw_material.amount.round(3) %> kg</td>
         <td>
           <%= link_to raw_material, class: 'btn btn-info has-icon' do %>
             <i class="material-icons">remove_red_eye</i>

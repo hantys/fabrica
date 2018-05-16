@@ -1,6 +1,6 @@
-<h1>Editing Stock Raw Material</h1>
+<%- model_class = StockRawMaterial -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
 
 <%= render 'form', stock_raw_material: @stock_raw_material %>
-
-<%= link_to 'Show', @stock_raw_material %> |
-<%= link_to 'Back', stock_raw_materials_path %>

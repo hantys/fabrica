@@ -1,15 +1,17 @@
-
 <%= simple_form_for(@stock_raw_material) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.association :raw_material %>
-    <%= f.input :weight %>
-    <%= f.input :price %>
+  <div class="row">
+    <div class="col-lg-6">
+    <%= f.association :raw_material if f.object.new_record?%>
+    <%= f.input :weight if f.object.new_record? %>
+    <%= f.input :price if f.object.new_record? %>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <hr>
+  <%= f.button :submit, class: 'btn btn-success' %>
+  <%= link_to 'Cancelar', stock_raw_materials_path, class: 'btn btn-danger' %>
+
 <% end %>

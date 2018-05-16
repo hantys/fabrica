@@ -1,16 +1,18 @@
-
 <%= simple_form_for(@stock_final_product) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.association :composition %>
-    <%= f.input :weight %>
-    <%= f.input :estimated_weight %>
-    <%= f.input :cost %>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= f.association :composition %>
+      <%= f.input :weight %>
+      <%= f.input :estimated_weight %>
+      <%= f.input :cost %>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <hr>
+  <%= f.button :submit, class: 'btn btn-success' %>
+  <%= link_to 'Cancelar', stock_final_products_path, class: 'btn btn-danger' %>
+
 <% end %>

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :providers
   resources :clients
   resources :employees
-  resources :stock_raw_materials
+  resources :stock_raw_materials, except: [:edit, :update]
   resources :stock_final_products
   resources :compositions
   resources :raw_materials

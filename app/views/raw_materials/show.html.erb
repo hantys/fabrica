@@ -7,7 +7,7 @@
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @raw_material.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:amount) %>:</strong></dt>
-  <dd><%= @raw_material.amount %></dd>
+  <dd><%= @raw_material.amount.round(3) %> kg</dd>
 </dl>
 <hr>
 <%= link_to t('.back', :default => t("helpers.links.back")),

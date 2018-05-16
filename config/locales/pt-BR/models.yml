@@ -5,8 +5,8 @@ pt-BR:
       composition: 'Composição'
       raw_material: 'Matéria-prima'
       compositional: 'Composto'
-      stock_final_products: 'Estoque Produto Final'
-      stock_raw_materials: 'Estoque Matéria-prima'
+      stock_final_product: 'Estoque Produto Final'
+      stock_raw_material: 'Estoque Matéria-prima'
 
     attributes:
       user:
@@ -41,16 +41,16 @@ pt-BR:
         parent_id: 'Sub Composição'
         created_at: Cadastrado em
         updated_at: Atualizado em
-      stock_final_products:
-        composition_id: 'Composição'
+      stock_final_product:
+        composition: 'Composição'
         weight: 'Peso'
         estimated_weight: 'Peso Estimado'
         cost: 'Custo'
         price: 'Preço'
         created_at: Cadastrado em
         updated_at: Atualizado em
-      stock_raw_materials:
-        raw_material_id: 'Matéria-prima'
+      stock_raw_material:
+        raw_material: 'Matéria-prima'
         weight: 'Peso'
         weight_out: 'Peso Saida'
         price: 'Preço'
