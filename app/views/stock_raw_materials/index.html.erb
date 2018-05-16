@@ -1,33 +1,45 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = StockRawMaterial -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_stock_raw_material_path, class: "btn btn-primary" %>
+</div>
 
-<h1>Stock Raw Materials</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Raw material</th>
-      <th>Weight</th>
-      <th>Weight out</th>
-      <th>Price</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @stock_raw_materials.each do |stock_raw_material| %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
       <tr>
-        <td><%= stock_raw_material.raw_material %></td>
+        <th scope="col">#</th>
+        <th scope="col"><%= model_class.human_attribute_name(:raw_material) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:weight) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:weight_out) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:price) %></th>
+        <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @stock_raw_materials.each do |stock_raw_material| %>
+      <tr>
+        <td scope="row"><%= stock_raw_material.id %></td>
+        <td><%= stock_raw_material.raw_material.name %></td>
         <td><%= stock_raw_material.weight %></td>
         <td><%= stock_raw_material.weight_out %></td>
         <td><%= stock_raw_material.price %></td>
-        <td><%= link_to 'Show', stock_raw_material %></td>
-        <td><%= link_to 'Edit', edit_stock_raw_material_path(stock_raw_material) %></td>
-        <td><%= link_to 'Destroy', stock_raw_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to stock_raw_material, class: 'btn btn-info has-icon' do %>
+            <i class="material-icons">remove_red_eye</i>
+            <%= t('.show', :default => t("helpers.links.show")) %>
+          <% end %>
+          <%= link_to edit_stock_raw_material_path(stock_raw_material), class: 'btn btn-primary has-icon' do %>
+            <i class="material-icons">edit</i>
+            <%= t('.edit', :default => t("helpers.links.edit")) %>
+          <% end %>
+          <%= link_to stock_raw_material, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
+            <i class="material-icons">delete</i>
+            <%= t('.destroy', :default => t("helpers.links.destroy")) %>
+          <% end %>
+        </td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Stock Raw Material', new_stock_raw_material_path %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

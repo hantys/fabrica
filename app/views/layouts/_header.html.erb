@@ -7,11 +7,14 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
-      <li class='nav-item dropdown <%= "#{active_class(raw_materials_path)} #{active_class(compositions_path)} #{active_class(users_path)}" %>'>
+      <li class='nav-item dropdown <%= "#{active_class(raw_materials_path)} #{active_class(compositions_path)} #{active_class(users_path)} #{active_class(employees_path)} #{active_class(providers_path)} #{active_class(clients_path)}" %>'>
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cadastros</a>
         <div class="dropdown-menu hasDropboxAnimation">
-          <%= link_to 'Matéria-Prima', raw_materials_path, class: "dropdown-item #{active_class(raw_materials_path)}" %>
+          <%= link_to 'Clientes', clients_path, class: "dropdown-item #{active_class(clients_path)}" %>
           <%= link_to 'Compósições', compositions_path, class: "dropdown-item #{active_class(compositions_path)}" %>
+          <%= link_to 'Fornecedores', providers_path, class: "dropdown-item #{active_class(providers_path)}" %>
+          <%= link_to 'Funcionários', employees_path, class: "dropdown-item #{active_class(employees_path)}" %>
+          <%= link_to 'Matéria-Prima', raw_materials_path, class: "dropdown-item #{active_class(raw_materials_path)}" %>
           <%= link_to 'Usuários', users_path, class: "dropdown-item #{active_class(users_path)}" %>
         </div>
       </li>

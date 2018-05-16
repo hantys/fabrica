@@ -23,6 +23,15 @@ gem 'simple_form'
 gem 'nested_form'
 gem 'ransack'
 gem 'faker'
+
+#auditorias
+gem "audited", "~> 4.7" # https://github.com/collectiveidea/audited
+gem 'paper_trail' # https://github.com/paper-trail-gem/paper_trail
+#fim
+#deleta fake
+gem "paranoia", "~> 2.2" # https://github.com/rubysherpas/paranoia
+#fim
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

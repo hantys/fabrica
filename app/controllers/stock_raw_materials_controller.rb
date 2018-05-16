@@ -54,9 +54,13 @@ class StockRawMaterialsController < ApplicationController
   # DELETE /stock_raw_materials/1
   # DELETE /stock_raw_materials/1.json
   def destroy
-    @stock_raw_material.destroy
+    if @stock_raw_material.destroy
+      flash[:notice] = 'Estoque apagado.'
+    else
+      flash[:error] = @stock_raw_material.errors[:base].to_sentence
+    end
     respond_to do |format|
-      format.html { redirect_to stock_raw_materials_url, notice: 'Stock raw material was successfully destroyed.' }
+      format.html { redirect_to stock_raw_materials_url}
       format.json { head :no_content }
     end
   end

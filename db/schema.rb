@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_14_185249) do
+ActiveRecord::Schema.define(version: 2018_05_14_201111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,28 @@ ActiveRecord::Schema.define(version: 2018_05_14_185249) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["state_id"], name: "index_cities_on_state_id"
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string "company_name"
+    t.string "fantasy_name"
+    t.string "cpf"
+    t.string "street"
+    t.string "number"
+    t.string "neighborhood"
+    t.string "cep"
+    t.string "cnpj"
+    t.string "ie"
+    t.bigint "state_id"
+    t.bigint "city_id"
+    t.string "phone1"
+    t.string "phone2"
+    t.bigint "employee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_clients_on_city_id"
+    t.index ["employee_id"], name: "index_clients_on_employee_id"
+    t.index ["state_id"], name: "index_clients_on_state_id"
   end
 
   create_table "compositionals", force: :cascade do |t|
@@ -41,6 +63,56 @@ ActiveRecord::Schema.define(version: 2018_05_14_185249) do
     t.integer "kind"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "name"
+    t.string "cpf"
+    t.string "email"
+    t.string "office"
+    t.string "bank"
+    t.string "ag"
+    t.string "cc"
+    t.string "variation"
+    t.string "street"
+    t.string "number"
+    t.string "string"
+    t.string "neighborhood"
+    t.string "cep"
+    t.bigint "state_id"
+    t.bigint "city_id"
+    t.string "phone1"
+    t.string "phone2"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_employees_on_city_id"
+    t.index ["state_id"], name: "index_employees_on_state_id"
+    t.index ["user_id"], name: "index_employees_on_user_id"
+  end
+
+  create_table "providers", force: :cascade do |t|
+    t.string "company_name"
+    t.string "fantasy_name"
+    t.string "cpf"
+    t.string "cnpj"
+    t.string "street"
+    t.string "number"
+    t.string "neighborhood"
+    t.string "cep"
+    t.string "ie"
+    t.string "bank"
+    t.string "ag"
+    t.string "cc"
+    t.string "variation"
+    t.bigint "state_id"
+    t.bigint "city_id"
+    t.string "phone1"
+    t.string "phone2"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_providers_on_city_id"
+    t.index ["state_id"], name: "index_providers_on_state_id"
   end
 
   create_table "raw_materials", force: :cascade do |t|
@@ -102,6 +174,14 @@ ActiveRecord::Schema.define(version: 2018_05_14_185249) do
   end
 
   add_foreign_key "cities", "states"
+  add_foreign_key "clients", "cities"
+  add_foreign_key "clients", "employees"
+  add_foreign_key "clients", "states"
+  add_foreign_key "employees", "cities"
+  add_foreign_key "employees", "states"
+  add_foreign_key "employees", "users"
+  add_foreign_key "providers", "cities"
+  add_foreign_key "providers", "states"
   add_foreign_key "stock_final_products", "compositions"
   add_foreign_key "stock_raw_materials", "raw_materials"
 end
