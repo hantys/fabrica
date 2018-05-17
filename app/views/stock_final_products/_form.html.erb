@@ -4,7 +4,8 @@
 
   <div class="row">
     <div class="col-lg-6">
-      <%= f.association :composition %>
+      <%= f.association :hit %>
+      <%= f.association :composition, collection: Composition.where(kind: 1) %>
       <%= f.input :weight %>
       <%= f.input :estimated_weight %>
       <%= f.input :cost %>

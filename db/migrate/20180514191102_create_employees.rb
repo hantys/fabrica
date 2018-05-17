@@ -17,7 +17,6 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
       t.references :city, foreign_key: true
       t.string :phone1
       t.string :phone2
-      t.references :user, foreign_key: true
 
       t.timestamps
     end
