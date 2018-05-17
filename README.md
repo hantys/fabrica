@@ -38,4 +38,6 @@ Devise configurado com:
   
   * Username habilitado
   * Cancelamento de conta sem destruir o usuário
-  * Enviando email de redefinir senha 
+  * Enviando email de redefinir senha
+
+criar batida na hora da entrada de estoque final, tendo uma tabela adicional que cria os itens da batida e marca o peso
