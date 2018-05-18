@@ -5,8 +5,10 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.association :composition %>
+    <%= f.association :composition, collection: Composition.where(kind: 0), input_html: { onchange: 'setHitItems(this)'} %>
   </div>
+
+  <div id="raw_materials_items"></div>
 
   <div class="form-actions">
     <%= f.button :submit %>

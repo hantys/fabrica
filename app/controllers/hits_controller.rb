@@ -61,6 +61,12 @@ class HitsController < ApplicationController
     end
   end
 
+  def load_items
+    composition = Composition.find params[:composition]
+    @raw_materials = composition.raw_materials
+    respond_to { |format| format.js }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_hit
@@ -69,6 +75,6 @@ class HitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hit_params
-      params.require(:hit).permit(:name, :composition_id)
+      params.require(:hit).permit(:name, :composition_id, :residue, hit_items_attributes: [:raw_material_id, :weight])
     end
 end

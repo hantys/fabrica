@@ -4,10 +4,23 @@
   <strong>Name:</strong>
   <%= @hit.name %>
 </p>
-
+residue
 <p>
   <strong>Composition:</strong>
   <%= @hit.composition %>
+</p>
+
+<p>
+  <strong>Borra:</strong>
+  <%= @hit.residue %>
+</p>
+
+<p>
+  <legend>itens:</legend>
+  <% @hit.hit_items.each do |hit_item| %>
+    <%= hit_item.raw_material.name %>, <%= hit_item.weight %>kg
+    <br>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_hit_path(@hit) %> |

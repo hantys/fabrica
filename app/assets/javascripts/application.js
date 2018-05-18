@@ -17,5 +17,3 @@
 //= require bootstrap/dist/js/bootstrap
 //= require jquery_nested_form
 //= require default
-//= require compositions
-// require_tree .
