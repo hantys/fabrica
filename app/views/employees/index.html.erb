@@ -13,19 +13,10 @@
         <th scope="col"><%= model_class.human_attribute_name(:cpf) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:email) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:office) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:bank) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:ag) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:cc) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:variation) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:street) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:number) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:neighborhood) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:cep) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:state) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:city) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:phone1) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:phone2) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:user) %></th>
         <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
     </thead>
@@ -37,20 +28,10 @@
         <td><%= employee.cpf %></td>
         <td><%= employee.email %></td>
         <td><%= employee.office %></td>
-        <td><%= employee.bank %></td>
-        <td><%= employee.ag %></td>
-        <td><%= employee.cc %></td>
-        <td><%= employee.variation %></td>
-        <td><%= employee.street %></td>
-        <td><%= employee.number %></td>
-        <td><%= employee.string %></td>
-        <td><%= employee.neighborhood %></td>
-        <td><%= employee.cep %></td>
         <td><%= employee.state %></td>
         <td><%= employee.city %></td>
         <td><%= employee.phone1 %></td>
         <td><%= employee.phone2 %></td>
-        <td><%= employee.user %></td>
         <td>
           <%= link_to employee, class: 'btn btn-info has-icon' do %>
             <i class="material-icons">remove_red_eye</i>

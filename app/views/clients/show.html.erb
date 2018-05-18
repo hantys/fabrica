@@ -1,74 +1,60 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Client -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Company name:</strong>
-  <%= @client.company_name %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:company_name) %>:</strong></dt>
+  <dd><%= @client.company_name %></dd>
 
-<p>
-  <strong>Fantasy name:</strong>
-  <%= @client.fantasy_name %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:fantasy_name) %>:</strong></dt>
+  <dd><%= @client.fantasy_name %></dd>
 
-<p>
-  <strong>Cpf:</strong>
-  <%= @client.cpf %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:cpf) %>:</strong></dt>
+  <dd><%= @client.cpf %></dd>
 
-<p>
-  <strong>Street:</strong>
-  <%= @client.street %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:street) %>:</strong></dt>
+  <dd><%= @client.street %></dd>
 
-<p>
-  <strong>Number:</strong>
-  <%= @client.number %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:number) %>:</strong></dt>
+  <dd><%= @client.number %></dd>
 
-<p>
-  <strong>Neighborhood:</strong>
-  <%= @client.neighborhood %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:neighborhood) %>:</strong></dt>
+  <dd><%= @client.neighborhood %></dd>
 
-<p>
-  <strong>Cep:</strong>
-  <%= @client.cep %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:cep) %>:</strong></dt>
+  <dd><%= @client.cep %></dd>
 
-<p>
-  <strong>Cnpj:</strong>
-  <%= @client.cnpj %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:cnpj) %>:</strong></dt>
+  <dd><%= @client.cnpj %></dd>
 
-<p>
-  <strong>Ie:</strong>
-  <%= @client.ie %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:ie) %>:</strong></dt>
+  <dd><%= @client.ie %></dd>
 
-<p>
-  <strong>State:</strong>
-  <%= @client.state %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:state) %>:</strong></dt>
+  <dd><%= @client.state %></dd>
 
-<p>
-  <strong>City:</strong>
-  <%= @client.city %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
+  <dd><%= @client.city %></dd>
 
-<p>
-  <strong>Phone1:</strong>
-  <%= @client.phone1 %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:phone1) %>:</strong></dt>
+  <dd><%= @client.phone1 %></dd>
 
-<p>
-  <strong>Phone2:</strong>
-  <%= @client.phone2 %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:phone2) %>:</strong></dt>
+  <dd><%= @client.phone2 %></dd>
 
-<p>
-  <strong>Employee:</strong>
-  <%= @client.employee %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:employee) %>:</strong></dt>
+  <dd><%= @client.try(:employee).try(:name) %></dd>
 
-<%= link_to 'Edit', edit_client_path(@client) %> |
-<%= link_to 'Back', clients_path %>
+</dl>
+
+<hr>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              clients_path, :class => 'btn btn-secondary'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_client_path(@client), :class => 'btn btn-primary' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              clients_path(@client),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

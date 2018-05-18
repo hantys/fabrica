@@ -1,94 +1,66 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Employee -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @employee.name %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @employee.name %></dd>
 
-<p>
-  <strong>Cpf:</strong>
-  <%= @employee.cpf %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:cpf) %>:</strong></dt>
+  <dd><%= @employee.cpf %></dd>
 
-<p>
-  <strong>Email:</strong>
-  <%= @employee.email %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+  <dd><%= @employee.email %></dd>
 
-<p>
-  <strong>Office:</strong>
-  <%= @employee.office %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:office) %>:</strong></dt>
+  <dd><%= @employee.office %></dd>
 
-<p>
-  <strong>Bank:</strong>
-  <%= @employee.bank %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:bank) %>:</strong></dt>
+  <dd><%= @employee.bank %></dd>
 
-<p>
-  <strong>Ag:</strong>
-  <%= @employee.ag %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:ag) %>:</strong></dt>
+  <dd><%= @employee.ag %></dd>
 
-<p>
-  <strong>Cc:</strong>
-  <%= @employee.cc %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:cc) %>:</strong></dt>
+  <dd><%= @employee.cc %></dd>
 
-<p>
-  <strong>Variation:</strong>
-  <%= @employee.variation %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:variation) %>:</strong></dt>
+  <dd><%= @employee.variation %></dd>
 
-<p>
-  <strong>Street:</strong>
-  <%= @employee.street %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:street) %>:</strong></dt>
+  <dd><%= @employee.street %></dd>
 
-<p>
-  <strong>Number:</strong>
-  <%= @employee.number %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:number) %>:</strong></dt>
+  <dd><%= @employee.number %></dd>
 
-<p>
-  <strong>String:</strong>
-  <%= @employee.string %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:neighborhood) %>:</strong></dt>
+  <dd><%= @employee.neighborhood %></dd>
 
-<p>
-  <strong>Neighborhood:</strong>
-  <%= @employee.neighborhood %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:cep) %>:</strong></dt>
+  <dd><%= @employee.cep %></dd>
 
-<p>
-  <strong>Cep:</strong>
-  <%= @employee.cep %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:state) %>:</strong></dt>
+  <dd><%= @employee.state %></dd>
 
-<p>
-  <strong>State:</strong>
-  <%= @employee.state %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
+  <dd><%= @employee.city %></dd>
 
-<p>
-  <strong>City:</strong>
-  <%= @employee.city %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:phone1) %>:</strong></dt>
+  <dd><%= @employee.phone1 %></dd>
 
-<p>
-  <strong>Phone1:</strong>
-  <%= @employee.phone1 %>
-</p>
+  <dt><strong><%= model_class.human_attribute_name(:phone2) %>:</strong></dt>
+  <dd><%= @employee.phone2 %></dd>
 
-<p>
-  <strong>Phone2:</strong>
-  <%= @employee.phone2 %>
-</p>
+</dl>
 
-<p>
-  <strong>User:</strong>
-  <%= @employee.user %>
-</p>
-
-<%= link_to 'Edit', edit_employee_path(@employee) %> |
-<%= link_to 'Back', employees_path %>
+<hr>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              employees_path, :class => 'btn btn-secondary'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_employee_path(@employee), :class => 'btn btn-primary' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              employees_path(@employee),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
