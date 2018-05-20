@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 2018_05_17_191312) do
   create_table "hits", force: :cascade do |t|
     t.string "name"
     t.float "residue"
+    t.boolean "used", default: false
     t.bigint "composition_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

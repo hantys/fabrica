@@ -41,3 +41,6 @@ Devise configurado com:
   * Enviando email de redefinir senha
 
 criar batida na hora da entrada de estoque final, tendo uma tabela adicional que cria os itens da batida e marca o peso
+
+criar entrada de produto final de composicoes existentes igual da materia prima, pois sempre vai precisar existir uma entrada de composicao com batida para existir a entrada de stoque de composicao existente
+
