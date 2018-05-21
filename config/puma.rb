@@ -22,7 +22,7 @@ else
 
   # bind "unix:///var/www/fabrica/current/tmp/sockets/puma.sock"
 
-  daemonize true
+  # daemonize true
   threads 0, 4
 
   preload_app!

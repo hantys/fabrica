@@ -70,8 +70,8 @@ task :deploy do
     invoke :'deploy:cleanup'
 
     on :launch do
-      invoke :'puma:phased_restart'
-      # invoke :'puma:hard_restart'
+      # invoke :'puma:phased_restart'
+      invoke :'puma:hard_restart'
       # invoke :'sitemap:refresh'
     end
   end
