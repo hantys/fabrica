@@ -24,7 +24,7 @@
         <% else %>
           <td><%= stock_final_product.composition.try(:name) %></td>
         <% end %>
-        <td><%= stock_final_product.amount %> kg</td>
+        <td><%= stock_final_product.amount %></td>
         <td><%= number_to_currency(stock_final_product.cost) %></td>
         <td>
           <%= link_to stock_final_product, class: 'btn btn-info has-icon' do %>
