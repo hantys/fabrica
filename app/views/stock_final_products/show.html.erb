@@ -12,7 +12,7 @@
     <dd><%= @stock_final_product.composition.try(:name) %></dd>
   <% end %>
   <dt><strong><%= model_class.human_attribute_name(:weight) %>:</strong></dt>
-  <dd><%= @stock_final_product.weight.round(3) %> kg</dd>
+  <dd><%= @stock_final_product.weight.round(3) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:estimated_weight) %>:</strong></dt>
   <dd><%= @stock_final_product.estimated_weight.round(3) %> kg</dd>
   <dt><strong><%= model_class.human_attribute_name(:cost) %>:</strong></dt>
