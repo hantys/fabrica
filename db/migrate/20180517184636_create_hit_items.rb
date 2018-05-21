@@ -3,7 +3,7 @@ class CreateHitItems < ActiveRecord::Migration[5.2]
     create_table :hit_items do |t|
       t.references :raw_material, foreign_key: true
       t.references :hit, foreign_key: true
-      t.float :weight
+      t.float :weight, default: 0
 
       t.timestamps
     end

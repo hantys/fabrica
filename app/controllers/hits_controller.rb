@@ -4,7 +4,7 @@ class HitsController < ApplicationController
   # GET /hits
   # GET /hits.json
   def index
-    @hits = Hit.all
+    @hits = Hit.includes(:composition).all
   end
 
   # GET /hits/1

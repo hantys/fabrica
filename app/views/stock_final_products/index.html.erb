@@ -20,7 +20,7 @@
       <% @stock_final_products.each do |stock_final_product| %>
       <tr>
         <td scope="row"><%= stock_final_product.id %></td>
-        <td><%= stock_final_product.composition.name %></td>
+        <td><%= stock_final_product.composition.try(:name) %></td>
         <td><%= stock_final_product.weight.round(3) %> kg</td>
         <td><%= stock_final_product.estimated_weight.round(3) %> kg</td>
         <td><%= number_to_currency(stock_final_product.cost) %></td>

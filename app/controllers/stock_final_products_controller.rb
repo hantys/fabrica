@@ -4,7 +4,7 @@ class StockFinalProductsController < ApplicationController
   # GET /stock_final_products
   # GET /stock_final_products.json
   def index
-    @stock_final_products = StockFinalProduct.all
+    @stock_final_products = StockFinalProduct.includes(:composition).all
   end
 
   # GET /stock_final_products/1
@@ -69,6 +69,6 @@ class StockFinalProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_final_product_params
-      params.require(:stock_final_product).permit(:composition_id, :weight, :estimated_weight, :cost)
+      params.require(:stock_final_product).permit!
     end
 end

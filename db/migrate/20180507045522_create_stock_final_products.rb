@@ -4,9 +4,10 @@ class CreateStockFinalProducts < ActiveRecord::Migration[5.2]
       t.string :name
       t.integer :kind
       t.references :composition, foreign_key: true
-      t.float :weight
-      t.float :estimated_weight
-      t.float :cost
+      t.float :weight, default: 0
+      t.float :amount, default: 0
+      t.float :estimated_weight, default: 0
+      t.float :cost, default: 0
 
       t.timestamps
     end

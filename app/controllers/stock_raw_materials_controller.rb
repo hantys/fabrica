@@ -4,7 +4,7 @@ class StockRawMaterialsController < ApplicationController
   # GET /stock_raw_materials
   # GET /stock_raw_materials.json
   def index
-    @stock_raw_materials = StockRawMaterial.all
+    @stock_raw_materials = StockRawMaterial.includes(:raw_material).all
   end
 
   # GET /stock_raw_materials/1

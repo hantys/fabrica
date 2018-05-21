@@ -2,6 +2,7 @@ class RawMaterial < ApplicationRecord
   has_many :compositionals, dependent: :destroy
   has_many :compositions, through: :compositionals
   has_many :hit_item
+  has_many :stock_raw_materials
 
   validates :name, presence: true
   # validates :slug_name, presence: true

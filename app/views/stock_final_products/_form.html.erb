@@ -9,9 +9,9 @@
         <%= f.association :hit, collection: Hit.where(used: false) %>
       </span>
       <span class="composition d-none">
-        <%= f.association :composition, collection: Composition.where("kind = 1 and weight > 0") %>
-        <%= f.input :weight %>
+        <%= f.association :composition, collection: Composition.where(kind:1) %>
       </span>
+      <%= f.input :amount %>
     </div>
   </div>
 

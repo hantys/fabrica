@@ -1,32 +1,66 @@
 class StockFinalProduct < ApplicationRecord
   enum kind: {raw_material: 0, composition: 1}
 
-  belongs_to :composition
-  belongs_to :hit
-  has_many :hit_item_stocks, dependent: :destroy
-  accepts_nested_attributes_for :hit_item_stocks, allow_destroy: true
+  belongs_to :composition, optional: true
+  belongs_to :hit, optional: true
 
-  before_create :get_estimated
+  before_create :save_estimated
+  after_create :set_estimated_weight
+  after_create :set_cost
 
-  def get_estimated
-    hit = Hit.find self.hit_id
-    hit.hit_items.each do |hit_item|
-      stocks = hit_item.raw_material.stock_raw_material.where('weight_out > 0').order(:id)
-      @i = 0
-      @weight = hit_item.weight
+  def save_estimated
+    if self.kind == "raw_material"
+      hit = Hit.find self.hit_id
+      hit.hit_items.includes(:raw_material).each do |hit_item|
+        stocks = hit_item.raw_material.stock_raw_materials.where('weight_out > 0').order(:id)
+        @i = 0
+        @weight = hit_item.weight
 
-      while @weight > 0  do
-        stock = stocks[i]
-        if weight <= stock.weight_out
-          self.hit_item_stocks << HitItemStock.new stock_raw_material_id: stock.id, weight: @weight
-          @weight = 0
-        else
-          rest = @weight - stock.weight_out
-          self.hit_item_stocks << HitItemStock.new stock_raw_material_id: stock.id, weight: (@weight - rest)
-          @weight = rest
+        while @weight > 0  do
+          stock = stocks[@i]
+          if weight <= stock.weight_out
+            HitItemStock.create!(stock_raw_material_id: stock.id, hit_item: hit_item, weight: @weight)
+            @weight = 0
+          else
+            rest = @weight - stock.weight_out
+            HitItemStock.create!(stock_raw_material_id: stock.id, hit_item: hit_item, weight: (@weight - rest))
+            @weight = rest
+          end
+          @i +=1
         end
-        @i +=1
       end
+      hit.update used: true
+    else
+      # implementar calculo para composicao
     end
+  end
+
+  def set_estimated_weight
+    if self.kind == "raw_material"
+      self.weight = self.hit.hit_items.sum(:weight)
+      self.estimated_weight = self.hit.hit_items.sum(:weight)+self.hit.residue
+      self.save!
+      composition = self.hit.composition
+      composition.amount = composition.amount + self.amount
+      composition.weight = composition.amount + self.weight
+      composition.save!
+    else
+      # implementar calculo para composicao
+    end
+  end
+
+  def set_cost
+    @calc_cost = 0
+    if self.kind == "raw_material"
+      self.hit.hit_items.includes(:hit_item_stocks).each do |hit_item|
+        hit_item.hit_item_stocks.each do |item|
+          stock = item.stock_raw_material
+          @calc_cost = @calc_cost+((stock.price*item.weight)/stock.weight)
+        end
+      end
+    else
+      # implementar calculo para composicao
+    end
+    self.update! cost: @calc_cost
   end
 end

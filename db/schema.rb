@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2018_05_21_141057) do
   create_table "hit_item_stocks", force: :cascade do |t|
     t.bigint "hit_item_id"
     t.bigint "stock_raw_material_id"
-    t.string "weight"
+    t.float "weight", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["hit_item_id"], name: "index_hit_item_stocks_on_hit_item_id"
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 2018_05_21_141057) do
   create_table "hit_items", force: :cascade do |t|
     t.bigint "raw_material_id"
     t.bigint "hit_id"
-    t.float "weight"
+    t.float "weight", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["hit_id"], name: "index_hit_items_on_hit_id"
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 2018_05_21_141057) do
 
   create_table "hits", force: :cascade do |t|
     t.string "name"
-    t.float "residue"
+    t.float "residue", default: 0.0
     t.boolean "used", default: false
     t.bigint "composition_id"
     t.datetime "created_at", null: false
@@ -165,9 +165,10 @@ ActiveRecord::Schema.define(version: 2018_05_21_141057) do
     t.string "name"
     t.integer "kind"
     t.bigint "composition_id"
-    t.float "weight"
-    t.float "estimated_weight"
-    t.float "cost"
+    t.float "weight", default: 0.0
+    t.float "amount", default: 0.0
+    t.float "estimated_weight", default: 0.0
+    t.float "cost", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "hit_id"
@@ -177,9 +178,9 @@ ActiveRecord::Schema.define(version: 2018_05_21_141057) do
 
   create_table "stock_raw_materials", force: :cascade do |t|
     t.bigint "raw_material_id"
-    t.float "weight"
-    t.float "weight_out"
-    t.float "price"
+    t.float "weight", default: 0.0
+    t.float "weight_out", default: 0.0
+    t.float "price", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["raw_material_id"], name: "index_stock_raw_materials_on_raw_material_id"

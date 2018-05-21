@@ -4,15 +4,32 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:composition) %>:</strong></dt>
-  <dd><%= @stock_final_product.composition.name %></dd>
+  <% if @stock_final_product.kind == 0 %>
+    <dt><strong><%= model_class.human_attribute_name(:hit) %>:</strong></dt>
+    <dd><%= @stock_final_product.hit.try(:name) %></dd>
+  <% else %>
+    <dt><strong><%= model_class.human_attribute_name(:composition) %>:</strong></dt>
+    <dd><%= @stock_final_product.composition.try(:name) %></dd>
+  <% end %>
   <dt><strong><%= model_class.human_attribute_name(:weight) %>:</strong></dt>
   <dd><%= @stock_final_product.weight.round(3) %> kg</dd>
   <dt><strong><%= model_class.human_attribute_name(:estimated_weight) %>:</strong></dt>
   <dd><%= @stock_final_product.estimated_weight.round(3) %> kg</dd>
   <dt><strong><%= model_class.human_attribute_name(:cost) %>:</strong></dt>
-  <dd><%= number_to_currency @stock_final_product.cost %> kg</dd>
+  <dd><%= number_to_currency @stock_final_product.cost %></dd>
 </dl>
+<hr>
+<legend>Itens usados</legend>
+<ul>
+  <% @stock_final_product.hit.hit_items.includes(:raw_material).each do |hit_item| %>
+    <li>
+      <%= hit_item.raw_material.name %> / <%= hit_item.weight.round(3) %> kg
+    </li>
+  <% end %>
+  <li>
+    Borra / <%= @stock_final_product.hit.residue %> kg
+  </li>
+</ul>
 <hr>
 <%= link_to t('.back', :default => t("helpers.links.back")),
               stock_final_products_path, :class => 'btn btn-secondary'  %>
