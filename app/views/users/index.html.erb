@@ -1,28 +1,47 @@
+<%- model_class = User -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_user_path, class: "btn btn-primary" %>
+</div>
 
-<h1>Users</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>Password</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @users.each do |user| %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
       <tr>
-        <td><%= user.email %></td>
-        <td><%= user.password %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th scope="col">#</th>
+        <th scope="col"><%= Employee.human_attribute_name(:name) %></th>
+        <th scope="col"><%= Employee.human_attribute_name(:cpf) %></th>
+        <th scope="col"><%= Employee.human_attribute_name(:phone1) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:email) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:deleted) %></th>
+        <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New User', new_user_path %>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+      <tr>
+        <td scope="row"><%= user.id %></td>
+        <td><%= user.try(:employee).try(:name) %></td>
+        <td><%= user.try(:employee).try(:cpf) %></td>
+        <td><%= user.try(:employee).try(:phone1) %></td>
+        <td><%= user.email %></td>
+        <td><%= user.deleted_at.present? ? "Não / #{user.deleted_at}" : "Sim" %></td>
+        <td>
+          <%= link_to user, class: 'btn btn-info has-icon' do %>
+            <i class="material-icons">remove_red_eye</i>
+            <%#= t('.show', :default => t("helpers.links.show")) %>
+          <% end %>
+          <%= link_to edit_user_path(user), class: 'btn btn-primary has-icon' do %>
+            <i class="material-icons">edit</i>
+            <%#= t('.edit', :default => t("helpers.links.edit")) %>
+          <% end %>
+          <%= link_to user, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
+            <i class="material-icons">delete</i>
+            <%#= t('.destroy', :default => t("helpers.links.destroy")) %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -18,7 +18,9 @@ pt-BR:
         username: 'Nome de Usuário'
         name: 'Nome completo'
         email: 'Email'
+        employee: 'Funcionário'
         password: 'Senha'
+        deleted: 'Ativo?'
         password_confirmation: 'Confirmação de Senha'
         current_password: "Senha atual"
         remember_me: "Lembrar-me"
