@@ -15,14 +15,14 @@ else
 
   # Specifies the `port` that Puma will listen on to receive requests, default is 3000.
   #
-  port        ENV.fetch("PORT") { 9090 }
+  # port        ENV.fetch("PORT") { 3000 }
 
   pidfile "/var/www/fabrica/current/tmp/pids/puma.pid"
   stdout_redirect "/var/www/fabrica/shared/log/stdout", "/var/www/fabrica/shared/log/stderr"
 
-  # bind "unix:///var/www/fabrica/current/tmp/sockets/puma.sock"
+  bind "unix:///var/www/fabrica/current/tmp/sockets/puma.sock"
 
-  # daemonize true
+  daemonize true
   threads 0, 4
 
   preload_app!

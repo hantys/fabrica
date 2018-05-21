@@ -10,6 +10,7 @@ pt-BR:
       employee: Funcionário
       provider: Fornecedor
       client: Cliente
+      hit: Batida
 
     attributes:
       user:
@@ -24,6 +25,14 @@ pt-BR:
         deleted_at: Deletado em
         created_at: Cadastrado em
         updated_at: Atualizado em
+
+      hit:
+        name: 'Nome'
+        residue: 'Borra'
+        used: 'Usado'
+        hit_items: 'Pesso da Matéria'
+        composition_id: 'Composição'
+        composition: 'Composição'
 
       composition:
         name: 'Nome'
@@ -43,7 +52,9 @@ pt-BR:
 
       compositional:
         raw_material_id: 'Matéria-prima'
+        raw_material: 'Matéria-prima'
         composition_id: 'Composição'
+        composition: 'Composição'
         parent_id: 'Sub Composição'
         created_at: Cadastrado em
         updated_at: Atualizado em
@@ -51,6 +62,8 @@ pt-BR:
       stock_final_product:
         composition: 'Composição'
         weight: 'Peso'
+        kind: 'Tipo'
+        hit: 'Batida'
         estimated_weight: 'Peso Estimado'
         cost: 'Custo'
         price: 'Preço'
@@ -59,6 +72,7 @@ pt-BR:
 
       stock_raw_material:
         raw_material: 'Matéria-prima'
+        raw_material_id: 'Matéria-prima'
         weight: 'Peso'
         weight_out: 'Peso Saida'
         price: 'Preço'
@@ -76,7 +90,9 @@ pt-BR:
         number: Nº
         cep: CEP
         state_id: Estado
+        state: Estado
         city_id: Cidade
+        city: Cidade
         phone1: Telefone 1
         phone2: Telefone 2
         user_id: Usuário
@@ -98,7 +114,9 @@ pt-BR:
         number: Nº
         cep: CEP
         state_id: Estado
+        state: Estado
         city_id: Cidade
+        city: Cidade
         phone1: Telefone 1
         phone2: Telefone 2
         user_id: Usuário
@@ -122,7 +140,9 @@ pt-BR:
         number: Nº
         cep: CEP
         state_id: Estado
+        state: Estado
         city_id: Cidade
+        city: Cidade
         phone1: Telefone 1
         phone2: Telefone 2
         user_id: Usuário

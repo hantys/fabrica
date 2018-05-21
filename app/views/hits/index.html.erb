@@ -24,8 +24,8 @@
         <td><%= hit.name %></td>
         <td><%= hit.composition.name %></td>
         <td><%= hit.used %></td>
-        <td><%= hit.residue %></td>
-        <td><%= hit.hit_items.sum(:weight) %></td>
+        <td><%= hit.residue.round(3) %> kg</td>
+        <td><%= hit.hit_items.sum(:weight).round(3) %> kg</td>
         <td>
           <%= link_to hit, class: 'btn btn-info has-icon' do %>
             <i class="material-icons">remove_red_eye</i>

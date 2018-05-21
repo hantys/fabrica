@@ -9,7 +9,7 @@
   <dt><strong><%= model_class.human_attribute_name(:composition) %>:</strong></dt>
   <dd><%= @hit.composition.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:residue) %>:</strong></dt>
-  <dd><%= @hit.residue %> kg</dd>
+  <dd><%= @hit.residue.round(3) %> kg</dd>
 </dl>
 <legend>itens:</legend>
   <% @hit.hit_items.each do |hit_item| %>

@@ -6,7 +6,7 @@
     <div class="col-lg-6">
       <%= f.input :kind, as: :select, collection: StockFinalProduct.kinds_i18n.map { |w| [w[1], w[0]] }, prompt:  'Escolha um tipo', input_html: { onchange: 'changeKindSFP(this)'} %>
       <span class="raw-material d-none">
-        <%= f.association :hit %>
+        <%= f.association :hit, collection: Hit.where(used: false) %>
       </span>
       <span class="composition d-none">
         <%= f.association :composition, collection: Composition.where("kind = 1 and weight > 0") %>
