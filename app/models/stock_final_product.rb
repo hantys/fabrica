@@ -1,4 +1,6 @@
 class StockFinalProduct < ApplicationRecord
+  enum kind: {raw_material: 0, composition: 1}
+
   belongs_to :composition
   belongs_to :hit
 

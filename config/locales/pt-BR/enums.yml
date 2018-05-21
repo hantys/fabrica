@@ -4,3 +4,7 @@ pt-BR:
       kind:
         raw_material: Matéria-prima
         composition: Composição
+    stock_final_product:
+      kind:
+        raw_material: Matéria-prima
+        composition: Composição

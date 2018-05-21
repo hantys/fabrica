@@ -3,8 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 @setHitItems = (element) ->
-  console.log $(element).val()
-
   $.get("/load_hit_items/#{$(element).val()}", ->
     console.log 'success'
   ).done(->
