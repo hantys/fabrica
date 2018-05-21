@@ -9,9 +9,8 @@
     <thead class="thead-light">
       <tr>
         <th scope="col">#</th>
-        <th scope="col"><%= model_class.human_attribute_name(:composition) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:weight) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:estimated_weight) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:composition) %> / <%= model_class.human_attribute_name(:hit) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:amount) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:cost) %></th>
         <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
@@ -20,9 +19,12 @@
       <% @stock_final_products.each do |stock_final_product| %>
       <tr>
         <td scope="row"><%= stock_final_product.id %></td>
-        <td><%= stock_final_product.composition.try(:name) %></td>
-        <td><%= stock_final_product.weight.round(3) %> kg</td>
-        <td><%= stock_final_product.estimated_weight.round(3) %> kg</td>
+        <% if stock_final_product.kind == "raw_material" %>
+          <td><%= stock_final_product.hit.try(:name) %></td>
+        <% else %>
+          <td><%= stock_final_product.composition.try(:name) %></td>
+        <% end %>
+        <td><%= stock_final_product.amount %> kg</td>
         <td><%= number_to_currency(stock_final_product.cost) %></td>
         <td>
           <%= link_to stock_final_product, class: 'btn btn-info has-icon' do %>

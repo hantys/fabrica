@@ -8,6 +8,8 @@ class StockFinalProduct < ApplicationRecord
   after_create :set_estimated_weight
   after_create :set_cost
 
+  validates_presence_of :amount
+
   def save_estimated
     if self.kind == "raw_material"
       hit = Hit.find self.hit_id
