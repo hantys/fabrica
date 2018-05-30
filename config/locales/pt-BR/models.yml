@@ -11,8 +11,26 @@ pt-BR:
       provider: Fornecedor
       client: Cliente
       hit: Batida
+      budget: Orçamento
+      budget_item: Item do Orçamento
+      budget_product: Produto do Orçamento
 
     attributes:
+      budget_item:
+        name: 'Nome'
+        created_at: Cadastrado em
+        updated_at: Atualizado em
+
+      budget_product:
+        name: 'Nome'
+        created_at: Cadastrado em
+        updated_at: Atualizado em
+
+      budget:
+        name: 'Nome'
+        created_at: Cadastrado em
+        updated_at: Atualizado em
+
       user:
         login: "Nome de Usuário ou E-mail"
         username: 'Nome de Usuário'
@@ -35,6 +53,8 @@ pt-BR:
         hit_items: 'Pesso da Matéria'
         composition_id: 'Composição'
         composition: 'Composição'
+        created_at: Cadastrado em
+        updated_at: Atualizado em
 
       composition:
         name: 'Nome'
