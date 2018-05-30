@@ -10,10 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_21_141057) do
+ActiveRecord::Schema.define(version: 2018_05_30_190016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "budget_items", force: :cascade do |t|
+    t.bigint "composition_id"
+    t.string "cod"
+    t.string "name"
+    t.text "description"
+    t.float "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["composition_id"], name: "index_budget_items_on_composition_id"
+  end
+
+  create_table "budget_products", force: :cascade do |t|
+    t.bigint "budget_id"
+    t.bigint "budget_item_id"
+    t.float "unit_value"
+    t.float "qnt"
+    t.float "total_value"
+    t.float "discount"
+    t.integer "discount_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["budget_id"], name: "index_budget_products_on_budget_id"
+    t.index ["budget_item_id"], name: "index_budget_products_on_budget_item_id"
+  end
+
+  create_table "budgets", force: :cascade do |t|
+    t.string "name"
+    t.bigint "client_id"
+    t.bigint "employee_id"
+    t.float "value"
+    t.date "deadline"
+    t.integer "delivery_options"
+    t.integer "payment_term"
+    t.integer "type_of_payment"
+    t.float "discount"
+    t.integer "discount_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_budgets_on_client_id"
+    t.index ["employee_id"], name: "index_budgets_on_employee_id"
+  end
 
   create_table "cities", force: :cascade do |t|
     t.string "name"
@@ -208,6 +250,11 @@ ActiveRecord::Schema.define(version: 2018_05_21_141057) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "budget_items", "compositions"
+  add_foreign_key "budget_products", "budget_items"
+  add_foreign_key "budget_products", "budgets"
+  add_foreign_key "budgets", "clients"
+  add_foreign_key "budgets", "employees"
   add_foreign_key "cities", "states"
   add_foreign_key "clients", "cities"
   add_foreign_key "clients", "employees"

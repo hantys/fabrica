@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :budgets
+  resources :budget_items
   resources :hits
   resources :providers
   resources :clients

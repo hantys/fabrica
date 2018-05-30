@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @budget.name %>
+</p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @budget.client %>
+</p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @budget.employee %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @budget.value %>
+</p>
+
+<p>
+  <strong>Deadline:</strong>
+  <%= @budget.deadline %>
+</p>
+
+<p>
+  <strong>Delivery options:</strong>
+  <%= @budget.delivery_options %>
+</p>
+
+<p>
+  <strong>Payment term:</strong>
+  <%= @budget.payment_term %>
+</p>
+
+<p>
+  <strong>Type of payment:</strong>
+  <%= @budget.type_of_payment %>
+</p>
+
+<p>
+  <strong>Discount:</strong>
+  <%= @budget.discount %>
+</p>
+
+<p>
+  <strong>Discount type:</strong>
+  <%= @budget.discount_type %>
+</p>
+
+<%= link_to 'Edit', edit_budget_path(@budget) %> |
+<%= link_to 'Back', budgets_path %>
