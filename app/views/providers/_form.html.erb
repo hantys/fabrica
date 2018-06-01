@@ -19,8 +19,8 @@
       <%= f.input :ag %>
       <%= f.input :cc %>
       <%= f.input :variation %>
-      <%= f.association :state %>
-      <%= f.association :city %>
+      <%= f.association :state, collection: State.order(:name), prompt: "Escolha um estado" %>
+      <%= f.association :city, collection: City.order(:name), prompt: "Escolha uma cidade" %>
       <%= f.input :phone1 %>
       <%= f.input :phone2 %>
     </div>

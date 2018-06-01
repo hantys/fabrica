@@ -23,7 +23,7 @@ gem 'simple_form'
 gem 'nested_form'
 gem 'ransack'
 gem 'faker'
-
+gem 'ffaker'
 #auditorias
 gem "audited", "~> 4.7" # https://github.com/collectiveidea/audited
 gem 'paper_trail' # https://github.com/paper-trail-gem/paper_trail

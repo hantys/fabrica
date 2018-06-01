@@ -11,7 +11,7 @@
   <dt><strong><%= model_class.human_attribute_name(:weight_out) %>:</strong></dt>
   <dd><%= @stock_raw_material.weight_out.round(3) %> kg</dd>
   <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>
-  <dd><%= number_to_currency @stock_raw_material.price %> kg</dd>
+  <dd><%= number_to_currency @stock_raw_material.price %></dd>
 </dl>
 <hr>
 <%= link_to t('.back', :default => t("helpers.links.back")),

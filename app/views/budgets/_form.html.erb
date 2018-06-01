@@ -1,22 +1,57 @@
-
-<%= simple_form_for(@budget) do |f| %>
+<%= simple_nested_form_for(@budget) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.association :client %>
-    <%= f.association :employee %>
-    <%= f.input :value %>
-    <%= f.input :deadline %>
-    <%= f.input :delivery_options %>
-    <%= f.input :payment_term %>
-    <%= f.input :type_of_payment %>
-    <%= f.input :discount %>
-    <%= f.input :discount_type %>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= f.input :name %>
+      <%= f.association :client, collection: Client.order(:company_name).map {|x| [x.company_name, x.id]}, prompt: "Escolha um cliente" %>
+      <%= f.association :employee, collection: Employee.order(:name), prompt: "Escolha um funcionário" %>
+      <%= f.input :value %>
+      <%= f.input :deadline, as: :string %>
+    </div>
+    <div class="col-lg-6">
+      <%= f.input :delivery_options %>
+      <%= f.input :payment_term %>
+      <%= f.input :type_of_payment %>
+      <%= f.input :discount %>
+      <%= f.input :discount_type %>
+    </div>
   </div>
+  <hr>
+  <span id="budget_products">
+    <%= f.fields_for :budget_products do |budget_products_form| %>
+      <div class="row">
+        <div class="col-lg-2">
+          <%= budget_products_form.association :budget_item %>
+        </div>
+        <div class="col-lg-2">
+          <%= budget_products_form.input :unit_value %>
+        </div>
+        <div class="col-lg-1">
+          <%= budget_products_form.input :qnt %>
+        </div>
+        <div class="col-lg-2">
+          <%= budget_products_form.input :total_value %>
+        </div>
+        <div class="col-lg-1">
+          <%= budget_products_form.input :discount %>
+        </div>
+        <div class="col-lg-2">
+          <%= budget_products_form.input :discount_type %>
+        </div>
+        <div class="col-lg-2">
+          <%= budget_products_form.link_to_remove "Remover produto", class: 'btn btn-outline-danger' %>
+        </div>
+      </div>
+      <hr>
+    <% end %>
+  </span>
+  <p><%= f.link_to_add "Adicionar produto", :budget_products, :data => { :target => "#budget_products" }, class: 'btn btn-outline-primary' %></p>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <hr>
+  <%= f.button :submit, class: 'btn btn-success' %>
+  <%= link_to 'Cancelar', clients_path, class: 'btn btn-danger' %>
 <% end %>
+
+

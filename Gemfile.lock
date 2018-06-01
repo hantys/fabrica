@@ -101,6 +101,7 @@ GEM
       railties (>= 3.0.0)
     faker (1.8.7)
       i18n (>= 0.7)
+    ffaker (2.9.0)
     ffi (1.9.23)
     get_process_mem (0.2.1)
     globalid (0.4.1)
@@ -330,6 +331,7 @@ DEPENDENCIES
   enum_help
   factory_bot_rails (~> 4.0)
   faker
+  ffaker
   httparty
   jbuilder (~> 2.5)
   jquery-rails

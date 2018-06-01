@@ -37,6 +37,7 @@ pt-BR:
         name: 'Nome completo'
         email: 'Email'
         employee: 'Funcionário'
+        employee_id: 'Funcionário'
         password: 'Senha'
         deleted: 'Ativo?'
         password_confirmation: 'Confirmação de Senha'
@@ -119,6 +120,9 @@ pt-BR:
         phone1: Telefone 1
         phone2: Telefone 2
         user_id: Usuário
+        user: Usuário
+        employee: 'Funcionário'
+        employee_id: 'Funcionário'
         created_at: Cadastrado em
         updated_at: Atualizado em
 

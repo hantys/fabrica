@@ -10,14 +10,9 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col"><%= model_class.human_attribute_name(:company_name) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:fantasy_name) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:cpf) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:cnpj) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:neighborhood) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:state) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:cnpj) %>/<%= model_class.human_attribute_name(:cpf) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:city) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:phone1) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:phone2) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:employee) %></th>
         <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
@@ -27,15 +22,10 @@
       <tr>
         <td scope="row"><%= client.id %></td>
         <td><%= client.company_name %></td>
-        <td><%= client.fantasy_name %></td>
-        <td><%= client.cpf %></td>
-        <td><%= client.cnpj %></td>
-        <td><%= client.neighborhood %></td>
-        <td><%= client.state %></td>
-        <td><%= client.city %></td>
+        <td><%= client.cnpj %> <%= client.cpf %></td>
+        <td><%= client.city.name %>-<%= client.state.acronym %></td>
         <td><%= client.phone1 %></td>
-        <td><%= client.phone2 %></td>
-        <td><%= client.employee %></td>
+        <td><%= client.employee.name %></td>
         <td>
           <%= link_to client, class: 'btn btn-info has-icon' do %>
             <i class="material-icons">remove_red_eye</i>

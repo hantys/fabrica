@@ -15,11 +15,11 @@
       <%= f.input :cep %>
       <%= f.input :cnpj %>
       <%= f.input :ie %>
-      <%= f.association :state %>
-      <%= f.association :city %>
+      <%= f.association :state, collection: State.order(:name), prompt: "Escolha um estado" %>
+      <%= f.association :city, collection: City.order(:name), prompt: "Escolha uma cidade" %>
       <%= f.input :phone1 %>
       <%= f.input :phone2 %>
-      <%= f.association :employee %>
+      <%= f.association :employee, collection: Employee.order(:name), prompt: "Escolha um funcionário" %>
     </div>
   </div>
 

@@ -10,14 +10,9 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col"><%= model_class.human_attribute_name(:company_name) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:fantasy_name) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:cpf) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:cnpj) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:neighborhood) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:state) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:cnpj) %>/<%= model_class.human_attribute_name(:cpf) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:city) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:phone1) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:phone2) %></th>
         <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
     </thead>
@@ -26,14 +21,9 @@
       <tr>
         <td scope="row"><%= provider.id %></td>
         <td><%= provider.company_name %></td>
-        <td><%= provider.fantasy_name %></td>
-        <td><%= provider.cpf %></td>
-        <td><%= provider.cnpj %></td>
-        <td><%= provider.neighborhood %></td>
-        <td><%= provider.state %></td>
-        <td><%= provider.city %></td>
+        <td><%= provider.cnpj %> <%= provider.cpf %></td>
+        <td><%= provider.city.name %>-<%= provider.state.acronym %></td>
         <td><%= provider.phone1 %></td>
-        <td><%= provider.phone2 %></td>
         <td>
           <%= link_to provider, class: 'btn btn-info has-icon' do %>
             <i class="material-icons">remove_red_eye</i>
