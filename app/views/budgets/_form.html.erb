@@ -23,24 +23,26 @@
     <%= f.fields_for :budget_products do |budget_products_form| %>
       <div class="row">
         <div class="col-lg-2">
-          <%= budget_products_form.association :budget_item %>
+          <%= budget_products_form.association :budget_item, prompt: 'Produto' %>
         </div>
         <div class="col-lg-2">
-          <%= budget_products_form.input :unit_value %>
+          <%= budget_products_form.input :unit_value, placeholder: 'Valor unitário' %>
         </div>
         <div class="col-lg-1">
-          <%= budget_products_form.input :qnt %>
+          <%= budget_products_form.input :qnt, label: 'Qnt.', placeholder: 'Quantidade' %>
         </div>
         <div class="col-lg-2">
-          <%= budget_products_form.input :total_value %>
+          <%= budget_products_form.input :total_value, placeholder: 'Valor total' %>
+        </div>
+        <div class="col-lg-2">
+          <%= budget_products_form.input :discount, placeholder: 'Disconto' %>
         </div>
         <div class="col-lg-1">
-          <%= budget_products_form.input :discount %>
+          <label class="form-control-label float optional">-</label>
+          <%= budget_products_form.input :discount_type, as: :boolean, label: '%?' %>
         </div>
         <div class="col-lg-2">
-          <%= budget_products_form.input :discount_type %>
-        </div>
-        <div class="col-lg-2">
+          <label class="form-control-label float optional">-</label>
           <%= budget_products_form.link_to_remove "Remover produto", class: 'btn btn-outline-danger' %>
         </div>
       </div>

@@ -1,6 +1,7 @@
 puts "### Cidades e Estados"
 load "db/imports/states_cities.rb"
 
+
 puts '#Funcionatios'
 (1..20).each do |i|
   puts "#inset #{i} de 20"
@@ -54,3 +55,6 @@ puts '#clientes e fornecedores'
   Client.create company_name: "#{Faker::Company.name} #{i}" ,fantasy_name: "#{Faker::Company.name} #{i}", state: state, city: state.cities.sample(1).last, employee: Employee.find(rand(1..20)), cnpj: FFaker::IdentificationBR.pretty_cnpj, phone1:FFaker::PhoneNumberBR.mobile_phone_number
   Provider.create company_name: "#{Faker::Company.name} #{i}" ,fantasy_name: "#{Faker::Company.name} #{i}", state: state, city: state.cities.sample(1).last, cnpj: FFaker::IdentificationBR.pretty_cnpj, phone1:FFaker::PhoneNumberBR.mobile_phone_number
 end
+
+puts "### Itens do orcamento"
+load "db/imports/budget_items.rb"
