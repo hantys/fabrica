@@ -8,3 +8,15 @@ pt-BR:
       kind:
         raw_material: Matéria-prima
         composition: Composição
+    budget:
+      delivery_options:
+        store_delivery: Entrega na loja
+        withdrawal_in_hands: Retirada em mãos
+      type_of_payment:
+        bank_slip: Boleto bancário
+        credit_card: Cartão de crédito
+        in_cash: A vista
+        check: Cheque
+        debit: Débito
+        transfer: Transferência
+        deposit: Depósito

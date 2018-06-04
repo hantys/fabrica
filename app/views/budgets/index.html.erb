@@ -12,13 +12,11 @@
         <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:client) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:employee) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:value) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:deadline) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:delivery_options) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:payment_term) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:type_of_payment) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:discount) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:discount_type) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:value) %></th>
         <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
     </thead>
@@ -27,15 +25,13 @@
       <tr>
         <td scope="row"><%= budget.id %></td>
         <td><%= budget.name %></td>
-        <td><%= budget.client.name %></td>
+        <td><%= budget.client.company_name %></td>
         <td><%= budget.employee.name %></td>
+        <td><%=l budget.deadline %></td>
+        <td><%= budget.delivery_options_i18n %></td>
+        <td><%= budget.type_of_payment_i18n %></td>
+        <td><%= number_to_currency budget.discount %></td>
         <td><%= number_to_currency budget.value %></td>
-        <td><%= budget.deadline %></td>
-        <td><%= budget.delivery_options %></td>
-        <td><%= budget.payment_term %></td>
-        <td><%= budget.type_of_payment %></td>
-        <td><%= budget.discount %></td>
-        <td><%= budget.discount_type %></td>
         <td>
           <%= link_to budget, class: 'btn btn-info has-icon' do %>
             <i class="material-icons">remove_red_eye</i>

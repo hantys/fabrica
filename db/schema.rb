@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2018_05_30_190016) do
     t.float "qnt"
     t.float "total_value"
     t.float "discount"
-    t.integer "discount_type"
+    t.boolean "discount_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["budget_id"], name: "index_budget_products_on_budget_id"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2018_05_30_190016) do
     t.integer "payment_term"
     t.integer "type_of_payment"
     t.float "discount"
-    t.integer "discount_type"
+    t.boolean "discount_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_budgets_on_client_id"
@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(version: 2018_05_30_190016) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
+    t.boolean "agent", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username", default: "", null: false

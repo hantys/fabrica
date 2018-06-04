@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
   get 'load_hit_items/:composition' => "hits#load_items"
+  get 'find_budget_item/:id' => "budgets#find_budget_item"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :users

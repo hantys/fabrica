@@ -4,7 +4,7 @@ class BudgetsController < ApplicationController
   # GET /budgets
   # GET /budgets.json
   def index
-    @budgets = Budget.all
+    @budgets = Budget.includes(:client, :employee).all
   end
 
   # GET /budgets/1
@@ -61,6 +61,11 @@ class BudgetsController < ApplicationController
     end
   end
 
+  def find_budget_item
+    @budget_item = BudgetItem.find params[:id]
+    render json: @budget_item.price.round(2)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_budget
@@ -69,6 +74,6 @@ class BudgetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def budget_params
-      params.require(:budget).permit(:name, :client_id, :employee_id, :value, :deadline, :delivery_options, :payment_term, :type_of_payment, :discount, :discount_type)
+      params.require(:budget).permit! #(:name, :client_id, :employee_id, :value, :deadline, :delivery_options, :payment_term, :type_of_payment, :discount, :discount_type)
     end
 end

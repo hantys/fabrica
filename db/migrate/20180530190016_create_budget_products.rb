@@ -7,7 +7,7 @@ class CreateBudgetProducts < ActiveRecord::Migration[5.2]
       t.float :qnt
       t.float :total_value
       t.float :discount
-      t.integer :discount_type
+      t.boolean :discount_type
 
       t.timestamps
     end

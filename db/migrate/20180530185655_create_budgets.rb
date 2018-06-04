@@ -10,7 +10,7 @@ class CreateBudgets < ActiveRecord::Migration[5.2]
       t.integer :payment_term
       t.integer :type_of_payment
       t.float :discount
-      t.integer :discount_type
+      t.boolean :discount_type
 
       t.timestamps
     end

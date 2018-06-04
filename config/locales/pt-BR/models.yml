@@ -16,26 +16,12 @@ pt-BR:
       budget_product: Produto do Orçamento
 
     attributes:
-      budget_item:
-        name: 'Nome'
-        created_at: Cadastrado em
-        updated_at: Atualizado em
-
-      budget_product:
-        name: 'Nome'
-        created_at: Cadastrado em
-        updated_at: Atualizado em
-
-      budget:
-        name: 'Nome'
-        created_at: Cadastrado em
-        updated_at: Atualizado em
-
       user:
         login: "Nome de Usuário ou E-mail"
         username: 'Nome de Usuário'
         name: 'Nome completo'
         email: 'Email'
+        agent: Representante
         employee: 'Funcionário'
         employee_id: 'Funcionário'
         password: 'Senha'
@@ -131,6 +117,7 @@ pt-BR:
         email: E-mail
         office: Cargo
         bank: Banco
+        agent: Representante
         ag: Agência
         cc: Conta
         variation: Variação
@@ -205,6 +192,8 @@ pt-BR:
 
       budget:
         name: Nome
+        budget_products: Produto do Orçamento
+        budget_product: Produto do Orçamento
         client_id: Cliente
         client: Cliente
         employee_id: Funcionário
