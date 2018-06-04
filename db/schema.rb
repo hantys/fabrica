@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2018_05_30_190016) do
     t.string "cod"
     t.string "name"
     t.text "description"
-    t.float "price"
+    t.float "price", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["composition_id"], name: "index_budget_items_on_composition_id"
@@ -32,8 +32,9 @@ ActiveRecord::Schema.define(version: 2018_05_30_190016) do
     t.float "unit_value"
     t.float "qnt"
     t.float "total_value"
-    t.float "discount"
-    t.boolean "discount_type"
+    t.float "total_value_with_discount", default: 0.0
+    t.float "discount", default: 0.0
+    t.boolean "discount_type", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["budget_id"], name: "index_budget_products_on_budget_id"
@@ -44,13 +45,14 @@ ActiveRecord::Schema.define(version: 2018_05_30_190016) do
     t.string "name"
     t.bigint "client_id"
     t.bigint "employee_id"
-    t.float "value"
+    t.float "value", default: 0.0
+    t.float "value_with_discount", default: 0.0
     t.date "deadline"
     t.integer "delivery_options"
     t.integer "payment_term"
     t.integer "type_of_payment"
-    t.float "discount"
-    t.boolean "discount_type"
+    t.float "discount", default: 0.0
+    t.boolean "discount_type", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_budgets_on_client_id"

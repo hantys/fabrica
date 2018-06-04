@@ -5,7 +5,7 @@ class CreateBudgetItems < ActiveRecord::Migration[5.2]
       t.string :cod
       t.string :name
       t.text :description
-      t.float :price
+      t.float :price, default: 0
 
       t.timestamps
     end

@@ -12,6 +12,8 @@ class Budget < ApplicationRecord
   validates :deadline, presence: true
   validates :name, presence: true
 
+  validates :value, numericality: { greater_than: 0 }
+
   after_save :set_value
 
   private

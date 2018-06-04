@@ -18,6 +18,7 @@
   <hr>
   <span id="budget_products">
     <%= f.fields_for :budget_products do |budget_products_form| %>
+      <%= budget_products_form.input :total_value_with_discount, input_html: { class: 'total_value_with_discount' } %>
       <div class="row">
         <div class="col-lg-2">
           <%= budget_products_form.association :budget_item, collection: BudgetItem.order(:name), prompt: 'Produto', input_html: { class: 'budget_item' } %>
@@ -32,14 +33,12 @@
           <%= budget_products_form.input :total_value, placeholder: 'Valor total', readonly: true, input_html: { class: 'total_value' } %>
         </div>
         <div class="col-lg-2">
-          <%= budget_products_form.input :discount, placeholder: 'Disconto' %>
+          <%= budget_products_form.input :discount, readonly: true, placeholder: 'Disconto', input_html: { class: 'discount_item' } %>
         </div>
-        <div class="col-lg-1">
-          <label class="form-control-label float optional">-</label>
-          <%= budget_products_form.input :discount_type, as: :boolean, label: '%?' %>
+        <div class="col-lg-1" style="align-self: flex-end;">
+          <%= budget_products_form.input :discount_type, as: :boolean, label: '%?', input_html: { class: 'discount_type' } %>
         </div>
-        <div class="col-lg-2">
-          <label class="form-control-label float optional">-</label>
+        <div class="col-lg-2" style="align-self: center;">
           <%= budget_products_form.link_to_remove "Remover produto", class: 'btn btn-outline-danger' %>
         </div>
       </div>
@@ -50,14 +49,17 @@
 
   <hr>
   <div class="row" style="align-items: flex-end;">
-    <div class="col-lg-4">
+    <div class="col-lg-2">
     <%= f.input :discount %>
     </div>
     <div class="col-lg-2">
       <%= f.input :discount_type %>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-2">
       <%= f.input :value, readonly: true %>
+    </div>
+    <div class="col-lg-2">
+      <%= f.input :value_with_discount, readonly: true %>
     </div>
   </div>
   <hr>

@@ -199,6 +199,7 @@ pt-BR:
         employee_id: Funcionário
         employee: Funcionário
         value: Valor
+        value_with_discount: Valor com Desconto
         deadline: Prazo de Entrega
         delivery_options: Opção de Entrega
         payment_term: Termo de Pagamento
