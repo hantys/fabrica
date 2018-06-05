@@ -1,0 +1,10 @@
+- alterar desconto por item: desconto deve ser em cima do valor unitario
+- forma de pagamento criar item e sub item
+- criar regra de usuarios para determinar suas autorizacoes
+- criar auditoria
+- add select2 no item do orcamento
+- composto nao e produto final, ele e igual a lista dos itens do orcamento
+  * fazer alteracao no sistema para produto final
+- criar mascaras
+- na entrada de porduto final por materia prima, deixar entrada de peso dos tubos e calcular a borra
+- retorno da borra como pvc e calcular seu valor apartir do custo da borra
