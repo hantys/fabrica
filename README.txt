@@ -8,3 +8,5 @@
 - criar mascaras
 - na entrada de porduto final por materia prima, deixar entrada de peso dos tubos e calcular a borra
 - retorno da borra como pvc e calcular seu valor apartir do custo da borra
+- falar com pablo sobre o layout
+- gerar orcamento igual o enviado no pdf

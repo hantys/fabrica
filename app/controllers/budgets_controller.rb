@@ -61,9 +61,9 @@ class BudgetsController < ApplicationController
     end
   end
 
-  def find_budget_item
-    @budget_item = BudgetItem.find params[:id]
-    render json: @budget_item.price.round(2)
+  def find_product
+    @product = Product.find params[:id]
+    render json: @product.price.round(2)
   end
 
   private

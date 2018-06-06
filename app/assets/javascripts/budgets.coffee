@@ -14,7 +14,7 @@ $(document).on 'nested:fieldAdded', (event) ->
   field = event.field
   # it's a jQuery object already! Now you can find date input
   totalValueWithDiscountField = field.find('.total_value_with_discount')
-  budgetItemField = field.find('.budget_item')
+  budgetItemField = field.find('.product')
   unitValueField = field.find('.unit_value')
   qntField = field.find('.qnt')
   discountField = field.find('.discount_item')
@@ -43,7 +43,7 @@ $(document).on 'nested:fieldAdded', (event) ->
       discountField.attr("readonly", true)
 
   budgetItemField.change ->
-    $.get("/find_budget_item/#{$(this).val()}", (date) ->
+    $.get("/find_product/#{$(this).val()}", (date) ->
       unitValueField.val date
       if qntField.val().length > 0
         totalValueField.val (parseFloat(unitValueField.val()) * parseFloat(qntField.val())).toFixed(2)

@@ -25,15 +25,15 @@
           <%= link_to 'Entrada de batida', hits_path, class: "dropdown-item #{active_class(hits_path)}" %>
           <%= link_to 'Entrada de Matéria-Prima', stock_raw_materials_path, class: "dropdown-item #{active_class(stock_raw_materials_path)}" %>
           <%= link_to 'Entrada de produto final', stock_final_products_path, class: "dropdown-item #{active_class(stock_final_products_path)}" %>
+          <%= link_to 'Produtos', products_path, class: "dropdown-item #{active_class(products_path)}" %>
         </div>
       </li>
 
-      <li class='nav-item dropdown <%= "#{active_class(new_budget_path)} #{active_class(budgets_path)}  #{active_class(budget_items_path)}" %>'>
+      <li class='nav-item dropdown <%= "#{active_class(new_budget_path)} #{active_class(budgets_path)}  #{active_class(products_path)}" %>'>
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Orçamentos</a>
         <div class="dropdown-menu hasDropboxAnimation">
           <%= link_to 'Novo Orçamento', new_budget_path, class: "dropdown-item #{active_class(new_budget_path)}" %>
           <%= link_to 'Orçamentos', budgets_path, class: "dropdown-item #{active_class(budgets_path)}" %>
-          <%= link_to 'Produtos do Orçamento', budget_items_path, class: "dropdown-item #{active_class(budget_items_path)}" %>
         </div>
       </li>
 

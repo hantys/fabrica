@@ -10,35 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_30_190016) do
+ActiveRecord::Schema.define(version: 2018_06_06_140042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "budget_items", force: :cascade do |t|
-    t.bigint "composition_id"
-    t.string "cod"
-    t.string "name"
-    t.text "description"
-    t.float "price", default: 0.0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["composition_id"], name: "index_budget_items_on_composition_id"
-  end
-
   create_table "budget_products", force: :cascade do |t|
     t.bigint "budget_id"
-    t.bigint "budget_item_id"
-    t.float "unit_value"
-    t.float "qnt"
-    t.float "total_value"
+    t.float "unit_value", default: 0.0
+    t.float "qnt", default: 0.0
+    t.float "total_value", default: 0.0
     t.float "total_value_with_discount", default: 0.0
     t.float "discount", default: 0.0
     t.boolean "discount_type", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "product_id"
     t.index ["budget_id"], name: "index_budget_products_on_budget_id"
-    t.index ["budget_item_id"], name: "index_budget_products_on_budget_item_id"
+    t.index ["product_id"], name: "index_budget_products_on_product_id"
   end
 
   create_table "budgets", force: :cascade do |t|
@@ -162,6 +151,16 @@ ActiveRecord::Schema.define(version: 2018_05_30_190016) do
     t.index ["composition_id"], name: "index_hits_on_composition_id"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "cod"
+    t.string "name"
+    t.float "price", default: 0.0
+    t.float "weight", default: 0.0
+    t.float "qnt", default: 0.0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "providers", force: :cascade do |t|
     t.string "company_name"
     t.string "fantasy_name"
@@ -208,7 +207,6 @@ ActiveRecord::Schema.define(version: 2018_05_30_190016) do
   create_table "stock_final_products", force: :cascade do |t|
     t.string "name"
     t.integer "kind"
-    t.bigint "composition_id"
     t.float "weight", default: 0.0
     t.float "amount", default: 0.0
     t.float "estimated_weight", default: 0.0
@@ -216,8 +214,9 @@ ActiveRecord::Schema.define(version: 2018_05_30_190016) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "hit_id"
-    t.index ["composition_id"], name: "index_stock_final_products_on_composition_id"
+    t.bigint "product_id"
     t.index ["hit_id"], name: "index_stock_final_products_on_hit_id"
+    t.index ["product_id"], name: "index_stock_final_products_on_product_id"
   end
 
   create_table "stock_raw_materials", force: :cascade do |t|
@@ -253,9 +252,8 @@ ActiveRecord::Schema.define(version: 2018_05_30_190016) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "budget_items", "compositions"
-  add_foreign_key "budget_products", "budget_items"
   add_foreign_key "budget_products", "budgets"
+  add_foreign_key "budget_products", "products"
   add_foreign_key "budgets", "clients"
   add_foreign_key "budgets", "employees"
   add_foreign_key "cities", "states"
@@ -269,8 +267,8 @@ ActiveRecord::Schema.define(version: 2018_05_30_190016) do
   add_foreign_key "hits", "compositions"
   add_foreign_key "providers", "cities"
   add_foreign_key "providers", "states"
-  add_foreign_key "stock_final_products", "compositions"
   add_foreign_key "stock_final_products", "hits"
+  add_foreign_key "stock_final_products", "products"
   add_foreign_key "stock_raw_materials", "raw_materials"
   add_foreign_key "users", "employees"
 end

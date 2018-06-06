@@ -12,7 +12,7 @@ pt-BR:
       client: Cliente
       hit: Batida
       budget: Orçamento
-      budget_item: Item do Orçamento
+      product: Produto
       budget_product: Produto do Orçamento
 
     attributes:
@@ -163,7 +163,7 @@ pt-BR:
         created_at: Cadastrado em
         updated_at: Atualizado em
 
-      budget_item:
+      product:
         composition_id: Composição
         composition: Composição
         cod: Código
@@ -176,8 +176,8 @@ pt-BR:
       budget_product:
         budget_id: Orçamento
         budget: Orçamento
-        budget_item_id: Item do Orçamento
-        budget_item: Item do Orçamento
+        product_id: Produto
+        product: Produto
         unit_value: Valor unitário
         qnt: Quantidade
         total_value: Valor total

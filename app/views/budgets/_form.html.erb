@@ -18,10 +18,10 @@
   <hr>
   <span id="budget_products">
     <%= f.fields_for :budget_products do |budget_products_form| %>
-      <%= budget_products_form.input :total_value_with_discount, input_html: { class: 'total_value_with_discount' } %>
+      <%= budget_products_form.input :total_value_with_discount, as: :hidden, input_html: { class: 'total_value_with_discount' } %>
       <div class="row">
         <div class="col-lg-2">
-          <%= budget_products_form.association :budget_item, collection: BudgetItem.order(:name), prompt: 'Produto', input_html: { class: 'budget_item' } %>
+          <%= budget_products_form.association :product, collection: Product.order(:name), prompt: 'Produto', input_html: { class: 'product' } %>
         </div>
         <div class="col-lg-2">
           <%= budget_products_form.input :unit_value, placeholder: 'Valor unitário', readonly: true, input_html: { class: 'unit_value' } %>

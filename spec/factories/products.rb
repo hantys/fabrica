@@ -1,9 +1,9 @@
 FactoryBot.define do
-  factory :budget_item do
-    composition nil
+  factory :product do
     cod "MyString"
     name "MyString"
-    description "MyText"
     price 1.5
+    weight 1.5
+    qnt 1.5
   end
 end

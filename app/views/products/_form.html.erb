@@ -1,14 +1,14 @@
 
-<%= simple_form_for(@budget_item) do |f| %>
+<%= simple_form_for(@product) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= f.association :composition %>
     <%= f.input :cod %>
     <%= f.input :name %>
-    <%= f.input :description %>
     <%= f.input :price %>
+    <%= f.input :weight %>
+    <%= f.input :qnt %>
   </div>
 
   <div class="form-actions">
