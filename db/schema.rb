@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2018_06_06_140042) do
     t.bigint "client_id"
     t.bigint "employee_id"
     t.float "value", default: 0.0
+    t.float "discount_items", default: 0.0
     t.float "value_with_discount", default: 0.0
     t.date "deadline"
     t.integer "delivery_options"

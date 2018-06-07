@@ -22,6 +22,10 @@
   <dd><%= @budget.discount_type %></dd>
   <dt><strong><%= model_class.human_attribute_name(:discount) %>:</strong></dt>
   <dd><%= @budget.discount %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:discount_items) %>:</strong></dt>
+  <dd><%= number_to_currency @budget.discount_items %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:value_with_discount) %>:</strong></dt>
+  <dd><%= number_to_currency @budget.value_with_discount %></dd>
 </dl>
 <legend><%= model_class.human_attribute_name(:budget_products) %></legend>
 <ul>
@@ -30,6 +34,7 @@
       <%= budget_product.product.name %> /
       Qnt.: <%= budget_product.qnt %> /
       Valor unit.: <%= number_to_currency budget_product.unit_value %> /
+      Desconto total: <%= number_to_currency budget_product.total_value_with_discount %>
       Total: <%= number_to_currency budget_product.total_value %>
     </li>
   <% end %>
