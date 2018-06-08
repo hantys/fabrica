@@ -39,6 +39,7 @@
     </li>
   <% end %>
 </ul>
+<%= link_to "gerar pdf", budget_pdf_path(@budget), :class => 'btn btn-info', target: '_blank' %>
 
 <hr>
 <%= link_to t('.back', :default => t("helpers.links.back")),

@@ -11,8 +11,10 @@ Rails.application.routes.draw do
   resources :raw_materials
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
-  get 'load_hit_items/:composition' => "hits#load_items"
-  get 'find_product/:id' => "budgets#find_product"
+  get '/orcamento/pdf/:id' => "budgets#budget_pdf", as: :budget_pdf
+
+  get '/load_hit_items/:composition' => "hits#load_items"
+  get '/find_product/:id' => "budgets#find_product"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :users

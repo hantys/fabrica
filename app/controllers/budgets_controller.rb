@@ -12,6 +12,10 @@ class BudgetsController < ApplicationController
   def show
   end
 
+  def budget_pdf
+    @budget = Budget.find params[:id]
+  end
+
   # GET /budgets/new
   def new
     @budget = Budget.new
