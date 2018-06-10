@@ -32,10 +32,10 @@
   <dd><%= @client.ie %></dd>
 
   <dt><strong><%= model_class.human_attribute_name(:state) %>:</strong></dt>
-  <dd><%= @client.state %></dd>
+  <dd><%= @client.state.acronym %></dd>
 
   <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
-  <dd><%= @client.city %></dd>
+  <dd><%= @client.city.name %></dd>
 
   <dt><strong><%= model_class.human_attribute_name(:phone1) %>:</strong></dt>
   <dd><%= @client.phone1 %></dd>

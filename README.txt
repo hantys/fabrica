@@ -3,7 +3,6 @@
 - retorno da borra como pvc e calcular seu valor apartir do custo da borra
 - deletar nao apagarde vez no sistema
 - falar com pablo sobre o layout
-- gerar orcamento igual o enviado no pdf
 - paginacao
 - na entrada de porduto final por materia prima, deixar entrada de peso dos tubos e calcular a borra
 
@@ -12,6 +11,8 @@ TO DO
 - forma de pagamento criar item e sub item
 - add select2 no item do orcamento
 - criar mascaras
+- gerar orcamento igual o enviado no pdf
+- puxar endereco apartir do cep
 
 
 DONE

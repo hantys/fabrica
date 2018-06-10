@@ -9,9 +9,11 @@ class Ability
     # can :manage, :all if user.has_role? :admin
     if user.has_role? :admin
       can :crud, :all
+      can :budget_pdf, Budget
     end
     if user.has_role? :manager
       can :crud, :all
+      can :budget_pdf, Budget
     end
     if user.has_role? :representative
       can [:read, :update, :destroy], Budget, employee_id: user.employee.id
