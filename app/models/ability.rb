@@ -5,7 +5,8 @@ class Ability
     alias_action :create, :read, :update, :destroy, to: :crud
     # Define abilities for the passed in user here. For example:
     #
-      # can :manage, :all if user.has_role? :admin
+    # can :manage, :all if user.has_role? :admin
+    can :read, :all
     if user.has_role? :admin
       can :crud, :all
     else
