@@ -19,15 +19,17 @@
         </div>
       </li>
 
-      <li class='nav-item dropdown <%= "#{active_class(hits_path)} #{active_class(stock_raw_materials_path)}  #{active_class(stock_final_products_path)}" %>'>
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Estoque</a>
-        <div class="dropdown-menu hasDropboxAnimation">
-          <%= link_to 'Entrada de batida', hits_path, class: "dropdown-item #{active_class(hits_path)}" %>
-          <%= link_to 'Entrada de Matéria-Prima', stock_raw_materials_path, class: "dropdown-item #{active_class(stock_raw_materials_path)}" %>
-          <%= link_to 'Entrada de produto final', stock_final_products_path, class: "dropdown-item #{active_class(stock_final_products_path)}" %>
-          <%= link_to 'Produtos', products_path, class: "dropdown-item #{active_class(products_path)}" %>
-        </div>
-      </li>
+      <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
+        <li class='nav-item dropdown <%= "#{active_class(hits_path)} #{active_class(stock_raw_materials_path)}  #{active_class(stock_final_products_path)}" %>'>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Estoque</a>
+          <div class="dropdown-menu hasDropboxAnimation">
+            <%= link_to 'Entrada de batida', hits_path, class: "dropdown-item #{active_class(hits_path)}" %>
+            <%= link_to 'Entrada de Matéria-Prima', stock_raw_materials_path, class: "dropdown-item #{active_class(stock_raw_materials_path)}" %>
+            <%= link_to 'Entrada de produto final', stock_final_products_path, class: "dropdown-item #{active_class(stock_final_products_path)}" %>
+            <%= link_to 'Produtos', products_path, class: "dropdown-item #{active_class(products_path)}" %>
+          </div>
+        </li>
+      <% end %>
 
       <li class='nav-item dropdown <%= "#{active_class(new_budget_path)} #{active_class(budgets_path)}  #{active_class(products_path)}" %>'>
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Orçamentos</a>
