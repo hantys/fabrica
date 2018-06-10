@@ -1,6 +1,6 @@
 class StockFinalProductsController < ApplicationController
   before_action :set_stock_final_product, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /stock_final_products
   # GET /stock_final_products.json
   def index

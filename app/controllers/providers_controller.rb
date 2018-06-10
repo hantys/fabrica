@@ -1,6 +1,6 @@
 class ProvidersController < ApplicationController
   before_action :set_provider, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /providers
   # GET /providers.json
   def index

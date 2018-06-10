@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   attr_accessor :login
 
+  ROLES = %i[admin manager representative]
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
@@ -10,6 +12,8 @@ class User < ApplicationRecord
 
   validates :username, uniqueness: true
   validates :username, presence: true
+  validates :roles_mask, presence: true
+  validates :roles_mask, numericality: { greater_than: 0, message: "precisa ser selecionada" }
 
   def self.find_for_database_authentication warden_conditions
     conditions = warden_conditions.dup
@@ -31,5 +35,20 @@ class User < ApplicationRecord
   # provide a custom message for a deleted account
   def inactive_message
     !deleted_at ? super : :deleted_account
+  end
+
+  def roles=(roles)
+    roles = [*roles].map { |r| r.to_sym }
+    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
+  end
+
+  def roles
+    ROLES.reject do |r|
+      ((roles_mask.to_i || 0) & 2**ROLES.index(r)).zero?
+    end
+  end
+
+  def has_role?(role)
+    roles.include?(role)
   end
 end

@@ -1,6 +1,5 @@
 class HitsController < ApplicationController
   before_action :set_hit, only: [:show, :edit, :update, :destroy]
-
   # GET /hits
   # GET /hits.json
   def index

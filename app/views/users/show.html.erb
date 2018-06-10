@@ -12,6 +12,8 @@
   <dd><%= @user.try(:employee).try(:phone1) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @user.email %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:roles_mask) %>:</strong></dt>
+  <dd><%= roles_humanize(@user.roles) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:deleted) %>:</strong></dt>
   <dd><%= @user.deleted_at.present? ? "Não / #{@user.deleted_at}" : "Sim" %></dd>
 </dl>

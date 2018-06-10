@@ -10,7 +10,7 @@ puts '#Funcionatios'
 end
 
 puts '#Usuario'
-User.create!(username: 'pedro', email: 'pedro.fausto@hotmail.com', password: '12345678', employee: Employee.last)
+User.create!(username: 'pedro', email: 'pedro.fausto@hotmail.com', password: '12345678', employee: Employee.last, roles: 'admin')
 
 puts '#Materia prima'
 10.times do |i|

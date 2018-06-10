@@ -1,6 +1,6 @@
 class CompositionsController < ApplicationController
   before_action :set_composition, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /compositions
   # GET /compositions.json
   def index

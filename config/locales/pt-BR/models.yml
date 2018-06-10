@@ -28,6 +28,7 @@ pt-BR:
         deleted: 'Ativo?'
         password_confirmation: 'Confirmação de Senha'
         current_password: "Senha atual"
+        roles_mask: "Permissão"
         remember_me: "Lembrar-me"
         deleted_at: Deletado em
         created_at: Cadastrado em

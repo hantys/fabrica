@@ -1,6 +1,6 @@
 class StockRawMaterialsController < ApplicationController
   before_action :set_stock_raw_material, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /stock_raw_materials
   # GET /stock_raw_materials.json
   def index

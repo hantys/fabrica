@@ -1,5 +1,9 @@
 pt-BR:
   enums:
+    roles:
+      admin: Administrador
+      manager: Gerente
+      representative: Representante
     composition:
       kind:
         raw_material: Matéria-prima
