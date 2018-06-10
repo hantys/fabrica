@@ -4,7 +4,9 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.includes(:state, :city, :employee).all
+    unless can? :read, Client, employee_id: current_user.employee.id
+      @clients = Client.includes(:state, :city, :employee).all
+    end
   end
 
   # GET /clients/1

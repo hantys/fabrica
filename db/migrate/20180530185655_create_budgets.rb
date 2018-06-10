@@ -4,6 +4,7 @@ class CreateBudgets < ActiveRecord::Migration[5.2]
       t.string :name
       t.references :client, foreign_key: true
       t.references :employee, foreign_key: true
+      t.references :user, foreign_key: true
       t.float :value, default: 0
       t.float :discount_items, default: 0
       t.float :value_with_discount, default: 0

@@ -1,10 +1,12 @@
 class BudgetsController < ApplicationController
   before_action :set_budget, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource :product
+  load_and_authorize_resource except: [:find_product]
   # GET /budgets
   # GET /budgets.json
   def index
-    @budgets = Budget.includes(:client, :employee).all
+    unless can? :read, Budget, employee_id: current_user.employee.id
+      @budgets = Budget.includes(:client, :employee).all
+    end
   end
 
   # GET /budgets/1
@@ -29,6 +31,8 @@ class BudgetsController < ApplicationController
   # POST /budgets.json
   def create
     @budget = Budget.new(budget_params)
+    @budget.user_id = current_user.id
+    @budget.employee = Client.find(@budget.client_id).employee
 
     respond_to do |format|
       if @budget.save
@@ -45,6 +49,7 @@ class BudgetsController < ApplicationController
   # PATCH/PUT /budgets/1.json
   def update
     respond_to do |format|
+      budget_params[:employee_id] = Client.find(budget_params[:client_id]).employee.id
       if @budget.update(budget_params)
         format.html { redirect_to @budget, notice: 'Orçamento atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @budget }
@@ -67,6 +72,7 @@ class BudgetsController < ApplicationController
 
   def find_product
     @product = Product.find params[:id]
+    authorize! :read, @product
     render json: @product.price.round(2)
   end
 

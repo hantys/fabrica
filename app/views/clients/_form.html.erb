@@ -19,7 +19,7 @@
       <%= f.association :city, collection: City.order(:name), prompt: "Escolha uma cidade" %>
       <%= f.input :phone1 %>
       <%= f.input :phone2 %>
-      <%= f.association :employee, collection: Employee.order(:name), prompt: "Escolha um funcionário" %>
+      <%= f.association :employee, collection: Employee.order(:name), :selected => (current_user.employee.id if f.object.new_record?), prompt: "Escolha um funcionário" %>
     </div>
   </div>
 

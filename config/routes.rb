@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { :registrations => 'registrations' }
   resources :products
   resources :budgets
   resources :hits
@@ -9,7 +10,6 @@ Rails.application.routes.draw do
   resources :stock_final_products
   resources :compositions
   resources :raw_materials
-  devise_for :users, :controllers => { :registrations => 'registrations' }
 
   get '/orcamento/pdf/:id' => "budgets#budget_pdf", as: :budget_pdf
 

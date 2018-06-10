@@ -1,4 +1,3 @@
-
 <%= simple_form_for(@user) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
@@ -7,20 +6,21 @@
     <div class="col-lg-6">
       <%= f.input :username, required: true, autofocus: true %>
       <%= f.input :email %>
-      <% if f.object.new_record? %>
-        <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
-        <%= f.input :password_confirmation, required: true %>
+      <% if f.object.new_record? or current_user == @user %>
+        <%= f.input :password, required: true %>
       <% end %>
-      <%= f.association :employee %>
-      <div class="form-group select required user_employee">
-        <h4 class="mb-3">Permissões</h4>
-        <%= f.input :roles_mask, as: :hidden, required: true %>
-        <% for role in User::ROLES %>
-          <%= check_box_tag "user[roles][#{role}]", role, @user.roles.include?(role), {:name => "user[roles][]"}%>
-          <%= label_tag "user_roles_#{role}", (t :"enums.roles.#{role}") %><br />
-        <% end %>
-        <%= hidden_field_tag "user[roles][]", "" %>
-      </div>
+      <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
+        <%= f.association :employee %>
+        <div class="form-group select required user_employee">
+          <h4 class="mb-3">Permissões</h4>
+          <%= f.input :roles_mask, as: :hidden, required: true %>
+          <% for role in User::ROLES %>
+            <%= check_box_tag "user[roles][#{role}]", role, @user.roles.include?(role), {:name => "user[roles][]"}%>
+            <%= label_tag "user_roles_#{role}", (t :"enums.roles.#{role}") %><br />
+          <% end %>
+          <%= hidden_field_tag "user[roles][]", "" %>
+        </div>
+      <% end %>
     </div>
   </div>
 

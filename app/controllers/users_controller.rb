@@ -4,7 +4,9 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    unless can? :read, User, id: current_user.id
+      @users = User.all
+    end
   end
 
   # GET /users/1
@@ -42,6 +44,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
+        bypass_sign_in @user
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -69,6 +72,10 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit!
+      if current_user.has_role?(:admin)
+        params.require(:user).permit!
+      else
+        params.require(:user).permit(:username, :email, :password, :password_confirmation)
+      end
     end
 end

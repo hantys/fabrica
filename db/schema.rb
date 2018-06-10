@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2018_06_10_023200) do
     t.string "name"
     t.bigint "client_id"
     t.bigint "employee_id"
+    t.bigint "user_id"
     t.float "value", default: 0.0
     t.float "discount_items", default: 0.0
     t.float "value_with_discount", default: 0.0
@@ -47,6 +48,7 @@ ActiveRecord::Schema.define(version: 2018_06_10_023200) do
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_budgets_on_client_id"
     t.index ["employee_id"], name: "index_budgets_on_employee_id"
+    t.index ["user_id"], name: "index_budgets_on_user_id"
   end
 
   create_table "cities", force: :cascade do |t|
@@ -257,6 +259,7 @@ ActiveRecord::Schema.define(version: 2018_06_10_023200) do
   add_foreign_key "budget_products", "products"
   add_foreign_key "budgets", "clients"
   add_foreign_key "budgets", "employees"
+  add_foreign_key "budgets", "users"
   add_foreign_key "cities", "states"
   add_foreign_key "clients", "cities"
   add_foreign_key "clients", "employees"
