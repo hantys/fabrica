@@ -1,8 +1,8 @@
 <div class="row mb-4">
-  <div class="col-2">
+  <div class="col-sm-12 col-md-2 col-lg-2">
     <%= image_tag 'Logo2.png', alt: "Tubos Poty", width: "72", height: "72" %>
   </div>
-  <div class="col-3">
+  <div class="col-sm-12 col-md-3 col-lg-3">
     <p>
       <strong>
         Data:
@@ -20,7 +20,7 @@
         <%= @budget.client.company_name %>
     </p>
   </div>
-  <div class="col-7">
+  <div class="col-sm-12 col-md-7 col-lg-7">
     <p>
       <strong>
         Endereço:
@@ -44,104 +44,106 @@
     </p>
   </div>
 </div>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Código</th>
-      <th scope="col">Produto</th>
-      <th scope="col">Valor unitário</th>
-      <th scope="col">Desconto unitário</th>
-      <th scope="col">Quantidade</th>
-      <th scope="col">Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @budget.budget_products.each do |item_product| %>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
       <tr>
-        <td><%= item_product.product.cod %></td>
-        <td><%= item_product.product.name %></td>
-        <td><%= number_to_currency item_product.unit_value %></td>
-        <td><%= item_product.discount_type ? "#{item_product.discount.to_i}%" : number_to_currency(item_product.discount) %></td>
-        <td><%= item_product.qnt %></td>
-        <td>
-          <%= number_to_currency(item_product.total_value) %>
-          <%#= item_product.total_value_with_discount > 0 ? number_to_currency(item_product.value_discount_total) : number_to_currency(item_product.total_value) %>
+        <th scope="col">Código</th>
+        <th scope="col">Produto</th>
+        <th scope="col">Valor unitário</th>
+        <th scope="col">Desconto unitário</th>
+        <th scope="col">Quantidade</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @budget.budget_products.each do |item_product| %>
+        <tr>
+          <td><%= item_product.product.cod %></td>
+          <td><%= item_product.product.name %></td>
+          <td><%= number_to_currency item_product.unit_value %></td>
+          <td><%= item_product.discount_type ? "#{item_product.discount.to_i}%" : number_to_currency(item_product.discount) %></td>
+          <td><%= item_product.qnt %></td>
+          <td>
+            <%= number_to_currency(item_product.total_value) %>
+            <%#= item_product.total_value_with_discount > 0 ? number_to_currency(item_product.value_discount_total) : number_to_currency(item_product.total_value) %>
+          </td>
+        </tr>
+      <% end %>
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td colspan="5" class="text-right">
+          <h5>
+            <strong>
+              Valor
+            </strong>
+          </h5>
+        </td>
+        <td class="text-left">
+          <h5>
+            <strong>
+              <%= number_to_currency @budget.value %>
+            </strong>
+          </h5>
         </td>
       </tr>
-    <% end %>
-    <tr>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td colspan="5" class="text-right">
-        <h5>
-          <strong>
-            Valor
-          </strong>
-        </h5>
-      </td>
-      <td class="text-left">
-        <h5>
-          <strong>
-            <%= number_to_currency @budget.value %>
-          </strong>
-        </h5>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5" class="text-right">
-        <h5>
-          <strong>
-            Desconto
-          </strong>
-        </h5>
-      </td>
-      <td class="text-left">
-        <h5>
-          <strong>
-            <% if @budget.discount_items > 0 %>
-              <%= number_to_currency @budget.discount_items %>
-            <% elsif @budget.discount.to_f > 0 %>
-              <%= @budget.discount_type ? "#{@budget.discount.to_i}%" : number_to_currency(@budget.discount) %>
-            <% else %>
-              -
-            <% end %>
-          </strong>
-        </h5>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5" class="text-right">
-        <h5>
-          <strong>
-            Valor Total
-          </strong>
-        </h5>
-      </td>
-      <td class="text-left">
-        <h5>
-          <strong>
-            <%= number_to_currency @budget.value_with_discount %>
-            <%#= number_to_currency @budget.value %>
-          </strong>
-        </h5>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      <tr>
+        <td colspan="5" class="text-right">
+          <h5>
+            <strong>
+              Desconto
+            </strong>
+          </h5>
+        </td>
+        <td class="text-left">
+          <h5>
+            <strong>
+              <% if @budget.discount_items > 0 %>
+                <%= number_to_currency @budget.discount_items %>
+              <% elsif @budget.discount.to_f > 0 %>
+                <%= @budget.discount_type ? "#{@budget.discount.to_i}%" : number_to_currency(@budget.discount) %>
+              <% else %>
+                -
+              <% end %>
+            </strong>
+          </h5>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="5" class="text-right">
+          <h5>
+            <strong>
+              Valor Total
+            </strong>
+          </h5>
+        </td>
+        <td class="text-left">
+          <h5>
+            <strong>
+              <%= number_to_currency @budget.value_with_discount %>
+              <%#= number_to_currency @budget.value %>
+            </strong>
+          </h5>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <p>
   <strong>
     Prazo de entrega:
@@ -165,12 +167,12 @@
   </small>
 </p>
 <div class="row">
-  <div class="col-6 mt-5 p-5">
+  <div class="col-sm-12 col-md-6 mt-5 p-5 5 lg-5">
     <div class="d-flex flex-row align-items-center justify-content-center pt-2 border-top">
       <p>Cliente</p>
     </div>
   </div>
-  <div class="col-6 mt-5 p-5">
+  <div class="col-sm-12 col-md-6 mt-5 p-5 5 lg-5">
     <div class="d-flex flex-row align-items-center justify-content-center pt-2 border-top">
       <p>CD</p>
     </div>

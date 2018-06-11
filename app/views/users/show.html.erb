@@ -1,6 +1,6 @@
 <%- model_class = User -%>
 
-<div class="page-header d-flex flex-row justify-content-start align-items-center w-100">
+<div class="page-header d-flex flex-row justify-content-start align-items-center flex-wrap w-100">
   <h1><strong><%=t '.title', :default => model_class.model_name.human.titleize %></strong></h1>
   <div class="d-flex flex-row justify-content-start align-items-center ml-auto">
     <%= link_to t('.back', :default => t("helpers.links.back")),
@@ -15,7 +15,7 @@
   </div>
 </div>
 <div class="row mt-4 mb-4">
-  <div class="col-4">
+  <div class="col-lg-12 col-md-4 col-lg-4">
     <p>
       <strong>
         <%= Employee.human_attribute_name(:name) %>:
