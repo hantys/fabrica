@@ -1,17 +1,16 @@
-
 <%= simple_form_for(@product) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.input :cod %>
-    <%= f.input :name %>
-    <%= f.input :price %>
-    <%= f.input :weight %>
-    <%= f.input :qnt %>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= f.input :cod %>
+      <%= f.input :name %>
+      <%= f.input :price, as: :string, input_html: { class: 'money' } %>
+    </div>
   </div>
+  <hr>
+  <%= f.button :submit, class: 'btn btn-success' %>
+  <%= link_to 'Cancelar', products_path, class: 'btn btn-danger' %>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
 <% end %>

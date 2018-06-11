@@ -30,7 +30,7 @@
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_composition_path(@composition), :class => 'btn btn-primary' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              compositions_path(@composition),
+              composition_path(@composition),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
