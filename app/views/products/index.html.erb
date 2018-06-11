@@ -1,35 +1,46 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Product -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_product_path, class: "btn btn-primary" %>
+</div>
 
-<h1>Products</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Cod</th>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Weight</th>
-      <th>Qnt</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @products.each do |product| %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
       <tr>
+        <th scope="col">#</th>
+        <th scope="col"><%= model_class.human_attribute_name(:cod) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:qnt) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:price) %></th>
+        <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+      <tr>
+        <td scope="row"><%= product.id %></td>
         <td><%= product.cod %></td>
         <td><%= product.name %></td>
-        <td><%= product.price %></td>
-        <td><%= product.weight %></td>
         <td><%= product.qnt %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= number_to_currency product.price %></td>
+        <td>
+          <%= link_to product, class: 'btn btn-info has-icon' do %>
+            <i class="material-icons">remove_red_eye</i>
+            <%#= t('.show', :default => t("helpers.links.show")) %>
+          <% end %>
+          <%= link_to edit_product_path(product), class: 'btn btn-primary has-icon' do %>
+            <i class="material-icons">edit</i>
+            <%#= t('.edit', :default => t("helpers.links.edit")) %>
+          <% end %>
+          <%= link_to product, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
+            <i class="material-icons">delete</i>
+            <%#= t('.destroy', :default => t("helpers.links.destroy")) %>
+          <% end %>
+        </td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-<br>
-
-<%= link_to 'New Product', new_product_path %>

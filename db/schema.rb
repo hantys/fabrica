@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 2018_06_10_023200) do
   create_table "products", force: :cascade do |t|
     t.string "cod"
     t.string "name"
-    t.float "price", default: 0.0
+    t.float "price"
     t.float "weight", default: 0.0
     t.float "qnt", default: 0.0
     t.datetime "created_at", null: false
