@@ -1,11 +1,29 @@
-
 <%= simple_form_for(@employee) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <% if params[:employee].present?
+    if params[:employee][:state_id].present?
+      city = City.where(state_id: params[:employee][:state_id]).select(:id, :name)
+      select_city = params[:employee][:city_id]
+    else
+      city = []
+      select_city = nil
+    end
+  else
+    city = []
+    select_city = nil
+  end %>
+
+  <% if @employee.city_id.present? %>
+    <% city = City.where(state_id: @employee.state_id).select(:id, :name) %>
+    <% select_city = @employee.city_id %>
+  <% end %>
+
   <div class="row">
     <div class="col-lg-6">
       <%= f.input :name %>
-      <%= f.input :cpf %>
+      <%= f.input :cpf, input_html: { class: 'cpf' } %>
       <%= f.input :email %>
       <%= f.input :office %>
       <%= f.input :bank %>
@@ -14,14 +32,14 @@
       <%= f.input :variation %>
     </div>
     <div class="col-lg-6">
-      <%= f.input :street %>
+      <%= f.input :phone1, input_html: { class: 'phone_with_ddd' } %>
+      <%= f.input :phone2, input_html: { class: 'phone_with_ddd' } %>
+      <%= f.input :cep, input_html: { class: 'cep' } %>
+      <%= f.input :street, input_html: { class: 'street' } %>
       <%= f.input :number %>
-      <%= f.input :neighborhood %>
-      <%= f.input :cep %>
-      <%= f.association :state %>
-      <%= f.association :city %>
-      <%= f.input :phone1 %>
-      <%= f.input :phone2 %>
+      <%= f.input :neighborhood, input_html: { class: 'neighborhood' } %>
+      <%= f.association :state, input_html: { class: 'state' }, readonly: true  %>
+      <%= f.association :city, input_html: { class: 'city' } %>
     </div>
   </div>
 

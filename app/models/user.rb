@@ -5,12 +5,13 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :employee, touch: true#, optional: true
 
 
   validates :username, uniqueness: true
+  validates :employee, uniqueness: true
   validates :username, presence: true
   validates :roles_mask, presence: true
   validates :roles_mask, numericality: { greater_than: 0, message: "precisa ser selecionada" }

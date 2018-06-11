@@ -32,6 +32,7 @@ gem 'paper_trail' # https://github.com/paper-trail-gem/paper_trail
 #deleta fake
 gem "paranoia", "~> 2.2" # https://github.com/rubysherpas/paranoia
 #fim
+gem "correios_api", github: "hantys/correios_api"#, branch: 'update_rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

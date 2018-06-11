@@ -2,6 +2,7 @@ $primary: #3f51b5 !default;
 
 @import "bootstrap/scss/bootstrap";
 @import "material-design-icons/iconfont/material-icons";
+@import "select2/dist/css/select2";
 // @import "bootstrap-material-design/dist/css/bootstrap-material-design";
 @import "navbar-top-fixed";
 @import "home";
@@ -9,3 +10,8 @@ $primary: #3f51b5 !default;
 @import "functions";
 @import "custom";
 
+select[readonly] {
+  background: #eee; /*Simular campo inativo - Sugestão @GabrielRodrigues*/
+  pointer-events: none;
+  touch-action: none;
+}

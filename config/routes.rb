@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resources :compositions
   resources :raw_materials
 
+  get '/busca/endereco/:cep' => "home#find_by_address"
+
   get '/orcamento/pdf/:id' => "budgets#budget_pdf", as: :budget_pdf
 
   get '/load_hit_items/:composition' => "hits#load_items"

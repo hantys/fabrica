@@ -1,28 +1,45 @@
 <%= simple_form_for(@provider) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <% if params[:provider].present?
+    if params[:provider][:state_id].present?
+      city = City.where(state_id: params[:provider][:state_id]).select(:id, :name)
+      select_city = params[:provider][:city_id]
+    else
+      city = []
+      select_city = nil
+    end
+  else
+    city = []
+    select_city = nil
+  end %>
+
+  <% if @provider.city_id.present? %>
+    <% city = City.where(state_id: @provider.state_id).select(:id, :name) %>
+    <% select_city = @provider.city_id %>
+  <% end %>
 
   <div class="row">
     <div class="col-lg-6">
       <%= f.input :company_name %>
       <%= f.input :fantasy_name %>
-      <%= f.input :cpf %>
-      <%= f.input :cnpj %>
-      <%= f.input :street %>
-      <%= f.input :number %>
-      <%= f.input :neighborhood %>
-      <%= f.input :cep %>
-      <%= f.input :ie %>
-    </div>
-    <div class="col-lg-6">
+      <%= f.input :cnpj, input_html: { class: 'cnpj' } %>
+      <%= f.input :cpf, input_html: { class: 'cpf' } %>
       <%= f.input :bank %>
       <%= f.input :ag %>
       <%= f.input :cc %>
       <%= f.input :variation %>
-      <%= f.association :state, collection: State.order(:name), prompt: "Escolha um estado" %>
-      <%= f.association :city, collection: City.order(:name), prompt: "Escolha uma cidade" %>
-      <%= f.input :phone1 %>
-      <%= f.input :phone2 %>
+      <%= f.input :ie %>
+    </div>
+    <div class="col-lg-6">
+      <%= f.input :phone1, input_html: { class: 'phone_with_ddd' } %>
+      <%= f.input :phone2, input_html: { class: 'phone_with_ddd' } %>
+      <%= f.input :cep, input_html: { class: 'cep' } %>
+      <%= f.input :street, input_html: { class: 'street' } %>
+      <%= f.input :number %>
+      <%= f.input :neighborhood, input_html: { class: 'neighborhood' } %>
+      <%= f.association :state, collection: State.order(:name), prompt: "Escolha um estado", input_html: { class: 'state' }, readonly: true %>
+      <%= f.association :city, collection: City.order(:name), prompt: "Escolha uma cidade", input_html: { class: 'city' } %>
     </div>
   </div>
 

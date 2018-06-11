@@ -16,4 +16,7 @@
 //= require popper.js/dist/umd/popper
 //= require bootstrap/dist/js/bootstrap
 //= require jquery_nested_form
+//= require jquery-mask-plugin/dist/jquery.mask
+//= require select2/dist/js/select2
+//= require select2/dist/js/i18n/pt-BR
 //= require default
