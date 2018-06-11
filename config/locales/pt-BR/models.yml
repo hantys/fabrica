@@ -197,8 +197,8 @@ pt-BR:
         budget_product: Produto do Orçamento
         client_id: Cliente
         client: Cliente
-        employee_id: Funcionário
-        employee: Funcionário
+        employee_id: Representante
+        employee: Representante
         value: Valor
         value_with_discount: Valor com Desconto
         deadline: Prazo de Entrega
