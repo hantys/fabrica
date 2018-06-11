@@ -1,53 +1,100 @@
 <%- model_class = Budget -%>
-<div class="page-header d-flex justify-content-lg-between align-items-center">
+<div class="page-header d-flex flex-row justify-content-start align-items-center w-100">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <div class="d-flex flex-row justify-content-start align-items-center ml-auto">
+    <%= link_to t('.back', :default => t("helpers.links.back")),
+                  budgets_path, :class => 'btn btn-secondary'  %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_budget_path(@budget), :class => 'btn btn-primary ml-2' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  budgets_path(@budget),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-danger ml-2' %>
+    <%= link_to "Gerar PDF", budget_pdf_path(@budget), :class => 'btn btn-info ml-2', target: '_blank' %>
+  </div>
 </div>
-
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @budget.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:client) %>:</strong></dt>
-  <dd><%= @budget.client.try(:company_name) %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:employee) %>:</strong></dt>
-  <dd><%= @budget.employee.try(:name) %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:value) %>:</strong></dt>
-  <dd><%= number_to_currency @budget.value %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:deadline) %>:</strong></dt>
-  <dd><%=l @budget.deadline %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:delivery_options) %>:</strong></dt>
-  <dd><%= @budget.delivery_options_i18n %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:type_of_payment) %>:</strong></dt>
-  <dd><%= @budget.type_of_payment_i18n %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:discount_type) %>:</strong></dt>
-  <dd><%= @budget.discount_type %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:discount) %>:</strong></dt>
-  <dd><%= @budget.discount %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:discount_items) %>:</strong></dt>
-  <dd><%= number_to_currency @budget.discount_items %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:value_with_discount) %>:</strong></dt>
-  <dd><%= number_to_currency @budget.value_with_discount %></dd>
-</dl>
-<legend><%= model_class.human_attribute_name(:budget_products) %></legend>
-<ul>
-  <% @budget.budget_products.includes(:product).each do |budget_product| %>
-    <li>
-      <%= budget_product.product.name %> /
-      Qnt.: <%= budget_product.qnt %> /
-      Valor unit.: <%= number_to_currency budget_product.unit_value %> /
-      Desconto total: <%= number_to_currency budget_product.total_value_with_discount %>
-      Total: <%= number_to_currency budget_product.total_value %>
-    </li>
-  <% end %>
-</ul>
-<%= link_to "gerar pdf", budget_pdf_path(@budget), :class => 'btn btn-info', target: '_blank' %>
-
 <hr>
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              budgets_path, :class => 'btn btn-secondary'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_budget_path(@budget), :class => 'btn btn-primary' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              budgets_path(@budget),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+<div class="row mt-4 mb-4">
+  <div class="col-4">
+    <p>
+      <strong>
+        <%= model_class.human_attribute_name(:name) %>:
+      </strong>
+        <%= @budget.name %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:deadline) %>:
+      </strong>
+        <%=l @budget.deadline %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:value_with_discount) %>:
+      </strong>
+        <%= number_to_currency @budget.value_with_discount %>
+      <hr>
+    </p>
+  </div>
+  <div class="col-4">
+    <p>
+      <strong>
+        <%= model_class.human_attribute_name(:client) %>:
+      </strong>
+        <%= @budget.client.try(:company_name) %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:delivery_options) %>:
+      </strong>
+        <%= @budget.delivery_options_i18n %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:discount) %>:
+      </strong>
+        <%= @budget.discount %>
+      <hr>
+    </p>
+  </div>
+  <div class="col-4">
+    <p>
+      <strong>
+        <%= model_class.human_attribute_name(:value) %>:
+      </strong>
+        <%= number_to_currency @budget.value %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:type_of_payment) %>:
+      </strong>
+        <%= @budget.type_of_payment_i18n %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:discount_items) %>:
+      </strong>
+        <%= number_to_currency @budget.discount_items %>
+      <hr>
+    </p>
+  </div>
+</div>
+<legend><%= model_class.human_attribute_name(:budget_products) %></legend>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Nome</th>
+      <th scope="col">Quantidade</th>
+      <th scope="col">Valor unitário</th>
+      <th scope="col">Desconto</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @budget.budget_products.includes(:product).each do |budget_product| %>
+      <tr>
+        <td><%= budget_product.product.name %></td>
+        <td><%= budget_product.qnt %></td>
+        <td><%= number_to_currency budget_product.unit_value %></td>
+        <td><%= number_to_currency budget_product.total_value_with_discount %></td>
+        <td><%= number_to_currency budget_product.total_value %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
