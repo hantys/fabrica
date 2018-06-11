@@ -6,7 +6,7 @@ puts '#Funcionatios'
 (1..20).each do |i|
   puts "#inset #{i} de 20"
   state = State.find(rand(1..27))
-  Employee.create name: Faker::Name.name, email: FFaker::Internet.safe_email, cpf: FFaker::IdentificationBR.pretty_cpf, phone1:FFaker::PhoneNumberBR.mobile_phone_number, state: state, city: state.cities.sample(1).last
+  Employee.create name: Faker::Name.name, email: FFaker::Internet.safe_email, cpf: FFaker::IdentificationBR.pretty_cpf, phone1:FFaker::PhoneNumberBR.mobile_phone_number, state: state, city: state.cities.sample(1).last, office: FFaker::JobBR.title, cep: FFaker::AddressBR.zip_code, number: rand(100..9999)
 end
 
 puts '#Usuario'
@@ -53,8 +53,8 @@ puts '#clientes e fornecedores'
 (1..20).each do |i|
   puts "#inset #{i} de 20"
   state = State.find(rand(1..27))
-  Client.create company_name: "#{Faker::Company.name} #{i}" ,fantasy_name: "#{Faker::Company.name} #{i}", state: state, city: state.cities.sample(1).last, employee: Employee.find(rand(1..20)), cnpj: FFaker::IdentificationBR.pretty_cnpj, phone1:FFaker::PhoneNumberBR.mobile_phone_number
-  Provider.create company_name: "#{Faker::Company.name} #{i}" ,fantasy_name: "#{Faker::Company.name} #{i}", state: state, city: state.cities.sample(1).last, cnpj: FFaker::IdentificationBR.pretty_cnpj, phone1:FFaker::PhoneNumberBR.mobile_phone_number
+  Client.create company_name: "#{Faker::Company.name} #{i}" ,fantasy_name: "#{Faker::Company.name} #{i}", state: state, city: state.cities.sample(1).last, employee: Employee.find(rand(1..20)), cnpj: FFaker::IdentificationBR.pretty_cnpj, phone1:FFaker::PhoneNumberBR.mobile_phone_number, cep: FFaker::AddressBR.zip_code, number: rand(100..9999)
+  Provider.create company_name: "#{Faker::Company.name} #{i}" ,fantasy_name: "#{Faker::Company.name} #{i}", state: state, city: state.cities.sample(1).last, cnpj: FFaker::IdentificationBR.pretty_cnpj, phone1:FFaker::PhoneNumberBR.mobile_phone_number, cep: FFaker::AddressBR.zip_code, number: rand(100..9999)
 end
 
 puts "### Itens do orcamento"
