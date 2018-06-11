@@ -30,8 +30,8 @@
     <table id="compositionals">
       <%= f.fields_for :compositionals do |compositionals_form| %>
       <tr class="nested_fields">
-        <td><%= compositionals_form.input :raw_material_id, as: :select, collection: RawMaterial.order(:name), input_html: {class: 'raw_material_select'}, label_html: {class: 'raw_material_select'} %></td>
-        <td><%= compositionals_form.input :parent_id, as: :select, collection: Composition.order(:name), input_html: {class: 'composition_select'}, label_html: {class: 'composition_select'} %></td>
+        <td><%= compositionals_form.input :raw_material_id, as: :select, collection: RawMaterial.order(:name), input_html: {class: 'raw_material_select simple-select2'}, label_html: {class: 'raw_material_select'} %></td>
+        <td><%= compositionals_form.input :parent_id, as: :select, collection: Composition.order(:name), input_html: {class: 'composition_select simple-select2'}, label_html: {class: 'composition_select'} %></td>
         <td><%= compositionals_form.link_to_remove "Remover composto", class: 'btn btn-outline-danger' %></td>
       </tr>
       <% end %>

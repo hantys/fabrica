@@ -4,6 +4,8 @@ class RawMaterial < ApplicationRecord
   has_many :hit_item
   has_many :stock_raw_materials
 
+  has_paper_trail
+
   validates :name, presence: true
   # validates :slug_name, presence: true
   # validates :slug_name, uniqueness: true

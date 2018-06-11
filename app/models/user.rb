@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   belongs_to :employee, touch: true#, optional: true
 
+  has_paper_trail
 
   validates :username, uniqueness: true
   validates :employee, uniqueness: true

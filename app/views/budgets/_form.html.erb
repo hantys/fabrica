@@ -5,10 +5,14 @@
   <div class="row">
     <div class="col-lg-6">
       <%= f.input :name %>
-      <%= f.association :client, collection: ((current_user.has_role?(:admin) or current_user.has_role?(:manager)) ? (Client.order(:company_name).map {|x| [x.company_name, x.id]}) : (Client.where(employee: current_user.employee).order(:company_name).map {|x| [x.company_name, x.id]})), prompt: "Escolha um cliente" %>
+      <%= f.association :client, collection: ((current_user.has_role?(:admin) or current_user.has_role?(:manager)) ? (Client.order(:company_name).map {|x| [x.company_name, x.id]}) : (Client.where(employee: current_user.employee).order(:company_name).map {|x| [x.company_name, x.id]})), prompt: "Escolha um cliente", input_html: { class: 'simple-select2' } %>
     </div>
     <div class="col-lg-6">
-      <%= f.input :deadline, as: :string, input_html: { type: 'date' } %>
+      <% if f.object.new_record? %>
+        <%= f.input :deadline, as: :string, input_html: { class: 'date' } %>
+      <% else %>
+        <%= f.input :deadline, as: :string, input_html: { class: 'date', value: @budget.deadline.strftime("%d/%m/%Y") } %>
+      <% end %>
       <%= f.input :delivery_options, as: :select, collection: Budget.delivery_options_i18n.sort_by{ |k, v| v }.map { |w| [w[1], w[0]] }, prompt:  'Escolha um tipo' %>
       <%= f.input :type_of_payment, as: :select, collection: Budget.type_of_payments_i18n.sort_by{ |k, v| v }.map { |w| [w[1], w[0]] }, prompt:  'Escolha um tipo' %>
     </div>
@@ -19,7 +23,7 @@
       <%= budget_products_form.input :total_value_with_discount, as: :hidden, input_html: { class: 'total_value_with_discount' } %>
       <div class="row">
         <div class="col-lg-2">
-          <%= budget_products_form.association :product, collection: Product.order(:name), prompt: 'Produto', input_html: { class: 'product' } %>
+          <%= budget_products_form.association :product, collection: Product.order(:name).map {|x| ["#{x.cod} / #{x.name}", x.id]} , prompt: 'Produto', input_html: { class: 'product simple-select2' } %>
         </div>
         <div class="col-lg-2">
           <%= budget_products_form.input :unit_value, placeholder: 'Valor unitário', readonly: true, input_html: { class: 'unit_value' } %>

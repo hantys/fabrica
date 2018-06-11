@@ -23,3 +23,6 @@ $(document).on 'nested:fieldAdded', (event) ->
     $(".composition_select").remove()
   else if $('input:radio[name="composition[kind]"]:checked').val() == 'composition'
     $(".raw_material_select").remove()
+  $('.simple-select2').select2
+    theme: 'bootstrap4'
+    allowClear: true

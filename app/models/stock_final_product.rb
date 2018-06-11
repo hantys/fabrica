@@ -4,6 +4,8 @@ class StockFinalProduct < ApplicationRecord
   belongs_to :composition, optional: true
   belongs_to :hit, optional: true
 
+  has_paper_trail
+
   before_create :save_estimated
   after_create :set_estimated_weight
   after_create :set_cost

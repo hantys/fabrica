@@ -2,6 +2,8 @@ class BudgetProduct < ApplicationRecord
   belongs_to :budget
   belongs_to :product
 
+  has_paper_trail
+
   validates :unit_value, presence: true
   validates :total_value, presence: true
   validates :qnt, presence: true

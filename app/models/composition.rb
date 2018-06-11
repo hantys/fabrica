@@ -9,6 +9,8 @@ class Composition < ApplicationRecord
 
   accepts_nested_attributes_for :compositionals, allow_destroy: true
 
+  has_paper_trail
+
   validates :kind, presence: true
   validates :name, presence: true
   validates :name, uniqueness: { :case_sensitive => false }

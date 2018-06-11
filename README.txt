@@ -8,13 +8,15 @@
 - otimizar desempenho das paginas do sistema
 
 TO DO
-- criar auditoria
+- criar template para auditoria
+- implementar biblioteca paranoia
 - forma de pagamento criar item e sub item
-- add select2 no item do orcamento
 
 
 DONE
+- criar auditoria
 - criar mascaras
+- add select2 no item do orcamento
 - puxar endereco apartir do cep
 - criar regra de usuarios para determinar suas autorizacoes
 - gerar orcamento igual o enviado no pdf

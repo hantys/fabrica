@@ -25,6 +25,11 @@ $(document).ready ->
     placeholder: '__/__/____'
   $('.selectonfocus').mask '00/00/0000', selectOnFocus: true
 
+  $('.simple-select2').select2
+    theme: 'bootstrap4'
+    allowClear: true
+
+
   get_cep()
 
 

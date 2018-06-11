@@ -9,6 +9,8 @@ class Budget < ApplicationRecord
 
   accepts_nested_attributes_for :budget_products, allow_destroy: true
 
+  has_paper_trail
+
   validates :value, presence: true
   validates :deadline, presence: true
   validates :name, presence: true

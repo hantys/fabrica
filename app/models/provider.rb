@@ -2,6 +2,8 @@ class Provider < ApplicationRecord
   belongs_to :state
   belongs_to :city
 
+  has_paper_trail
+
   validates :company_name, presence: true
   validates :phone1, presence: true
   validates :cep, presence: true

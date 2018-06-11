@@ -6,6 +6,8 @@ class Hit < ApplicationRecord
 
   accepts_nested_attributes_for :hit_items, allow_destroy: true
 
+  has_paper_trail
+
   validates_associated :hit_items
   validates_presence_of :hit_items
 
