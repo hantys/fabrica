@@ -56,7 +56,7 @@ end
 desc "Seed data to the database"
 task :seed do
   command %[cd /#{fetch(:current_path)}]
-  command %[bundle exec rake db:seed]
+  command %[bundle exec rake db:migrate db:seed]
 end
 
 
