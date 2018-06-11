@@ -24,6 +24,9 @@ jQuery ->
       calcDiscount($('#budget_discount'), $('#budget_discount_type'), $('#budget_value'), $('#budget_value_with_discount'))
 
 $(document).on 'nested:fieldAdded', (event) ->
+  $('.simple-select2').select2
+    theme: 'bootstrap4'
+    allowClear: true
   # this field was just inserted into your form
   field = event.field
   # it's a jQuery object already! Now you can find date input
