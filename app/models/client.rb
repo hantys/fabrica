@@ -3,6 +3,8 @@ class Client < ApplicationRecord
   belongs_to :city
   belongs_to :employee
 
+  has_paper_trail
+
   validates :company_name, presence: true
   validates :phone1, presence: true
   validates :cep, presence: true

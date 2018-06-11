@@ -1,6 +1,8 @@
 class StockRawMaterial < ApplicationRecord
   belongs_to :raw_material
 
+  has_paper_trail
+
   validates :weight, presence: true
   validates :price, presence: true
   validates :raw_material_id, presence: true

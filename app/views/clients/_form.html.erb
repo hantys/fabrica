@@ -29,7 +29,7 @@
       <%= f.input :phone1, input_html: { class: 'phone_with_ddd' } %>
       <%= f.input :phone2, input_html: { class: 'phone_with_ddd' } %>
       <% if f.object.new_record? %>
-        <%= f.association :employee, collection: Employee.order(:name), :selected => current_user.employee.id, prompt: "Escolha um funcionário" %>
+        <%= f.association :employee, collection: Employee.order(:name), :selected => current_user.employee.id, prompt: "Escolha um funcionário", input_html: { class: 'simple-select2' } %>
       <% else %>
         <%= f.association :employee, collection: Employee.order(:name), prompt: "Escolha um funcionário" %>
       <% end %>

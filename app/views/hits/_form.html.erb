@@ -7,7 +7,7 @@
     <div class="col-lg-6">
       <%= f.input :name %>
       <%= f.input :residue %>
-      <%= f.association :composition, collection: Composition.where(kind: 0), input_html: { onchange: 'setHitItems(this)'} %>
+      <%= f.association :composition, collection: Composition.where(kind: 0), input_html: { onchange: 'setHitItems(this)', class: 'simple-select2'} %>
       <div id="raw_materials_items"></div>
 
     </div>

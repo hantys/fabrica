@@ -26,8 +26,8 @@ gem 'ransack'
 gem 'faker'
 gem 'ffaker'
 #auditorias
-gem "audited", "~> 4.7" # https://github.com/collectiveidea/audited
 gem 'paper_trail' # https://github.com/paper-trail-gem/paper_trail
+gem 'paper_trail-association_tracking'
 #fim
 #deleta fake
 gem "paranoia", "~> 2.2" # https://github.com/rubysherpas/paranoia

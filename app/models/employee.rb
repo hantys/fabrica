@@ -4,6 +4,8 @@ class Employee < ApplicationRecord
   has_one :user
   has_many :clients
 
+  has_paper_trail
+
   validates :name, presence: true
   validates :office, presence: true
   validates :phone1, presence: true

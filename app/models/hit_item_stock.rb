@@ -2,6 +2,8 @@ class HitItemStock < ApplicationRecord
   belongs_to :stock_raw_material
   belongs_to :hit_item
 
+  has_paper_trail
+
   after_create :update_weight
 
   def update_weight
