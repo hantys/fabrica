@@ -7,17 +7,17 @@
       <strong>
         Data:
       </strong>
-        21/05/2018
+        <%= @budget.created_at.to_s(:custom_date) %>
       <br>
       <strong>
         Pedido:
       </strong>
-        Nº 444/2018
+        Nº <%= @budget.id.to_s.rjust(5, "0") %>
       <br>
       <strong>
         Cliente:
       </strong>
-        Studio Homero
+        <%= @budget.client.company_name %>
     </p>
   </div>
   <div class="col-7">
@@ -25,17 +25,22 @@
       <strong>
         Endereço:
       </strong>
-        Avenida Homero Castelo Branco - São Cristóvão, Teresina - PI
+        <%= @budget.client.street %>,
+        n° <%= @budget.client.number %> -
+        <%= @budget.client.neighborhood %>,
+        <%= @budget.client.city.name %> -
+        <%= @budget.client.state.acronym %>,
+        cep: <%= @budget.client.cep %>
       <br>
       <strong>
-        CNPJ:
+        CNPJ/CPF:
       </strong>
-        20.644.187/0001-73
+        <%= @budget.client.cnpj.present? ? @budget.client.cnpj : @budget.client.cpf %>
       <br>
       <strong>
         Vendedor (a):
       </strong>
-        Rhayssa
+        <%= @budget.employee.name %>
     </p>
   </div>
 </div>
@@ -45,17 +50,32 @@
       <th scope="col">Código</th>
       <th scope="col">Produto</th>
       <th scope="col">Valor unitário</th>
+      <th scope="col">Desconto unitário</th>
       <th scope="col">Quantidade</th>
       <th scope="col">Total</th>
     </tr>
   </thead>
   <tbody>
+    <% @budget.budget_products.each do |item_product| %>
+      <tr>
+        <td><%= item_product.product.cod %></td>
+        <td><%= item_product.product.name %></td>
+        <td><%= number_to_currency item_product.unit_value %></td>
+        <td><%= item_product.discount_type ? "#{item_product.discount.to_i}%" : number_to_currency(item_product.discount) %></td>
+        <td><%= item_product.qnt %></td>
+        <td>
+          <%= number_to_currency(item_product.total_value) %>
+          <%#= item_product.total_value_with_discount > 0 ? number_to_currency(item_product.value_discount_total) : number_to_currency(item_product.total_value) %>
+        </td>
+      </tr>
+    <% end %>
     <tr>
-      <td>TE25</td>
-      <td>TUBO PVC 25MM x 3M ELETRODUTO</td>
-      <td>R$ 3,77</td>
-      <td>1000</td>
-      <td>R$ 3.770,00</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
     </tr>
     <tr>
       <td>-</td>
@@ -63,26 +83,59 @@
       <td>-</td>
       <td>-</td>
       <td>-</td>
-    </tr>
-    <tr>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
       <td>-</td>
     </tr>
     <tr>
-      <td colspan="4" class="text-right">
+      <td colspan="5" class="text-right">
         <h5>
           <strong>
-            VALOR TOTAL DO PEDIDO
+            Valor
           </strong>
         </h5>
       </td>
       <td class="text-left">
         <h5>
           <strong>
-            R$ 3.770,00
+            <%= number_to_currency @budget.value %>
+          </strong>
+        </h5>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="5" class="text-right">
+        <h5>
+          <strong>
+            Desconto
+          </strong>
+        </h5>
+      </td>
+      <td class="text-left">
+        <h5>
+          <strong>
+            <% if @budget.discount_items > 0 %>
+              <%= number_to_currency @budget.discount_items %>
+            <% elsif @budget.discount.to_f > 0 %>
+              <%= @budget.discount_type ? "#{@budget.discount.to_i}%" : number_to_currency(@budget.discount) %>
+            <% else %>
+              -
+            <% end %>
+          </strong>
+        </h5>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="5" class="text-right">
+        <h5>
+          <strong>
+            Valor Total
+          </strong>
+        </h5>
+      </td>
+      <td class="text-left">
+        <h5>
+          <strong>
+            <%= number_to_currency @budget.value_with_discount %>
+            <%#= number_to_currency @budget.value %>
           </strong>
         </h5>
       </td>

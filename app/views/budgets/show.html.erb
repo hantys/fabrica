@@ -34,6 +34,7 @@
       <%= budget_product.product.name %> /
       Qnt.: <%= budget_product.qnt %> /
       Valor unit.: <%= number_to_currency budget_product.unit_value %> /
+      Desconto total: <%= budget_product.discount %>
       Desconto total: <%= number_to_currency budget_product.total_value_with_discount %>
       Total: <%= number_to_currency budget_product.total_value %>
     </li>
@@ -47,7 +48,7 @@
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_budget_path(@budget), :class => 'btn btn-primary' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              budgets_path(@budget),
+              budget_path(@budget),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
