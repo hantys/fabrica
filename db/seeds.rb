@@ -53,8 +53,10 @@ puts '#clientes e fornecedores'
 (1..20).each do |i|
   puts "#inset #{i} de 20"
   state = State.find(rand(1..27))
-  Client.create company_name: "#{Faker::Company.name} #{i}" ,fantasy_name: "#{Faker::Company.name} #{i}", state: state, city: state.cities.sample(1).last, employee: Employee.find(rand(1..20)), cnpj: FFaker::IdentificationBR.pretty_cnpj, phone1:FFaker::PhoneNumberBR.mobile_phone_number, cep: FFaker::AddressBR.zip_code, number: rand(100..9999)
-  Provider.create company_name: "#{Faker::Company.name} #{i}" ,fantasy_name: "#{Faker::Company.name} #{i}", state: state, city: state.cities.sample(1).last, cnpj: FFaker::IdentificationBR.pretty_cnpj, phone1:FFaker::PhoneNumberBR.mobile_phone_number, cep: FFaker::AddressBR.zip_code, number: rand(100..9999)
+  client = Client.new company_name: "#{Faker::Company.name} #{i}" ,fantasy_name: "#{Faker::Company.name} #{i}", state: state, city: state.cities.sample(1).last, employee: Employee.find(rand(1..20)), cnpj: FFaker::IdentificationBR.pretty_cnpj, phone1:FFaker::PhoneNumberBR.mobile_phone_number, cep: FFaker::AddressBR.zip_code, number: rand(100..9999)
+  provider = Provider.new company_name: "#{Faker::Company.name} #{i}" ,fantasy_name: "#{Faker::Company.name} #{i}", state: state, city: state.cities.sample(1).last, cnpj: FFaker::IdentificationBR.pretty_cnpj, phone1:FFaker::PhoneNumberBR.mobile_phone_number, cep: FFaker::AddressBR.zip_code, number: rand(100..9999)
+  client.save(validate: false)
+  provider.save(validate: false)
 end
 
 puts "### Itens do orcamento"
