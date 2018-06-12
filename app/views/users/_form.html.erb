@@ -10,7 +10,11 @@
         <%= f.input :password, required: true %>
       <% end %>
       <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
-        <%= f.association :employee, collection: Employee.includes(:user).where(users: { employee_id: nil } ), input_html: { class: 'simple-select2' } %>
+        <% if f.object.new_record? %>
+          <%= f.association :employee, collection: Employee.includes(:user).where(users: { employee_id: nil } ).order(:name), input_html: { class: 'simple-select2' } %>
+        <% else %>
+          <%= f.association :employee, collection: Employee.order(:name), input_html: { class: 'simple-select2' } %>
+        <% end %>
         <div class="form-group select required user_employee">
           <h4 class="mb-3">Permissões</h4>
           <%= f.input :roles_mask, as: :hidden, required: true %>
