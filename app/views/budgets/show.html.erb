@@ -19,9 +19,14 @@
   <div class="col-sm-12 col-lg-4 col-md-6">
     <p>
       <strong>
-        <%= model_class.human_attribute_name(:name) %>:
+        <%= model_class.human_attribute_name(:cod_name) %>:
       </strong>
-        <%= @budget.name %>
+        <%= @budget.cod_name.rjust(10, "0") %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:created_at) %>:
+      </strong>
+        <%= @budget.created_at.to_s(:custom_datetime) %>
       <hr>
       <strong>
         <%= model_class.human_attribute_name(:deadline) %>:
@@ -46,6 +51,11 @@
         <%= model_class.human_attribute_name(:employee) %>:
       </strong>
         <%= @budget.employee.name %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:user) %>:
+      </strong>
+        <%= @budget.user.employee.name %>
       <hr>
       <strong>
         <%= model_class.human_attribute_name(:delivery_options) %>:
@@ -91,6 +101,7 @@
         <th scope="col">Quantidade</th>
         <th scope="col">Desconto unitário</th>
         <th scope="col">Total</th>
+        <th scope="col">Total com Desconto</th>
       </tr>
     </thead>
     <tbody>
@@ -102,6 +113,7 @@
           <td><%= budget_product.qnt %></td>
           <td><%= budget_product.discount_type ? "#{budget_product.discount.to_i}%" : number_to_currency(budget_product.discount) %></td>
           <td><%= number_to_currency budget_product.total_value %></td>
+          <td><%= number_to_currency budget_product.value_discount_total %></td>
         </tr>
       <% end %>
     </tbody>

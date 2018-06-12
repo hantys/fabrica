@@ -13,14 +13,20 @@ class Budget < ApplicationRecord
 
   validates :value, presence: true
   validates :deadline, presence: true
-  validates :name, presence: true
+  # validates :name, presence: true
 
   validates :value, numericality: { greater_than: 0 }
 
   after_save :set_value
   after_save :set_discount
+  after_create :set_cod_name
 
   private
+    def set_cod_name
+      b = Budget.find self.id
+      b.update cod_name: "#{b.cod}/#{Date.today.year}"
+    end
+
     def set_discount
       descount_total = self.budget_products.sum(:total_value_with_discount).round(2)
       if descount_total != self.discount_items

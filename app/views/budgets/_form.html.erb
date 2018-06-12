@@ -4,15 +4,14 @@
 
   <div class="row">
     <div class="col-lg-6">
-      <%= f.input :name %>
       <%= f.association :client, collection: ((current_user.has_role?(:admin) or current_user.has_role?(:manager)) ? (Client.order(:company_name).map {|x| [x.company_name, x.id]}) : (Client.where(employee: current_user.employee).order(:company_name).map {|x| [x.company_name, x.id]})), prompt: "Escolha um cliente", input_html: { class: 'simple-select2' } %>
-    </div>
-    <div class="col-lg-6">
       <% if f.object.new_record? %>
         <%= f.input :deadline, as: :string, input_html: { class: 'date' } %>
       <% else %>
         <%= f.input :deadline, as: :string, input_html: { class: 'date', value: @budget.deadline.strftime("%d/%m/%Y") } %>
       <% end %>
+    </div>
+    <div class="col-lg-6">
       <%= f.input :delivery_options, as: :select, collection: Budget.delivery_options_i18n.sort_by{ |k, v| v }.map { |w| [w[1], w[0]] }, prompt:  'Escolha um tipo' %>
       <%= f.input :type_of_payment, as: :select, collection: Budget.type_of_payments_i18n.sort_by{ |k, v| v }.map { |w| [w[1], w[0]] }, prompt:  'Escolha um tipo' %>
     </div>

@@ -1,7 +1,8 @@
 class CreateBudgets < ActiveRecord::Migration[5.2]
   def change
     create_table :budgets do |t|
-      t.string :name
+      t.string :cod_name
+      t.integer :cod
       t.references :client, foreign_key: true
       t.references :employee, foreign_key: true
       t.references :user, foreign_key: true
@@ -17,5 +18,11 @@ class CreateBudgets < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+
+    execute <<-SQL
+     CREATE SEQUENCE cod_seq START 400;
+     ALTER SEQUENCE cod_seq OWNED BY budgets.cod;
+     ALTER TABLE budgets ALTER COLUMN cod SET DEFAULT nextval('cod_seq');
+    SQL
   end
 end

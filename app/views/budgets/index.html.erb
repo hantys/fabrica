@@ -9,7 +9,7 @@
     <thead class="thead-light">
       <tr>
         <th scope="col">#</th>
-        <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:cod_name) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:client) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:employee) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:deadline) %></th>
@@ -17,6 +17,7 @@
         <th scope="col"><%= model_class.human_attribute_name(:type_of_payment) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:discount) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:value) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:created_at) %></th>
         <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
     </thead>
@@ -24,7 +25,7 @@
       <% @budgets.each do |budget| %>
       <tr>
         <td scope="row"><%= budget.id %></td>
-        <td><%= budget.name %></td>
+        <td><%= budget.cod_name %></td>
         <td><%= budget.client.company_name %></td>
         <td><%= budget.employee.name %></td>
         <td><%=l budget.deadline %></td>
@@ -32,6 +33,7 @@
         <td><%= budget.type_of_payment_i18n %></td>
         <td><%= number_to_currency budget.discount %></td>
         <td><%= number_to_currency budget.value %></td>
+        <td><%= budget.created_at.to_s(:custom_datetime) %></td>
         <td>
           <%= link_to budget, class: 'btn btn-info has-icon' do %>
             <i class="material-icons">remove_red_eye</i>

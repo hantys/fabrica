@@ -18,6 +18,7 @@ require "sprockets/railtie"
 Bundler.require(*Rails.groups)
 
 Time::DATE_FORMATS[:custom_date] = "%d/%m/%Y"
+Time::DATE_FORMATS[:custom_datetime] = "%d/%m/%Y %T"
 
 module Fabrica
   class Application < Rails::Application

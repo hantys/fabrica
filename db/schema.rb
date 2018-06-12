@@ -31,7 +31,8 @@ ActiveRecord::Schema.define(version: 2018_06_11_203908) do
   end
 
   create_table "budgets", force: :cascade do |t|
-    t.string "name"
+    t.string "cod_name"
+    t.integer "cod", default: -> { "nextval('cod_seq'::regclass)" }
     t.bigint "client_id"
     t.bigint "employee_id"
     t.bigint "user_id"

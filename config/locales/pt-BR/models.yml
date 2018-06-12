@@ -192,9 +192,11 @@ pt-BR:
         updated_at: Atualizado em
 
       budget:
-        name: Nome
+        cod_name: Pedido
         budget_products: Produto do Orçamento
         budget_product: Produto do Orçamento
+        user_id: Gerado por
+        user: Gerado por
         client_id: Cliente
         client: Cliente
         employee_id: Representante

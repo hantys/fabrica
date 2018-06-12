@@ -11,9 +11,14 @@ TO DO
 - criar template para auditoria
 - implementar biblioteca paranoia
 - forma de pagamento criar item e sub item
+- TODOS OS  ORÇAMENTOS:
+  * STATUS  DO  ORÇAMENTO (AGUARDANDO AUTORIZAÇÃO / AUTORIZADO  / REPROVADO / FATURADO  / ENTREGUE)
+  * RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
 
 
 DONE
+- TODOS OS  ORÇAMENTOS:
+  * DATA  DE  CRIAÇÃO
 - criar auditoria
 - criar mascaras
 - add select2 no item do orcamento

@@ -1,6 +1,6 @@
 <div class="row mb-4">
   <div class="col-sm-12 col-md-2 col-lg-2">
-    <%= image_tag 'Logo2.png', alt: "Tubos Poty", width: "72", height: "72" %>
+    <%= image_tag 'Logo2.png', alt: "Tubos Poty", width: "82", height: "82" %>
   </div>
   <div class="col-sm-12 col-md-3 col-lg-3">
     <p>
@@ -12,7 +12,7 @@
       <strong>
         Pedido:
       </strong>
-        Nº <%= @budget.id.to_s.rjust(5, "0") %>
+        Nº <%= @budget.cod_name.to_s.rjust(10, "0") %>
       <br>
       <strong>
         Cliente:
@@ -54,6 +54,7 @@
         <th scope="col">Desconto unitário</th>
         <th scope="col">Quantidade</th>
         <th scope="col">Total</th>
+        <th scope="col">Total com Desconto</th>
       </tr>
     </thead>
     <tbody>
@@ -68,6 +69,9 @@
             <%= number_to_currency(item_product.total_value) %>
             <%#= item_product.total_value_with_discount > 0 ? number_to_currency(item_product.value_discount_total) : number_to_currency(item_product.total_value) %>
           </td>
+          <td>
+            <%= number_to_currency(item_product.value_discount_total) %>
+          </td>
         </tr>
       <% end %>
       <tr>
@@ -77,17 +81,19 @@
         <td>-</td>
         <td>-</td>
         <td>-</td>
-      </tr>
-      <tr>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
         <td>-</td>
       </tr>
       <tr>
-        <td colspan="5" class="text-right">
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td colspan="6" class="text-right">
           <h5>
             <strong>
               Valor
@@ -103,7 +109,7 @@
         </td>
       </tr>
       <tr>
-        <td colspan="5" class="text-right">
+        <td colspan="6" class="text-right">
           <h5>
             <strong>
               Desconto
@@ -125,7 +131,7 @@
         </td>
       </tr>
       <tr>
-        <td colspan="5" class="text-right">
+        <td colspan="6" class="text-right">
           <h5>
             <strong>
               Valor Total
@@ -174,7 +180,7 @@
   </div>
   <div class="col-sm-12 col-md-6 mt-5 p-5 5 lg-5">
     <div class="d-flex flex-row align-items-center justify-content-center pt-2 border-top">
-      <p>CD</p>
+      Gerado por: <%= @budget.user.employee.name %>
     </div>
   </div>
 </div>
