@@ -83,7 +83,7 @@
       <strong>
         <%= model_class.human_attribute_name(:city) %>:
       </strong>
-      <%= @client.city.name %> - <%= @client.state.acronym %>
+      <%= @client.try(:city).try(:name) %> - <%= @client.try(:state).try(:acronym) %>
       <hr>
     </p>
   </div>

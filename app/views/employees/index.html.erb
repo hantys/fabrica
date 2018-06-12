@@ -26,7 +26,7 @@
         <td><%= employee.cpf %></td>
         <td><%= employee.email %></td>
         <td><%= employee.office %></td>
-        <td><%= employee.city.name %>-<%= employee.state.acronym %></td>
+        <td><%= employee.try(:city).try(:name) %> - <%= employee.try(:state).try(:acronym) %></td>
         <td><%= employee.phone1 %></td>
         <td>
           <%= link_to employee, class: 'btn btn-info has-icon' do %>

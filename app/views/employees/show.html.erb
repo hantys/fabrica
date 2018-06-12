@@ -40,11 +40,8 @@
   <dt><strong><%= model_class.human_attribute_name(:cep) %>:</strong></dt>
   <dd><%= @employee.cep %></dd>
 
-  <dt><strong><%= model_class.human_attribute_name(:state) %>:</strong></dt>
-  <dd><%= @employee.state.acronym %></dd>
-
   <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
-  <dd><%= @employee.city.name %></dd>
+  <dd><%= @employee.try(:city).try(:name) %> - <%= @employee.try(:state).try(:acronym) %></dd>
 
   <dt><strong><%= model_class.human_attribute_name(:phone1) %>:</strong></dt>
   <dd><%= @employee.phone1 %></dd>
