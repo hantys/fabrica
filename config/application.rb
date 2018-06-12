@@ -50,27 +50,25 @@ module Fabrica
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.perform_deliveries = true
     config.action_mailer.delivery_method = :smtp
-    # # 3rf454y65her
-    # # sistema@nacionalservicos.com.br
-    # config.action_mailer.smtp_settings = {
-    #   :address                => "smtp.nacionalservicos.com.br",
-    #   :port                   => 587,
-    #   :user_name              => 'sistema@nacionalservicos.com.br',
-    #   :password               => '3rf454y65her',
-    #   :authentication         => :plain,
-    #   :enable_starttls_auto   => true
-    # }
 
-    # config.action_mailer.default_url_options = { :host => 'http://localhost', :port => 3000 }
-    # config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-      :address              => 'smtp.gmail.com',
-      :port                 => 587,
-      :user_name            => 'junior123nelson@gmail.com',
-      :password             => 'junior@123',
-      :authentication       => :plain,
-      :enable_starttls_auto => true
+      :address                => "smtp.nacionalservicos.com.br",
+      :port                   => 587,
+      :domain                 => 'nacionalservicos.com.br',
+      :user_name              => 'sistema@nacionalservicos.com.br',
+      :password               => '3rf454y65her',
+      :authentication         => 'plain',
+      :enable_starttls_auto   => true
     }
+
+    # config.action_mailer.smtp_settings = {
+    #   :address              => 'smtp.gmail.com',
+    #   :port                 => 587,
+    #   :user_name            => 'junior123nelson@gmail.com',
+    #   :password             => 'junior@123',
+    #   :authentication       => :plain,
+    #   :enable_starttls_auto => true
+    # }
 
     config.to_prepare do
       Devise::SessionsController.layout "devise"

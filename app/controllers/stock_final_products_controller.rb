@@ -28,7 +28,7 @@ class StockFinalProductsController < ApplicationController
 
     respond_to do |format|
       if @stock_final_product.save
-        format.html { redirect_to @stock_final_product, notice: 'Stock final product was successfully created.' }
+        format.html { redirect_to @stock_final_product, notice: 'Entrada de estoque final criado com sucesso.' }
         format.json { render :show, status: :created, location: @stock_final_product }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class StockFinalProductsController < ApplicationController
   def update
     respond_to do |format|
       if @stock_final_product.update(stock_final_product_params)
-        format.html { redirect_to @stock_final_product, notice: 'Stock final product was successfully updated.' }
+        format.html { redirect_to @stock_final_product, notice: 'Entrada de estoque final atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @stock_final_product }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class StockFinalProductsController < ApplicationController
   def destroy
     @stock_final_product.destroy
     respond_to do |format|
-      format.html { redirect_to stock_final_products_url, notice: 'Stock final product was successfully destroyed.' }
+      format.html { redirect_to stock_final_products_url, notice: 'Entrada de estoque final apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

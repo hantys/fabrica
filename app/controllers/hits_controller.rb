@@ -27,7 +27,7 @@ class HitsController < ApplicationController
 
     respond_to do |format|
       if @hit.save
-        format.html { redirect_to @hit, notice: 'Hit was successfully created.' }
+        format.html { redirect_to @hit, notice: 'Batida criado com sucesso.' }
         format.json { render :show, status: :created, location: @hit }
       else
         format.html { render :new }
@@ -41,7 +41,7 @@ class HitsController < ApplicationController
   def update
     respond_to do |format|
       if @hit.update(hit_params)
-        format.html { redirect_to @hit, notice: 'Hit was successfully updated.' }
+        format.html { redirect_to @hit, notice: 'Batida atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @hit }
       else
         format.html { render :edit }
@@ -55,7 +55,7 @@ class HitsController < ApplicationController
   def destroy
     @hit.destroy
     respond_to do |format|
-      format.html { redirect_to hits_url, notice: 'Hit was successfully destroyed.' }
+      format.html { redirect_to hits_url, notice: 'Batida apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

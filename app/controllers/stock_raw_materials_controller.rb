@@ -28,7 +28,7 @@ class StockRawMaterialsController < ApplicationController
 
     respond_to do |format|
       if @stock_raw_material.save
-        format.html { redirect_to @stock_raw_material, notice: 'Stock raw material was successfully created.' }
+        format.html { redirect_to @stock_raw_material, notice: 'Entrada de matéria-prima criado com sucesso.' }
         format.json { render :show, status: :created, location: @stock_raw_material }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class StockRawMaterialsController < ApplicationController
   def update
     respond_to do |format|
       if @stock_raw_material.update(stock_raw_material_params)
-        format.html { redirect_to @stock_raw_material, notice: 'Stock raw material was successfully updated.' }
+        format.html { redirect_to @stock_raw_material, notice: 'Entrada de matéria-prima atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @stock_raw_material }
       else
         format.html { render :edit }
@@ -55,7 +55,7 @@ class StockRawMaterialsController < ApplicationController
   # DELETE /stock_raw_materials/1.json
   def destroy
     if @stock_raw_material.destroy
-      flash[:notice] = 'Estoque apagado.'
+      flash[:notice] = 'Entrada de matéria-prima apagado com sucesso.'
     else
       flash[:error] = @stock_raw_material.errors[:base].to_sentence
     end

@@ -1,6 +1,6 @@
 class DeliveryOptionsController < ApplicationController
   before_action :set_delivery_option, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /delivery_options
   # GET /delivery_options.json
   def index
@@ -28,7 +28,7 @@ class DeliveryOptionsController < ApplicationController
 
     respond_to do |format|
       if @delivery_option.save
-        format.html { redirect_to @delivery_option, notice: 'Delivery option was successfully created.' }
+        format.html { redirect_to @delivery_option, notice: 'Item criado com sucesso.' }
         format.json { render :show, status: :created, location: @delivery_option }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class DeliveryOptionsController < ApplicationController
   def update
     respond_to do |format|
       if @delivery_option.update(delivery_option_params)
-        format.html { redirect_to @delivery_option, notice: 'Delivery option was successfully updated.' }
+        format.html { redirect_to @delivery_option, notice: 'Item atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @delivery_option }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class DeliveryOptionsController < ApplicationController
   def destroy
     @delivery_option.destroy
     respond_to do |format|
-      format.html { redirect_to delivery_options_url, notice: 'Delivery option was successfully destroyed.' }
+      format.html { redirect_to delivery_options_url, notice: 'Item apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

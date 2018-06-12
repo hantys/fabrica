@@ -28,7 +28,7 @@ class RawMaterialsController < ApplicationController
 
     respond_to do |format|
       if @raw_material.save
-        format.html { redirect_to @raw_material, notice: 'Raw material was successfully created.' }
+        format.html { redirect_to @raw_material, notice: 'Matéria-prima criado com sucesso.' }
         format.json { render :show, status: :created, location: @raw_material }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class RawMaterialsController < ApplicationController
   def update
     respond_to do |format|
       if @raw_material.update(raw_material_params)
-        format.html { redirect_to @raw_material, notice: 'Raw material was successfully updated.' }
+        format.html { redirect_to @raw_material, notice: 'Matéria-prima atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @raw_material }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class RawMaterialsController < ApplicationController
   def destroy
     @raw_material.destroy
     respond_to do |format|
-      format.html { redirect_to raw_materials_url, notice: 'Raw material was successfully destroyed.' }
+      format.html { redirect_to raw_materials_url, notice: 'Matéria-prima apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

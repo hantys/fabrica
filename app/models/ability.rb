@@ -13,6 +13,8 @@ class Ability
     end
     if user.has_role? :manager
       can :crud, :all
+      cannot [:create, :read, :update, :destroy], DeliveryOption
+      cannot [:create, :read, :update, :destroy], TypeOfPayment
       can :budget_pdf, Budget
     end
     if user.has_role? :representative

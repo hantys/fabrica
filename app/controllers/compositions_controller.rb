@@ -28,7 +28,7 @@ class CompositionsController < ApplicationController
 
     respond_to do |format|
       if @composition.save
-        format.html { redirect_to @composition, notice: 'Composition was successfully created.' }
+        format.html { redirect_to @composition, notice: 'Composição criado com sucesso.' }
         format.json { render :show, status: :created, location: @composition }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class CompositionsController < ApplicationController
   def update
     respond_to do |format|
       if @composition.update(composition_params)
-        format.html { redirect_to @composition, notice: 'Composition was successfully updated.' }
+        format.html { redirect_to @composition, notice: 'Composição atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @composition }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class CompositionsController < ApplicationController
   def destroy
     @composition.destroy
     respond_to do |format|
-      format.html { redirect_to compositions_url, notice: 'Composition was successfully destroyed.' }
+      format.html { redirect_to compositions_url, notice: 'Composição apagada com sucesso.' }
       format.json { head :no_content }
     end
   end

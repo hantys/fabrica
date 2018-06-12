@@ -1,6 +1,6 @@
 class TypeOfPaymentsController < ApplicationController
   before_action :set_type_of_payment, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /type_of_payments
   # GET /type_of_payments.json
   def index
@@ -28,7 +28,7 @@ class TypeOfPaymentsController < ApplicationController
 
     respond_to do |format|
       if @type_of_payment.save
-        format.html { redirect_to @type_of_payment, notice: 'Type of payment was successfully created.' }
+        format.html { redirect_to @type_of_payment, notice: 'Item criado com sucesso.' }
         format.json { render :show, status: :created, location: @type_of_payment }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class TypeOfPaymentsController < ApplicationController
   def update
     respond_to do |format|
       if @type_of_payment.update(type_of_payment_params)
-        format.html { redirect_to @type_of_payment, notice: 'Type of payment was successfully updated.' }
+        format.html { redirect_to @type_of_payment, notice: 'Item atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @type_of_payment }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class TypeOfPaymentsController < ApplicationController
   def destroy
     @type_of_payment.destroy
     respond_to do |format|
-      format.html { redirect_to type_of_payments_url, notice: 'Type of payment was successfully destroyed.' }
+      format.html { redirect_to type_of_payments_url, notice: 'Item apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

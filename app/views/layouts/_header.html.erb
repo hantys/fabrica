@@ -8,7 +8,7 @@
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
       <!-- orcamentos   -->
-      <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) or current_user.has_role?(:representative) %>
+      <% if (can? :create, Budget) or (can? :read, Budget) %>
         <li class='nav-item dropdown <%= "#{active_class(new_budget_path)} #{active_class(budgets_path)}  #{active_class(products_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Orçamentos</a>
           <div class="dropdown-menu hasDropboxAnimation">
@@ -19,7 +19,7 @@
       <% end %>
 
       <!-- estoque  -->
-      <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) or current_user.has_role?(:representative) %>
+      <% if (can? :read, Hit) or (can? :read, Product) or (can? :read, StockRawMaterial) or (can? :read, StockFinalProduct) %>
         <li class='nav-item dropdown <%= "#{active_class(hits_path)} #{active_class(stock_raw_materials_path)}  #{active_class(stock_final_products_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Estoque</a>
           <div class="dropdown-menu hasDropboxAnimation">
@@ -32,7 +32,7 @@
       <% end %>
 
       <!-- cadastros -->
-      <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) or current_user.has_role?(:representative) %>
+      <% if (can? :read, Client) or (can? :read, Composition) or (can? :read, Provider) or (can? :read, Employee) or (can? :read, RawMaterial) or (can? :read, User) %>
         <li class='nav-item dropdown <%= "#{active_class(raw_materials_path)} #{active_class(compositions_path)} #{active_class(users_path)} #{active_class(employees_path)} #{active_class(providers_path)} #{active_class(clients_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cadastros</a>
           <div class="dropdown-menu hasDropboxAnimation">
@@ -41,13 +41,21 @@
             <%= link_to 'Fornecedores', providers_path, class: "dropdown-item #{active_class(providers_path)}" if can? :read, Provider %>
             <%= link_to 'Funcionários', employees_path, class: "dropdown-item #{active_class(employees_path)}" if can? :read, Employee %>
             <%= link_to 'Matéria-Prima', raw_materials_path, class: "dropdown-item #{active_class(raw_materials_path)}" if can? :read, RawMaterial %>
-            <%= link_to 'Usuários', users_path, class: "dropdown-item #{active_class(users_path)}" if can? :index, User %>
+            <%= link_to 'Usuários', users_path, class: "dropdown-item #{active_class(users_path)}" if can? :read, User %>
           </div>
         </li>
       <% end %>
 
       <!-- sistema  -->
-
+      <% if (can? :read, DeliveryOption) or (can? :read, TypeOfPayment) %>
+        <li class='nav-item dropdown <%= "#{active_class(delivery_options_path)} #{active_class(type_of_payments_path)}" %>'>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cadastros</a>
+          <div class="dropdown-menu hasDropboxAnimation">
+            <%= link_to 'Opções de entrega', delivery_options_path, class: "dropdown-item #{active_class(delivery_options_path)}" if can? :read, DeliveryOption %>
+            <%= link_to 'Tipos de pagamento', type_of_payments_path, class: "dropdown-item #{active_class(type_of_payments_path)}" if can? :read, TypeOfPayment %>
+          </div>
+        </li>
+      <% end %>
       <!-- editar usuario -->
       <% if user_signed_in? %>
         <li class='nav-item dropdown <%= "#{active_class(edit_user_path(current_user))} #{active_class(destroy_user_session_path)}" %>'>
