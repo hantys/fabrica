@@ -154,17 +154,17 @@
   <strong>
     Prazo de entrega:
   </strong>
-  Até 10 dias
+  <%=l @budget.deadline %>
   <br>
   <strong>
     Opções de entrega:
   </strong>
-  Entrega na loja
+  <%= @budget.try(:delivery_option).try(:name) %>
   <br>
   <strong>
-    Prazo de pagamento:
+    Tipo de pagamento:
   </strong>
-  Boleto 30 dias
+  <%= @budget.try(:type_of_payment).try(:name) %>
 </p>
 <hr>
 <p class="text-secondary">

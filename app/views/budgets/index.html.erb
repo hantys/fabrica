@@ -29,8 +29,8 @@
         <td><%= budget.client.company_name %></td>
         <td><%= budget.employee.name %></td>
         <td><%=l budget.deadline %></td>
-        <td><%= budget.delivery_options_i18n %></td>
-        <td><%= budget.type_of_payment_i18n %></td>
+        <td><%= budget.try(:delivery_option).try(:name) %></td>
+        <td><%= budget.try(:type_of_payment).try(:name) %></td>
         <td><%= number_to_currency budget.discount %></td>
         <td><%= number_to_currency budget.value %></td>
         <td><%= budget.created_at.to_s(:custom_datetime) %></td>

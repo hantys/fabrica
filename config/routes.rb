@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :delivery_options
+  resources :type_of_payments
   devise_for :users, controllers: { :registrations => 'registrations' }
   resources :products
   resources :budgets

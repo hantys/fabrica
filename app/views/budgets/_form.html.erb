@@ -12,8 +12,8 @@
       <% end %>
     </div>
     <div class="col-lg-6">
-      <%= f.input :delivery_options, as: :select, collection: Budget.delivery_options_i18n.sort_by{ |k, v| v }.map { |w| [w[1], w[0]] }, prompt:  'Escolha um tipo' %>
-      <%= f.input :type_of_payment, as: :select, collection: Budget.type_of_payments_i18n.sort_by{ |k, v| v }.map { |w| [w[1], w[0]] }, prompt:  'Escolha um tipo' %>
+      <%= f.association :delivery_option, collection: DeliveryOption.order(:name), prompt: 'Escolha um tipo' %>
+      <%= f.association :type_of_payment, collection: TypeOfPayment.order(:name), prompt: 'Escolha um tipo' %>
     </div>
   </div>
   <hr>

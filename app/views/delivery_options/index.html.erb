@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Delivery Options</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @delivery_options.each do |delivery_option| %>
+      <tr>
+        <td><%= delivery_option.name %></td>
+        <td><%= link_to 'Show', delivery_option %></td>
+        <td><%= link_to 'Edit', edit_delivery_option_path(delivery_option) %></td>
+        <td><%= link_to 'Destroy', delivery_option, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Delivery Option', new_delivery_option_path %>

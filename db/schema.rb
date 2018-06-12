@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_11_203908) do
+ActiveRecord::Schema.define(version: 2018_06_12_124714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,15 +40,18 @@ ActiveRecord::Schema.define(version: 2018_06_11_203908) do
     t.float "discount_items", default: 0.0
     t.float "value_with_discount", default: 0.0
     t.date "deadline"
-    t.integer "delivery_options"
+    t.integer "delivery_option_id"
     t.integer "payment_term"
-    t.integer "type_of_payment"
+    t.integer "type_of_payment_id"
     t.float "discount", default: 0.0
     t.boolean "discount_type", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.index ["client_id"], name: "index_budgets_on_client_id"
+    t.index ["delivery_option_id"], name: "index_budgets_on_delivery_option_id"
     t.index ["employee_id"], name: "index_budgets_on_employee_id"
+    t.index ["type_of_payment_id"], name: "index_budgets_on_type_of_payment_id"
     t.index ["user_id"], name: "index_budgets_on_user_id"
   end
 
@@ -98,6 +101,12 @@ ActiveRecord::Schema.define(version: 2018_06_11_203908) do
     t.float "weight", default: 0.0
     t.float "amount", default: 0.0
     t.integer "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "delivery_options", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -231,6 +240,12 @@ ActiveRecord::Schema.define(version: 2018_06_11_203908) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["raw_material_id"], name: "index_stock_raw_materials_on_raw_material_id"
+  end
+
+  create_table "type_of_payments", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
