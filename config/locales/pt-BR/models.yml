@@ -31,7 +31,7 @@ pt-BR:
         roles_mask: "Permissão"
         remember_me: "Lembrar-me"
         deleted_at: Deletado em
-        created_at: Cadastrado em
+        created_at: Criado em
         updated_at: Atualizado em
 
       hit:
@@ -41,7 +41,7 @@ pt-BR:
         hit_items: 'Pesso da Matéria'
         composition_id: 'Composição'
         composition: 'Composição'
-        created_at: Cadastrado em
+        created_at: Criado em
         updated_at: Atualizado em
 
       composition:
@@ -50,14 +50,14 @@ pt-BR:
         amount: 'Quantidade'
         weight: 'Peso'
         compositional: 'Composto'
-        created_at: Cadastrado em
+        created_at: Criado em
         updated_at: Atualizado em
 
       raw_material:
         name: 'Nome'
         amount: 'Quantidade'
         weight: 'Peso'
-        created_at: Cadastrado em
+        created_at: Criado em
         updated_at: Atualizado em
 
       compositional:
@@ -66,7 +66,7 @@ pt-BR:
         composition_id: 'Composição'
         composition: 'Composição'
         parent_id: 'Sub Composição'
-        created_at: Cadastrado em
+        created_at: Criado em
         updated_at: Atualizado em
 
       stock_final_product:
@@ -78,7 +78,7 @@ pt-BR:
         cost: 'Custo'
         amount: 'Quantidade'
         price: 'Preço'
-        created_at: Cadastrado em
+        created_at: Criado em
         updated_at: Atualizado em
 
       stock_raw_material:
@@ -87,7 +87,7 @@ pt-BR:
         weight: 'Peso'
         weight_out: 'Peso Saida'
         price: 'Preço'
-        created_at: Cadastrado em
+        created_at: Criado em
         updated_at: Atualizado em
 
       client:
@@ -110,7 +110,7 @@ pt-BR:
         user: Usuário
         employee: 'Funcionário'
         employee_id: 'Funcionário'
-        created_at: Cadastrado em
+        created_at: Criado em
         updated_at: Atualizado em
 
       employee:
@@ -135,7 +135,7 @@ pt-BR:
         phone1: Telefone 1
         phone2: Telefone 2
         user_id: Usuário
-        created_at: Cadastrado em
+        created_at: Criado em
         updated_at: Atualizado em
 
       provider:
@@ -161,7 +161,7 @@ pt-BR:
         phone1: Telefone 1
         phone2: Telefone 2
         user_id: Usuário
-        created_at: Cadastrado em
+        created_at: Criado em
         updated_at: Atualizado em
 
       product:
@@ -171,7 +171,7 @@ pt-BR:
         name: Nome
         description: Descrição
         price: Preço
-        created_at: Cadastrado em
+        created_at: Criado em
         updated_at: Atualizado em
 
       budget_product:
@@ -188,7 +188,7 @@ pt-BR:
         name: Nome
         description: Descrição
         price: Preço
-        created_at: Cadastrado em
+        created_at: Criado em
         updated_at: Atualizado em
 
       budget:
@@ -211,6 +211,7 @@ pt-BR:
         type_of_payment: Tipo de Pagamento
         type_of_payment_id: Tipo de Pagamento
         discount: Desconto
+        status: Situação
         discount_type: Porcentagem?
-        created_at: Cadastrado em
+        created_at: Criado em
         updated_at: Atualizado em
