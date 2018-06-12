@@ -8,8 +8,8 @@
       <span class="raw-material d-none">
         <%= f.association :hit, collection: Hit.where(used: false) %>
       </span>
-      <span class="composition d-none">
-        <%= f.association :composition, collection: Composition.where(kind:1) %>
+      <span class="product d-none">
+        <%= f.association :product %>
       </span>
       <%= f.input :amount %>
     </div>

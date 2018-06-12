@@ -11,7 +11,7 @@ pt-BR:
     stock_final_product:
       kind:
         raw_material: Matéria-prima
-        composition: Composição
+        product: Produto
     budget:
       status:
         waiting: Aguardando Autorização

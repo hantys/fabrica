@@ -5,7 +5,7 @@ class BudgetsController < ApplicationController
   # GET /budgets.json
   def index
     unless can? :read, Budget, employee_id: current_user.employee.id
-      @budgets = Budget.includes(:client, :employee).all
+      @budgets = Budget.all
     end
   end
 

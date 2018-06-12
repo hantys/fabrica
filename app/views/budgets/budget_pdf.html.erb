@@ -58,7 +58,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @budget.budget_products.each do |item_product| %>
+      <% @budget.budget_products.includes(:product).each do |item_product| %>
         <tr>
           <td><%= item_product.product.cod %></td>
           <td><%= item_product.product.name %></td>

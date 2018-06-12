@@ -12,7 +12,7 @@
   <dd><%= @hit.residue.round(3) %> kg</dd>
 </dl>
 <legend>itens:</legend>
-  <% @hit.hit_items.each do |hit_item| %>
+  <% @hit.hit_items.includes(:raw_material).each do |hit_item| %>
     <%= hit_item.raw_material.name %>, <%= hit_item.weight.round(3) %>kg
     <br>
   <% end %>

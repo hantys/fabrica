@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @clients.each do |client| %>
+      <% @clients.includes(:state, :city, :employee).each do |client| %>
         <tr>
           <td scope="row"><%= client.id %></td>
           <td><%= client.company_name %></td>

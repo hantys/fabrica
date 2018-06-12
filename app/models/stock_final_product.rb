@@ -1,7 +1,7 @@
 class StockFinalProduct < ApplicationRecord
-  enum kind: {raw_material: 0, composition: 1}
+  enum kind: {raw_material: 0, product: 1}
 
-  belongs_to :composition, optional: true
+  belongs_to :product, optional: true
   belongs_to :hit, optional: true
 
   has_paper_trail

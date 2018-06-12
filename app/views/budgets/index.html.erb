@@ -22,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @budgets.each do |budget| %>
+      <% @budgets.includes(:client, :employee, :delivery_option).each do |budget| %>
       <tr>
         <td scope="row"><%= budget.id %></td>
         <td><%= budget.cod_name %></td>

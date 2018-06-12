@@ -5,8 +5,8 @@
 @changeKindSFP = (element) ->
   if $(element).val() == 'raw_material'
     $(".raw-material").removeClass('d-none')
-    $(".composition").addClass('d-none')
+    $(".product").addClass('d-none')
 
-  if $(element).val() == 'composition'
-    $(".composition").removeClass('d-none')
+  if $(element).val() == 'product'
+    $(".product").removeClass('d-none')
     $(".raw-material").addClass('d-none')

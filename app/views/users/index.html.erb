@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @users.each do |user| %>
+      <% @users.includes(:employee).each do |user| %>
       <tr>
         <td scope="row"><%= user.id %></td>
         <td><%= user.try(:employee).try(:name) %></td>
