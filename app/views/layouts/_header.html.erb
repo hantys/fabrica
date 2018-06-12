@@ -7,6 +7,31 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
+      <!-- orcamentos   -->
+      <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) or current_user.has_role?(:representative) %>
+        <li class='nav-item dropdown <%= "#{active_class(new_budget_path)} #{active_class(budgets_path)}  #{active_class(products_path)}" %>'>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Orçamentos</a>
+          <div class="dropdown-menu hasDropboxAnimation">
+            <%= link_to 'Novo Orçamento', new_budget_path, class: "dropdown-item #{active_class(new_budget_path)}" if can? :create, Budget %>
+            <%= link_to 'Orçamentos', budgets_path, class: "dropdown-item #{active_class(budgets_path)}" if can? :read, Budget %>
+          </div>
+        </li>
+      <% end %>
+
+      <!-- estoque  -->
+      <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) or current_user.has_role?(:representative) %>
+        <li class='nav-item dropdown <%= "#{active_class(hits_path)} #{active_class(stock_raw_materials_path)}  #{active_class(stock_final_products_path)}" %>'>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Estoque</a>
+          <div class="dropdown-menu hasDropboxAnimation">
+            <%= link_to 'Entrada de batida', hits_path, class: "dropdown-item #{active_class(hits_path)}" if can? :read, Hit %>
+            <%= link_to 'Entrada de Matéria-Prima', stock_raw_materials_path, class: "dropdown-item #{active_class(stock_raw_materials_path)}" if can? :read, StockRawMaterial %>
+            <%= link_to 'Entrada de produto final', stock_final_products_path, class: "dropdown-item #{active_class(stock_final_products_path)}" if can? :read, StockFinalProduct %>
+            <%= link_to 'Produtos', products_path, class: "dropdown-item #{active_class(products_path)}" if can? :read, Product %>
+          </div>
+        </li>
+      <% end %>
+
+      <!-- cadastros -->
       <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) or current_user.has_role?(:representative) %>
         <li class='nav-item dropdown <%= "#{active_class(raw_materials_path)} #{active_class(compositions_path)} #{active_class(users_path)} #{active_class(employees_path)} #{active_class(providers_path)} #{active_class(clients_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cadastros</a>
@@ -21,27 +46,9 @@
         </li>
       <% end %>
 
-      <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) or current_user.has_role?(:representative) %>
-        <li class='nav-item dropdown <%= "#{active_class(hits_path)} #{active_class(stock_raw_materials_path)}  #{active_class(stock_final_products_path)}" %>'>
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Estoque</a>
-          <div class="dropdown-menu hasDropboxAnimation">
-            <%= link_to 'Entrada de batida', hits_path, class: "dropdown-item #{active_class(hits_path)}" if can? :read, Hit %>
-            <%= link_to 'Entrada de Matéria-Prima', stock_raw_materials_path, class: "dropdown-item #{active_class(stock_raw_materials_path)}" if can? :read, StockRawMaterial %>
-            <%= link_to 'Entrada de produto final', stock_final_products_path, class: "dropdown-item #{active_class(stock_final_products_path)}" if can? :read, StockFinalProduct %>
-            <%= link_to 'Produtos', products_path, class: "dropdown-item #{active_class(products_path)}" if can? :read, Product %>
-          </div>
-        </li>
-      <% end %>
-      <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) or current_user.has_role?(:representative) %>
-        <li class='nav-item dropdown <%= "#{active_class(new_budget_path)} #{active_class(budgets_path)}  #{active_class(products_path)}" %>'>
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Orçamentos</a>
-          <div class="dropdown-menu hasDropboxAnimation">
-            <%= link_to 'Novo Orçamento', new_budget_path, class: "dropdown-item #{active_class(new_budget_path)}" if can? :create, Budget %>
-            <%= link_to 'Orçamentos', budgets_path, class: "dropdown-item #{active_class(budgets_path)}" if can? :read, Budget %>
-          </div>
-        </li>
-      <% end %>
+      <!-- sistema  -->
 
+      <!-- editar usuario -->
       <% if user_signed_in? %>
         <li class='nav-item dropdown <%= "#{active_class(edit_user_path(current_user))} #{active_class(destroy_user_session_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Olá, <%= current_user.username %></a>
