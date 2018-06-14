@@ -16,7 +16,7 @@ set :branch, 'master'
 
 set :forward_agent, true
 
-set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/assets')
+set :shared_dirs, fetch(:shared_dirs, []).push('log', 'node_modules', 'tmp', 'public/uploads', 'public/assets')
 set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/application.yml', 'config/secrets.yml')
 
 # set :rvm_use_path, '/usr/local/rvm/scripts/rvm'
@@ -31,6 +31,9 @@ end
 task :setup do
   command %[mkdir -p "/#{fetch(:shared_path)}/log"]
   command %[chmod g+rx,u+rwx "/#{fetch(:shared_path)}/log"]
+
+  command %[mkdir -p "/#{fetch(:shared_path)}/node_modules"]
+  command %[chmod g+rx,u+rwx "/#{fetch(:shared_path)}/node_modules"]
 
   command %[mkdir -p "/#{fetch(:shared_path)}/tmp/pids"]
   command %[chmod g+rx,u+rwx "/#{fetch(:shared_path)}/tmp/pids"]
