@@ -6,7 +6,7 @@ class DeviseMailer < Devise::Mailer
   include Devise::Controllers::UrlHelpers # Optional. eg. `confirmation_url`
   default template_path: 'devise/mailer'
 
-  before_action :add_inline_attachment!
+  # before_action :add_inline_attachment!
 
   def confirmation_instructions(record, token, opts = {})
     super
