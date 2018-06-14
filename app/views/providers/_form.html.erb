@@ -38,7 +38,7 @@
       <%= f.input :street, input_html: { class: 'street' } %>
       <%= f.input :number %>
       <%= f.input :neighborhood, input_html: { class: 'neighborhood' } %>
-      <%= f.association :state, collection: State.order(:name), prompt: "Escolha um estado", input_html: { class: 'state' }, readonly: true %>
+      <%= f.association :state, collection: State.order(:name), prompt: "Escolha um estado", input_html: { class: 'state' } %>
       <%= f.association :city, collection: City.order(:name), prompt: "Escolha uma cidade", input_html: { class: 'city' } %>
     </div>
   </div>

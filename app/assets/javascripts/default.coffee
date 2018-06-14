@@ -11,6 +11,21 @@ $(document).ready ->
     theme: 'bootstrap4'
     allowClear: true
 
+  if $('.state').length > 0
+    $('.state').change ->
+      $.get("/busca/cidades/#{$(this).val()}", (data) ->
+        $('.city').html ''
+        $('.city').append "<option value=\"\">Cidade</option>"
+        for city in data
+          $('.city').append "<option value='#{city.id}'>#{city.name}</option>"
+        $('.city').val data.city
+      ).done(->
+        console.log 'second success'
+      ).fail(->
+        console.log 'error'
+      ).always(->
+        console.log 'finished'
+      )
   if $('.cep').length > 0
     get_cep()
 

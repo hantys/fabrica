@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :raw_materials
 
   get '/busca/endereco/:cep' => "home#find_by_address"
+  get '/busca/cidades/:id' => "home#find_city"
 
   get '/orcamento/pdf/:id' => "budgets#budget_pdf", as: :budget_pdf
 
