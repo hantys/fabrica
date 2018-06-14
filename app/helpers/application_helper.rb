@@ -10,4 +10,14 @@ module ApplicationHelper
     end
     return aux.html_safe
   end
+
+  def representative_ids
+    ids = []
+    User.all.each do |single|
+      if single.has_role?(:representative)
+        ids << single.employee_id
+      end
+    end
+    return ids
+  end
 end

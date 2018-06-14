@@ -54,3 +54,4 @@ class User < ApplicationRecord
     roles.include?(role)
   end
 end
+

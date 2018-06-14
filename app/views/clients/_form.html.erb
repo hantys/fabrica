@@ -22,7 +22,7 @@
   <div class="row">
     <div class="col-lg-6">
       <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
-        <%= f.association :employee, collection: Employee.order(:name), prompt: "Escolha um funcionário", input_html: { class: 'simple-select2' } %>
+        <%= f.association :employee, collection: Employee.find(representative_ids), prompt: "Escolha um funcionário", input_html: { class: 'simple-select2' } %>
       <% else %>
         <%= f.input :employee_id, as: :hidden, input_html: { value: current_user.employee.id } %>
       <% end %>
