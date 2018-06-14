@@ -4,7 +4,7 @@ class ProvidersController < ApplicationController
   # GET /providers
   # GET /providers.json
   def index
-    @providers = Provider.includes(:state, :city).all
+    @providers = Provider.includes(:state, :city).accessible_by(current_ability).order(id: :desc)
   end
 
   # GET /providers/1

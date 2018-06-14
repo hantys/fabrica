@@ -1,4 +1,6 @@
 class Composition < ApplicationRecord
+  acts_as_paranoid
+
   enum kind: {raw_material: 0, composition: 1}
   # enum kind: [ :raw_material, :composition ]
 

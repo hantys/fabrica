@@ -4,7 +4,7 @@ class CompositionsController < ApplicationController
   # GET /compositions
   # GET /compositions.json
   def index
-    @compositions = Composition.all
+    @compositions = Composition.accessible_by(current_ability).order(id: :desc)
   end
 
   # GET /compositions/1

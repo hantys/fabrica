@@ -1,4 +1,6 @@
 class StockRawMaterial < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :raw_material
 
   has_paper_trail

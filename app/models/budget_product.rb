@@ -1,4 +1,6 @@
 class BudgetProduct < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :budget
   belongs_to :product
 

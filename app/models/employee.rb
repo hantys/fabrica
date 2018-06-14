@@ -1,4 +1,6 @@
 class Employee < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :state, optional: true
   belongs_to :city, optional: true
   has_one :user

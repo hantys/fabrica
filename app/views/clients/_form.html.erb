@@ -28,10 +28,10 @@
       <%= f.input :ie %>
       <%= f.input :phone1, input_html: { class: 'phone_with_ddd' } %>
       <%= f.input :phone2, input_html: { class: 'phone_with_ddd' } %>
-      <% if current_user.has_role?(:representative) %>
-        <%= f.association :employee, collection: Employee.order(:name), :selected => current_user.employee.id, prompt: "Escolha um funcionário", input_html: { class: 'simple-select2' } %>
-      <% else %>
+      <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
         <%= f.association :employee, collection: Employee.order(:name), prompt: "Escolha um funcionário", input_html: { class: 'simple-select2' } %>
+      <% else %>
+        <%= f.input :employee_id, as: :hidden, input_html: { value: current_user.employee.id } %>
       <% end %>
     </div>
     <div class="col-lg-6">

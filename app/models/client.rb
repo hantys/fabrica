@@ -1,4 +1,6 @@
 class Client < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :state
   belongs_to :city
   belongs_to :employee

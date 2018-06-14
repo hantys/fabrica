@@ -1,4 +1,6 @@
 class Hit < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :composition
   has_one :stock_final_product
   has_many :hit_items, dependent: :destroy

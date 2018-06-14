@@ -1,4 +1,6 @@
 class StockFinalProduct < ApplicationRecord
+  acts_as_paranoid
+
   enum kind: {raw_material: 0, product: 1}
 
   belongs_to :product, optional: true

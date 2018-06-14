@@ -4,9 +4,7 @@ class BudgetsController < ApplicationController
   # GET /budgets
   # GET /budgets.json
   def index
-    unless can? :read, Budget, employee_id: current_user.employee.id
-      @budgets = Budget.all
-    end
+    @budgets = Budget.accessible_by(current_ability).order(id: :desc)
   end
 
   # GET /budgets/1

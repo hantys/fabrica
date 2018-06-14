@@ -4,7 +4,7 @@ class DeliveryOptionsController < ApplicationController
   # GET /delivery_options
   # GET /delivery_options.json
   def index
-    @delivery_options = DeliveryOption.all
+    @delivery_options = DeliveryOption.accessible_by(current_ability).order(id: :desc)
   end
 
   # GET /delivery_options/1

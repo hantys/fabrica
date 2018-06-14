@@ -4,9 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    unless can? :read, User, id: current_user.id
-      @users = User.all
-    end
+    @users = User.accessible_by(current_ability).order(id: :desc)
   end
 
   # GET /users/1

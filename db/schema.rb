@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_12_124714) do
+ActiveRecord::Schema.define(version: 2018_06_14_131043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,9 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_id"
+    t.datetime "deleted_at"
     t.index ["budget_id"], name: "index_budget_products_on_budget_id"
+    t.index ["deleted_at"], name: "index_budget_products_on_deleted_at"
     t.index ["product_id"], name: "index_budget_products_on_product_id"
   end
 
@@ -48,7 +50,9 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
+    t.datetime "deleted_at"
     t.index ["client_id"], name: "index_budgets_on_client_id"
+    t.index ["deleted_at"], name: "index_budgets_on_deleted_at"
     t.index ["delivery_option_id"], name: "index_budgets_on_delivery_option_id"
     t.index ["employee_id"], name: "index_budgets_on_employee_id"
     t.index ["type_of_payment_id"], name: "index_budgets_on_type_of_payment_id"
@@ -81,7 +85,9 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.bigint "employee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["city_id"], name: "index_clients_on_city_id"
+    t.index ["deleted_at"], name: "index_clients_on_deleted_at"
     t.index ["employee_id"], name: "index_clients_on_employee_id"
     t.index ["state_id"], name: "index_clients_on_state_id"
   end
@@ -92,6 +98,8 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_compositionals_on_deleted_at"
     t.index ["parent_id", "composition_id"], name: "index_compositionals_on_parent_id_and_composition_id"
     t.index ["raw_material_id", "composition_id"], name: "index_compositionals_on_raw_material_id_and_composition_id"
   end
@@ -103,12 +111,15 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.integer "kind"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
   end
 
   create_table "delivery_options", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_delivery_options_on_deleted_at"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -130,7 +141,9 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.string "phone2"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["city_id"], name: "index_employees_on_city_id"
+    t.index ["deleted_at"], name: "index_employees_on_deleted_at"
     t.index ["state_id"], name: "index_employees_on_state_id"
   end
 
@@ -140,6 +153,8 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.float "weight", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_hit_item_stocks_on_deleted_at"
     t.index ["hit_item_id"], name: "index_hit_item_stocks_on_hit_item_id"
     t.index ["stock_raw_material_id"], name: "index_hit_item_stocks_on_stock_raw_material_id"
   end
@@ -150,6 +165,8 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.float "weight", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_hit_items_on_deleted_at"
     t.index ["hit_id"], name: "index_hit_items_on_hit_id"
     t.index ["raw_material_id"], name: "index_hit_items_on_raw_material_id"
   end
@@ -161,7 +178,9 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.bigint "composition_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["composition_id"], name: "index_hits_on_composition_id"
+    t.index ["deleted_at"], name: "index_hits_on_deleted_at"
   end
 
   create_table "products", force: :cascade do |t|
@@ -172,6 +191,8 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.float "qnt", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_products_on_deleted_at"
   end
 
   create_table "providers", force: :cascade do |t|
@@ -194,7 +215,9 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.string "phone2"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["city_id"], name: "index_providers_on_city_id"
+    t.index ["deleted_at"], name: "index_providers_on_deleted_at"
     t.index ["state_id"], name: "index_providers_on_state_id"
   end
 
@@ -205,6 +228,8 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.float "weight", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_raw_materials_on_deleted_at"
     t.index ["name"], name: "index_raw_materials_on_name", unique: true
   end
 
@@ -228,6 +253,8 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.datetime "updated_at", null: false
     t.bigint "hit_id"
     t.bigint "product_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_stock_final_products_on_deleted_at"
     t.index ["hit_id"], name: "index_stock_final_products_on_hit_id"
     t.index ["product_id"], name: "index_stock_final_products_on_product_id"
   end
@@ -239,6 +266,8 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.float "price", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_stock_raw_materials_on_deleted_at"
     t.index ["raw_material_id"], name: "index_stock_raw_materials_on_raw_material_id"
   end
 
@@ -246,6 +275,8 @@ ActiveRecord::Schema.define(version: 2018_06_12_124714) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_type_of_payments_on_deleted_at"
   end
 
   create_table "users", force: :cascade do |t|

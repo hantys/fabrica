@@ -3,7 +3,7 @@ class HitsController < ApplicationController
   # GET /hits
   # GET /hits.json
   def index
-    @hits = Hit.includes(:composition).all
+    @hits = Hit.includes(:composition).accessible_by(current_ability).order(id: :desc)
   end
 
   # GET /hits/1
