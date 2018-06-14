@@ -108,8 +108,8 @@ pt-BR:
         phone2: Telefone 2
         user_id: Usuário
         user: Usuário
-        employee: 'Funcionário'
-        employee_id: 'Funcionário'
+        employee: 'Representante'
+        employee_id: 'Representante'
         created_at: Criado em
         updated_at: Atualizado em
 
