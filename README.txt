@@ -1,22 +1,22 @@
-- composto nao e produto final, ele e igual a lista dos itens do orcamento
-  * fazer alteracao no sistema para produto final
-- retorno da borra como pvc e calcular seu valor apartir do custo da borra
-- deletar nao apagarde vez no sistema
 - falar com pablo sobre o layout
 - paginacao
-- na entrada de porduto final por materia prima, deixar entrada de peso dos tubos e calcular a borra
 - otimizar desempenho das paginas do sistema
+- criar template para auditoria
 
 TO DO
-- criar template para auditoria
-- implementar biblioteca paranoia
-- forma de pagamento criar item e sub item
+- composto nao e produto final, ele e igual a lista dos itens do orcamento
+  * fazer alteracao no sistema para produto final
+- na entrada de porduto final por materia prima, deixar entrada de peso dos tubos e calcular a borra
+- retorno da borra como pvc e calcular seu valor apartir do custo da borra
+
 - TODOS OS  ORÇAMENTOS:
   * STATUS  DO  ORÇAMENTO (AGUARDANDO AUTORIZAÇÃO / AUTORIZADO  / REPROVADO / FATURADO  / ENTREGUE)
   * RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
 
 
 DONE
+- forma de pagamento criar item e sub item
+- implementar biblioteca paranoia
 - TODOS OS  ORÇAMENTOS:
   * DATA  DE  CRIAÇÃO
 - criar auditoria
