@@ -49,7 +49,7 @@
       <!-- sistema  -->
       <% if (can? :read, DeliveryOption) or (can? :read, TypeOfPayment) %>
         <li class='nav-item dropdown <%= "#{active_class(delivery_options_path)} #{active_class(type_of_payments_path)}" %>'>
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cadastros</a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sistema</a>
           <div class="dropdown-menu hasDropboxAnimation">
             <%= link_to 'Opções de entrega', delivery_options_path, class: "dropdown-item #{active_class(delivery_options_path)}" if can? :read, DeliveryOption %>
             <%= link_to 'Tipos de pagamento', type_of_payments_path, class: "dropdown-item #{active_class(type_of_payments_path)}" if can? :read, TypeOfPayment %>
