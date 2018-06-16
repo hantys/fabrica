@@ -21,4 +21,4 @@ console:
 	@rails console
 
 reset:
-	@rails db:drop db:create db:migrate db:seed
+	@bundle install; yarn install; rails db:drop db:create db:migrate db:seed
