@@ -74,6 +74,6 @@ class HitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hit_params
-      params.require(:hit).permit(:name, :composition_id, :residue, hit_items_attributes: [:raw_material_id, :weight])
+      params.require(:hit).permit(:name, :product_id, :composition_id, :residue, hit_items_attributes: [:raw_material_id, :weight])
     end
 end

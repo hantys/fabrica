@@ -9,7 +9,7 @@ update:
 	@bundle update --jobs=50
 
 create:
-	@rails db:create
+	@rails db:create:all
 
 migrate:
 	@rails db:migrate
@@ -19,6 +19,9 @@ seed:
 
 console:
 	@rails console
+
+teste:
+	@bin/rspec
 
 reset:
 	@bundle install; yarn install; rails db:drop db:create db:migrate db:seed

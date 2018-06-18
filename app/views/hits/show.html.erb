@@ -8,8 +8,6 @@
   <dd><%= @hit.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:composition) %>:</strong></dt>
   <dd><%= @hit.composition.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:residue) %>:</strong></dt>
-  <dd><%= @hit.residue.round(3) %> kg</dd>
 </dl>
 <legend>itens:</legend>
   <% @hit.hit_items.includes(:raw_material).each do |hit_item| %>

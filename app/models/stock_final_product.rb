@@ -13,11 +13,11 @@ class StockFinalProduct < ApplicationRecord
   validates :kind, presence: true
   validates :amount, presence: true
   validates :amount, numericality: { greater_than: 0 }
-  validate :verify_qnt_out, :if => :product?
   validates_presence_of :product, :if => :product?
   validates_presence_of :derivative, :if => :product?
   validates_presence_of :qnt_out, :if => :product?
   validates :qnt_out, numericality: { greater_than: 0 }, :if => :product?
+  # validate :verify_qnt_out, :if => :product?
   validates :weight, numericality: { greater_than: 0 }, :if => :raw_material?
   validates :residue, numericality: { greater_than: 0 }, :if => :raw_material?
   validates_presence_of :hit, :if => :raw_material?
@@ -37,14 +37,12 @@ class StockFinalProduct < ApplicationRecord
     if self.kind == 'product'
       begin
         qnt = Product.find(self.derivative_id).qnt
-        if self.qnt_out.to_i > qnt.to_i
-          errors.add(:qnt_out, "Não pode ser maior que #{qnt.to_i}")
+        if self.qnt_out.to_f > qnt.to_f
+          errors.add(:qnt_out, "Não pode ser maior que #{qnt}")
         end
       rescue Exception => e
         errors.add(:derivative, "Não pode ser branco")
       end
-    else
-      return false
     end
   end
 
