@@ -41,7 +41,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
-    params[:product][:price] = params[:product][:price].gsub('.', '').gsub(',', '.').to_f
+    # params[:product][:price] = params[:product][:price].gsub('.', '').gsub(',', '.').to_f
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product, notice: 'Produto atualizado com sucesso.' }
