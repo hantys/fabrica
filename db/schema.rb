@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_14_131043) do
+ActiveRecord::Schema.define(version: 2018_06_18_192452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,8 +179,24 @@ ActiveRecord::Schema.define(version: 2018_06_14_131043) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.bigint "product_id"
     t.index ["composition_id"], name: "index_hits_on_composition_id"
     t.index ["deleted_at"], name: "index_hits_on_deleted_at"
+    t.index ["product_id"], name: "index_hits_on_product_id"
+  end
+
+  create_table "item_product_stocks", force: :cascade do |t|
+    t.bigint "product_id"
+    t.integer "derivative_id"
+    t.bigint "stock_final_product_id"
+    t.float "qnt"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_item_product_stocks_on_deleted_at"
+    t.index ["derivative_id"], name: "index_item_product_stocks_on_derivative_id"
+    t.index ["product_id"], name: "index_item_product_stocks_on_product_id"
+    t.index ["stock_final_product_id"], name: "index_item_product_stocks_on_stock_final_product_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -192,6 +208,7 @@ ActiveRecord::Schema.define(version: 2018_06_14_131043) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.boolean "derivative", default: false
     t.index ["deleted_at"], name: "index_products_on_deleted_at"
   end
 
@@ -254,7 +271,12 @@ ActiveRecord::Schema.define(version: 2018_06_14_131043) do
     t.bigint "hit_id"
     t.bigint "product_id"
     t.datetime "deleted_at"
+    t.float "residue"
+    t.integer "derivative_id"
+    t.float "qnt_out"
+    t.float "amount_out"
     t.index ["deleted_at"], name: "index_stock_final_products_on_deleted_at"
+    t.index ["derivative_id"], name: "index_stock_final_products_on_derivative_id"
     t.index ["hit_id"], name: "index_stock_final_products_on_hit_id"
     t.index ["product_id"], name: "index_stock_final_products_on_product_id"
   end
@@ -336,6 +358,9 @@ ActiveRecord::Schema.define(version: 2018_06_14_131043) do
   add_foreign_key "hit_items", "hits"
   add_foreign_key "hit_items", "raw_materials"
   add_foreign_key "hits", "compositions"
+  add_foreign_key "hits", "products"
+  add_foreign_key "item_product_stocks", "products"
+  add_foreign_key "item_product_stocks", "stock_final_products"
   add_foreign_key "providers", "cities"
   add_foreign_key "providers", "states"
   add_foreign_key "stock_final_products", "hits"

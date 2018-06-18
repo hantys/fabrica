@@ -13,32 +13,18 @@
   <% end %>
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :weight %>
-    <div class="d-block my-3 kind_radio">
-      <label>Tipo</label>
-      <div class="custom-control custom-radio">
-        <input id="raw_material" value="<%= Composition.kinds_i18n.keys[0] %>" name="composition[kind]" type="radio" class="custom-control-input" <%= 'checked' if params[:composition][:kind] == 'raw_material' if params[:composition].present? %> <%= 'checked' if @composition.kind == 'raw_material' %>  required>
-        <label class="custom-control-label" for="raw_material"><%= Composition.kinds_i18n.values[0] %></label>
-      </div>
-      <div class="custom-control custom-radio">
-        <input id="composition" value="<%= Composition.kinds_i18n.keys[1] %>" name="composition[kind]" type="radio" class="custom-control-input" <%= 'checked' if params[:composition][:kind] == 'composition' if params[:composition].present? %> <%= 'checked' if @composition.kind == 'composition' %> required>
-        <label class="custom-control-label" for="composition"><%= Composition.kinds_i18n.values[1] %></label>
-      </div>
-    </div>
   </div>
-  <span class="associations d-none">
-    <table id="compositionals">
-      <%= f.fields_for :compositionals do |compositionals_form| %>
-      <tr class="nested_fields">
-        <td><%= compositionals_form.input :raw_material_id, as: :select, collection: RawMaterial.order(:name), input_html: {class: 'raw_material_select simple-select2'}, label_html: {class: 'raw_material_select'} %></td>
-        <td><%= compositionals_form.input :parent_id, as: :select, collection: Composition.order(:name), input_html: {class: 'composition_select simple-select2'}, label_html: {class: 'composition_select'} %></td>
-        <td><%= compositionals_form.link_to_remove "Remover composto", class: 'btn btn-outline-danger' %></td>
-      </tr>
-      <% end %>
-    </table>
-    <hr>
-    <p><%= f.link_to_add "Adicionar Composto", :compositionals, :data => { :target => "#compositionals" }, class: 'btn btn-outline-primary' %></p>
-  </span>
+  <div id="compositionals">
+    <%= f.fields_for :compositionals do |compositionals_form| %>
+      <div class="card card-body">
+        <%= compositionals_form.input :raw_material_id, as: :select, collection: RawMaterial.order(:name), input_html: {class: 'simple-select2'} %>
+        <%= compositionals_form.link_to_remove "Remover composto", class: 'btn btn-outline-danger float-right' %>
+      </div>
+      <br>
+    <% end %>
+  </div>
+  <hr>
+  <p><%= f.link_to_add "Adicionar Composto", :compositionals, :data => { :target => "#compositionals" }, class: 'btn btn-outline-primary' %></p>
   <hr>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn btn-success' %>

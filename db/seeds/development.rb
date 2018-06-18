@@ -1,6 +1,9 @@
 puts "### Cidades e Estados"
 load "db/imports/states_cities.rb"
 
+puts "### Itens do orcamento"
+load "db/imports/product.rb"
+
 puts '#Tipo de entrega'
 DeliveryOption.create! name: 'Entrega na loja'
 DeliveryOption.create! name: 'Retirada em mãos'
@@ -25,6 +28,7 @@ puts '#Usuario'
 User.create!(username: 'pedro', email: 'pedro.fausto@hotmail.com', password: '12345678', employee: Employee.last, roles: 'admin')
 User.create!(username: 'teste', email: 'teste@hotmail.com', password: '12345678', employee: Employee.last(2).first, roles: 'representative')
 
+
 puts '#Materia prima'
 10.times do |i|
   puts "#inset #{i} de 10"
@@ -40,25 +44,18 @@ end
 puts '#Composicao de materia prima'
 10.times do |i|
   puts "#inset #{i} de 10"
-  Composition.create! name: Faker::Commerce.product_name, kind: 0, raw_materials: RawMaterial.order('RANDOM()').limit(rand(1..4))
-end
-
-puts '#Composicao de composicao'
-5.times do |i|
-  puts "#inset #{i} de 5"
-  composition = Composition.new name: Faker::Commerce.product_name, kind: 1, sub_compositions: Composition.order('RANDOM()').limit(rand(1..2))
-  composition.save(validate: false)
+  Composition.create! name: Faker::Commerce.product_name, raw_materials: RawMaterial.order('RANDOM()').limit(rand(1..4))
 end
 
 puts '#Batida'
 20.times do |i|
   puts "#inset #{i} de 20"
-  composition = Composition.where(kind: 0).order('RANDOM()').last
+  composition = Composition.order('RANDOM()').last
   hit_items = []
   composition.raw_materials.each do |raw_material|
     hit_items << HitItem.new(raw_material_id: raw_material.id, weight: rand(1.2..9.9))
   end
-  hit = Hit.create! name: Faker::Commerce.product_name, residue: rand(1..10.1), composition: composition, hit_items: hit_items
+  hit = Hit.create! product: Product.where(derivative: false).order('RANDOM()').first, composition: composition, hit_items: hit_items
 end
 
 puts '#clientes e fornecedores'
@@ -70,6 +67,3 @@ puts '#clientes e fornecedores'
   client.save(validate: false)
   provider.save(validate: false)
 end
-
-puts "### Itens do orcamento"
-load "db/imports/budget_items.rb"

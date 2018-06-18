@@ -72,12 +72,20 @@ pt-BR:
       stock_final_product:
         composition: 'Composição'
         weight: 'Peso'
-        kind: 'Tipo'
+        kind: 'Tipo de entrada'
         hit: 'Batida'
+        hit_id: 'Batida'
+        derivative: 'Produto Derivado'
+        derivative_id: 'Produto Derivado'
+        product: 'Produto'
+        product_id: 'Produto'
         estimated_weight: 'Peso Estimado'
         cost: 'Custo'
         amount: 'Quantidade'
+        amount_out: 'Quantidade de saida'
+        qnt_out: 'Quantidade usada'
         price: 'Preço'
+        residue: 'Borra'
         created_at: Criado em
         updated_at: Atualizado em
 
@@ -169,6 +177,7 @@ pt-BR:
         composition: Composição
         cod: Código
         name: Nome
+        derivative: 'Derivado'
         description: Descrição
         price: Preço
         created_at: Criado em

@@ -4,7 +4,7 @@ class StockFinalProductsController < ApplicationController
   # GET /stock_final_products
   # GET /stock_final_products.json
   def index
-    @stock_final_products = StockFinalProduct.includes(:composition).accessible_by(current_ability).order(id: :desc)
+    @stock_final_products = StockFinalProduct.includes(:product, hit: [:product]).accessible_by(current_ability).order(id: :desc)
   end
 
   # GET /stock_final_products/1

@@ -16,7 +16,7 @@
 # User.create!(username: 'vitor', email: 'vitor@vitor.com', password: '12345678', employee: Employee.last, roles: 'admin')
 
 # puts "### Itens do orcamento"
-# load "db/imports/budget_items.rb"
+# load "db/imports/product.rb"
 
 # puts '#Tipo de entrega'
 # DeliveryOption.create! name: 'Entrega na loja'

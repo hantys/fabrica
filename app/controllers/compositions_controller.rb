@@ -15,6 +15,7 @@ class CompositionsController < ApplicationController
   # GET /compositions/new
   def new
     @composition = Composition.new
+    @composition.compositionals.build
   end
 
   # GET /compositions/1/edit

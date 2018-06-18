@@ -2,6 +2,7 @@ class Hit < ApplicationRecord
   acts_as_paranoid
 
   belongs_to :composition
+  belongs_to :product
   has_one :stock_final_product
   has_many :hit_items, dependent: :destroy
   has_many :raw_materials, through: :hit_items

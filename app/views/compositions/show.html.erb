@@ -6,21 +6,11 @@
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @composition.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:weight) %>:</strong></dt>
-  <dd><%= @composition.weight %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:kind) %>:</strong></dt>
-  <dd><%= @composition.kind_i18n %></dd>
 </dl>
-<legend><%= @composition.kind_i18n %></legend>
+<legend><%= model_class.human_attribute_name(:compositional) %>s</legend>
 <ul>
-  <% if @composition.kind == 'raw_material' %>
-    <% @composition.raw_materials.each do |raw_material| %>
-      <li><%= raw_material.name %></li>
-    <% end %>
-  <% else %>
-    <% @composition.sub_compositions.each do |sub_composition| %>
-      <li><%= sub_composition.name %></li>
-    <% end %>
+  <% @composition.raw_materials.each do |raw_material| %>
+    <li><%= raw_material.name %></li>
   <% end %>
 </ul>
 

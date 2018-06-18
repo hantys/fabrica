@@ -10,3 +10,13 @@
   if $(element).val() == 'product'
     $(".product").removeClass('d-none')
     $(".raw-material").addClass('d-none')
+
+jQuery ->
+
+  if $('#stock_final_product_kind').val() == 'raw_material'
+    $(".raw-material").removeClass('d-none')
+    $(".product").addClass('d-none')
+
+  if $('#stock_final_product_kind').val() == 'product'
+    $(".product").removeClass('d-none')
+    $(".raw-material").addClass('d-none')

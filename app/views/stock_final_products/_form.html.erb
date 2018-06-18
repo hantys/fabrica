@@ -6,10 +6,14 @@
     <div class="col-lg-6">
       <%= f.input :kind, as: :select, collection: StockFinalProduct.kinds_i18n.map { |w| [w[1], w[0]] }, prompt:  'Escolha um tipo', input_html: { onchange: 'changeKindSFP(this)'} %>
       <span class="raw-material d-none">
-        <%= f.association :hit, collection: Hit.where(used: false) %>
+        <%= f.association :hit, collection: Hit.joins(:product).where(used: false).select(:id, :'products.name') %>
+        <%= f.input :weight %>
+        <%= f.input :residue %>
       </span>
       <span class="product d-none">
-        <%= f.association :product %>
+        <%= f.association :product, collection: Product.where(derivative: true) %>
+        <%= f.association :derivative, collection: Product.where("qnt > 0 and derivative = '?'", false) %>
+        <%= f.input :qnt_out %>
       </span>
       <%= f.input :amount %>
     </div>

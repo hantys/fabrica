@@ -10,7 +10,6 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:kind) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:compositional) %>s</th>
         <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
@@ -20,8 +19,7 @@
       <tr>
         <td scope="row"><%= composition.id %></td>
         <td><%= composition.name %></td>
-        <td><%= composition.kind_i18n %></td>
-        <td><%= composition.kind == 'raw_material' ? composition.raw_materials.size : composition.sub_compositions.size %></td>
+        <td><%= composition.raw_materials.size %></td>
         <td>
           <%= link_to composition, class: 'btn btn-info has-icon' do %>
             <i class="material-icons">remove_red_eye</i>
