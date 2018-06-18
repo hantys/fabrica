@@ -19,11 +19,7 @@
       <% @stock_final_products.each do |stock_final_product| %>
       <tr>
         <td scope="row"><%= stock_final_product.id %></td>
-        <% if stock_final_product.kind == "raw_material" %>
-          <td><%= stock_final_product.try(:hit).try(:product).try(:name) %></td>
-        <% else %>
-          <td><%= stock_final_product.try(:derivative).try(:name) %></td>
-        <% end %>
+        <td><%= stock_final_product.try(:product).try(:name) %></td>
         <td><%= stock_final_product.amount %></td>
         <td><%= number_to_currency(stock_final_product.cost) %></td>
         <td>
