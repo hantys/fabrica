@@ -11,6 +11,7 @@
         <th scope="col">#</th>
         <th scope="col"><%= model_class.human_attribute_name(:cod) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:derivative) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:qnt) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:price) %></th>
         <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -22,6 +23,7 @@
         <td scope="row"><%= product.id %></td>
         <td><%= product.cod %></td>
         <td><%= product.name %></td>
+        <td><%= product.derivative ? 'Sim' : 'Não' %></td>
         <td><%= product.qnt %></td>
         <td><%= number_to_currency product.price %></td>
         <td>
