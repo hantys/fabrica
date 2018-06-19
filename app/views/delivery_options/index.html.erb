@@ -1,29 +1,40 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = DeliveryOption -%>
 
-<h1>Delivery Options</h1>
+<div class="page-header d-flex justify-content-lg-between align-items-center mb-2">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_delivery_option_path, class: "btn btn-primary" %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Sub-itens</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @delivery_options.each do |delivery_option| %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Sub-itens</th>
+        <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @delivery_options.each do |delivery_option| %>
       <tr>
         <td><%= delivery_option.name %></td>
         <td><%= delivery_option.sub_delivery_options.size %></td>
-        <td><%= link_to 'Show', delivery_option %></td>
-        <td><%= link_to 'Edit', edit_delivery_option_path(delivery_option) %></td>
-        <td><%= link_to 'Destroy', delivery_option, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to delivery_option, class: 'btn btn-info has-icon' do %>
+            <i class="material-icons">remove_red_eye</i>
+            <%#= t('.show', :default => t("helpers.links.show")) %>
+          <% end %>
+          <%= link_to edit_delivery_option_path(delivery_option), class: 'btn btn-primary has-icon' do %>
+            <i class="material-icons">edit</i>
+            <%#= t('.edit', :default => t("helpers.links.edit")) %>
+          <% end %>
+          <%= link_to delivery_option, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
+            <i class="material-icons">delete</i>
+            <%#= t('.destroy', :default => t("helpers.links.destroy")) %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Delivery Option', new_delivery_option_path %>
+    </tbody>
+  </table>
+</div>
