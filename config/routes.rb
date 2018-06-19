@@ -15,8 +15,11 @@ Rails.application.routes.draw do
 
   get '/busca/endereco/:cep' => "home#find_by_address"
   get '/busca/cidades/:id' => "home#find_city"
+  get '/busca/sub-item-entrega/:id' => "home#find_delivery"
+  get '/busca/sub-item-pagamento/:id' => "home#find_payment"
 
   get '/orcamento/pdf/:id' => "budgets#budget_pdf", as: :budget_pdf
+  get '/orcamento/atualiza-status/:id/:status' => "budgets#update_status", as: :budget_update_status
 
   get '/load_hit_items/:composition' => "hits#load_items"
   get '/find_product/:id' => "budgets#find_product"

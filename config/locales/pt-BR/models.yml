@@ -214,6 +214,10 @@ pt-BR:
         value: Valor
         value_with_discount: Valor com Desconto
         deadline: Prazo de Entrega
+        sub_delivery_option: Sub-item da Entrega
+        sub_delivery_option_id: Sub-item da Entrega
+        sub_type_payment: Sub-item do pagamento
+        sub_type_payment_id: Sub-item do pagamento
         delivery_options: Opção de Entrega
         delivery_option: Opção de Entrega
         delivery_option_id: Opção de Entrega

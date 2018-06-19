@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_130541) do
+ActiveRecord::Schema.define(version: 2018_06_19_185338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,10 +51,14 @@ ActiveRecord::Schema.define(version: 2018_06_19_130541) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
     t.datetime "deleted_at"
+    t.bigint "sub_type_payment_id"
+    t.bigint "sub_delivery_option_id"
     t.index ["client_id"], name: "index_budgets_on_client_id"
     t.index ["deleted_at"], name: "index_budgets_on_deleted_at"
     t.index ["delivery_option_id"], name: "index_budgets_on_delivery_option_id"
     t.index ["employee_id"], name: "index_budgets_on_employee_id"
+    t.index ["sub_delivery_option_id"], name: "index_budgets_on_sub_delivery_option_id"
+    t.index ["sub_type_payment_id"], name: "index_budgets_on_sub_type_payment_id"
     t.index ["type_of_payment_id"], name: "index_budgets_on_type_of_payment_id"
     t.index ["user_id"], name: "index_budgets_on_user_id"
   end
@@ -293,6 +297,26 @@ ActiveRecord::Schema.define(version: 2018_06_19_130541) do
     t.index ["raw_material_id"], name: "index_stock_raw_materials_on_raw_material_id"
   end
 
+  create_table "sub_delivery_options", force: :cascade do |t|
+    t.string "name"
+    t.bigint "delivery_option_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_sub_delivery_options_on_deleted_at"
+    t.index ["delivery_option_id"], name: "index_sub_delivery_options_on_delivery_option_id"
+  end
+
+  create_table "sub_type_payments", force: :cascade do |t|
+    t.string "name"
+    t.bigint "type_of_payment_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_sub_type_payments_on_deleted_at"
+    t.index ["type_of_payment_id"], name: "index_sub_type_payments_on_type_of_payment_id"
+  end
+
   create_table "type_of_payments", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -349,6 +373,8 @@ ActiveRecord::Schema.define(version: 2018_06_19_130541) do
   add_foreign_key "budget_products", "products"
   add_foreign_key "budgets", "clients"
   add_foreign_key "budgets", "employees"
+  add_foreign_key "budgets", "sub_delivery_options"
+  add_foreign_key "budgets", "sub_type_payments"
   add_foreign_key "budgets", "users"
   add_foreign_key "cities", "states"
   add_foreign_key "clients", "cities"
@@ -367,5 +393,7 @@ ActiveRecord::Schema.define(version: 2018_06_19_130541) do
   add_foreign_key "stock_final_products", "hits"
   add_foreign_key "stock_final_products", "products"
   add_foreign_key "stock_raw_materials", "raw_materials"
+  add_foreign_key "sub_delivery_options", "delivery_options"
+  add_foreign_key "sub_type_payments", "type_of_payments"
   add_foreign_key "users", "employees"
 end

@@ -1,4 +1,34 @@
 jQuery ->
+  if $('#budget_delivery_option_id').length > 0
+    $('#budget_delivery_option_id').change ->
+      $.get("/busca/sub-item-entrega/#{$(this).val()}", (data) ->
+        $('#budget_sub_delivery_option_id').html ''
+        $('#budget_sub_delivery_option_id').append "<option value=\"\">Escolha um tipo</option>"
+        for item in data
+          $('#budget_sub_delivery_option_id').append "<option value='#{item.id}'>#{item.name}</option>"
+      ).done(->
+        # console.log 'second success'
+      ).fail(->
+        # console.log 'error'
+      ).always(->
+        # console.log 'finished'
+      )
+
+  if $('#budget_type_of_payment_id').length > 0
+    $('#budget_type_of_payment_id').change ->
+      $.get("/busca/sub-item-pagamento/#{$(this).val()}", (data) ->
+        $('#budget_sub_type_payment_id').html ''
+        $('#budget_sub_type_payment_id').append "<option value=\"\">Escolha um tipo</option>"
+        for item in data
+          $('#budget_sub_type_payment_id').append "<option value='#{item.id}'>#{item.name}</option>"
+      ).done(->
+        # console.log 'second success'
+      ).fail(->
+        # console.log 'error'
+      ).always(->
+        # console.log 'finished'
+      )
+
   $('#budget_value').on 'change_value', ->
     check = 0
     $('.discount_item').each ->

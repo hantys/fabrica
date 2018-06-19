@@ -16,6 +16,28 @@ class BudgetsController < ApplicationController
     @budget = Budget.find params[:id]
   end
 
+  def update_status
+    @budget = Budget.find params[:id]
+    if @budget.status == 'waiting'
+      case params[:status]
+      when 'authorized'
+        @budget.update status: params[:status].to_sym
+      when 'rejected'
+        @budget.update status: params[:status].to_sym
+      end
+    elsif @budget.status == 'authorized'
+      case params[:status]
+      when 'billed'
+        @budget.update status: params[:status].to_sym
+      end
+    elsif @budget.status == 'billed'
+      case params[:status]
+      when 'delivered'
+        @budget.update status: params[:status].to_sym
+      end
+    end
+  end
+
   # GET /budgets/new
   def new
     @budget = Budget.new

@@ -69,6 +69,6 @@ class DeliveryOptionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def delivery_option_params
-      params.require(:delivery_option).permit(:name)
+      params.require(:delivery_option).permit!
     end
 end

@@ -23,32 +23,8 @@
     </thead>
     <tbody>
       <% @budgets.includes(:client, :employee, :delivery_option).each do |budget| %>
-      <tr>
-        <td scope="row"><%= budget.id %></td>
-        <td><%= budget.cod_name %></td>
-        <td><%= budget.client.company_name %></td>
-        <td><%= budget.employee.name %></td>
-        <td><%= budget.try(:delivery_option).try(:name) %></td>
-        <td><%=l budget.deadline %></td>
-        <!-- <td><%#= budget.try(:type_of_payment).try(:name) %></td> -->
-        <td><%= number_to_currency budget.discount %></td>
-        <td><%= number_to_currency budget.value %></td>
-        <td><%= budget.created_at.to_s(:custom_datetime) %></td>
-        <td><%= budget.status_i18n %></td>
-        <td>
-          <%= link_to budget, class: 'btn btn-info has-icon' do %>
-            <i class="material-icons">remove_red_eye</i>
-            <%#= t('.show', :default => t("helpers.links.show")) %>
-          <% end %>
-          <%= link_to edit_budget_path(budget), class: 'btn btn-primary has-icon' do %>
-            <i class="material-icons">edit</i>
-            <%#= t('.edit', :default => t("helpers.links.edit")) %>
-          <% end %>
-          <%= link_to budget, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
-            <i class="material-icons">delete</i>
-            <%#= t('.destroy', :default => t("helpers.links.destroy")) %>
-          <% end %>
-        </td>
+      <tr id="budget-item-<%= budget.id %>">
+        <%= render 'budgets_item', budget: budget %>
       </tr>
       <% end %>
     </tbody>

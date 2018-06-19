@@ -145,69 +145,79 @@
     <tbody>
       <% id = 1 %>
       <% @budget.versions.each do |event| %>
-        <% if event.index < 1 or event.index > 3 %>
-          <tr>
-            <td><%= id %></td>
-            <td><%=t "paper_trail.#{event.event}" %></td>
-            <td><%= event.created_at.to_s(:custom_datetime) %></td>
-            <td><%= User.find(event.version_author).employee.name if event.terminator.present? %></td>
-            <td>
-              <% if event.event == 'update' %>
-                <% event.changeset.to_a.each do |key, value| %>
-                  <% case key %>
-                  <% when 'deadline' %>
+        <tr>
+          <td><%= id %></td>
+          <td><%=t "paper_trail.#{event.event}" %></td>
+          <td><%= event.created_at.to_s(:custom_datetime) %></td>
+          <td><%= User.find(event.version_author).employee.name if event.terminator.present? %></td>
+          <td>
+            <% if event.event == 'update' %>
+              <% event.changeset.to_a.each do |key, value| %>
+                <% case key %>
+                <% when 'deadline' %>
+                  <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                  de <%= value[0].present? ? (l value[0]) : (l value[1]) %> para <%=l value[1] %>
+                  <br>
+                <% when 'deadline' %>
+                  <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                  de <%= value[0].present? ? (l value[0]) : (l value[1]) %> para <%=l value[1] %>
+                  <br>
+                <% when 'client_id' %>
+                  <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                  de <%= value[0].present? ? (Client.find(value[0]).company_name) : 'Vazio' %> para <%= value[1].present? ? (Client.find(value[1]).company_name) : 'Vazio' %>
+                  <br>
+                <% when 'user_id' %>
+                  <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                  de <%= value[0].present? ? (User.find(value[0]).employee.name) : 'Vazio' %> para <%= value[1].present? ? (User.find(value[1]).employee.name) : 'Vazio' %>
+                  <br>
+                <% when 'employee_id' %>
+                  <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                  de <%= value[0].present? ? (Employee.find(value[0]).name) : 'Vazio' %> para <%= value[1].present? ? (Employee.find(value[1]).name) : 'Vazio' %>
+                  <br>
+                <% when 'type_of_payment_id' %>
+                  <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                  de <%= value[0].present? ? (TypeOfPayment.find(value[0]).name) : 'Vazio' %> para <%= value[1].present? ? (TypeOfPayment.find(value[1]).name) : 'Vazio' %>
+                  <br>
+                <% when 'sub_type_payment_id' %>
+                  <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                  de <%= value[0].present? ? (SubTypePayment.find(value[0]).name) : 'Vazio' %> para <%= value[1].present? ? (SubTypePayment.find(value[1]).name) : 'Vazio' %>
+                  <br>
+                <% when 'delivery_option_id' %>
+                  <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                  de <%= value[0].present? ? (DeliveryOption.find(value[0]).name) : 'Vazio' %> para <%= value[1].present? ? (DeliveryOption.find(value[1]).name) : 'Vazio' %>
+                  <br>
+                <% when 'sub_delivery_option_id' %>
+                  <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                  de <%= value[0].present? ? (SubDeliveryOption.find(value[0]).name) : 'Vazio' %> para <%= value[1].present? ? (SubDeliveryOption.find(value[1]).name) : 'Vazio' %>
+                  <br>
+                <% when 'value' %>
+                  <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                  de <%= number_to_currency value[0] %> para <%= number_to_currency value[1] %>
+                  <br>
+                <% when 'discount' %>
+                  <% if event.previous.present? %>
                     <strong><%= model_class.human_attribute_name("#{key}") %></strong>
-                    de <%= value[0].present? ? (l value[0]) : (l value[1]) %> para <%=l value[1] %>
-                    <br>
-                  <% when 'client_id' %>
-                    <strong><%= model_class.human_attribute_name("#{key}") %></strong>
-                    de <%= value[0].present? ? (Client.find(value[0]).company_name) : 'Vazio' %> para <%= value[1].present? ? (Client.find(value[1]).company_name) : 'Vazio' %>
-                    <br>
-                  <% when 'user_id' %>
-                    <strong><%= model_class.human_attribute_name("#{key}") %></strong>
-                    de <%= value[0].present? ? (User.find(value[0]).employee.name) : 'Vazio' %> para <%= value[1].present? ? (User.find(value[1]).employee.name) : 'Vazio' %>
-                    <br>
-                  <% when 'employee_id' %>
-                    <strong><%= model_class.human_attribute_name("#{key}") %></strong>
-                    de <%= value[0].present? ? (Employee.find(value[0]).name) : 'Vazio' %> para <%= value[1].present? ? (Employee.find(value[1]).name) : 'Vazio' %>
-                    <br>
-                  <% when 'type_of_payment_id' %>
-                    <strong><%= model_class.human_attribute_name("#{key}") %></strong>
-                    de <%= value[0].present? ? (TypeOfPayment.find(value[0]).name) : 'Vazio' %> para <%= value[1].present? ? (TypeOfPayment.find(value[1]).name) : 'Vazio' %>
-                    <br>
-                  <% when 'delivery_option_id' %>
-                    <strong><%= model_class.human_attribute_name("#{key}") %></strong>
-                    de <%= value[0].present? ? (DeliveryOption.find(value[0]).name) : 'Vazio' %> para <%= value[1].present? ? (DeliveryOption.find(value[1]).name) : 'Vazio' %>
-                    <br>
-                  <% when 'value' %>
-                    <strong><%= model_class.human_attribute_name("#{key}") %></strong>
-                    de <%= number_to_currency value[0] %> para <%= number_to_currency value[1] %>
-                    <br>
-                  <% when 'discount' %>
-                    <% if event.previous.present? %>
-                      <strong><%= model_class.human_attribute_name("#{key}") %></strong>
-                        de <%= event.previous.reify.discount_type ? "#{value[0].to_i}%" : number_to_currency(value[0]) %>
-                        para <%= event.reify.discount_type ? "#{value[1].to_i}%" : number_to_currency(value[1]) %>
-                      <br>
-                    <% end %>
-                  <% when 'discount_items' %>
-                    <% if event.previous.present? %>
-                      <strong><%= model_class.human_attribute_name("#{key}") %></strong>
-                        de <%= event.previous.reify.discount_items.to_f > 0 ? number_to_currency(value[0]) : '-' %>
-                        para <%= event.reify.discount_items.to_f > 0 ? number_to_currency(value[1]) : '-' %>
-                      <br>
-                    <% end %>
-                  <% when 'value_with_discount' %>
-                    <strong><%= model_class.human_attribute_name("#{key}") %></strong>
-                    de <%= number_to_currency value[0] %> para <%= number_to_currency value[1] %>
+                      de <%= event.previous.reify.discount_type ? "#{value[0].to_i}%" : number_to_currency(value[0]) %>
+                      para <%= event.reify.discount_type ? "#{value[1].to_i}%" : number_to_currency(value[1]) %>
                     <br>
                   <% end %>
+                <% when 'discount_items' %>
+                  <% if event.previous.present? %>
+                    <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                      de <%= event.previous.reify.discount_items.to_f > 0 ? number_to_currency(value[0]) : '-' %>
+                      para <%= event.reify.discount_items.to_f > 0 ? number_to_currency(value[1]) : '-' %>
+                    <br>
+                  <% end %>
+                <% when 'value_with_discount' %>
+                  <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                  de <%= number_to_currency value[0] %> para <%= number_to_currency value[1] %>
+                  <br>
                 <% end %>
               <% end %>
-              <% id+=1 %>
-            </td>
-          </tr>
-        <% end %>
+            <% end %>
+            <% id+=1 %>
+          </td>
+        </tr>
       <% end %>
     </tbody>
   </table>

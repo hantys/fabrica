@@ -5,5 +5,14 @@
   <%= @delivery_option.name %>
 </p>
 
+<legend>Sub-Itens</legend>
+<ul>
+  <% @delivery_option.sub_delivery_options.each do |item| %>
+    <li>
+      <%= item.name %>
+    </li>
+  <% end %>
+</ul>
+
 <%= link_to 'Edit', edit_delivery_option_path(@delivery_option) %> |
 <%= link_to 'Back', delivery_options_path %>

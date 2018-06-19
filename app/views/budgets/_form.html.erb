@@ -1,3 +1,36 @@
+<% if params[:budget].present?
+  if params[:budget][:delivery_option_id].present?
+    sub_delivery_option = SubDeliveryOption.where(delivery_option_id: params[:budget][:delivery_option_id]).select(:id, :name).order(:name)
+    select_sub_delivery_option = params[:budget][:sub_delivery_option_id]
+  else
+    sub_delivery_option = []
+    select_sub_delivery_option = nil
+  end
+
+  if params[:budget][:type_of_payment_id].present?
+    sub_type_payment = SubTypePayment.where(type_of_payment_id: params[:budget][:type_of_payment_id]).select(:id, :name).order(:name)
+    select_sub_type_payment = params[:budget][:sub_delivery_option_id]
+  else
+    sub_type_payment = []
+    select_sub_type_payment = nil
+  end
+else
+  sub_delivery_option = []
+  select_sub_delivery_option = nil
+
+  sub_type_payment = []
+  select_sub_type_payment = nil
+end %>
+
+<% if @budget.sub_delivery_option_id.present? %>
+  <% sub_delivery_option = SubDeliveryOption.where(delivery_option_id: @budget.delivery_option_id).select(:id, :name).order(:name) %>
+  <% select_sub_delivery_option = @budget.sub_delivery_option_id %>
+<% end %>
+<% if @budget.sub_type_payment_id.present? %>
+  <% sub_type_payment = SubTypePayment.where(type_of_payment_id: @budget.type_of_payment_id).select(:id, :name).order(:name) %>
+  <% select_sub_type_payment = @budget.sub_type_payment_id %>
+<% end %>
+
 <%= simple_nested_form_for(@budget) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
@@ -11,9 +44,13 @@
         <%= f.input :deadline, as: :string, input_html: { class: 'date', value: @budget.deadline.strftime("%d/%m/%Y") } %>
       <% end %>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-3">
       <%= f.association :delivery_option, collection: DeliveryOption.order(:name), prompt: 'Escolha um tipo' %>
       <%= f.association :type_of_payment, collection: TypeOfPayment.order(:name), prompt: 'Escolha um tipo' %>
+    </div>
+    <div class="col-lg-3">
+      <%= f.association :sub_delivery_option, collection: sub_delivery_option, selected: select_sub_delivery_option, prompt: 'Escolha um tipo' %>
+      <%= f.association :sub_type_payment, collection: sub_type_payment, selected: select_sub_type_payment, prompt: 'Escolha um tipo' %>
     </div>
   </div>
   <hr>

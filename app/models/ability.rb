@@ -10,8 +10,10 @@ class Ability
     if user.has_role? :admin
       can :crud, :all
       can :budget_pdf, Budget
+      can :update_status, Budget
     end
     if user.has_role? :manager
+      can :update_status, Budget
       can :crud, :all
       cannot [:create, :read, :update, :destroy], DeliveryOption
       cannot [:create, :read, :update, :destroy], TypeOfPayment

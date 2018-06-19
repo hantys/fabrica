@@ -4,7 +4,7 @@ class BudgetProduct < ApplicationRecord
   belongs_to :budget
   belongs_to :product
 
-  has_paper_trail
+  has_paper_trail ignore: [:budget_id, :updated_at, :created_at, :id]
 
   validates :unit_value, presence: true
   validates :total_value, presence: true

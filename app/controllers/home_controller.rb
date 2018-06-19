@@ -23,4 +23,16 @@ class HomeController < ApplicationController
     render json: cities
   end
 
+  def find_payment
+    payments = SubTypePayment.where(type_of_payment_id: params[:id]).select(:id, :name).order(:name)
+
+    render json: payments
+  end
+
+  def find_delivery
+    deliveries = SubDeliveryOption.where(delivery_option_id: params[:id]).select(:id, :name).order(:name)
+
+    render json: deliveries
+  end
+
 end

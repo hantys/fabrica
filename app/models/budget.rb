@@ -7,12 +7,14 @@ class Budget < ApplicationRecord
   belongs_to :client
   belongs_to :employee
   belongs_to :delivery_option, optional: true
+  belongs_to :sub_delivery_option, optional: true
   belongs_to :type_of_payment, optional: true
+  belongs_to :sub_type_payment, optional: true
   has_many :budget_products, dependent: :destroy
 
   accepts_nested_attributes_for :budget_products, allow_destroy: true
 
-  has_paper_trail
+  has_paper_trail ignore: [:cod_name, :updated_at, :created_at, :id, :cod]
 
   validates :value, presence: true
   validates :deadline, presence: true
