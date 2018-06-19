@@ -1,0 +1,81 @@
+<%- model_class = BudgetProduct -%>
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="budget_product-<%= budget_product.id %>" tabindex="-1" role="dialog" aria-labelledby="budget_product-historical-<%= budget_product.id %>" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="budget_product-historical-<%= budget_product.id %>"><%= budget_product.product.name %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Evento</th>
+              <th scope="col">Alterado em</th>
+              <th scope="col">Modificado por</th>
+              <th scope="col">Itens</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% budget_product.versions.each do |event| %>
+              <tr>
+                <td><%= event.index+1 %></td>
+                <td><%=t "paper_trail.#{event.event}" %></td>
+                <td><%= event.created_at.to_s(:custom_datetime) %></td>
+                <td><%= User.find(event.version_author).employee.name if event.terminator.present? %></td>
+                <td>
+                  <% if event.event == 'update' %>
+                    <% event.changeset.to_a.each do |key, value| %>
+                      <% case key %>
+                      <% when 'product_id' %>
+                        <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                        de <%= value[0].present? ? (Product.find(value[0]).name) : 'Vazio' %> para <%= value[1].present? ? (Product.find(value[1]).name) : 'Vazio' %>
+                        <br>
+                      <% when 'unit_value' %>
+                        <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                        de <%= number_to_currency value[0] %> para <%= number_to_currency value[1] %>
+                        <br>
+                      <% when 'discount' %>
+                        <% if event.previous.present? %>
+                          <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                            de <%= event.previous.reify.discount_type ? "#{value[0].to_i}%" : number_to_currency(value[0]) %>
+                            para <%= event.reify.discount_type ? "#{value[1].to_i}%" : number_to_currency(value[1]) %>
+                          <br>
+                        <% end %>
+                      <% when 'total_value' %>
+                        <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                        de <%= number_to_currency value[0] %> para <%= number_to_currency value[1] %>
+                        <br>
+                      <% when 'total_value_with_discount' %>
+                        <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                        de
+                        <% if event.previous.present? %>
+                          <%= number_to_currency(event.previous.reify.total_value - event.previous.reify.total_value_with_discount) if event.previous.reify.present? %>
+                        <% end %>
+                        para
+                        <%= number_to_currency(event.reify.total_value - event.reify.total_value_with_discount) %>
+                        <br>
+                      <% when 'qnt' %>
+                        <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                        de <%= value[0] %> para <%= value[1] %>
+                        <br>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -192,6 +192,7 @@ pt-BR:
         qnt: Quantidade
         total_value: Valor total
         discount: Desconto
+        total_value_with_discount: Total com Desconto
         discount_type: Porcentagem?
         cod: Código
         name: Nome

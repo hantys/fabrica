@@ -1,0 +1,5 @@
+pt-BR:
+   paper_trail:
+     create: "Criado"
+     update: "Atualizado"
+     destroy: "Apagado"
