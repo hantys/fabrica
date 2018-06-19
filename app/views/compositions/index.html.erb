@@ -4,6 +4,8 @@
   <%= link_to t('.new', :default => t("helpers.links.new")), new_composition_path, class: "btn btn-primary" %>
 </div>
 
+<%= paginate @compositions if @compositions.size > 20 %>
+<%= page_entries_info @compositions, entry_name: 'item' %>
 <div class="table-responsive">
   <table class="table table-bordered table-hover text-center">
     <thead class="thead-light">
@@ -39,3 +41,4 @@
     </tbody>
   </table>
 </div>
+<%= paginate @compositions %>

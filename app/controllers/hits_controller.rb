@@ -3,7 +3,7 @@ class HitsController < ApplicationController
   # GET /hits
   # GET /hits.json
   def index
-    @hits = Hit.includes(:composition).accessible_by(current_ability).order(id: :desc)
+    @hits = Hit.includes(:composition).accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /hits/1

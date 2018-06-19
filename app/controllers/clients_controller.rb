@@ -4,7 +4,7 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.includes(:state, :city, :employee).accessible_by(current_ability).order(id: :desc)
+    @clients = Client.includes(:state, :city, :employee).accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /clients/1

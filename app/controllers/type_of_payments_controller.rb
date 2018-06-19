@@ -4,7 +4,7 @@ class TypeOfPaymentsController < ApplicationController
   # GET /type_of_payments
   # GET /type_of_payments.json
   def index
-    @type_of_payments = TypeOfPayment.accessible_by(current_ability).order(id: :desc)
+    @type_of_payments = TypeOfPayment.accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /type_of_payments/1

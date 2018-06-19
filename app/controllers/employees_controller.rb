@@ -4,7 +4,7 @@ class EmployeesController < ApplicationController
   # GET /employees
   # GET /employees.json
   def index
-    @employees = Employee.includes(:state, :city).accessible_by(current_ability).order(id: :desc)
+    @employees = Employee.includes(:state, :city).accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /employees/1

@@ -4,7 +4,7 @@ class RawMaterialsController < ApplicationController
   # GET /raw_materials
   # GET /raw_materials.json
   def index
-    @raw_materials = RawMaterial.accessible_by(current_ability).order(id: :desc)
+    @raw_materials = RawMaterial.accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /raw_materials/1
