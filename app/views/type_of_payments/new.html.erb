@@ -1,5 +1,13 @@
-<h1>New Type Of Payment</h1>
+<%- model_class = TypeOfPayment -%>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-8 col-sm-12">
+      <div class="page-header d-flex justify-content-lg-between align-items-center">
+        <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
+      </div>
+    </div>
+  </div>
+</div>
 
 <%= render 'form', type_of_payment: @type_of_payment %>
-
-<%= link_to 'Back', type_of_payments_path %>

@@ -1,32 +1,40 @@
-<%= simple_nested_form_for(@type_of_payment) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-  <% if @type_of_payment.errors.full_messages.any? %>
-    <ul>
-      <% @type_of_payment.errors.full_messages.each do |error_message| %>
-        <li class="alert alert-danger">
-          <%= error_message if @type_of_payment.errors.full_messages.first == error_message %> <br />
-        </li>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-8 col-sm-12">
+      <%= simple_nested_form_for(@type_of_payment) do |f| %>
+        <%= f.error_notification %>
+        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+        <% if @type_of_payment.errors.full_messages.any? %>
+          <ul>
+            <% @type_of_payment.errors.full_messages.each do |error_message| %>
+              <li class="alert alert-danger">
+                <%= error_message if @type_of_payment.errors.full_messages.first == error_message %> <br />
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+        <div class="form-inputs">
+          <%= f.input :name %>
+        </div>
+        <div id="sub_type_payments">
+          <%= f.fields_for :sub_type_payments do |sub_type_payments_form| %>
+            <div class="card card-body">
+              <div class="d-flex flex-row justify-content-start align-items-end">
+                <%= sub_type_payments_form.input :name %>
+                <%= sub_type_payments_form.link_to_remove "Remover composto", class: 'btn btn-outline-danger float-right mb-3 ml-2' %>
+              </div>
+            </div>
+            <br>
+          <% end %>
+        </div>
+        <hr>
+        <p><%= f.link_to_add "Adicionar sub-item", :sub_type_payments, :data => { :target => "#sub_type_payments" }, class: 'btn btn-outline-primary' %></p>
+        <hr>
+        <div class="form-actions">
+          <%= f.button :submit, :class => 'btn btn-success' %>
+          <%= link_to t('.cancel', :default => t("helpers.links.cancel")), type_of_payments_path, :class => 'btn btn-danger' %>
+        </div>
       <% end %>
-    </ul>
-  <% end %>
-  <div class="form-inputs">
-    <%= f.input :name %>
+    </div>
   </div>
-  <div id="sub_type_payments">
-    <%= f.fields_for :sub_type_payments do |sub_type_payments_form| %>
-      <div class="card card-body">
-        <%= sub_type_payments_form.input :name %>
-        <%= sub_type_payments_form.link_to_remove "Remover composto", class: 'btn btn-outline-danger float-right' %>
-      </div>
-      <br>
-    <% end %>
-  </div>
-  <hr>
-  <p><%= f.link_to_add "Adicionar sub-item", :sub_type_payments, :data => { :target => "#sub_type_payments" }, class: 'btn btn-outline-primary' %></p>
-  <hr>
-  <div class="form-actions">
-    <%= f.button :submit, :class => 'btn btn-success' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")), compositions_path, :class => 'btn btn-danger' %>
-  </div>
-<% end %>
+</div>

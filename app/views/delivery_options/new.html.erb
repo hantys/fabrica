@@ -1,5 +1,12 @@
-<h1>Nova opção de entrega</h1>
+<%- model_class = DeliveryOption -%>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-8 col-sm-12">
+      <div class="page-header d-flex justify-content-lg-between align-items-center">
+        <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
+      </div>
+    </div>
+  </div>
+</div>
 
 <%= render 'form', delivery_option: @delivery_option %>
-
-<%= link_to 'Back', delivery_options_path %>

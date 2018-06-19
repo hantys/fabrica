@@ -1,18 +1,33 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = TypeOfPayment -%>
+<div class="page-header d-flex flex-row justify-content-start align-items-center w-100">
+  <h1><strong><%=t '.title', :default => model_class.model_name.human.titleize %></strong></h1>
+  <div class="d-flex flex-row justify-content-start align-items-center ml-auto">
+    <%= link_to t('.back', :default => t("helpers.links.back")),
+                  type_of_payment_path, :class => 'btn btn-secondary ml-2' %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_type_of_payment_path(@type_of_payment), :class => 'btn btn-primary ml-2' %>
+  </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @type_of_payment.name %>
-</p>
-
-<legend>Sub-Itens</legend>
-<ul>
-  <% @type_of_payment.sub_type_payments.each do |item| %>
-    <li>
-      <%= item.name %>
-    </li>
-  <% end %>
-</ul>
-
-<%= link_to 'Edit', edit_type_of_payment_path(@type_of_payment) %> |
-<%= link_to 'Back', type_of_payments_path %>
+<div class="row mt-4 mb-4">
+  <div class="col-6">
+    <p>
+      <strong>
+        <%= model_class.human_attribute_name(:name) %>:
+      </strong>
+      <%= @type_of_payment.name %>
+      <hr>
+      <strong>
+        Sub-itens:
+      </strong>
+      <ul>
+        <% @type_of_payment.sub_type_payments.each do |item| %>
+          <li>
+            <%= item.name %>
+          </li>
+        <% end %>
+      </ul>
+      <hr>
+    </p>
+  </div>
+</div>

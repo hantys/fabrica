@@ -1,18 +1,34 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = TypeOfPayment -%>
 
-<p>
-  <strong>Name:</strong>
-  <%= @delivery_option.name %>
-</p>
+<div class="page-header d-flex flex-row justify-content-start align-items-center w-100">
+  <h1><strong><%=t '.title', :default => model_class.model_name.human.titleize %></strong></h1>
+  <div class="d-flex flex-row justify-content-start align-items-center ml-auto">
+    <%= link_to t('.back', :default => t("helpers.links.back")),
+                  delivery_options_path, :class => 'btn btn-secondary ml-2' %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_delivery_option_path(@delivery_option), :class => 'btn btn-primary ml-2' %>
+  </div>
+</div>
 
-<legend>Sub-Itens</legend>
-<ul>
-  <% @delivery_option.sub_delivery_options.each do |item| %>
-    <li>
-      <%= item.name %>
-    </li>
-  <% end %>
-</ul>
-
-<%= link_to 'Edit', edit_delivery_option_path(@delivery_option) %> |
-<%= link_to 'Back', delivery_options_path %>
+<div class="row mt-4 mb-4">
+  <div class="col-6">
+    <p>
+      <strong>
+        <%= model_class.human_attribute_name(:name) %>:
+      </strong>
+      <%= @delivery_option.name %>
+      <hr>
+      <strong>
+        Sub-itens:
+      </strong>
+      <ul>
+        <% @delivery_option.sub_delivery_options.each do |item| %>
+          <li>
+            <%= item.name %>
+          </li>
+        <% end %>
+      </ul>
+      <hr>
+    </p>
+  </div>
+</div>

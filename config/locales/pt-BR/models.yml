@@ -14,6 +14,8 @@ pt-BR:
       budget: Orçamento
       product: Produto
       budget_product: Produto do Orçamento
+      delivery_option: Tipos de Entrega
+      type_of_payment: Tipos de Pagamento
 
     attributes:
       user:
@@ -229,3 +231,11 @@ pt-BR:
         discount_type: Porcentagem?
         created_at: Criado em
         updated_at: Atualizado em
+
+      delivery_options:
+        name: Nome
+        sub_delivery_option: Sub-tipo
+
+      type_of_payment:
+        name: Nome
+        sub_type_payment: Sub-tipo
