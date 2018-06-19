@@ -5,6 +5,8 @@
   <%= link_to t('.new', :default => t("helpers.links.new")), new_delivery_option_path, class: "btn btn-primary" %>
 </div>
 
+<%= paginate @delivery_options if @delivery_options.size > 20 %>
+<%= page_entries_info @delivery_options, entry_name: 'item' %>
 <div class="table-responsive">
   <table class="table table-bordered table-hover text-center">
     <thead class="thead-light">
@@ -38,3 +40,4 @@
     </tbody>
   </table>
 </div>
+<%= paginate @delivery_options %>

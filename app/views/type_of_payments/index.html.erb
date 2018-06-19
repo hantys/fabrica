@@ -2,6 +2,8 @@
 
 <h1>Type Of Payments</h1>
 
+<%= paginate @type_of_payments if @type_of_payments.size > 20 %>
+<%= page_entries_info @type_of_payments, entry_name: 'item' %>
 <table>
   <thead>
     <tr>
@@ -23,7 +25,7 @@
     <% end %>
   </tbody>
 </table>
-
+<%= paginate @type_of_payments %>
 <br>
 
 <%= link_to 'New Type Of Payment', new_type_of_payment_path %>

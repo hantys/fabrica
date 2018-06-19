@@ -4,6 +4,8 @@
   <%= link_to t('.new', :default => t("helpers.links.new")), new_product_path, class: "btn btn-primary" %>
 </div>
 
+<%= paginate @products if @products.size > 20 %>
+<%= page_entries_info @products, entry_name: 'item' %>
 <div class="table-responsive">
   <table class="table table-bordered table-hover text-center">
     <thead class="thead-light">
@@ -45,4 +47,4 @@
     </tbody>
   </table>
 </div>
-
+<%= paginate @products %>
