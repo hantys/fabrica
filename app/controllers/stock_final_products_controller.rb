@@ -54,9 +54,13 @@ class StockFinalProductsController < ApplicationController
   # DELETE /stock_final_products/1
   # DELETE /stock_final_products/1.json
   def destroy
-    @stock_final_product.destroy
+    if @stock_final_product.destroy
+      flash[:notice] = 'Entrada de estoque final apagado com sucesso.'
+    else
+      flash[:error] = @stock_final_product.errors[:base].to_sentence
+    end
     respond_to do |format|
-      format.html { redirect_to stock_final_products_url, notice: 'Entrada de estoque final apagado com sucesso.' }
+      format.html { redirect_to stock_final_products_url }
       format.json { head :no_content }
     end
   end

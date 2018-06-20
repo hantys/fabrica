@@ -1,9 +1,20 @@
 class StockFinalProduct < ApplicationRecord
   acts_as_paranoid
 
-  attr_accessor :hit_weigth
+  attr_accessor :hit_weigth, :derivative_qnt
 
   enum kind: {raw_material: 0, product: 1}
+
+  before_create :save_estimated
+  after_create :set_estimated_weight
+  after_create :set_cost
+
+  before_create :set_amount_out #seta peso de saida na criação
+  before_create :set_residue #seta peso de saida na criação
+  before_destroy :check_routine_trigger
+
+  after_create :update_stock_final_product
+  before_save :weight_refresh_trigger
 
   belongs_to :product, optional: true
   belongs_to :derivative, class_name: "Product", :foreign_key => 'derivative_id', optional: true
@@ -19,22 +30,12 @@ class StockFinalProduct < ApplicationRecord
   validates_presence_of :derivative, :if => :product?
   validates_presence_of :qnt_out, :if => :product?
   validates :qnt_out, numericality: { greater_than: 0 }, :if => :product?
-  # validate :verify_qnt_out, :if => :product?
+  validate :verify_qnt_out, :if => :product?, on: :create
   validates :weight, numericality: { greater_than: 0 }, :if => :raw_material?
+  validate :verify_weigth, :if => :raw_material?, on: :create
   validates :residue, numericality: { greater_than: 0 }, :if => :raw_material?
   validates_presence_of :hit, :if => :raw_material?
   validates_presence_of :residue, :if => :raw_material?
-
-  before_create :save_estimated
-  after_create :set_estimated_weight
-  after_create :set_cost
-
-
-  before_create :set_amount_out #seta peso de saida na criação
-  before_create :set_residue #seta peso de saida na criação
-  # before_destroy :check_routine_trigger #faz o rollback do peso na materia-prima quando a entrada de estoque e deletada
-  after_create :update_stock_final_product #atualiza o peso da materia-prima quando tem uma entrada no estoque
-  before_save :weight_refresh_trigger #atualiza o peso da materia-prima quando ocorre alguma retirada
 
 
   def verify_qnt_out
@@ -43,10 +44,18 @@ class StockFinalProduct < ApplicationRecord
         qnt = Product.find(self.derivative_id).qnt
         if self.qnt_out.to_f > qnt.to_f
           errors.add(:qnt_out, "Não pode ser maior que #{qnt}")
+          throw(:abort)
         end
       rescue Exception => e
         errors.add(:derivative, "Não pode ser branco")
       end
+    end
+  end
+
+  def verify_weigth
+    if self.weight > self.hit_weigth.to_f
+      errors.add(:weight, "Não pode ser maior que #{hit_weigth}")
+      throw(:abort)
     end
   end
 
@@ -59,6 +68,37 @@ class StockFinalProduct < ApplicationRecord
   end
 
   private
+    def check_routine_trigger
+      if self.amount != self.amount_out
+        # raise "não pode ser apagado. Já existe uma saida desse material"
+        # errors[:base] << "não pode ser apagado. Já existe uma saida desse material"
+        # return false
+        errors.add :base, "Não pode ser apagado. Já existe uma saida desse produto"
+        false
+        # Rails 5
+        throw(:abort)
+      else
+        if self.kind == "raw_material"
+          hit = self.hit
+          hit.update used: false
+          hit.hit_items.includes(:raw_material).each do |hit_item|
+            hit_item.hit_item_stocks.each do |item|
+              stock = item.stock_raw_material
+              stock.update(weight_out: item.weight+stock.weight_out)
+            end
+          end
+        else
+          product_derivative = self.derivative
+
+          product_derivative.item_product_stocks.each do |item|
+            stock = item.stock_final_product
+            stock.update(amount_out: item.qnt+stock.amount_out)
+          end
+        end
+        self.product.update(qnt: self.product.qnt - self.amount)
+      end
+    end
+
     def set_residue
       if self.kind == "raw_material"
         hit_weigth = Hit.find(self.hit_id).hit_items.sum(:weight).round(2)
@@ -134,13 +174,12 @@ class StockFinalProduct < ApplicationRecord
         @qnt = self.qnt_out
         while @qnt > 0  do
           stock = @stocks[@i]
-          puts "*******************#{stock.amount_out}"
           if @qnt <= stock.amount_out
-            @product_stocks << ItemProductStock.create!(stock_final_product_id: stock.id, product_id: product.id, qnt: @qnt)
+            @product_stocks << ItemProductStock.create!(stock_final_product_id: stock.id, product_id: product_derivative.id, qnt: @qnt)
             @qnt = 0
           else
             rest = @qnt - stock.amount_out
-            @product_stocks << ItemProductStock.create!(stock_final_product_id: stock.id, product_id: product.id, qnt: (@qnt - rest))
+            @product_stocks << ItemProductStock.create!(stock_final_product_id: stock.id, product_id: product_derivative.id, qnt: (@qnt - rest))
             @qnt = rest
           end
           @i +=1

@@ -29,14 +29,6 @@ Product.create! cod: 'CE9060', name: 'CURVA ELETRODUTO 60MM PVC PB', price: rand
 Product.create! cod: 'CE9075', name: 'CURVA ELETRODUTO 75MM PVC PB', price: rand(1.3..6), derivative: true
 Product.create! cod: 'CE9085', name: 'CURVA ELETRODUTO 85MM PVC PB', price: rand(1.3..6), derivative: true
 Product.create! cod: 'CE90110', name: 'CURVA ELETRODUTO 110MM PVC PB', price: rand(1.3..6), derivative: true
-Product.create! cod: 'CE1820', name: 'CURVA ELETRODUTO 20MM PVC PB', price: rand(1.3..6), derivative: true
-Product.create! cod: 'CE1825', name: 'CURVA ELETRODUTO 25MM PVC PB', price: rand(1.3..6), derivative: true
-Product.create! cod: 'CE1832', name: 'CURVA ELETRODUTO 32MM PVC PB', price: rand(1.3..6), derivative: true
-Product.create! cod: 'CE1840', name: 'CURVA ELETRODUTO 40MM PVC PB', price: rand(1.3..6), derivative: true
-Product.create! cod: 'CE1850', name: 'CURVA ELETRODUTO 50MM PVC PB', price: rand(1.3..6), derivative: true
-Product.create! cod: 'CE1860', name: 'CURVA ELETRODUTO 60MM PVC PB', price: rand(1.3..6), derivative: true
-Product.create! cod: 'CE1875', name: 'CURVA ELETRODUTO 75MM PVC PB', price: rand(1.3..6), derivative: true
-Product.create! cod: 'CE1885', name: 'CURVA ELETRODUTO 85MM PVC PB', price: rand(1.3..6), derivative: true
 Product.create! cod: 'BE1,5', name: 'BENGALA ELETRODUTO 25MM X 1,5M', price: rand(1.3..6), derivative: true
 Product.create! cod: 'BE3', name: 'BENGALA ELETRODUTO 25MM X 3M', price: rand(1.3..6), derivative: true
 Product.create! cod: 'MI1', name: 'MANGUEIRA DE IRRIGAÇÃO POTY MASTER DE "1"', price: rand(1.3..6)

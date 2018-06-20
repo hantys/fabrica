@@ -1,6 +1,11 @@
 class StockRawMaterial < ApplicationRecord
   acts_as_paranoid
 
+  before_create :set_weight_out #seta peso de saida na criação
+  before_destroy :check_routine_trigger #faz o rollback do peso na materia-prima quando a entrada de estoque e deletada
+  after_create :update_stock_raw_material #atualiza o peso da materia-prima quando tem uma entrada no estoque
+  before_save :weight_refresh_trigger #atualiza o peso da materia-prima quando ocorre alguma retirada
+
   belongs_to :raw_material
 
   has_paper_trail
@@ -8,11 +13,6 @@ class StockRawMaterial < ApplicationRecord
   validates :weight, presence: true
   validates :price, presence: true
   validates :raw_material_id, presence: true
-
-  before_create :set_weight_out #seta peso de saida na criação
-  before_destroy :check_routine_trigger #faz o rollback do peso na materia-prima quando a entrada de estoque e deletada
-  after_create :update_stock_raw_material #atualiza o peso da materia-prima quando tem uma entrada no estoque
-  before_save :weight_refresh_trigger #atualiza o peso da materia-prima quando ocorre alguma retirada
 
 
   private

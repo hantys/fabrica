@@ -29,6 +29,12 @@ class HomeController < ApplicationController
     render json: hit
   end
 
+  def produto_primitivo
+    qnt = Product.find(params[:id]).qnt.round(2)
+
+    render json: qnt
+  end
+
   def find_payment
     payments = SubTypePayment.where(type_of_payment_id: params[:id]).select(:id, :name).order(:name)
 

@@ -11,7 +11,7 @@
     <thead class="thead-light">
       <tr>
         <th scope="col">#</th>
-        <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:product) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:composition) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:used) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:hit_items) %></th>
@@ -22,9 +22,9 @@
       <% @hits.each do |hit| %>
       <tr>
         <td scope="row"><%= hit.id %></td>
-        <td><%= hit.name %></td>
-        <td><%= hit.composition.name %></td>
-        <td><%= hit.used %></td>
+        <td><%= link_to hit.product.name, hit.product %></td>
+        <td><%= link_to hit.composition.name, hit.composition %></td>
+        <td><%= hit.used ? "<span class='badge badge-danger' style='font-size:14px;'>Usado</span>".html_safe : "<span class='badge badge-success' style='font-size:14px;'>Livre</span>".html_safe %></td>
         <td><%= hit.hit_items.sum(:weight).round(3) %> kg</td>
         <td>
           <%= link_to hit, class: 'btn btn-info has-icon' do %>

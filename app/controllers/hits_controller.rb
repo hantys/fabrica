@@ -53,9 +53,13 @@ class HitsController < ApplicationController
   # DELETE /hits/1
   # DELETE /hits/1.json
   def destroy
-    @hit.destroy
+    if @hit.destroy
+      flash[:notice] = 'Batida apagada com sucesso.'
+    else
+      flash[:error] = @hit.errors[:base].to_sentence
+    end
     respond_to do |format|
-      format.html { redirect_to hits_url, notice: 'Batida apagado com sucesso.' }
+      format.html { redirect_to hits_url }
       format.json { head :no_content }
     end
   end
