@@ -3,7 +3,7 @@
   <h1><strong><%=t '.title', :default => model_class.model_name.human.titleize %></strong></h1>
   <div class="d-flex flex-row justify-content-start align-items-center ml-auto">
     <%= link_to t('.back', :default => t("helpers.links.back")),
-                  type_of_payment_path, :class => 'btn btn-secondary ml-2' %>
+                  type_of_payments_path, :class => 'btn btn-secondary ml-2' %>
     <%= link_to t('.edit', :default => t("helpers.links.edit")),
                   edit_type_of_payment_path(@type_of_payment), :class => 'btn btn-primary ml-2' %>
   </div>

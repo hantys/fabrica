@@ -232,10 +232,16 @@ pt-BR:
         created_at: Criado em
         updated_at: Atualizado em
 
-      delivery_options:
+      delivery_option:
         name: Nome
-        sub_delivery_option: Sub-tipo
+        sub: Sub-itens
+
+      sub_delivery_option:
+        name: Nome
+
+      sub_type_payment:
+        name: Nome
 
       type_of_payment:
         name: Nome
-        sub_type_payment: Sub-tipo
+        sub: Sub-itens
