@@ -36,7 +36,8 @@
       <strong>
         <%= model_class.human_attribute_name(:type_of_payment) %>:
       </strong>
-        <%= @budget.try(:type_of_payment).try(:name) %>
+        <%= @budget.try(:type_of_payment).try(:name) %> -
+        <%= @budget.try(:sub_type_payment).try(:name) %>
       <hr>
     </p>
   </div>
@@ -60,7 +61,7 @@
       <strong>
         <%= model_class.human_attribute_name(:delivery_option) %>:
       </strong>
-        <%= @budget.try(:delivery_option).try(:name) %>
+        <%= @budget.try(:delivery_option).try(:name) %> - <%= @budget.try(:sub_delivery_option).try(:name) %>
       <hr>
     </p>
   </div>
