@@ -20,3 +20,25 @@ jQuery ->
   if $('#stock_final_product_kind').val() == 'product'
     $(".product").removeClass('d-none')
     $(".raw-material").addClass('d-none')
+
+  if $('#stock_final_product_residue').length != 0
+    $('#stock_final_product_weight').keyup ->
+      $('#stock_final_product_residue').val(0)
+      $('#stock_final_product_residue').val((parseFloat($('#stock_final_product_hit_weigth').val()) - parseFloat($('#stock_final_product_weight').val())).toFixed(2))
+
+  if $('#stock_final_product_hit_id').length > 0
+    $('#stock_final_product_hit_id').change ->
+      $.get("/busca/batida/#{$(this).val()}", (data) ->
+        $('#stock_final_product_hit_weigth').val null
+        $('#stock_final_product_hit_weigth').val "#{data} kg"
+        $('#stock_final_product_residue').val(null)
+        if $('#stock_final_product_weight').length > 0
+          $('#stock_final_product_residue').val((parseFloat(data) - parseFloat($('#stock_final_product_weight').val())).toFixed(2))
+      ).done(->
+        # console.log 'second success'
+      ).fail(->
+        # console.log 'error'
+      ).always(->
+        # console.log 'finished'
+      )
+

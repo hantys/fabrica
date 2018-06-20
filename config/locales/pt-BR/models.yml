@@ -40,7 +40,7 @@ pt-BR:
         name: 'Nome'
         residue: 'Borra'
         used: 'Usado'
-        hit_items: 'Pesso da Matéria'
+        hit_items: 'Pesso da Batida'
         composition_id: 'Composição'
         composition: 'Composição'
         created_at: Criado em

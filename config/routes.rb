@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/busca/cidades/:id' => "home#find_city"
   get '/busca/sub-item-entrega/:id' => "home#find_delivery"
   get '/busca/sub-item-pagamento/:id' => "home#find_payment"
+  get '/busca/batida/:id' => "home#find_hit"
 
   get '/orcamento/pdf/:id' => "budgets#budget_pdf", as: :budget_pdf
   get '/orcamento/atualiza-status/:id/:status' => "budgets#update_status", as: :budget_update_status

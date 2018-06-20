@@ -10,8 +10,8 @@ pt-BR:
         composition: Composição
     stock_final_product:
       kind:
-        raw_material: Matéria-prima
-        product: Produto
+        raw_material: Batida
+        product: Produto Final
     budget:
       status:
         waiting: Aguardando Autorização

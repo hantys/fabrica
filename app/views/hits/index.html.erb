@@ -14,7 +14,6 @@
         <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:composition) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:used) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:residue) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:hit_items) %></th>
         <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
@@ -26,7 +25,6 @@
         <td><%= hit.name %></td>
         <td><%= hit.composition.name %></td>
         <td><%= hit.used %></td>
-        <td><%= hit.residue.round(3) %> kg</td>
         <td><%= hit.hit_items.sum(:weight).round(3) %> kg</td>
         <td>
           <%= link_to hit, class: 'btn btn-info has-icon' do %>

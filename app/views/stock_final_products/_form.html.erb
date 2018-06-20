@@ -6,9 +6,19 @@
     <div class="col-lg-6">
       <%= f.input :kind, as: :select, collection: StockFinalProduct.kinds_i18n.map { |w| [w[1], w[0]] }, prompt:  'Escolha um tipo', input_html: { onchange: 'changeKindSFP(this)'} %>
       <span class="raw-material d-none">
-        <%= f.association :hit, collection: Hit.joins(:product).where(used: false).select(:id, :'products.name') %>
+        <div class="d-flex flex-row justify-content-start align-items-end">
+          <%= f.association :hit, collection: Hit.joins(:product).where(used: false).select(:id, :'products.name'), wrapper_html: { class: 'w-75' } %>
+
+            <div class="input-group mb-3 ml-3 w-25">
+              <%= f.input_field :hit_weigth, label: 'Peso da Batida', class: 'form-control', readonly: true %>
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">kg</span>
+              </div>
+            </div>
+
+        </div>
         <%= f.input :weight %>
-        <%= f.input :residue %>
+        <%= f.input :residue, readonly: true %>
       </span>
       <span class="product d-none">
         <%= f.association :product, collection: Product.where(derivative: true) %>

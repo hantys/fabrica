@@ -1,6 +1,8 @@
 class StockFinalProduct < ApplicationRecord
   acts_as_paranoid
 
+  attr_accessor :hit_weigth
+
   enum kind: {raw_material: 0, product: 1}
 
   belongs_to :product, optional: true
@@ -21,6 +23,7 @@ class StockFinalProduct < ApplicationRecord
   validates :weight, numericality: { greater_than: 0 }, :if => :raw_material?
   validates :residue, numericality: { greater_than: 0 }, :if => :raw_material?
   validates_presence_of :hit, :if => :raw_material?
+  validates_presence_of :residue, :if => :raw_material?
 
   before_create :save_estimated
   after_create :set_estimated_weight
@@ -28,6 +31,7 @@ class StockFinalProduct < ApplicationRecord
 
 
   before_create :set_amount_out #seta peso de saida na criação
+  before_create :set_residue #seta peso de saida na criação
   # before_destroy :check_routine_trigger #faz o rollback do peso na materia-prima quando a entrada de estoque e deletada
   after_create :update_stock_final_product #atualiza o peso da materia-prima quando tem uma entrada no estoque
   before_save :weight_refresh_trigger #atualiza o peso da materia-prima quando ocorre alguma retirada
@@ -55,6 +59,13 @@ class StockFinalProduct < ApplicationRecord
   end
 
   private
+    def set_residue
+      if self.kind == "raw_material"
+        hit_weigth = Hit.find(self.hit_id).hit_items.sum(:weight).round(2)
+        self.residue = hit_weigth - self.weight
+      end
+    end
+
     def set_amount_out
       self.amount_out = self.amount
     end

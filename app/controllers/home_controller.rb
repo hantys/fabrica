@@ -23,6 +23,12 @@ class HomeController < ApplicationController
     render json: cities
   end
 
+  def find_hit
+    hit = Hit.find(params[:id]).hit_items.sum(:weight).round(2)
+
+    render json: hit
+  end
+
   def find_payment
     payments = SubTypePayment.where(type_of_payment_id: params[:id]).select(:id, :name).order(:name)
 
