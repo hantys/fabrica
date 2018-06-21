@@ -20,6 +20,13 @@ class BudgetsController < ApplicationController
     @budget = Budget.find params[:id]
     if @budget.status == 'waiting'
       case params[:status]
+      when 'confirm'
+        @budget.update status: params[:status].to_sym
+      when 'rejected'
+        @budget.update status: params[:status].to_sym
+      end
+    elsif @budget.status == 'confirm'
+      case params[:status]
       when 'authorized'
         @budget.update status: params[:status].to_sym
       when 'rejected'

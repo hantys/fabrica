@@ -6,6 +6,8 @@ module BudgetsHelper
     case budget.status
     when 'waiting'
       aux = "<span class='badge badge-warning' style='font-size:14px;'>#{budget.status_i18n}</span>"
+    when 'confirm'
+      aux = "<span class='badge badge-info' style='font-size:14px;'>#{budget.status_i18n}</span>"
     when 'rejected'
       aux = "<span class='badge badge-danger' style='font-size:14px;'>#{budget.status_i18n}</span>"
     when 'authorized'
