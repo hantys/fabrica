@@ -1,6 +1,13 @@
 <%- model_class = Composition -%>
-<div class="page-header d-flex justify-content-lg-between align-items-center">
-  <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-8 col-sm-12">
+      <div class="page-header d-flex justify-content-lg-between align-items-center">
+        <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
+      </div>
+    </div>
+  </div>
 </div>
 
 <%= render 'form', composition: @composition %>
