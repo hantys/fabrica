@@ -26,6 +26,7 @@ class Ability
       can [:read, :update], Client, employee_id: user.employee.id
       can :create, [Budget, Client]
       can [:read, :update], User, id: user.id
+      can :update_status, Budget, status: [0]
     end
     #
     # The first argument to `can` is the action you are giving the user
