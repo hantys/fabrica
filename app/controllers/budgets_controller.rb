@@ -4,7 +4,7 @@ class BudgetsController < ApplicationController
   # GET /budgets
   # GET /budgets.json
   def index
-    @budgets = Budget.accessible_by(current_ability).order(id: :desc).page params[:page]
+    @budgets = Budget.order(id: :desc).page params[:page]
   end
 
   # GET /budgets/1
