@@ -88,6 +88,11 @@
       </strong>
         <%= number_to_currency @budget.value_with_discount %>
       <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:status) %>:
+      </strong>
+        <%= label_status_budget @budget  %>
+      <hr>
     </p>
   </div>
 </div>
@@ -212,6 +217,10 @@
                 <% when 'value_with_discount' %>
                   <strong><%= model_class.human_attribute_name("#{key}") %></strong>
                   de <%= number_to_currency value[0] %> para <%= number_to_currency value[1] %>
+                  <br>
+                <% when 'status' %>
+                  <strong><%= model_class.human_attribute_name("#{key}") %></strong>
+                  de <%= label_status_budget value[0] %> para <%= label_status_budget value[1] %>
                   <br>
                 <% end %>
               <% end %>
