@@ -19,4 +19,6 @@
 //= require jquery-mask-plugin/dist/jquery.mask
 //= require select2/dist/js/select2
 //= require select2/dist/js/i18n/pt-BR
+//= require air-datepicker/dist/js/datepicker.min
+//= require air-datepicker/dist/js/i18n/datepicker.pt-BR
 //= require default
