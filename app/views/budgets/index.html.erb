@@ -4,6 +4,8 @@
   <%= link_to t('.new', :default => t("helpers.links.new")), new_budget_path, class: "btn btn-primary" %>
 </div>
 
+<%= render 'search' %>
+
 <%= paginate @budgets if @budgets.size > 20 %>
 <%= page_entries_info @budgets, entry_name: 'item' %>
 <div class="table-responsive">

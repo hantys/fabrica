@@ -13,12 +13,16 @@ require "action_cable/engine"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
+require File.expand_path('../boot', __FILE__)
+ENV['RANSACK_FORM_BUILDER'] = '::SimpleForm::FormBuilder'
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 Time::DATE_FORMATS[:custom_date] = "%d/%m/%Y"
 Time::DATE_FORMATS[:custom_datetime] = "%d/%m/%Y %T"
+Date::DATE_FORMATS.merge!( default: '%d/%m/%Y' )
 
 module Fabrica
   class Application < Rails::Application

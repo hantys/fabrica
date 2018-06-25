@@ -2,7 +2,7 @@ Ransack.configure do |config|
 
   # Change default search parameter key name.
   # Default key name is :q
-  config.search_key = :query
+  config.search_key = :q
 
   # Raise errors if a query contains an unknown predicate or attribute.
   # Default is true (do not raise error on unknown conditions).
