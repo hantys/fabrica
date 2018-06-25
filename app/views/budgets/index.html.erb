@@ -12,16 +12,16 @@
   <table class="table table-bordered table-hover text-center">
     <thead class="thead-light">
       <tr>
-        <th scope="col">#</th>
-        <th scope="col"><%= model_class.human_attribute_name(:cod_name) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:client) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:employee) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:delivery_options) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:deadline) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:discount) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:value) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:created_at) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:status) %></th>
+        <th scope="col"><%= sort_link @q, :id, "#", default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :cod_name, model_class.human_attribute_name(:cod_name), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :client, model_class.human_attribute_name(:client), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :employee, model_class.human_attribute_name(:employee), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :delivery_options, model_class.human_attribute_name(:delivery_options), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :deadline, model_class.human_attribute_name(:deadline), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :discount, model_class.human_attribute_name(:discount), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :value, model_class.human_attribute_name(:value), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :created_at, model_class.human_attribute_name(:created_at), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :status, model_class.human_attribute_name(:status), default_order: :desc %></th>
         <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
     </thead>
