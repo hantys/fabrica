@@ -37,7 +37,7 @@ end %>
 
   <div class="row">
     <div class="col-lg-6">
-      <%= f.association :client, collection: ((current_user.has_role?(:admin) or current_user.has_role?(:manager)) ? (Client.order(:company_name).map {|x| [x.company_name, x.id]}) : (Client.where(employee: current_user.employee).order(:company_name).map {|x| [x.company_name, x.id]})), prompt: "Escolha um cliente", input_html: { class: 'simple-select2' } %>
+      <%= f.association :client, collection: Client.accessible_by(current_ability).order(:company_name).map {|x| [x.company_name, x.id]}, prompt: "Escolha um cliente", input_html: { class: 'simple-select2' } %>
 
       <%= f.input :deadline, as: :string, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
 
