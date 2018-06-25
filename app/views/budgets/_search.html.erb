@@ -1,18 +1,18 @@
 <%- model_class = Budget -%>
-<%= search_form_for @q, url: budgets_path, html: { class: '' } do |f| %>
+<%= search_form_for @q, url: budgets_path, html: { class: 'form-horizonal' } do |f| %>
   <h3>Busca</h3>
   <div class="row justify-content-md-center">
     <div class="col-4">
       <%= f.input :cod_name_cont, label: model_class.human_attribute_name(:cod_name), placeholder: 'Ex: 410/2018', required: false %>
-      <%= f.input :client_id_eq, label: model_class.human_attribute_name(:client), as: :select, :collection => Client.accessible_by(current_ability).order(:company_name).map { |e| [e.company_name, e.id] }, :include_blank => "Todos", input_html: {class: 'simple-select2'}, required: false %>
-    </div>
-    <div class="col-4">
-      <%= f.input :employee_id_eq, label: model_class.human_attribute_name(:employee), :as => :select, :collection => Employee.accessible_by(current_ability).order(:name).map { |e| [e.name, e.id] }, :include_blank => "Todos", input_html: {class: 'simple-select2'}, required: false %>
       <%= f.input :status_eq, label: model_class.human_attribute_name(:status), as: :select, placeholder: 'code', :as => :select, :collection => Budget.statuses.map {|x| [t("enums.budget.status.#{x[0]}"), x[1]]}.sort_by {|a,b| a }, :include_blank => "Todas", input_html: {class: 'simple-select2'}, required: false %>
     </div>
     <div class="col-4">
-      <%= f.input :deadline_gteq, label: model_class.human_attribute_name(:deadline), as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date' } %>
-      <%= f.input :deadline_lteq, label: model_class.human_attribute_name(:deadline), as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date' } %>
+      <%= f.input :client_id_eq, label: model_class.human_attribute_name(:client), as: :select, :collection => Client.accessible_by(current_ability).order(:company_name).map { |e| [e.company_name, e.id] }, :include_blank => "Todos", input_html: {class: 'simple-select2'}, required: false %>
+      <%= f.input :employee_id_eq, label: model_class.human_attribute_name(:employee), :as => :select, :collection => Employee.accessible_by(current_ability).order(:name).map { |e| [e.name, e.id] }, :include_blank => "Todos", input_html: {class: 'simple-select2'}, required: false %>
+    </div>
+    <div class="col-4">
+      <%= f.input :deadline_gteq, label: model_class.human_attribute_name(:deadline), as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+      <%= f.input :deadline_lteq, label: model_class.human_attribute_name(:deadline), as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
     </div>
     <%= f.button :submit, class: 'btn btn-success' %>
     <%= link_to 'Limpar', budgets_path, class: 'btn btn-info ml-3' %>

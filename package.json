@@ -2,6 +2,7 @@
   "name": "fabrica",
   "private": true,
   "dependencies": {
+    "air-datepicker": "^2.2.3",
     "bootstrap": "^4.1.1",
     "bootstrap-material-design": "^4.1.1",
     "bootstrap-sass": "^3.3.7",
