@@ -11,11 +11,11 @@
       <%= f.input :employee_id_eq, label: model_class.human_attribute_name(:employee), :as => :select, :collection => Employee.accessible_by(current_ability).order(:name).map { |e| [e.name, e.id] }, :include_blank => "Todos", input_html: {class: 'simple-select2'}, required: false %>
     </div>
     <div class="col-4">
-      <%= f.input :deadline_gteq, label: model_class.human_attribute_name(:deadline), as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'}  } %>
-      <%= f.input :deadline_lteq, label: model_class.human_attribute_name(:deadline), as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'}  } %>
+      <%= f.input :deadline_gteq, label: model_class.human_attribute_name(:deadline), as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+      <%= f.input :deadline_lteq, label: model_class.human_attribute_name(:deadline), as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
     </div>
     <%= f.button :submit, class: 'btn btn-success' %>
-    <%= link_to 'Limpar', budgets_path, class: 'btn btn-info' %>
+    <%= link_to 'Limpar', budgets_path, class: 'btn btn-info ml-3' %>
   </div>
   <hr>
 <% end %>
