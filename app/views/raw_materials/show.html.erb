@@ -1,21 +1,26 @@
 <%- model_class = RawMaterial -%>
-<div class="page-header d-flex justify-content-lg-between align-items-center">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
-</div>
-
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @raw_material.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:amount) %>:</strong></dt>
-  <dd><%= @raw_material.amount.round(3) %> kg</dd>
-</dl>
-<hr>
-<%= link_to t('.back', :default => t("helpers.links.back")),
+<div class="page-header d-flex flex-row justify-content-start align-items-center w-100">
+  <h1><strong><%=t '.title', :default => model_class.model_name.human.titleize %></strong></h1>
+  <div class="d-flex flex-row justify-content-start align-items-center ml-auto">
+    <%= link_to t('.back', :default => t("helpers.links.back")),
               raw_materials_path, :class => 'btn btn-secondary'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_raw_material_path(@raw_material), :class => 'btn btn-primary' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              raw_material_path(@raw_material),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_raw_material_path(@raw_material), :class => 'btn btn-primary ml-2' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  raw_material_path(@raw_material),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-danger ml-2' %>
+  </div>
+</div>
+<div class="row mt-4 mb-4">
+  <div class="col-6">
+    <p>
+    <strong><%= model_class.human_attribute_name(:name) %>:</strong>
+    <%= @raw_material.name %>
+    <hr/>
+    <strong><%= model_class.human_attribute_name(:amount) %>:</strong>
+    <%= @raw_material.amount.round(3) %> kg</p>
+    <hr/>
+  </div>
+</div>
