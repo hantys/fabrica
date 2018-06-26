@@ -4,14 +4,14 @@
 - criar template para auditoria
 
 TO DO
-- retorno da borra como pvc e calcular seu valor apartir do custo da borra
-- adicionar um status, confirmado para o representante
-
+- corrigir edicao do orcamento
 - TODOS OS  ORÇAMENTOS:
   * RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
 
 
 DONE
+- retorno da borra como pvc e calcular seu valor apartir do custo da borra
+- adicionar um status, confirmado para o representante
 - na entrada de porduto final por materia prima, deixar entrada de peso dos tubos e calcular a borra
 - composto nao e produto final, ele e igual a lista dos itens do orcamento
   * fazer alteracao no sistema para produto final
