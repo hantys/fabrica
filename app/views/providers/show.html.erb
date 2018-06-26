@@ -1,89 +1,75 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Provider -%>
+<div class="page-header d-flex flex-row justify-content-start align-items-center w-100">
+  <h1><strong><%=t '.title', :default => model_class.model_name.human.titleize %></strong></h1>
+  <div class="d-flex flex-row justify-content-start align-items-center ml-auto">
+    <%= link_to t('.back', :default => t("helpers.links.back")),
+                  providers_path, :class => 'btn btn-secondary' %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_provider_path(@provider), :class => 'btn btn-primary ml-2' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  provider_path(@provider),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-danger ml-2' %>
+  </div>
+</div>
+<div class="row mt-4 mb-4">
+  <div class="col-6">
+    <p>
+      <strong><%= model_class.human_attribute_name(:company_name) %>:</strong>
+      <%= @provider.company_name %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:fantasy_name) %></strong>
+      <%= @provider.fantasy_name %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:cpf) %>:</strong>
+      <%= @provider.cpf %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:cnpj) %>:</strong>
+      <%= @provider.cnpj %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:bank) %>:</strong>
+      <%= @provider.bank %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:ag) %>:</strong>
+      <%= @provider.ag %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:cc) %>:</strong>
+      <%= @provider.cc %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:variation) %>:</strong>
+      <%= @provider.variation %>
+      <hr/>
+    </p>
+  </div>
+  <div class="col-6">
+    <p>
+      <strong><%= model_class.human_attribute_name(:street) %>:</strong>
+      <%= @provider.street %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:number) %>:</strong>
+      <%= @provider.number %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:neighborhood) %>:</strong>
+      <%= @provider.neighborhood %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:cep) %>:</strong>
+      <%= @provider.cep %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:ie) %>:</strong>
+      <%= @provider.ie %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:city) %>:</strong>
+      <%= @provider.city.name %> - <%= @provider.state.acronym %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:phone1) %>:</strong>
+      <%= @provider.phone1 %>
+      <hr/>
+      <strong><%= model_class.human_attribute_name(:phone2) %>:</strong>
+      <%= @provider.phone2 %>
+      <hr/>
+    </p>
+  </div>
+</div>
 
-<p>
-  <strong>Company name:</strong>
-  <%= @provider.company_name %>
-</p>
 
-<p>
-  <strong>Fantasy name:</strong>
-  <%= @provider.fantasy_name %>
-</p>
-
-<p>
-  <strong>Cpf:</strong>
-  <%= @provider.cpf %>
-</p>
-
-<p>
-  <strong>Cnpj:</strong>
-  <%= @provider.cnpj %>
-</p>
-
-<p>
-  <strong>Street:</strong>
-  <%= @provider.street %>
-</p>
-
-<p>
-  <strong>Number:</strong>
-  <%= @provider.number %>
-</p>
-
-<p>
-  <strong>Neighborhood:</strong>
-  <%= @provider.neighborhood %>
-</p>
-
-<p>
-  <strong>Cep:</strong>
-  <%= @provider.cep %>
-</p>
-
-<p>
-  <strong>Ie:</strong>
-  <%= @provider.ie %>
-</p>
-
-<p>
-  <strong>Bank:</strong>
-  <%= @provider.bank %>
-</p>
-
-<p>
-  <strong>Ag:</strong>
-  <%= @provider.ag %>
-</p>
-
-<p>
-  <strong>Cc:</strong>
-  <%= @provider.cc %>
-</p>
-
-<p>
-  <strong>Variation:</strong>
-  <%= @provider.variation %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @provider.state.acronym %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @provider.city.name %>
-</p>
-
-<p>
-  <strong>Phone1:</strong>
-  <%= @provider.phone1 %>
-</p>
-
-<p>
-  <strong>Phone2:</strong>
-  <%= @provider.phone2 %>
-</p>
-
-<%= link_to 'Edit', edit_provider_path(@provider) %> |
-<%= link_to 'Back', providers_path %>

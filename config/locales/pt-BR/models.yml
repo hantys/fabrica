@@ -170,6 +170,7 @@ pt-BR:
         state: Estado
         city_id: Cidade
         city: Cidade
+        acronym: Acrônimo
         phone1: Telefone 1
         phone2: Telefone 2
         user_id: Usuário
