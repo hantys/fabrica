@@ -4,6 +4,7 @@
 - criar template para auditoria
 
 TO DO
+- relacao de produtos a serem produzidos
 - corrigir edicao do orcamento
 - TODOS OS  ORÇAMENTOS:
   * RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
