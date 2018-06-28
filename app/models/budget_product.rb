@@ -1,6 +1,8 @@
 class BudgetProduct < ApplicationRecord
   acts_as_paranoid
 
+  before_save :set_total_value
+
   belongs_to :budget
   belongs_to :product
 
@@ -12,9 +14,6 @@ class BudgetProduct < ApplicationRecord
   validates :unit_value, numericality: { greater_than: 0 }
   validates :total_value, numericality: { greater_than: 0 }
   validates :qnt, numericality: { greater_than: 0 }
-
-
-  before_save :set_total_value
 
   def value_discount_total
     total_value - total_value_with_discount

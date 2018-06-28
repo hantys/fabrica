@@ -16,15 +16,18 @@ class Budget < ApplicationRecord
 
   has_paper_trail ignore: [:cod_name, :updated_at, :created_at, :id, :cod]
 
+  after_save :set_value
+  after_save :set_discount
+  after_create :set_cod_name
+  before_update :verify_value_with_discount
+
+
   validates :value, presence: true
   validates :deadline, presence: true
   # validates :name, presence: true
 
   validates :value, numericality: { greater_than: 0 }
 
-  after_save :set_value
-  after_save :set_discount
-  after_create :set_cod_name
 
   private
     def set_cod_name
@@ -32,18 +35,27 @@ class Budget < ApplicationRecord
       b.update cod_name: "#{b.cod}/#{Date.today.year}"
     end
 
+    def verify_value_with_discount
+      if self.discount.to_f == 0 and self.discount_items.to_f == 0
+        self.value_with_discount = self.value
+        self.discount_items = 0
+      end
+    end
+
     def set_discount
       descount_total = self.budget_products.sum(:total_value_with_discount).round(2)
       if descount_total != self.discount_items
         if descount_total.to_f > 0
           self.update discount_items: descount_total.to_f.round(2), value_with_discount: (self.value.round(2) - descount_total.to_f.round(2)).round(2)
+        elsif self.discount.to_f > 0
+          if self.discount_type
+            self.update discount_items: 0, value_with_discount: (self.value.to_f.round(2) - ((self.value.round(2) * self.discount.to_f.round(2)) / 100)).round(2)
+          else
+            self.update discount_items: 0, value_with_discount: (self.value.to_f.round(2) - self.discount.to_f.round(2)).round(2)
+          end
         else
-          if self.discount.to_f > 0
-            if self.discount_type
-              self.update discount_items: 0, value_with_discount: (self.value.to_f.round(2) - ((self.value.round(2) * self.discount.to_f.round(2)) / 100)).round(2)
-            else
-              self.update discount_items: 0, value_with_discount: (self.value.to_f.round(2) - self.discount.to_f.round(2)).round(2)
-            end
+          if self.discount_items.to_f != 0 and descount_total == 0
+            self.update discount_items: 0
           end
         end
       end

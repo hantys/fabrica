@@ -43,8 +43,9 @@
                       <% when 'discount' %>
                         <% if event.previous.present? %>
                           <strong><%= model_class.human_attribute_name("#{key}") %></strong>
-                            de <%= event.previous.reify.discount_type ? "#{value[0].to_i}%" : number_to_currency(value[0]) %>
-                            para <%= event.reify.discount_type ? "#{value[1].to_i}%" : number_to_currency(value[1]) %>
+                            de
+                            <%= value[0].to_f.round(2) %>
+                            para <%= value[1].to_f.round(2) %>
                           <br>
                         <% end %>
                       <% when 'total_value' %>

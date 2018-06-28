@@ -69,7 +69,7 @@ end %>
           <%= budget_products_form.input :total_value, placeholder: 'Valor total', readonly: true, input_html: { class: 'total_value' } %>
         </div>
         <div class="col-lg-2">
-          <%= budget_products_form.input :discount, readonly: true, placeholder: 'Disconto', input_html: { class: 'discount_item' } %>
+          <%= budget_products_form.input :discount, readonly: (budget_products_form.object.discount.to_f >= 0 ? false : true), placeholder: 'Disconto', input_html: { class: 'discount_item' } %>
         </div>
         <div class="col-lg-1" style="align-self: flex-end;">
           <%= budget_products_form.input :discount_type, as: :boolean, label: '%?', input_html: { class: 'discount_type' } %>
@@ -86,7 +86,7 @@ end %>
   <hr>
   <div class="row" style="align-items: flex-end;">
     <div class="col-lg-2">
-    <%= f.input :discount, readonly: true %>
+    <%= f.input :discount, readonly: (@budget.discount_items > 0 ? true : false) %>
     </div>
     <div class="col-lg-2">
       <%= f.input :discount_type %>
