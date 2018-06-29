@@ -1,4 +1,78 @@
 jQuery ->
+  $('.product').change ->
+    unit_value = $(this).parent().parent().parent().find('.unit_value')
+    qnt = $(this).parent().parent().parent().find('.qnt')
+    total_value = $(this).parent().parent().parent().find('.total_value')
+    total_value_with_discount = $(this).parent().parent().parent().find('.total_value_with_discount')
+    discount_type = $(this).parent().parent().parent().find('.discount_type')
+    discount = $(this).parent().parent().parent().parent().find('.discount_item')
+    console.log $(this).val()
+    $.get("/find_product/#{$(this).val()}", (date) ->
+      unit_value.val date
+      $('#budget_discount').val('')
+      if qnt.val().length > 0
+        if qnt.val() == '0.0' or qnt.val() == '0'
+          discount.attr("readonly", true)
+          discount.val(0)
+          total_value_with_discount.val(0)
+        else
+          total_value.val (parseFloat(unit_value.val()) * parseFloat(qnt.val())).toFixed(2)
+          calcDiscountUnit(discount, discount_type, unit_value, qnt, total_value_with_discount)
+          discount.attr("readonly", false)
+          setTotalBudget()
+          setTotalDiscountBudget()
+      else
+        discount.attr("readonly", true)
+        discount.val(0)
+        total_value_with_discount.val(0)
+    ).done(->
+      # console.log 'second success'
+    ).fail(->
+      # console.log 'error'
+    ).always(->
+      # console.log 'finished'
+    )
+
+  $('.discount_item').on 'input', ->
+    unit_value = $(this).parent().parent().parent().find('.unit_value')
+    qnt = $(this).parent().parent().parent().find('.qnt')
+    total_value = $(this).parent().parent().parent().find('.total_value')
+    total_value_with_discount = $(this).parent().parent().parent().find('.total_value_with_discount')
+    discount_type = $(this).parent().parent().parent().find('.discount_type')
+    discount = $(this)
+    calcDiscountUnit(discount, discount_type, unit_value, qnt, total_value_with_discount)
+    setTotalDiscountBudget()
+
+  $('.discount_type').click ->
+    unit_value = $(this).parent().parent().parent().parent().find('.unit_value')
+    qnt = $(this).parent().parent().parent().parent().find('.qnt')
+    total_value = $(this).parent().parent().parent().parent().find('.total_value')
+    total_value_with_discount = $(this).parent().parent().parent().parent().find('.total_value_with_discount')
+    discount_type = $(this)
+    discount = $(this).parent().parent().parent().parent().find('.discount_item')
+    calcDiscountUnit(discount, discount_type, unit_value, qnt, total_value_with_discount)
+    setTotalDiscountBudget()
+
+  $('.qnt').on 'input', ->
+    unit_value = $(this).parent().parent().parent().find('.unit_value')
+    qnt = $(this)
+    total_value = $(this).parent().parent().parent().find('.total_value')
+    total_value_with_discount = $(this).parent().parent().parent().find('.total_value_with_discount')
+    discount_type = $(this).parent().parent().parent().find('.discount_type')
+    discount = $(this).parent().parent().parent().find('.discount_item')
+
+    if unit_value.val().length > 0 and qnt.val().length > 0
+      total_value.val((parseFloat(unit_value.val()) * parseFloat(qnt.val())).toFixed(2))
+      calcDiscountUnit(discount, discount_type, unit_value, qnt, total_value_with_discount)
+      setTotalBudget()
+      setTotalDiscountBudget()
+      discount.attr("readonly", false)
+    if qnt.val().length == 0 or qnt.val() == '0'
+      total_value.val 0
+      discount.val 0
+      total_value_with_discount.val 0
+      discount.attr("readonly", true)
+
   if $('#budget_delivery_option_id').length > 0
     $('#budget_delivery_option_id').change ->
       $.get("/busca/sub-item-entrega/#{$(this).val()}", (data) ->
@@ -52,6 +126,24 @@ jQuery ->
   $('#budget_discount_type').click ->
     unless $('#budget_discount').length == 0 or $('#budget_discount').val() == ''
       calcDiscount($('#budget_discount'), $('#budget_discount_type'), $('#budget_value'), $('#budget_value_with_discount'))
+
+$(document).on 'nested:fieldRemoved:budget_products', (event) ->
+  field = event.field
+  # it's a jQuery object already! Now you can find date input
+  totalValueWithDiscountField = field.find('.total_value_with_discount')
+  budgetItemField = field.find('.product')
+  unitValueField = field.find('.unit_value')
+  qntField = field.find('.qnt')
+  discountField = field.find('.discount_item')
+  discountTypeField = field.find('.discount_type')
+  totalValueField = field.find('.total_value')
+
+  discountField.val(0)
+  totalValueField.val(0)
+  totalValueWithDiscountField.val(0)
+
+  setTotalBudget()
+  setTotalDiscountBudget()
 
 $(document).on 'nested:fieldAdded', (event) ->
   $('.simple-select2').select2

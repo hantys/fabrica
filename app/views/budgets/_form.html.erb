@@ -54,8 +54,8 @@ end %>
   <hr>
   <span id="budget_products">
     <%= f.fields_for :budget_products do |budget_products_form| %>
-      <%= budget_products_form.input :total_value_with_discount, as: :hidden, input_html: { class: 'total_value_with_discount' } %>
-      <div class="row">
+      <div class="row item_product">
+        <%= budget_products_form.input :total_value_with_discount, as: :hidden, input_html: { class: '  total_value_with_discount' } %>
         <div class="col-lg-2">
           <%= budget_products_form.association :product, collection: Product.order(:name).map {|x| ["#{x.cod} / #{x.name}", x.id]} , prompt: 'Produto', input_html: { class: 'product simple-select2' } %>
         </div>
