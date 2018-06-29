@@ -114,6 +114,7 @@ class StockFinalProduct < ApplicationRecord
       self.product.update(qnt: self.product.qnt + self.amount)
     end
 
+    # aqui faz a atualizacao automatica da qnt do produto
     def weight_refresh_trigger
       if self.will_save_change_to_attribute?(:amount_out)
         self.product.update(qnt: self.product.qnt - (self.amount_out_change_to_be_saved[0]-self.amount_out_change_to_be_saved[1]))

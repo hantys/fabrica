@@ -159,12 +159,13 @@
   <strong>
     Opções de entrega:
   </strong>
-  <%= @budget.try(:delivery_option).try(:name) %>
+  <%= @budget.try(:delivery_option).try(:name) %> - <%= @budget.try(:sub_delivery_option).try(:name) %>
   <br>
   <strong>
     Tipo de pagamento:
   </strong>
-  <%= @budget.try(:type_of_payment).try(:name) %>
+  <%= @budget.try(:type_of_payment).try(:name) %> -
+  <%= @budget.try(:sub_type_payment).try(:name) %>
 </p>
 <hr>
 <p class="text-secondary">
