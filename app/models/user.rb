@@ -8,6 +8,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :employee, touch: true#, optional: true
+  has_many :out_of_stocks, dependent: :destroy
 
   has_paper_trail
 

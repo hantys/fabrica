@@ -1,5 +1,5 @@
 class HitItemStock < ApplicationRecord
-  acts_as_paranoid
+  # acts_as_paranoid
 
   belongs_to :stock_raw_material
   belongs_to :hit_item

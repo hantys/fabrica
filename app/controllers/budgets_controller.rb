@@ -23,26 +23,49 @@ class BudgetsController < ApplicationController
     if @budget.status == 'waiting'
       case params[:status]
       when 'confirm'
-        @budget.update status: params[:status].to_sym
+        if @budget.update status: params[:status].to_sym
+          flash[:success] = 'Orçamento atualizado!'
+        else
+          flash[:error] = 'Ocorreu algum problema!'
+        end
       when 'rejected'
-        @budget.update status: params[:status].to_sym
+        if @budget.update status: params[:status].to_sym
+          flash[:success] = 'Orçamento atualizado!'
+        else
+          flash[:error] = 'Ocorreu algum problema!'
+        end
       end
     elsif @budget.status == 'confirm'
       case params[:status]
       when 'authorized'
-        @budget.update status: params[:status].to_sym
+        if @budget.update status: params[:status].to_sym
+          flash[:success] = 'Orçamento atualizado!'
+        else
+          flash[:error] = 'Ocorreu algum problema!'
+        end
       when 'rejected'
-        @budget.update status: params[:status].to_sym
+        if @budget.update status: params[:status].to_sym
+          flash[:success] = 'Orçamento atualizado!'
+        else
+          flash[:error] = 'Ocorreu algum problema!'
+        end
       end
     elsif @budget.status == 'authorized'
       case params[:status]
       when 'billed'
-        @budget.update status: params[:status].to_sym
+        if @budget.update status: params[:status].to_sym
+          flash[:success] = 'Orçamento atualizado!'
+        else
+          flash[:error] = 'Ocorreu algum problema!'
+        end
       end
     elsif @budget.status == 'billed'
-      case params[:status]
-      when 'delivered'
-        @budget.update status: params[:status].to_sym
+      if 'delivered' == params[:status]
+        if @budget.stock_withdrawal(current_user.id)
+          flash[:success] = 'Saída de estoque realizada'
+        else
+          flash[:error] = 'Ocorreu algum problema, verifique seu estoque!'
+        end
       end
     end
   end
@@ -65,7 +88,7 @@ class BudgetsController < ApplicationController
 
     respond_to do |format|
       if @budget.save
-        format.html { redirect_to @budget, notice: 'Orçamento criado com sucesso.' }
+        format.html { redirect_to @budget, success: 'Orçamento criado com sucesso.' }
         format.json { render :show, status: :created, location: @budget }
       else
         format.html { render :new }
@@ -80,7 +103,7 @@ class BudgetsController < ApplicationController
     respond_to do |format|
       budget_params[:employee_id] = Client.find(budget_params[:client_id]).employee.id
       if @budget.update(budget_params)
-        format.html { redirect_to @budget, notice: 'Orçamento atualizado com sucesso.' }
+        format.html { redirect_to @budget, success: 'Orçamento atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @budget }
       else
         format.html { render :edit }

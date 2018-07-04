@@ -3,9 +3,10 @@ class Product < ApplicationRecord
 
   before_create :set_round_price
 
-  has_many :hits
-  has_many :stock_final_products
-  has_many :item_product_stocks
+  has_many :hits, dependent: :destroy
+  has_many :stock_final_products, dependent: :destroy
+  has_many :item_product_stocks, dependent: :destroy
+  has_many :out_of_stocks, dependent: :destroy
 
   has_paper_trail
 

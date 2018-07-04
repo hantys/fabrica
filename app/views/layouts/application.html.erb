@@ -22,7 +22,19 @@
     <main role="main">
       <div class="container-fluid">
         <% flash.each do |name, msg| %>
-            <%= content_tag(:div, msg, class: "alert alert-info") %>
+          <% aux = 'alert-primary' %>
+          <% case name
+            when 'notice'
+              aux = 'alert-primary'
+            when 'success'
+              aux = 'alert-success'
+            when 'error'
+              aux = 'alert-danger'
+            when 'alert'
+              aux = 'alert-warning'
+            end
+          %>
+          <%= content_tag(:div, msg, class: "alert #{aux}") %>
         <% end %>
         <div class="my-3 p-3 bg-white rounded box-shadow">
           <%= yield %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_185338) do
+ActiveRecord::Schema.define(version: 2018_07_04_135125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -203,6 +203,24 @@ ActiveRecord::Schema.define(version: 2018_06_19_185338) do
     t.index ["stock_final_product_id"], name: "index_item_product_stocks_on_stock_final_product_id"
   end
 
+  create_table "out_of_stocks", force: :cascade do |t|
+    t.bigint "budget_id"
+    t.bigint "user_id"
+    t.bigint "product_id"
+    t.float "qnt"
+    t.float "cost"
+    t.float "value"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "budget_product_id"
+    t.index ["budget_id"], name: "index_out_of_stocks_on_budget_id"
+    t.index ["budget_product_id"], name: "index_out_of_stocks_on_budget_product_id"
+    t.index ["deleted_at"], name: "index_out_of_stocks_on_deleted_at"
+    t.index ["product_id"], name: "index_out_of_stocks_on_product_id"
+    t.index ["user_id"], name: "index_out_of_stocks_on_user_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "cod"
     t.string "name"
@@ -388,6 +406,10 @@ ActiveRecord::Schema.define(version: 2018_06_19_185338) do
   add_foreign_key "hits", "products"
   add_foreign_key "item_product_stocks", "products"
   add_foreign_key "item_product_stocks", "stock_final_products"
+  add_foreign_key "out_of_stocks", "budget_products"
+  add_foreign_key "out_of_stocks", "budgets"
+  add_foreign_key "out_of_stocks", "products"
+  add_foreign_key "out_of_stocks", "users"
   add_foreign_key "providers", "cities"
   add_foreign_key "providers", "states"
   add_foreign_key "stock_final_products", "hits"

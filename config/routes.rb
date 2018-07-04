@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { :registrations => 'registrations' }
+
+  # resources :out_of_stocks
   resources :delivery_options
   resources :type_of_payments
-  devise_for :users, controllers: { :registrations => 'registrations' }
   resources :products
   resources :budgets
   resources :hits

@@ -1,10 +1,10 @@
 class RawMaterial < ApplicationRecord
-  acts_as_paranoid
+  # acts_as_paranoid
 
   has_many :compositionals, dependent: :destroy
   has_many :compositions, through: :compositionals
-  has_many :hit_item
-  has_many :stock_raw_materials
+  has_many :hit_item, dependent: :destroy
+  has_many :stock_raw_materials, dependent: :destroy
 
   has_paper_trail
 
@@ -22,3 +22,4 @@ class RawMaterial < ApplicationRecord
       self.slug_name = self.name.parameterize
     end
 end
+

@@ -1,5 +1,5 @@
 class Budget < ApplicationRecord
-  acts_as_paranoid
+  # acts_as_paranoid
 
   enum status: { waiting: 0, rejected: 1, authorized: 2, billed: 3, delivered: 4, confirm: 5 }
 
@@ -11,8 +11,10 @@ class Budget < ApplicationRecord
   belongs_to :type_of_payment, optional: true
   belongs_to :sub_type_payment, optional: true
   has_many :budget_products, dependent: :destroy
+  has_many :out_of_stocks, dependent: :destroy
 
   accepts_nested_attributes_for :budget_products, allow_destroy: true
+  accepts_nested_attributes_for :out_of_stocks, allow_destroy: true
 
   has_paper_trail ignore: [:cod_name, :updated_at, :created_at, :id, :cod]
 
@@ -28,6 +30,20 @@ class Budget < ApplicationRecord
 
   validates :value, numericality: { greater_than: 0 }
 
+  def stock_withdrawal(user_id)
+    begin
+      ActiveRecord::Base.transaction do
+        self.budget_products.each do |item|
+          OutOfStock.transaction do
+            OutOfStock.create!(budget_id: item.budget_id, budget_product_id: item.id, product_id: item.product_id, user_id: user_id, qnt: item.qnt, value: item.value_discount_total)
+          end
+        end
+        self.update status: 'delivered'
+      end
+    rescue Exception => e
+      return false
+    end
+  end
 
   private
     def set_cod_name

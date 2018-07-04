@@ -1,5 +1,5 @@
 class HitItem < ApplicationRecord
-  acts_as_paranoid
+  # acts_as_paranoid
 
   belongs_to :raw_material
   belongs_to :hit

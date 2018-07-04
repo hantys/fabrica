@@ -1,5 +1,5 @@
 class StockFinalProduct < ApplicationRecord
-  acts_as_paranoid
+  # acts_as_paranoid
 
   attr_accessor :hit_weigth, :derivative_qnt
 
@@ -19,7 +19,7 @@ class StockFinalProduct < ApplicationRecord
   belongs_to :product, optional: true
   belongs_to :derivative, class_name: "Product", :foreign_key => 'derivative_id', optional: true
   belongs_to :hit, optional: true
-  has_many :item_product_stocks
+  has_many :item_product_stocks, dependent: :destroy
 
   has_paper_trail
 
@@ -117,7 +117,7 @@ class StockFinalProduct < ApplicationRecord
     # aqui faz a atualizacao automatica da qnt do produto
     def weight_refresh_trigger
       if self.will_save_change_to_attribute?(:amount_out)
-        self.product.update(qnt: self.product.qnt - (self.amount_out_change_to_be_saved[0]-self.amount_out_change_to_be_saved[1]))
+        self.product.update!(qnt: self.product.qnt - (self.amount_out_change_to_be_saved[0]-self.amount_out_change_to_be_saved[1]))
       end
     end
 
@@ -153,6 +153,13 @@ class StockFinalProduct < ApplicationRecord
       if self.kind == "raw_material"
         self.estimated_weight = self.hit.hit_items.sum(:weight)
         self.save!
+      end
+    end
+
+    def increment_qnt_product
+      if self.product?
+        product = self.product
+        product.update!(qnt: product.qnt + self.qnt)
       end
     end
 
