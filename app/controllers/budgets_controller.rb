@@ -58,6 +58,12 @@ class BudgetsController < ApplicationController
         else
           flash[:error] = 'Ocorreu algum problema!'
         end
+      when 'rejected'
+        if @budget.update status: params[:status].to_sym
+          flash[:success] = 'Orçamento atualizado!'
+        else
+          flash[:error] = 'Ocorreu algum problema!'
+        end
       end
     elsif @budget.status == 'billed'
       if 'delivered' == params[:status]
