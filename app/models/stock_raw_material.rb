@@ -1,5 +1,5 @@
 class StockRawMaterial < ApplicationRecord
-  # acts_as_paranoid
+  acts_as_paranoid
 
   before_create :set_weight_out #seta peso de saida na criação
   before_destroy :check_routine_trigger #faz o rollback do peso na materia-prima quando a entrada de estoque e deletada

@@ -1,5 +1,5 @@
 class Hit < ApplicationRecord
-  # acts_as_paranoid
+  acts_as_paranoid
 
   before_destroy :check_routine_trigger
 

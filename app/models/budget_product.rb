@@ -1,5 +1,5 @@
 class BudgetProduct < ApplicationRecord
-  # acts_as_paranoid
+  acts_as_paranoid
 
   before_save :set_total_value
 

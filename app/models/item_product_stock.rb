@@ -1,5 +1,5 @@
 class ItemProductStock < ApplicationRecord
-  # acts_as_paranoid
+  acts_as_paranoid
 
   belongs_to :product
   belongs_to :derivative, class_name: "Product", :foreign_key => 'derivative_id', optional: true

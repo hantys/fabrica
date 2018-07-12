@@ -1,5 +1,5 @@
 class Compositional < ApplicationRecord
-  # acts_as_paranoid
+  acts_as_paranoid
 
   belongs_to :raw_material, touch: true
   belongs_to :composition, touch: true

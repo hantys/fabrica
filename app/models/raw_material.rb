@@ -1,5 +1,5 @@
 class RawMaterial < ApplicationRecord
-  # acts_as_paranoid
+  acts_as_paranoid
 
   has_many :compositionals, dependent: :destroy
   has_many :compositions, through: :compositionals

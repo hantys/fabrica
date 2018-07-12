@@ -1,5 +1,5 @@
 class StockFinalProduct < ApplicationRecord
-  # acts_as_paranoid
+  acts_as_paranoid
 
   attr_accessor :hit_weigth, :derivative_qnt
 
