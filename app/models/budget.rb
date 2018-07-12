@@ -31,7 +31,7 @@ class Budget < ApplicationRecord
   validates :value, numericality: { greater_than: 0 }
 
   def stock_withdrawal(user_id)
-    # begin
+    begin
       ActiveRecord::Base.transaction do
         self.budget_products.each do |item|
           OutOfStock.transaction do
@@ -40,9 +40,9 @@ class Budget < ApplicationRecord
         end
         self.update status: 'delivered'
       end
-    # rescue Exception => e
-    #   return false
-    # end
+    rescue Exception => e
+      return false
+    end
   end
 
   private

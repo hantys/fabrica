@@ -62,6 +62,12 @@ task :seed do
   command %[bundle exec rake db:migrate db:seed]
 end
 
+desc "megrate data to the database"
+task :migrate do
+  command %[cd /#{fetch(:current_path)}]
+  command %[bundle exec rake db:migrate]
+end
+
 
 desc "Deploys the current version to the server."
 task :deploy do
