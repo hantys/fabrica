@@ -5,7 +5,6 @@
   <div class="row">
     <div class="col-lg-6">
       <%= f.input :kind, as: :select, collection: StockFinalProduct.kinds_i18n.map { |w| [w[1], w[0]] }, prompt:  'Escolha um tipo', input_html: { onchange: 'changeKindSFP(this)'} %>
-      <%= f.input :amount %>
       <span class="raw-material d-none">
         <div class="d-flex flex-row justify-content-start align-items-end">
           <%= f.association :hit, collection: Hit.joins(:product).order('products.name').where(used: false).select(:id, :'products.name'), wrapper_html: { class: 'w-75' }, input_html: { class: 'simple-select2' } %>
@@ -18,8 +17,6 @@
             </div>
 
         </div>
-        <%= f.input :weight %>
-        <%= f.input :residue, readonly: true %>
       </span>
       <span class="product d-none">
         <%= f.association :product, collection: Product.where(derivative: true).order(:name), input_html: { class: 'simple-select2' } %>
@@ -28,8 +25,14 @@
             <%= f.input :derivative_qnt, label: 'Quantidade Disponível', class: 'form-control', readonly: true, wrapper_html: { class: 'ml-3 w-25' } %>
 
         </div>
-
+      </span>
+      <%= f.input :amount %>
+      <span class="product d-none">
         <%= f.input :qnt_out %>
+      </span>
+      <span class="raw-material d-none">
+        <%= f.input :weight %>
+        <%= f.input :residue, readonly: true %>
       </span>
     </div>
   </div>

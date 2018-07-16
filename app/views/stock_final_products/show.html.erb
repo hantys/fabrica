@@ -16,34 +16,31 @@
   <% end %>
   <dt><strong><%= model_class.human_attribute_name(:amount) %>:</strong></dt>
   <dd><%= @stock_final_product.amount.to_i %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:amount_out) %>:</strong></dt>
-  <dd><%= @stock_final_product.amount_out.to_i %></dd>
+<!--   <dt><strong><%#= model_class.human_attribute_name(:amount_out) %>:</strong></dt>
+  <dd><%#= @stock_final_product.amount_out.to_i %></dd> -->
   <dt><strong><%= model_class.human_attribute_name(:cost) %>:</strong></dt>
   <dd><%= number_to_currency @stock_final_product.cost %></dd>
   <dt><strong><%= model_class.human_attribute_name(:cost) %> por unidade:</strong></dt>
   <dd><%= number_to_currency(@stock_final_product.cost/(@stock_final_product.amount)) %></dd>
 </dl>
-<hr>
-<% if @stock_final_product.kind == "raw_material" %>
+<!-- <hr>
+<%# if @stock_final_product.kind == "raw_material" %>
   <legend>Itens usados</legend>
   <ul>
-    <% @stock_final_product.hit.hit_items.includes(:raw_material).each do |hit_item| %>
+    <%# @stock_final_product.hit.hit_items.includes(:raw_material).each do |hit_item| %>
       <li>
-        <%= hit_item.raw_material.name %> / <%= hit_item.weight.round(3) %> kg
+        <%#= hit_item.raw_material.name %> / <%#= hit_item.weight.round(3) %> kg
       </li>
-    <% end %>
-    <li>
-      Borra / <%= @stock_final_product.hit.residue %> kg
-    </li>
+    <%# end %>
   </ul>
-<% else %>
+<%# else %>
 <legend>Produto usado</legend>
-<dd><%= model_class.human_attribute_name(:product) %>:</dd>
-<dd><%= @stock_final_product.try(:derivative).try(:name) %></dd>
-<dd><%= model_class.human_attribute_name(:qnt_out) %>:</dd>
-<dd><%= @stock_final_product.qnt_out %></dd>
-<% end %>
-<hr>
+<dd><%#= model_class.human_attribute_name(:product) %>:</dd>
+<dd><%#= @stock_final_product.try(:derivative).try(:name) %></dd>
+<dd><%#= model_class.human_attribute_name(:qnt_out) %>:</dd>
+<dd><%#= @stock_final_product.qnt_out %></dd>
+<%# end %>
+<hr> -->
 <%= link_to t('.back', :default => t("helpers.links.back")),
               stock_final_products_path, :class => 'btn btn-secondary'  %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
