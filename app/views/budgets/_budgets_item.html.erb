@@ -28,6 +28,7 @@
   <%= label_status_budget budget %>
 </td>
 <td>
+  <%= link_to "Reservar", "", class: 'btn btn-warning mb-1', data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, remote: true, cache: false if budget.status == 'authorized' or budget.status == 'billed' %>
   <% if (can? :update_status, Budget) %>
     <%= link_to "Confirmar", budget_update_status_path(budget.id, 'confirm'), class: 'btn btn-info mb-1', data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, remote: true, cache: false if budget.status == 'waiting' %>
     <%= link_to "Autorizar", budget_update_status_path(budget.id, 'authorized'), class: 'btn btn-success mb-1', data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, remote: true, cache: false if budget.status == 'confirm' %>
