@@ -9,6 +9,7 @@ TO DO
 - TODOS OS  ORÇAMENTOS:
   * RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
 
+- criar reserva no budget_product
 
 DONE
 - retorno da borra como pvc e calcular seu valor apartir do custo da borra

@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :compositions
   resources :raw_materials
 
+  put '/reserve_product/:id' => 'budgets#updated_reserve_product', as: :reserve_product
+
   get '/busca/endereco/:cep' => "home#find_by_address"
   get '/busca/cidades/:id' => "home#find_city"
   get '/busca/sub-item-entrega/:id' => "home#find_delivery"

@@ -1,9 +1,31 @@
 <h1>
-  <%= budget_product.product.cod %>
+  <%= @budget_product.product.qnt %>
 </h1>
+<% flash.each do |name, msg| %>
+  <% aux = 'alert-primary' %>
+  <% case name
+    when 'notice'
+      aux = 'alert-primary'
+    when 'success'
+      aux = 'alert-success'
+    when 'error'
+      aux = 'alert-danger'
+    when 'alert'
+      aux = 'alert-warning'
+    end
+  %>
+  <%= content_tag(:div, msg, class: "alert #{aux} d-none") %>
+<% end %>
+<% flash.discard %>
+<%= simple_form_for @budget_product, url: reserve_product_path, method: :put, remote: true do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= f.input :total_value %>
+    </div>
+  </div>
 
-<%= budget_product.product.name %>
-<hr>
-<%= number_to_currency budget_product.total_value %>
-<hr>
-<%= number_to_currency budget_product.value_discount_total %>
+  <hr>
+  <%= f.button :submit, 'Reservar', class: 'btn btn-success' %>
+<% end %>
