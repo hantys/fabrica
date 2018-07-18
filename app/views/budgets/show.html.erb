@@ -124,6 +124,7 @@
           <td><%= number_to_currency budget_product.value_discount_total %></td>
           <td><%= budget_product.versions.size-1 %></td>
           <td>
+            <%= link_to "Reservar", "javascript:;", class: 'btn btn-warning mb-1',  data: { toggle: "modal", target: "#budget_product_reserve", id: budget_product.id, whatever: budget_product.product.name } if @budget.status == 'authorized' %>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#budget_product-<%= budget_product.id %>">
               Historico
@@ -231,4 +232,24 @@
       <% end %>
     </tbody>
   </table>
+</div>
+
+
+<div class="modal fade" id="budget_product_reserve" tabindex="-1" role="dialog" aria-labelledby="budget_product_reserveLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="budget_product_reserveLabel">Reservar </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
 </div>

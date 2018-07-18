@@ -1,4 +1,23 @@
 jQuery ->
+  $('#budget_product_reserve').on 'show.bs.modal', (event) ->
+    button = $(event.relatedTarget)
+    # Button that triggered the modal
+    title = button.data('whatever')
+    id = button.data('id')
+
+    modal = $(this)
+    modal.find('.modal-title').text 'Reservar ' + title
+
+    $.get '/orcamento/reserve_product/' + id, {}, ((data) ->
+      modal.find('.modal-body').html(data)
+    ), 'html'
+
+  $('#budget_product_reserve').on 'hidden.bs.modal', (event) ->
+    modal = $(this)
+    modal.find('.modal-body').html ''
+    modal.find('.modal-title').text 'Reservar '
+
+
   $('.product').change ->
     unit_value = $(this).parent().parent().parent().find('.unit_value')
     qnt = $(this).parent().parent().parent().find('.qnt')

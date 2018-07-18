@@ -1,6 +1,6 @@
 class BudgetsController < ApplicationController
   before_action :set_budget, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: [:find_product]
+  load_and_authorize_resource except: [:find_product, :reserve_product]
   # GET /budgets
   # GET /budgets.json
   def index
@@ -16,6 +16,12 @@ class BudgetsController < ApplicationController
 
   def budget_pdf
     @budget = Budget.find params[:id]
+  end
+
+  def reserve_product
+    @budget_product = BudgetProduct.find params[:id]
+
+    render partial: 'reserve_product', locals: { budget_product: @budget_product }, layout: false
   end
 
   def update_status
