@@ -7,6 +7,7 @@ TO DO
 - relacao de produtos a serem produzidos
 - relatorio de items a produzir
 - foco do login
+- criar reserva de materia prima quando uma batida for criada
 - TODOS OS  ORÇAMENTOS:
   * RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
 
