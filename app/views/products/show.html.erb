@@ -1,17 +1,19 @@
 <%- model_class = Product -%>
 <div class="page-header d-flex flex-row justify-content-start align-items-center flex-wrap w-100">
   <h1><strong><%=t '.title', :default => model_class.model_name.human.titleize %></strong></h1>
-  <div class="d-flex flex-row justify-content-start align-items-center ml-sm-0 ml-md-auto ml-lg-auto">
-    <%= link_to t('.back', :default => t("helpers.links.back")),
-                  products_path, :class => 'btn btn-secondary' %>
-    <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                  edit_product_path(@product), :class => 'btn btn-primary ml-2' %>
-    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                  product_path(@product),
-                  :method => 'delete',
-                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                  :class => 'btn btn-danger ml-2' %>
-  </div>
+  <% unless @modal %>
+    <div class="d-flex flex-row justify-content-start align-items-center ml-sm-0 ml-md-auto ml-lg-auto">
+      <%= link_to t('.back', :default => t("helpers.links.back")),
+                    products_path, :class => 'btn btn-secondary' %>
+      <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                    edit_product_path(@product), :class => 'btn btn-primary ml-2' %>
+      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                    product_path(@product),
+                    :method => 'delete',
+                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                    :class => 'btn btn-danger ml-2' %>
+    </div>
+  <% end %>
 </div>
 <div class="row mt-4 mb-4">
   <div class="col-sm-12 col-lg-4 col-md-12">
@@ -19,7 +21,7 @@
       <strong>
         <%= model_class.human_attribute_name(:cod) %>:
       </strong>
-      <%= @product.cod %> kg
+      <%= @product.cod %>
       <hr>
       <strong>
         <%= model_class.human_attribute_name(:name) %>:
@@ -30,6 +32,11 @@
         <%= model_class.human_attribute_name(:qnt) %>:
       </strong>
       <%= @product.qnt %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:reserve) %>:
+      </strong>
+      <%= @product.reserve %>
       <hr>
       <strong>
         <%= model_class.human_attribute_name(:price) %>:

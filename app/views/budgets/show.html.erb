@@ -101,10 +101,10 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th scope="col">Código</th>
         <th scope="col">Nome</th>
         <th scope="col">Valor unitário</th>
         <th scope="col">Quantidade</th>
+        <th scope="col">Quantidade reservada</th>
         <th scope="col">Desconto unitário</th>
         <th scope="col">Total</th>
         <th scope="col">Total com Desconto</th>
@@ -115,10 +115,10 @@
     <tbody>
       <% @budget.budget_products.includes(:product).each do |budget_product| %>
         <tr>
-          <td><%= budget_product.product.cod %></td>
-          <td><%= budget_product.product.name %></td>
+          <td><%= link_to "#{budget_product.product.cod} - #{budget_product.product.name}", "javascript:;",  data: { toggle: "modal", target: "#product", id: budget_product.product.id } %></td>
           <td><%= number_to_currency budget_product.unit_value %></td>
           <td><%= budget_product.qnt %></td>
+          <td id='reserve_qnt-<%= budget_product.id %>'><%= budget_product.reserve_qnt %></td>
           <td><%= budget_product.discount_type ? "#{budget_product.discount.to_i}%" : number_to_currency(budget_product.discount) %></td>
           <td><%= number_to_currency budget_product.total_value %></td>
           <td><%= number_to_currency budget_product.value_discount_total %></td>
@@ -249,6 +249,25 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="product" tabindex="-1" role="dialog" aria-labelledby="productLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
       </div>
     </div>
   </div>
