@@ -5,13 +5,15 @@
 
 TO DO
 - relacao de produtos a serem produzidos
-- corrigir edicao do orcamento
+- relatorio de items a produzir
+- foco do login
 - TODOS OS  ORÇAMENTOS:
   * RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
 
 - criar reserva no budget_product
 
 DONE
+- corrigir edicao do orcamento
 - retorno da borra como pvc e calcular seu valor apartir do custo da borra
 - adicionar um status, confirmado para o representante
 - na entrada de porduto final por materia prima, deixar entrada de peso dos tubos e calcular a borra

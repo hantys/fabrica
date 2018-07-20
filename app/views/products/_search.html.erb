@@ -1,0 +1,18 @@
+<%- model_class = Product -%>
+<%= search_form_for @q, url: products_path, html: { class: 'form-horizonal' } do |f| %>
+  <h3>Busca</h3>
+  <div class="row justify-content-md-center">
+    <div class="col-4">
+      <%= f.input :cod_cont, label: model_class.human_attribute_name(:cod), placeholder: 'Ex: TS75', required: false %>
+    </div>
+    <div class="col-4">
+      <%= f.input :name_cont, label: model_class.human_attribute_name(:name), placeholder: 'Ex: TUBO PVC 75MM x 6M SOLDAVEL', required: false %>
+    </div>
+    <div class="col-4">
+      <%= f.input :derivative_true, as: :select, label: model_class.human_attribute_name(:derivative), :include_blank => "Todos", required: false %>
+    </div>
+    <%= f.button :submit, class: 'btn btn-success' %>
+    <%= link_to 'Limpar', products_path, class: 'btn btn-info ml-3' %>
+  </div>
+  <hr>
+<% end %>

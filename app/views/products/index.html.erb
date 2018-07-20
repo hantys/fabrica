@@ -4,42 +4,44 @@
   <%= link_to t('.new', :default => t("helpers.links.new")), new_product_path, class: "btn btn-primary" %>
 </div>
 
+<%= render 'search' %>
+
 <%= paginate @products if @products.size > 20 %>
 <%= page_entries_info @products, entry_name: 'item' %>
 <div class="table-responsive">
   <table class="table table-bordered table-hover text-center">
     <thead class="thead-light">
       <tr>
-        <th scope="col">#</th>
-        <th scope="col"><%= model_class.human_attribute_name(:cod) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:derivative) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:qnt) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:price) %></th>
+        <th scope="col"><%= sort_link @q, :id, "#", default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :cod, model_class.human_attribute_name(:cod), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :name, model_class.human_attribute_name(:name), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :derivative, model_class.human_attribute_name(:derivative), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :qnt, model_class.human_attribute_name(:qnt), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :price, model_class.human_attribute_name(:price), default_order: :desc %></th>
         <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
     </thead>
     <tbody>
       <% @products.each do |product| %>
       <tr>
-        <td scope="row"><%= product.id %></td>
+        <td scope="row"><%= link_to product.id, product %></td>
         <td><%= product.cod %></td>
         <td><%= product.name %></td>
         <td><%= product.derivative ? 'Sim' : 'Não' %></td>
         <td><%= product.qnt %></td>
         <td><%= number_to_currency product.price %></td>
         <td>
-          <%= link_to product, class: 'btn btn-info has-icon' do %>
-            <i class="material-icons">remove_red_eye</i>
+          <%#= link_to product, class: 'btn btn-info has-icon' do %>
+            <!-- <i class="material-icons">remove_red_eye</i> -->
             <%#= t('.show', :default => t("helpers.links.show")) %>
-          <% end %>
+          <%# end %>
           <%= link_to edit_product_path(product), class: 'btn btn-primary has-icon' do %>
-            <i class="material-icons">edit</i>
-            <%#= t('.edit', :default => t("helpers.links.edit")) %>
+            <!-- <i class="material-icons">edit</i> -->
+            <%= t('.edit', :default => t("helpers.links.edit")) %>
           <% end %>
           <%= link_to product, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
-            <i class="material-icons">delete</i>
-            <%#= t('.destroy', :default => t("helpers.links.destroy")) %>
+            <!-- <i class="material-icons">delete</i> -->
+            <%= t('.destroy', :default => t("helpers.links.destroy")) %>
           <% end %>
         </td>
       </tr>
