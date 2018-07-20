@@ -1,0 +1,1 @@
+pg_restore -c -d fabrica_development vendor/fabrica_20_00_01.dmp
