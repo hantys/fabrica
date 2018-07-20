@@ -45,6 +45,10 @@ class Budget < ApplicationRecord
     end
   end
 
+  #criar metodo de verificar reserva quando faturar
+
+  #criar modo de reserva junto com botao faturar
+
   private
     def set_cod_name
       b = Budget.find self.id
