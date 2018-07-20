@@ -6,15 +6,17 @@ class StockFinalProduct < ApplicationRecord
   enum kind: {raw_material: 0, product: 1}
 
   before_create :save_estimated
-  after_create :set_estimated_weight
-  after_create :set_cost
-
   before_create :set_amount_out #seta peso de saida na criação
   before_create :set_residue #seta peso de saida na criação
-  before_destroy :check_routine_trigger
 
+  after_create :set_cost
+  after_create :set_estimated_weight
+  after_create :calc_residue
   after_create :update_stock_final_product
+
   before_save :weight_refresh_trigger
+
+  before_destroy :check_routine_trigger
 
   belongs_to :product, optional: true
   belongs_to :derivative, class_name: "Product", :foreign_key => 'derivative_id', optional: true
@@ -199,5 +201,13 @@ class StockFinalProduct < ApplicationRecord
         end
       end
       self.update! cost: @calc_cost
+    end
+
+    def calc_residue
+      if self.residue > 0
+        raw_material = RawMaterial.find_by(slug_name: 'pvc')
+        stock_raw_material = StockRawMaterial.create raw_material: raw_material, weight: self.residue, price: self.cost
+        raw_material.update amount: raw_material.amount + self.residue
+      end
     end
 end

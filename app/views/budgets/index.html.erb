@@ -8,7 +8,7 @@
 
 <%= paginate @budgets if @budgets.size > 20 %>
 <%= page_entries_info @budgets, entry_name: 'item' %>
-<div class="table-responsive">
+<%# <div class="table-responsive"> %>
   <table class="table table-bordered table-hover text-center">
     <thead class="thead-light">
       <tr>
@@ -33,6 +33,6 @@
       <% end %>
     </tbody>
   </table>
-</div>
+<%# </div> %>
 <%= paginate @budgets %>
 

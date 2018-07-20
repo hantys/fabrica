@@ -20,9 +20,9 @@
       <strong><%= model_class.human_attribute_name(:weight) %>:</strong>
       <%= @stock_raw_material.weight.round(3) %> kg
       <hr/>
-      <strong><%= model_class.human_attribute_name(:weight_out) %>:</strong>
-      <%= @stock_raw_material.weight_out.round(3) %> kg
-      <hr/>
+     <!--  <strong><%#= model_class.human_attribute_name(:weight_out) %>:</strong>
+      <%#= @stock_raw_material.weight_out.round(3) %> kg
+      <hr/> -->
       <strong><%= model_class.human_attribute_name(:price) %>:</strong>
       <%= number_to_currency @stock_raw_material.price %>
       <hr/>
