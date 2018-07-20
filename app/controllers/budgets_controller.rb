@@ -1,5 +1,6 @@
 class BudgetsController < ApplicationController
   before_action :set_budget, only: [:show, :edit, :update, :destroy]
+  before_action :set_budget_product, only: [:reserve_product, :updated_reserve_product]
   load_and_authorize_resource except: [:find_product, :reserve_product, :updated_reserve_product]
   # GET /budgets
   # GET /budgets.json
@@ -19,14 +20,16 @@ class BudgetsController < ApplicationController
   end
 
   def reserve_product
-    @budget_product = BudgetProduct.find params[:id]
-
     render partial: 'reserve_product', layout: false
   end
 
   def updated_reserve_product
-    @budget_product = BudgetProduct.find params[:id]
-    flash[:success] = 'tudo certo!'
+    @budget_product.update(budget_product_params)
+    if @budget_product.update(budget_product_params)
+      flash[:success] = 'Quantidade reservada!'
+    else
+      flash[:error] = 'Reserva não pode ser feita'
+    end
   end
 
   def update_status
@@ -151,7 +154,15 @@ class BudgetsController < ApplicationController
       @budget = Budget.find(params[:id])
     end
 
+    def set_budget_product
+      @budget_product = BudgetProduct.find(params[:id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
+    def budget_product_params
+      params.require(:budget_product).permit(:reserve_qnt)
+    end
+
     def budget_params
       params.require(:budget).permit! #(:name, :client_id, :employee_id, :value, :deadline, :delivery_options, :payment_term, :type_of_payment, :discount, :discount_type)
     end
