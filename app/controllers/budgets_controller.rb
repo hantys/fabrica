@@ -24,8 +24,7 @@ class BudgetsController < ApplicationController
   end
 
   def updated_reserve_product
-    @budget_product.update(budget_product_params)
-    if @budget_product.update(budget_product_params)
+    if @budget_product.update!(budget_product_params)
       flash[:success] = 'Quantidade reservada!'
     else
       flash[:error] = 'Reserva não pode ser feita'

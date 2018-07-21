@@ -1,8 +1,8 @@
 class BudgetProduct < ApplicationRecord
   acts_as_paranoid
 
-  before_save :set_total_value
   before_save :reserve_product, if: :will_save_change_to_reserve_qnt?
+  before_save :set_total_value
 
   belongs_to :budget
   belongs_to :product
@@ -25,7 +25,7 @@ class BudgetProduct < ApplicationRecord
   private
     def reserve_product
       product = self.product
-      product.update reserve: ((product.reserve - self.reserve_qnt_change_to_be_saved[0]) + self.reserve_qnt_change_to_be_saved[1])
+      product.update! reserve: ((product.reserve - self.reserve_qnt_change_to_be_saved[0]) + self.reserve_qnt_change_to_be_saved[1])
     end
 
     def set_total_value
