@@ -87,6 +87,10 @@ class BudgetsController < ApplicationController
         end
       end
     end
+
+    if params[:origin] == 'show'
+      redirect_to @budget
+    end
   end
 
   # GET /budgets/new
