@@ -2,6 +2,7 @@ class BudgetProduct < ApplicationRecord
   acts_as_paranoid
 
   before_save :set_total_value
+  before_save :reserve_product, if: :will_save_change_to_reserve_qnt?
 
   belongs_to :budget
   belongs_to :product
@@ -22,6 +23,11 @@ class BudgetProduct < ApplicationRecord
   end
 
   private
+    def reserve_product
+      product = self.product
+      product.update reserve: ((product.reserve - self.reserve_qnt_change_to_be_saved[0]) + self.reserve_qnt_change_to_be_saved[1])
+    end
+
     def set_total_value
       self.unit_value = Product.find(self.product_id).price.round(2)
       self.total_value = (self.unit_value * self.qnt).round(2)

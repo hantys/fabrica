@@ -115,7 +115,12 @@
     <tbody>
       <% @budget.budget_products.includes(:product).each do |budget_product| %>
         <tr>
-          <td><%= link_to "#{budget_product.product.cod} - #{budget_product.product.name}", "javascript:;",  data: { toggle: "modal", target: "#product", id: budget_product.product.id } %></td>
+          <td>
+            <%= link_to "javascript:;",  data: { toggle: "modal", target: "#product", id: budget_product.product.id } do %>
+              <%= "#{budget_product.product.cod} - #{budget_product.product.name}" %> <br>
+              <%= "qnt: #{budget_product.product.qnt} / qnt livre: #{budget_product.product.qnt_free}" %>
+            <% end %>
+          </td>
           <td><%= number_to_currency budget_product.unit_value %></td>
           <td><%= budget_product.qnt %></td>
           <td id='reserve_qnt-<%= budget_product.id %>'><%= budget_product.reserve_qnt %></td>

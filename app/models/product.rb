@@ -21,5 +21,9 @@ class Product < ApplicationRecord
     self.price = self.price.round(2)
   end
 
+  def qnt_free
+    self.qnt - self.reserve
+  end
+
 
 end

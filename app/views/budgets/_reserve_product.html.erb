@@ -26,7 +26,7 @@
   <%#= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
   <div class="row">
     <div class="col-lg-6">
-      <%= f.input :reserve_qnt, input_html: { min: 0, step: 1} %>
+      <%= f.input :reserve_qnt, input_html: { min: 0, max: @budget_product.qnt, step: 1} %>
     </div>
   </div>
 

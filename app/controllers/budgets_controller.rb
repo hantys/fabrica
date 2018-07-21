@@ -67,10 +67,10 @@ class BudgetsController < ApplicationController
     elsif @budget.status == 'authorized'
       case params[:status]
       when 'billed'
-        if @budget.update status: params[:status].to_sym
+        if @budget.billed_budget
           flash[:success] = 'Orçamento atualizado!'
         else
-          flash[:error] = 'Ocorreu algum problema!'
+          flash[:error] = 'Você não tem estoque para faturar o pedido'
         end
       when 'rejected'
         if @budget.update status: params[:status].to_sym

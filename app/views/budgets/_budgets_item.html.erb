@@ -1,9 +1,7 @@
 <td scope="row">
-  <%= link_to budget do %>
-    <%= budget.id %>
-  <% end %>
+  <%= link_to budget.id, budget %>
 </td>
-<td><%= budget.cod_name %></td>
+<td><%= link_to budget.cod_name, budget %></td>
 <td><%= budget.client.company_name %></td>
 <td><%= budget.employee.name %></td>
 <td><%= budget.try(:delivery_option).try(:name) %></td>
