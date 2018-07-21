@@ -1,17 +1,17 @@
 - falar com pablo sobre o layout
-- paginacao
 - otimizar desempenho das paginas do sistema
 - criar template para auditoria
 
 TO DO
 - relacao de produtos a serem produzidos
-- relatorio de items a produzir
-- foco do login
 - TODOS OS  ORÇAMENTOS:
   * RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
 
 
 DONE
+- paginacao
+- foco do login
+- criar reserva no budget_product
 - corrigir edicao do orcamento
 - retorno da borra como pvc e calcular seu valor apartir do custo da borra
 - adicionar um status, confirmado para o representante

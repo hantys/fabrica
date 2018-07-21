@@ -16,6 +16,10 @@
 # Ignore uploaded files in development
 /storage/*
 
+/vendor/*.dump
+/vendor/*.dmp
+/vendor/*.sql
+/vendor/*.dmp.gz
 /node_modules
 /yarn-error.log
 

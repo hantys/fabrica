@@ -34,13 +34,55 @@ class Budget < ApplicationRecord
     begin
       ActiveRecord::Base.transaction do
         self.budget_products.each do |item|
+          product = item.product
           OutOfStock.transaction do
             OutOfStock.create!(budget_id: item.budget_id, budget_product_id: item.id, product_id: item.product_id, user_id: user_id.to_i, qnt: item.qnt, value: item.value_discount_total)
           end
+          product.update reserve: product.reserve-item.reserve
         end
         self.update status: 'delivered'
       end
     rescue Exception => e
+      puts e
+      return false
+    end
+  end
+
+  def billed_budget
+    begin
+      ActiveRecord::Base.transaction do
+        products_for_update = []
+        flag_update = true
+        self.budget_products.each do |item|
+          item.update reserve: item.qnt
+          product = item.product
+          free_billed = 0
+          reserve_aux = 0
+          if item.reserve_qnt > 0
+            free_billed = (product.qnt_free + item.reserve_qnt) - item.reserve
+            reserve_aux = item.reserve - item.reserve_qnt
+          else
+            free_billed = product.qnt_free - item.reserve
+          end
+          if free_billed < 0
+            flag_update = false
+            break
+          end
+          products_for_update << [product.id, reserve_aux]
+        end
+        if flag_update
+          products_for_update.each do |single|
+            product = Product.find single[0]
+            reserve = single[1]
+            product.update! reserve: product.reserve+reserve
+          end
+          self.update! status: 'billed'
+        else
+          return false
+        end
+      end
+    rescue Exception => e
+      puts e
       return false
     end
   end

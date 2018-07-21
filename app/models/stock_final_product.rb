@@ -35,7 +35,7 @@ class StockFinalProduct < ApplicationRecord
   validate :verify_qnt_out, :if => :product?, on: :create
   validates :weight, numericality: { greater_than: 0 }, :if => :raw_material?
   validate :verify_weigth, :if => :raw_material?, on: :create
-  validates :residue, numericality: { greater_than: 0 }, :if => :raw_material?
+  validates :residue, numericality: { greater_than_or_equal_to: 0 }, :if => :raw_material?
   validates_presence_of :hit, :if => :raw_material?
   validates_presence_of :residue, :if => :raw_material?
 
