@@ -12,6 +12,17 @@ jQuery ->
       modal.find('.modal-body').html(data)
     ), 'html'
 
+  $('#product').on 'show.bs.modal', (event) ->
+    button = $(event.relatedTarget)
+    # Button that triggered the modal
+    id = button.data('id')
+
+    modal = $(this)
+
+    $.get '/products/' + id, {modal: 'true'}, ((data) ->
+      modal.find('.modal-body').html(data)
+    ), 'html'
+
   $('#budget_product_reserve').on 'hidden.bs.modal', (event) ->
     modal = $(this)
     modal.find('.modal-body').html ''

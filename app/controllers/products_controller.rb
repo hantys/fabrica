@@ -11,6 +11,12 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    puts "88888888888888888888888888888888888"
+    puts params[:modal]
+    if params[:modal] == 'true'
+      @modal = true
+      render :show, layout: false
+    end
   end
 
   # GET /products/new

@@ -182,6 +182,7 @@ pt-BR:
         composition: Composição
         cod: Código
         name: Nome
+        reserve: 'Reserva'
         derivative: 'Derivado'
         description: Descrição
         price: Preço
@@ -189,6 +190,8 @@ pt-BR:
         updated_at: Atualizado em
 
       budget_product:
+        reserve_qnt: 'Quantidade reservada'
+        reserve: 'Reserva'
         budget_id: Orçamento
         budget: Orçamento
         product_id: Produto

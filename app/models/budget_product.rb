@@ -11,9 +11,11 @@ class BudgetProduct < ApplicationRecord
   validates :unit_value, presence: true
   validates :total_value, presence: true
   validates :qnt, presence: true
+  validates :reserve_qnt, presence: true
   validates :unit_value, numericality: { greater_than: 0 }
   validates :total_value, numericality: { greater_than: 0 }
   validates :qnt, numericality: { greater_than: 0 }
+  validates :reserve_qnt, numericality: { greater_than_or_equal_to: 0 }
 
   def value_discount_total
     total_value - total_value_with_discount

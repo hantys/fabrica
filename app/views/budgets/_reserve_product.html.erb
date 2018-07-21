@@ -1,6 +1,10 @@
-<h1>
-  <%= @budget_product.product.qnt %>
-</h1>
+<div class="row">
+  <div class="col-5">
+    Estoque do produto: <%= @budget_product.product.qnt %> <br>
+    Estoque reservado: <%= @budget_product.product.reserve %>
+  </div>
+</div>
+<hr>
 <% flash.each do |name, msg| %>
   <% aux = 'alert-primary' %>
   <% case name
@@ -18,11 +22,11 @@
 <% end %>
 <% flash.discard %>
 <%= simple_form_for @budget_product, url: reserve_product_path, method: :put, remote: true do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <%#= f.error_notification %>
+  <%#= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
   <div class="row">
     <div class="col-lg-6">
-      <%= f.input :total_value %>
+      <%= f.input :reserve_qnt, input_html: { min: 0, step: 1} %>
     </div>
   </div>
 
