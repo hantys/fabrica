@@ -110,6 +110,9 @@ class StockFinalProduct < ApplicationRecord
 
     def set_amount_out
       self.amount_out = self.amount
+      unless self.residue.present?
+        self.residue = 0
+      end
     end
 
     def update_stock_final_product
@@ -204,7 +207,7 @@ class StockFinalProduct < ApplicationRecord
     end
 
     def calc_residue
-      if self.residue > 0
+      if self.residue.to_f > 0
         raw_material = RawMaterial.find_by(slug_name: 'pvc')
         stock_raw_material = StockRawMaterial.create raw_material: raw_material, weight: self.residue, price: self.cost
         raw_material.update amount: raw_material.amount + self.residue
