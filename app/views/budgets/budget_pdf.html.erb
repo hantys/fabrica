@@ -188,7 +188,7 @@
         <div class="text-content">
           <span>Assinado eletronicamente por:</span>
           <span><%= @budget.user.employee.name %></span>
-          <span><%= l @budget.created_at %></span>
+          <span><%= l(@budget.created_at).gsub('-0300', '')  %></span>
         </div>
       </div>
     </div>

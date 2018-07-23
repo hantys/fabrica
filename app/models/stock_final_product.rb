@@ -35,7 +35,7 @@ class StockFinalProduct < ApplicationRecord
   validate :verify_qnt_out, :if => :product?, on: :create
   validates :weight, numericality: { greater_than: 0 }, :if => :raw_material?
   validate :verify_weigth, :if => :raw_material?, on: :create
-  validates :residue, numericality: { greater_than: 0 }, :if => :raw_material?
+  validates :residue, numericality: { greater_than_or_equal_to: 0 }, :if => :raw_material?
   validates_presence_of :hit, :if => :raw_material?
   validates_presence_of :residue, :if => :raw_material?
 
@@ -110,6 +110,9 @@ class StockFinalProduct < ApplicationRecord
 
     def set_amount_out
       self.amount_out = self.amount
+      unless self.residue.present?
+        self.residue = 0
+      end
     end
 
     def update_stock_final_product
@@ -204,7 +207,7 @@ class StockFinalProduct < ApplicationRecord
     end
 
     def calc_residue
-      if self.residue > 0
+      if self.residue.to_f > 0
         raw_material = RawMaterial.find_by(slug_name: 'pvc')
         stock_raw_material = StockRawMaterial.create raw_material: raw_material, weight: self.residue, price: self.cost
         raw_material.update amount: raw_material.amount + self.residue

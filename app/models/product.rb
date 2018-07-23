@@ -13,12 +13,16 @@ class Product < ApplicationRecord
   validates :price, presence: true
   validates :price, numericality: { greater_than: 0 }
   validates :name, presence: true
-  validates :name, uniqueness: { :case_sensitive => false }
+  # validates :name, uniqueness: { :case_sensitive => false }
   validates :cod, presence: true
   validates :cod, uniqueness: { :case_sensitive => false }
 
   def set_round_price
     self.price = self.price.round(2)
+  end
+
+  def qnt_free
+    self.qnt - self.reserve
   end
 
 

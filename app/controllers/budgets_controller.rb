@@ -1,6 +1,7 @@
 class BudgetsController < ApplicationController
   before_action :set_budget, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: [:find_product]
+  before_action :set_budget_product, only: [:reserve_product, :updated_reserve_product]
+  load_and_authorize_resource except: [:find_product, :reserve_product, :updated_reserve_product]
   # GET /budgets
   # GET /budgets.json
   def index
@@ -16,6 +17,18 @@ class BudgetsController < ApplicationController
 
   def budget_pdf
     @budget = Budget.find params[:id]
+  end
+
+  def reserve_product
+    render partial: 'reserve_product', layout: false
+  end
+
+  def updated_reserve_product
+    if @budget_product.update!(budget_product_params)
+      flash[:success] = 'Quantidade reservada!'
+    else
+      flash[:error] = 'Reserva não pode ser feita'
+    end
   end
 
   def update_status
@@ -53,10 +66,10 @@ class BudgetsController < ApplicationController
     elsif @budget.status == 'authorized'
       case params[:status]
       when 'billed'
-        if @budget.update status: params[:status].to_sym
+        if @budget.billed_budget
           flash[:success] = 'Orçamento atualizado!'
         else
-          flash[:error] = 'Ocorreu algum problema!'
+          flash[:error] = 'Você não tem estoque para faturar o pedido'
         end
       when 'rejected'
         if @budget.update status: params[:status].to_sym
@@ -73,6 +86,10 @@ class BudgetsController < ApplicationController
           flash[:error] = 'Ocorreu algum problema, verifique seu estoque!'
         end
       end
+    end
+
+    if params[:origin] == 'show'
+      redirect_to @budget
     end
   end
 
@@ -140,7 +157,15 @@ class BudgetsController < ApplicationController
       @budget = Budget.find(params[:id])
     end
 
+    def set_budget_product
+      @budget_product = BudgetProduct.find(params[:id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
+    def budget_product_params
+      params.require(:budget_product).permit(:reserve_qnt)
+    end
+
     def budget_params
       params.require(:budget).permit! #(:name, :client_id, :employee_id, :value, :deadline, :delivery_options, :payment_term, :type_of_payment, :discount, :discount_type)
     end
