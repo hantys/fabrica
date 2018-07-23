@@ -55,6 +55,9 @@ group :development, :test do
 end
 
 group :development do
+  # gem 'web-console' #https://github.com/rails/web-console#usage
+  gem 'better_errors' #https://github.com/charliesome/better_errors/wiki/Link-to-your-editor
+
   gem 'mina'
   gem 'mina-puma'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
