@@ -6,10 +6,10 @@ class Budget < ApplicationRecord
   belongs_to :user, -> { with_deleted }
   belongs_to :client, -> { with_deleted }
   belongs_to :employee, -> { with_deleted }
-  belongs_to :delivery_option, optional: true, -> { with_deleted }
-  belongs_to :sub_delivery_option, optional: true, -> { with_deleted }
-  belongs_to :type_of_payment, optional: true, -> { with_deleted }
-  belongs_to :sub_type_payment, optional: true, -> { with_deleted }
+  belongs_to :delivery_option, -> { with_deleted }, optional: true
+  belongs_to :sub_delivery_option, -> { with_deleted }, optional: true
+  belongs_to :type_of_payment, -> { with_deleted }, optional: true
+  belongs_to :sub_type_payment, -> { with_deleted }, optional: true
   has_many :budget_products, dependent: :destroy
   has_many :out_of_stocks, dependent: :destroy
 
