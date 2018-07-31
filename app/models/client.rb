@@ -1,9 +1,9 @@
 class Client < ApplicationRecord
   acts_as_paranoid
 
-  belongs_to :state
-  belongs_to :city
-  belongs_to :employee
+  belongs_to :state, -> { with_deleted }
+  belongs_to :city, -> { with_deleted }
+  belongs_to :employee, -> { with_deleted }
 
   has_paper_trail
 

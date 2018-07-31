@@ -3,13 +3,13 @@ class Budget < ApplicationRecord
 
   enum status: { waiting: 0, rejected: 1, authorized: 2, billed: 3, delivered: 4, confirm: 5 }
 
-  belongs_to :user
-  belongs_to :client
-  belongs_to :employee
-  belongs_to :delivery_option, optional: true
-  belongs_to :sub_delivery_option, optional: true
-  belongs_to :type_of_payment, optional: true
-  belongs_to :sub_type_payment, optional: true
+  belongs_to :user, -> { with_deleted }
+  belongs_to :client, -> { with_deleted }
+  belongs_to :employee, -> { with_deleted }
+  belongs_to :delivery_option, optional: true, -> { with_deleted }
+  belongs_to :sub_delivery_option, optional: true, -> { with_deleted }
+  belongs_to :type_of_payment, optional: true, -> { with_deleted }
+  belongs_to :sub_type_payment, optional: true, -> { with_deleted }
   has_many :budget_products, dependent: :destroy
   has_many :out_of_stocks, dependent: :destroy
 

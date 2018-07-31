@@ -3,8 +3,8 @@ class Hit < ApplicationRecord
 
   before_destroy :check_routine_trigger
 
-  belongs_to :composition
-  belongs_to :product
+  belongs_to :composition, -> { with_deleted }
+  belongs_to :product, -> { with_deleted }
   has_one :stock_final_product
   has_many :hit_items, dependent: :destroy
   has_many :raw_materials, through: :hit_items
