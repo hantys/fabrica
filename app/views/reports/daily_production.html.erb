@@ -3,28 +3,31 @@
   <h1>Previsão de produção do dia</h1>
 </div>
 
-Exibindo <%= @products.count %> item
-
-<table class="table table-striped table-bordered">
+<table class="table table-striped text-center table-bordered">
   <thead>
     <tr>
+      <th scope="col">#</th>
       <th scope="col">Código</th>
       <th scope="col">Nome</th>
-      <th scope="col">Qnt</th>
-      <th scope="col"> Para produzir</th>
-      <th scope="col"> Para produzir</th>
+      <th scope="col">Em Estoque</th>
+      <th scope="col"> Aguardando</th>
+      <th scope="col"> Para Produzir</th>
     </tr>
   </thead>
   <tbody>
+    <% i = 1 %>
     <% @products.each do |product| %>
-    <%= @product %>
-      <tr>
-        <th scope="row"><%= product[:cod] %></th>
-        <td><%= product[:name] %></td>
-        <td><%= product[:qnt_produto] %></td>
-        <td><%= product[:qnt_pedidos] %></td>
-        <td><%= product[:total_produto] %></td>
-      </tr>
+      <% if product['para_produzir'] > 0 %>
+        <tr>
+          <th scope="row"><%= i %></th>
+          <th scope="row"><%= product["cod"] %></th>
+          <td><%= product["name"] %></td>
+          <td style="background-color: #c5ffe5 "><%= product["qnt_produto"] %></td>
+          <td style="background-color: #fbffa2 "><%= product["qnt_pedidos"] %></td>
+          <td style="background-color: #ff9ea0 "><%= product["para_produzir"] %></td>
+        </tr>
+        <% i+=1 %>
+      <% end %>
     <% end %>
   </tbody>
 </table>
