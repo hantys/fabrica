@@ -42,11 +42,11 @@
       <% end %>
 
       <!-- Relatorios  -->
-      <% if(current_user.has_role?(:admin) or current_user.has_role?(:manager)) %>
+      <% if((can? :reports_manager, :report) or (can? :reports_admin, :report)) %>
         <li class='nav-item dropdown <%= "#{active_class(daily_production_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Relatórios</a>
           <div class="dropdown-menu hasDropboxAnimation">
-            <%= link_to 'Previsão de produção diária', daily_production_path, class: "dropdown-item #{active_class(daily_production_path)}" %>
+            <%= link_to 'Previsão de produção diária', daily_production_path, class: "dropdown-item #{active_class(daily_production_path)}" if can? :daily_production, :report %>
           </div>
         </li>
       <% end %>

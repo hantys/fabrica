@@ -7,6 +7,7 @@ class Product < ApplicationRecord
   has_many :stock_final_products, dependent: :destroy
   has_many :item_product_stocks, dependent: :destroy
   has_many :out_of_stocks, dependent: :destroy
+  has_many :budget_products
 
   has_paper_trail
 
