@@ -23,7 +23,7 @@
       <tr>
         <td scope="row"><%= hit.id %></td>
         <td><%= link_to hit.product.name, hit.product %></td>
-        <td><%= link_to hit.composition.name, hit.composition %></td>
+        <td><%= link_to hit.composition.try(:name), hit.composition %></td>
         <td><%= hit.used ? "<span class='badge badge-danger' style='font-size:14px;'>Usado</span>".html_safe : "<span class='badge badge-success' style='font-size:14px;'>Livre</span>".html_safe %></td>
         <td><%= hit.hit_items.sum(:weight).round(3) %> kg</td>
         <td>

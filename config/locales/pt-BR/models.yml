@@ -85,7 +85,7 @@ pt-BR:
         product_id: 'Produto final'
         estimated_weight: 'Peso Estimado'
         cost: 'Custo'
-        amount: 'Quantidade'
+        amount: 'Quantidade produzida'
         amount_out: 'Quantidade de saida'
         qnt_out: 'Quantidade usada'
         price: 'Preço'
