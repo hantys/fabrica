@@ -17,16 +17,24 @@ Rails.application.routes.draw do
 
   put '/reserve_product/:id' => 'budgets#updated_reserve_product', as: :reserve_product
 
-  get '/busca/endereco/:cep' => "home#find_by_address"
-  get '/busca/cidades/:id' => "home#find_city"
-  get '/busca/sub-item-entrega/:id' => "home#find_delivery"
-  get '/busca/sub-item-pagamento/:id' => "home#find_payment"
-  get '/busca/batida/:id' => "home#find_hit"
-  get '/busca/produto-primitivo/:id' => "home#produto_primitivo"
+  scope '/relatorio' do
+    get '/producao-diaria' => "reports#daily_production", as: :daily_production
+  end
 
-  get '/orcamento/reserve_product/:id' => "budgets#reserve_product"
-  get '/orcamento/pdf/:id' => "budgets#budget_pdf", as: :budget_pdf
-  get '/orcamento/atualiza-status/:id/:status' => "budgets#update_status", as: :budget_update_status
+  scope '/busca' do
+    get '/endereco/:cep' => "home#find_by_address"
+    get '/cidades/:id' => "home#find_city"
+    get '/sub-item-entrega/:id' => "home#find_delivery"
+    get '/sub-item-pagamento/:id' => "home#find_payment"
+    get '/batida/:id' => "home#find_hit"
+    get '/produto-primitivo/:id' => "home#produto_primitivo"
+  end
+
+  scope '/busca' do
+    get '/orcamento/reserve_product/:id' => "budgets#reserve_product"
+    get '/orcamento/pdf/:id' => "budgets#budget_pdf", as: :budget_pdf
+    get '/orcamento/atualiza-status/:id/:status' => "budgets#update_status", as: :budget_update_status
+  end
 
   get '/load_hit_items/:composition' => "hits#load_items"
   get '/find_product/:id' => "budgets#find_product"

@@ -5,7 +5,7 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:product) %>:</strong></dt>
-  <dd><%= @stock_final_product.try(:product).try(:name) %></dd>
+  <dd><%= "#{@stock_final_product.try(:product).try(:cod)} - #{@stock_final_product.try(:product).try(:name)}" %></dd>
   <% if @stock_final_product.kind == "raw_material" %>
     <dt><strong><%= model_class.human_attribute_name(:weight) %>:</strong></dt>
     <dd><%= @stock_final_product.weight.round(3) %> kg</dd>
@@ -16,8 +16,8 @@
   <% end %>
   <dt><strong><%= model_class.human_attribute_name(:amount) %>:</strong></dt>
   <dd><%= @stock_final_product.amount.to_i %></dd>
-<!--   <dt><strong><%#= model_class.human_attribute_name(:amount_out) %>:</strong></dt>
-  <dd><%#= @stock_final_product.amount_out.to_i %></dd> -->
+  <dt><strong><%= model_class.human_attribute_name(:amount_out) %>:</strong></dt>
+  <dd><%= @stock_final_product.amount_out.to_i %></dd>
   <dt><strong><%= model_class.human_attribute_name(:cost) %>:</strong></dt>
   <dd><%= number_to_currency @stock_final_product.cost %></dd>
   <dt><strong><%= model_class.human_attribute_name(:cost) %> por unidade:</strong></dt>

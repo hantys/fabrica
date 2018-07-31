@@ -4,6 +4,8 @@ class Ability
   def initialize(user)
     alias_action :create, :read, :update, :destroy, to: :crud
     alias_action :create, :update, :destroy, to: :save
+    alias_action :daily_production, to: :reports_admin
+    alias_action :daily_production, to: :reports_manager
     # Define abilities for the passed in user here. For example:
     #
     # can :manage, :all if user.has_role? :admin
@@ -11,6 +13,7 @@ class Ability
       can :crud, :all
       can :budget_pdf, Budget
       can :update_status, Budget
+      can :reports_admin, :report
     end
     if user.has_role? :manager
       can :update_status, Budget
@@ -18,6 +21,7 @@ class Ability
       cannot [:create, :read, :update, :destroy], DeliveryOption
       cannot [:create, :read, :update, :destroy], TypeOfPayment
       can :budget_pdf, Budget
+      can :reports_manager, :report
     end
     if user.has_role? :representative
       can [:read, :update, :destroy], Budget, employee_id: user.employee.id

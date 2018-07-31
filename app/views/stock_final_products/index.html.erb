@@ -11,9 +11,11 @@
     <thead class="thead-light">
       <tr>
         <th scope="col">#</th>
-        <th scope="col"><%= model_class.human_attribute_name(:product) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:amount) %></th>
-        <th scope="col"><%= model_class.human_attribute_name(:cost) %></th>
+        <th scope="col"><%= sort_link @q, :product_name, model_class.human_attribute_name(:product), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :amount, model_class.human_attribute_name(:amount), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :cost, model_class.human_attribute_name(:cost), default_order: :desc %></th>
+
+        <th scope="col"><%= sort_link @q, :created_at, model_class.human_attribute_name(:created_at), default_order: :desc %></th>
         <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
     </thead>
@@ -21,9 +23,10 @@
       <% @stock_final_products.each do |stock_final_product| %>
       <tr>
         <td scope="row"><%= stock_final_product.id %></td>
-        <td><%= stock_final_product.try(:product).try(:name) %></td>
+        <td><%= "#{stock_final_product.try(:product).try(:cod)} - #{stock_final_product.try(:product).try(:name)}" %></td>
         <td><%= stock_final_product.amount %></td>
         <td><%= number_to_currency(stock_final_product.cost) %></td>
+        <td><%= stock_final_product.created_at.to_s(:custom_datetime) %></td>
         <td>
           <%= link_to stock_final_product, class: 'btn btn-info has-icon' do %>
             <i class="material-icons">remove_red_eye</i>
