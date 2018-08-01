@@ -8,7 +8,7 @@ jQuery ->
     modal = $(this)
     modal.find('.modal-title').text 'Reservar ' + title
 
-    $.get '/orcamento/reserve_product/' + id, {}, ((data) ->
+    $.get '/busca/orcamento/reserve_product/' + id, {}, ((data) ->
       modal.find('.modal-body').html(data)
     ), 'html'
 

@@ -61,20 +61,29 @@ class Budget < ApplicationRecord
           if item.reserve_qnt > 0
             free_billed = (product.qnt_free + item.reserve_qnt) - item.reserve
             reserve_aux = item.reserve - item.reserve_qnt
+            products_for_update << [product.id, reserve_aux]
           else
             free_billed = product.qnt_free - item.reserve
+            products_for_update << [product.id, item.reserve]
           end
           if free_billed < 0
             flag_update = false
             break
           end
-          products_for_update << [product.id, reserve_aux]
+          # puts "************#{product.name}*************"
+          # puts "reserva_qnt #{item.reserve_qnt}"
+          # puts "reserva aux #{reserve_aux}"
+          # puts "reserva #{item.reserve}"
+          # puts "livre #{free_billed}"
+          # puts "flag #{flag_update}"
+          # puts "products_for_update #{products_for_update}"
         end
         if flag_update
           products_for_update.each do |single|
             product = Product.find single[0]
             reserve = single[1]
             product.update! reserve: product.reserve+reserve
+            # puts "flag #{reserve}"
           end
           self.update! status: 'billed'
         else
