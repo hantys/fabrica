@@ -13,6 +13,9 @@
     <dd><%= @stock_final_product.estimated_weight.round(3) %> kg</dd>
     <dt><strong><%= model_class.human_attribute_name(:residue) %>:</strong></dt>
     <dd><%= @stock_final_product.residue.round(3) %> kg</dd>
+  <% else %>
+    <dt><strong><%= model_class.human_attribute_name(:qnt_out) %>:</strong></dt>
+    <dd><%= @stock_final_product.derivative.try(:name).try(:downcase) %>: <b><%= @stock_final_product.qnt_out.to_i %></b></dd>
   <% end %>
   <dt><strong><%= model_class.human_attribute_name(:amount) %>:</strong></dt>
   <dd><%= @stock_final_product.amount.to_i %></dd>
