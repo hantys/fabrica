@@ -22,9 +22,9 @@
           <th scope="row"><%= i %></th>
           <th scope="row"><%= product["cod"] %></th>
           <td><%= product["name"] %></td>
-          <td style="background-color: #c5ffe5 "><%= product["qnt_produto"] %></td>
-          <td style="background-color: #fbffa2 "><%= product["qnt_pedidos"] %></td>
-          <td style="background-color: #ff9ea0 "><%= product["para_produzir"] %></td>
+          <td style="background-color: #c5ffe5 "><%= number_with_delimiter product["qnt_produto"].to_i, delimiter: ".", separator: "," %> itens</td>
+          <td style="background-color: #fbffa2 "><%= number_with_delimiter product["qnt_pedidos"].to_i, delimiter: ".", separator: "," %> itens</td>
+          <td style="background-color: #ff9ea0 "><%= number_with_delimiter product["para_produzir"].to_i, delimiter: ".", separator: "," %> itens</td>
         </tr>
         <% i+=1 %>
       <% end %>
