@@ -13,6 +13,7 @@ class Ability
       can :crud, :all
       can :budget_pdf, Budget
       can :update_status, Budget
+      cannot [:update, :destroy], Budget, status: [3,4]
       can :reports_admin, :report
     end
     if user.has_role? :manager
@@ -21,6 +22,7 @@ class Ability
       cannot [:create, :read, :update, :destroy], DeliveryOption
       cannot [:create, :read, :update, :destroy], TypeOfPayment
       can :budget_pdf, Budget
+      cannot [:update, :destroy], Budget, status: [3,4]
       can :reports_manager, :report
     end
     if user.has_role? :representative
@@ -31,6 +33,7 @@ class Ability
       can :create, [Budget, Client]
       can [:read, :update], User, id: user.id
       can :update_status, Budget, status: [0]
+      cannot [:update, :destroy], Budget, status: [3,4]
     end
     #
     # The first argument to `can` is the action you are giving the user

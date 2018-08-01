@@ -46,7 +46,7 @@
   <%= link_to edit_budget_path(budget), class: 'btn btn-primary has-icon mb-1' do %>
     <%# <i class="material-icons">edit</i> %>
     <%= t('.edit', :default => t("helpers.links.edit")) %>
-  <% end %>
+  <% end if budget.status == 'billed' or budget.status == 'delivered'%>
   <%= link_to budget, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon mb-1' do %>
     <%# <i class="material-icons">delete</i> %>
     <%= t('.destroy', :default => t("helpers.links.destroy")) %>
