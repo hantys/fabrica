@@ -1,2 +1,40 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>Tubos Poty</h1>
+
+<div class="row">
+  <div class="col border-left border-dark">
+    <legend>Orçamentos</legend>
+    <ul>
+      <li class="mb-2"><%= link_to 'Novo ' + t('.title', :default => Budget.model_name.human.titleize), new_budget_path, class: "btn btn-info" %></li>
+      <li class="mb-2"><%= link_to t('.title', :default => Budget.model_name.human.titleize), budgets_path, class: "btn btn-info" %></li>
+    </ul>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col border-left border-dark">
+    <legend>Entradas(Criar novo)</legend>
+    <ul>
+      <li class="mb-2"><%= link_to t('.title', :default => Hit.model_name.human.titleize), new_hit_path, class: "btn btn-info" %></li>
+      <li class="mb-2"><%= link_to t('.title', :default => StockFinalProduct.model_name.human.titleize), new_stock_final_product_path, class: "btn btn-info" %></li>
+      <li class="mb-2"><%= link_to t('.title', :default => StockRawMaterial.model_name.human.titleize), new_stock_raw_material_path, class: "btn btn-info" %></li>
+    </ul>
+  </div>
+
+  <div class="col border-left border-dark">
+    <legend>Cadastross(Criar novo)</legend>
+    <ul>
+      <li class="mb-2"><%= link_to t('.title', :default => Client.model_name.human.titleize), new_client_path, class: "btn btn-info" %></li>
+      <li class="mb-2"><%= link_to t('.title', :default => Provider.model_name.human.titleize), new_provider_path, class: "btn btn-info" %></li>
+      <li class="mb-2"><%= link_to t('.title', :default => Composition.model_name.human.titleize), new_composition_path, class: "btn btn-info" %></li>
+    </ul>
+  </div>
+
+  <div class="col border-left border-dark">
+    <legend>Estoques(Lista)</legend>
+    <ul>
+      <li class="mb-2"><%= link_to 'Previsão de produção diária', daily_production_path, class: "btn btn-info" %></li>
+      <li class="mb-2"><%= link_to t('.title', :default => Product.model_name.human.titleize), products_path, class: "btn btn-info" %></li>
+      <li class="mb-2"><%= link_to t('.title', :default => RawMaterial.model_name.human.titleize), raw_materials_path, class: "btn btn-info" %></li>
+    </ul>
+  </div>
+</div>
