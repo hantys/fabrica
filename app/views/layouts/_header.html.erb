@@ -32,7 +32,7 @@
 
       <!-- estoque  -->
       <% if (can? :read, RawMaterial) or (can? :read, Product) %>
-        <li class='nav-item dropdown <%= "#{active_class(hits_path)} #{active_class(stock_raw_materials_path)}  #{active_class(stock_final_products_path)}" %>'>
+        <li class='nav-item dropdown <%= " #{active_class(stock_raw_materials_path)}  #{active_class(stock_final_products_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Estoque</a>
           <div class="dropdown-menu hasDropboxAnimation">
             <%= link_to 'Produtos', products_path, class: "dropdown-item #{active_class(products_path)}" if can? :read, Product %>

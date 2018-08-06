@@ -10,6 +10,10 @@ class OutOfStocksController < ApplicationController
   # GET /out_of_stocks/1
   # GET /out_of_stocks/1.json
   def show
+    if params[:modal] == 'true'
+      @modal = true
+      render :show, layout: false
+    end
   end
 
   # GET /out_of_stocks/new

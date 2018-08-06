@@ -21,16 +21,16 @@
     <tbody>
       <% @hits.each do |hit| %>
       <tr>
-        <td scope="row"><%= hit.id %></td>
-        <td><%= link_to hit.product.name, hit.product %></td>
-        <td><%= link_to hit.composition.try(:name), hit.composition %></td>
+        <td scope="row"><%= link_to hit.id, hit %></td>
+        <td><%= link_to hit.product.name, "javascript:;",  data: { toggle: "modal", target: "#show_object", link: product_path(hit.product) } %></td>
+        <td><%= link_to hit.composition.try(:name), "javascript:;",  data: { toggle: "modal", target: "#show_object", link: composition_path(hit.composition) } %></td>
         <td><%= hit.used ? "<span class='badge badge-danger' style='font-size:14px;'>Usado</span>".html_safe : "<span class='badge badge-success' style='font-size:14px;'>Livre</span>".html_safe %></td>
         <td><%= hit.hit_items.sum(:weight).round(3) %> kg</td>
         <td>
-          <%= link_to hit, class: 'btn btn-info has-icon' do %>
-            <i class="material-icons">remove_red_eye</i>
+          <%#= link_to hit, class: 'btn btn-info has-icon' do %>
+            <!-- <i class="material-icons">remove_red_eye</i> -->
             <%#= t('.show', :default => t("helpers.links.show")) %>
-          <% end %>
+          <%# end %>
           <%= link_to edit_hit_path(hit), class: 'btn btn-primary has-icon' do %>
             <i class="material-icons">edit</i>
             <%#= t('.edit', :default => t("helpers.links.edit")) %>

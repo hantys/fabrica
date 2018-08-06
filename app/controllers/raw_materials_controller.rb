@@ -10,6 +10,10 @@ class RawMaterialsController < ApplicationController
   # GET /raw_materials/1
   # GET /raw_materials/1.json
   def show
+    if params[:modal] == 'true'
+      @modal = true
+      render :show, layout: false
+    end
   end
 
   # GET /raw_materials/new

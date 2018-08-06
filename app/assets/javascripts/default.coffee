@@ -7,6 +7,17 @@ $(document).ready ->
   $('.money').mask '000.000.000.000.000,00', reverse: true
   $('.money2').mask '#.##0,00', reverse: true
 
+  $('#show_object').on 'show.bs.modal', (event) ->
+    button = $(event.relatedTarget)
+    # Button that triggered the modal
+    link = button.data('link')
+
+    modal = $(this)
+
+    $.get link, {modal: 'true'}, ((data) ->
+      modal.find('.modal-body').html(data)
+    ), 'html'
+
   $('.simple-select2').select2
     theme: 'bootstrap4'
     allowClear: true

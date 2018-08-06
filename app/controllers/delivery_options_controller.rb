@@ -10,6 +10,10 @@ class DeliveryOptionsController < ApplicationController
   # GET /delivery_options/1
   # GET /delivery_options/1.json
   def show
+    if params[:modal] == 'true'
+      @modal = true
+      render :show, layout: false
+    end
   end
 
   # GET /delivery_options/new

@@ -3,12 +3,16 @@ class HitsController < ApplicationController
   # GET /hits
   # GET /hits.json
   def index
-    @hits = Hit.includes(:composition).accessible_by(current_ability).order(id: :desc).page params[:page]
+    @hits = Hit.includes(:composition, :product).accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /hits/1
   # GET /hits/1.json
   def show
+    if params[:modal] == 'true'
+      @modal = true
+      render :show, layout: false
+    end
   end
 
   # GET /hits/new

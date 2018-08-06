@@ -10,6 +10,10 @@ class TypeOfPaymentsController < ApplicationController
   # GET /type_of_payments/1
   # GET /type_of_payments/1.json
   def show
+    if params[:modal] == 'true'
+      @modal = true
+      render :show, layout: false
+    end
   end
 
   # GET /type_of_payments/new
