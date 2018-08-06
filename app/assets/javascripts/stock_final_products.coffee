@@ -12,6 +12,24 @@
     $(".raw-material").addClass('d-none')
 
 jQuery ->
+  if $('#hit_params').attr('data-id')
+    $(".raw-material").removeClass('d-none')
+    $(".product").addClass('d-none')
+    $('#stock_final_product_hit_id').val($('#hit_params').attr('data-id')).trigger('change')
+    $('#stock_final_product_kind').val('raw_material')
+    $.get("/busca/batida/#{$('#hit_params').attr('data-id')}", (data) ->
+      $('#stock_final_product_hit_weigth').val null
+      $('#stock_final_product_hit_weigth').val data
+      $('#stock_final_product_residue').val(null)
+      if $('#stock_final_product_weight').length > 0
+        $('#stock_final_product_residue').val((parseFloat(data) - parseFloat($('#stock_final_product_weight').val())).toFixed(2))
+    ).done(->
+      # console.log 'second success'
+    ).fail(->
+      # console.log 'error'
+    ).always(->
+        # console.log 'finished'
+      )
 
   if $('#stock_final_product_kind').val() == 'raw_material'
     $(".raw-material").removeClass('d-none')

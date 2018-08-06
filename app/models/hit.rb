@@ -16,6 +16,9 @@ class Hit < ApplicationRecord
   validates_associated :hit_items
   validates_presence_of :hit_items
 
+  def type_residue
+    self.composition.type_residue
+  end
 
   private
     def check_routine_trigger
@@ -26,5 +29,4 @@ class Hit < ApplicationRecord
         throw(:abort)
       end
     end
-
 end

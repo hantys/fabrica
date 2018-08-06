@@ -24,6 +24,11 @@
       <%= @composition.name %>
       <hr>
       <strong>
+        <%= model_class.human_attribute_name(:type_residue) %>:
+      </strong>
+      <%= @composition.type_residue.name %>
+      <hr>
+      <strong>
         <%= model_class.human_attribute_name(:compositional) %>s:
       </strong>
       <ul>

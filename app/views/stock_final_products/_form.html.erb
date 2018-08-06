@@ -1,7 +1,7 @@
 <%= simple_form_for(@stock_final_product) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
+  <span id='hit_params' data-id=<%= params[:hit] %>></span>
   <div class="row">
     <div class="col-lg-6">
       <%= f.input :kind, as: :select, collection: StockFinalProduct.kinds_i18n.map { |w| [w[1], w[0]] }, prompt:  'Escolha um tipo', input_html: { onchange: 'changeKindSFP(this)'} %>

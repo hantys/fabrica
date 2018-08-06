@@ -50,6 +50,7 @@ pt-BR:
 
       composition:
         name: 'Nome'
+        type_residue: 'Tipo de Borra'
         kind: 'Tipo'
         amount: 'Quantidade'
         weight: 'Peso'

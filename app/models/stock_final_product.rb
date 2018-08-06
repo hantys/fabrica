@@ -208,9 +208,9 @@ class StockFinalProduct < ApplicationRecord
 
     def calc_residue
       if self.residue.to_f > 0
-        raw_material = RawMaterial.find_by(slug_name: 'pvc')
+        raw_material = self.hit.type_residue
         stock_raw_material = StockRawMaterial.create raw_material: raw_material, weight: self.residue, price: self.cost
-        raw_material.update amount: raw_material.amount + self.residue
+        # raw_material.update amount: raw_material.amount + self.residue
       end
     end
 end
