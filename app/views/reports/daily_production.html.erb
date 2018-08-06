@@ -21,7 +21,7 @@
         <tr>
           <th scope="row"><%= i %></th>
           <th scope="row"><%= product["cod"] %></th>
-          <td><%= product["name"] %></td>
+          <td><%= link_to_modal product["name"], product_cod_path(product["cod"]), 'text-dark' %></td>
           <td style="background-color: #c5ffe5 "><%= number_with_delimiter product["qnt_produto"].to_i, delimiter: ".", separator: "," %> itens</td>
           <td style="background-color: #fbffa2 "><%= number_with_delimiter product["qnt_pedidos"].to_i, delimiter: ".", separator: "," %> itens</td>
           <td style="background-color: #ff9ea0 "><%= number_with_delimiter product["para_produzir"].to_i, delimiter: ".", separator: "," %> itens</td>

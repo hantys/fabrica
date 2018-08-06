@@ -5,7 +5,7 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:product) %>:</strong></dt>
-  <dd><%= "#{@stock_final_product.try(:product).try(:cod)} - #{@stock_final_product.try(:product).try(:name)}" %></dd>
+  <dd><%= link_to_modal "#{@stock_final_product.try(:product).try(:cod)} - #{@stock_final_product.try(:product).try(:name)}", product_path(@stock_final_product.try(:product)), 'text-dark' %></dd>
   <% if @stock_final_product.kind == "raw_material" %>
     <dt><strong><%= model_class.human_attribute_name(:weight) %>:</strong></dt>
     <dd><%= @stock_final_product.weight.round(3) %> kg</dd>
@@ -15,7 +15,7 @@
     <dd><%= @stock_final_product.residue.round(3) %> kg</dd>
   <% else %>
     <dt><strong><%= model_class.human_attribute_name(:qnt_out) %>:</strong></dt>
-    <dd><%= @stock_final_product.derivative.try(:name).try(:downcase) %>: <b><%= @stock_final_product.qnt_out.to_i %></b></dd>
+    <dd><%= link_to_modal @stock_final_product.derivative.try(:name).try(:downcase), product_path(@stock_final_product.derivative), 'text-dark'  %>: <b><%= @stock_final_product.qnt_out.to_i %></b></dd>
   <% end %>
   <dt><strong><%= model_class.human_attribute_name(:amount) %>:</strong></dt>
   <dd><%= @stock_final_product.amount.to_i %></dd>

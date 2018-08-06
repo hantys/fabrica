@@ -9,7 +9,7 @@
     <ul class="navbar-nav mr-auto">
       <!-- orcamentos   -->
       <% if (can? :create, Budget) or (can? :read, Budget) %>
-        <li class='nav-item dropdown <%= "#{active_class(new_budget_path)} #{active_class(budgets_path)}  #{active_class(products_path)}" %>'>
+        <li class='nav-item dropdown <%= "#{active_class(new_budget_path)} #{active_class(budgets_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Orçamentos</a>
           <div class="dropdown-menu hasDropboxAnimation">
             <%= link_to 'Novo Orçamento', new_budget_path, class: "dropdown-item #{active_class(new_budget_path)}" if can? :create, Budget %>
@@ -32,7 +32,7 @@
 
       <!-- estoque  -->
       <% if (can? :read, RawMaterial) or (can? :read, Product) %>
-        <li class='nav-item dropdown <%= " #{active_class(stock_raw_materials_path)}  #{active_class(stock_final_products_path)}" %>'>
+        <li class='nav-item dropdown <%= " #{active_class(products_path)}  #{active_class(raw_materials_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Estoque</a>
           <div class="dropdown-menu hasDropboxAnimation">
             <%= link_to 'Produtos', products_path, class: "dropdown-item #{active_class(products_path)}" if can? :read, Product %>
@@ -53,7 +53,7 @@
 
       <!-- cadastros -->
       <% if (can? :read, Client) or (can? :read, Composition) or (can? :read, Provider) or (can? :read, Employee) or (can? :read, RawMaterial) or (can? :read, User) %>
-        <li class='nav-item dropdown <%= "#{active_class(raw_materials_path)} #{active_class(compositions_path)} #{active_class(users_path)} #{active_class(employees_path)} #{active_class(providers_path)} #{active_class(clients_path)}" %>'>
+        <li class='nav-item dropdown <%= " #{active_class(compositions_path)} #{active_class(users_path)} #{active_class(employees_path)} #{active_class(providers_path)} #{active_class(clients_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cadastros</a>
           <div class="dropdown-menu hasDropboxAnimation">
             <%= link_to 'Clientes', clients_path, class: "dropdown-item #{active_class(clients_path)}" if can? :read, Client %>

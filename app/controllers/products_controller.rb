@@ -17,6 +17,12 @@ class ProductsController < ApplicationController
     end
   end
 
+  def product_cod
+    @product = Product.find_by_cod(params[:cod])
+    @modal = true
+    render :show, layout: false
+  end
+
   # GET /products/new
   def new
     @product = Product.new

@@ -28,7 +28,8 @@
       <strong>
         <%= model_class.human_attribute_name(:type_residue) %>:
       </strong>
-      <%= @composition.type_residue.name %>
+
+      <%= link_to_modal @composition.type_residue.name, raw_material_path(@composition.type_residue), "text-dark" %>
       <hr>
       <strong>
         <%= model_class.human_attribute_name(:compositional) %>s:
@@ -36,7 +37,7 @@
       <ul>
         <% @composition.raw_materials.each do |raw_material| %>
           <li>
-            <%= raw_material.name %>
+            <%= link_to_modal raw_material.name, raw_material_path(raw_material), "text-dark" %>
           </li>
         <% end %>
       </ul>

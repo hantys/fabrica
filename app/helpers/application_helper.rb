@@ -3,6 +3,11 @@ module ApplicationHelper
     current_page?(link_path) ? 'active' : ""
   end
 
+  def link_to_modal(name, link, *args)
+    class_arg, id_arg = args
+    link_to name, "javascript:;",  data: { toggle: "modal", target: "#show_object", link: link }, class: class_arg, id: id_arg
+  end
+
   def roles_humanize(roles)
     aux = ''
     for role in roles

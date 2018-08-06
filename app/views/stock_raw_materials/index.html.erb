@@ -21,16 +21,16 @@
     <tbody>
       <% @stock_raw_materials.each do |stock_raw_material| %>
       <tr>
-        <td scope="row"><%= stock_raw_material.id %></td>
-        <td><%= stock_raw_material.raw_material.name %></td>
+        <td scope="row"><%= link_to stock_raw_material.id, stock_raw_material %></td>
+        <td><%= link_to_modal stock_raw_material.raw_material.name, raw_material_path(stock_raw_material.raw_material), "text-dark" %></td>
         <td><%= stock_raw_material.weight.round(3) %> kg</td>
         <!-- <td><%#= stock_raw_material.weight_out.round(3) %> kg</td> -->
         <td><%=  number_to_currency(stock_raw_material.price, :unit => "R$") %></td>
         <td>
-          <%= link_to stock_raw_material, class: 'btn btn-info has-icon' do %>
-            <i class="material-icons">remove_red_eye</i>
+          <%#= link_to stock_raw_material, class: 'btn btn-info has-icon' do %>
+            <!-- <i class="material-icons">remove_red_eye</i> -->
             <%#= t('.show', :default => t("helpers.links.show")) %>
-          <% end %>
+          <%# end %>
           <%= link_to stock_raw_material, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
             <i class="material-icons">delete</i>
             <%#= t('.destroy', :default => t("helpers.links.destroy")) %>

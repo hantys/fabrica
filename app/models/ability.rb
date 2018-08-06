@@ -13,12 +13,14 @@ class Ability
       can :crud, :all
       can :budget_pdf, Budget
       can :update_status, Budget
+      can :product_cod, Product
       cannot [:update, :destroy], Budget, status: [3,4]
       can :reports_admin, :report
     end
     if user.has_role? :manager
       can :update_status, Budget
       can :crud, :all
+      can :product_cod, Product
       cannot [:create, :read, :update, :destroy], DeliveryOption
       cannot [:create, :read, :update, :destroy], TypeOfPayment
       can :budget_pdf, Budget
@@ -29,6 +31,7 @@ class Ability
       can [:read, :update, :destroy], Budget, employee_id: user.employee.id
       can :budget_pdf, Budget
       can :read, [Product]
+      can :product_cod, Product
       can [:read, :update], Client, employee_id: user.employee.id
       can :create, [Budget, Client]
       can [:read, :update], User, id: user.id

@@ -27,7 +27,7 @@
       <tr>
         <td scope="row"><%= link_to product.id, product %></td>
         <td><%= product.cod %></td>
-        <td><%= product.name %></td>
+        <td><%= link_to product.name, product %></td>
         <td><%= product.reserve %></td>
         <td><%= product.derivative ? 'Sim' : 'Não' %></td>
         <td><%= product.qnt %></td>

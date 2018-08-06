@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :compositions
   resources :raw_materials
 
+  get "/product/cod/:cod", to: 'products#product_cod', as: :product_cod
+
   put '/reserve_product/:id' => 'budgets#updated_reserve_product', as: :reserve_product
 
   scope '/relatorio' do
@@ -22,22 +24,22 @@ Rails.application.routes.draw do
   end
 
   scope '/busca' do
-    get '/endereco/:cep' => "home#find_by_address"
-    get '/cidades/:id' => "home#find_city"
-    get '/sub-item-entrega/:id' => "home#find_delivery"
-    get '/sub-item-pagamento/:id' => "home#find_payment"
-    get '/batida/:id' => "home#find_hit"
-    get '/produto-primitivo/:id' => "home#produto_primitivo"
+    get '/endereco/:cep', to: "home#find_by_address"
+    get '/cidades/:id', to: "home#find_city"
+    get '/sub-item-entrega/:id', to: "home#find_delivery"
+    get '/sub-item-pagamento/:id', to: "home#find_payment"
+    get '/batida/:id', to: "home#find_hit"
+    get '/produto-primitivo/:id', to: "home#produto_primitivo"
   end
 
   scope '/busca' do
-    get '/orcamento/reserve_product/:id' => "budgets#reserve_product"
-    get '/orcamento/pdf/:id' => "budgets#budget_pdf", as: :budget_pdf
-    get '/orcamento/atualiza-status/:id/:status' => "budgets#update_status", as: :budget_update_status
+    get '/orcamento/reserve_product/:id', to: "budgets#reserve_product"
+    get '/orcamento/pdf/:id', to: "budgets#budget_pdf", as: :budget_pdf
+    get '/orcamento/atualiza-status/:id/:status', to: "budgets#update_status", as: :budget_update_status
   end
 
-  get '/load_hit_items/:composition' => "hits#load_items"
-  get '/find_product/:id' => "budgets#find_product"
+  get '/load_hit_items/:composition', to: "hits#load_items"
+  get '/find_product/:id', to: "budgets#find_product"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :users
