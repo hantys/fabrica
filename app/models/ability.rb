@@ -6,6 +6,8 @@ class Ability
     alias_action :create, :update, :destroy, to: :save
     alias_action :daily_production, to: :reports_admin
     alias_action :daily_production, to: :reports_manager
+    alias_action :index, :find_by_address, :find_city, :find_hit, :produto_primitivo, :find_payment, :find_delivery, to: :home_access
+
     # Define abilities for the passed in user here. For example:
     #
     # can :manage, :all if user.has_role? :admin
@@ -16,6 +18,7 @@ class Ability
       can :product_cod, Product
       cannot [:update, :destroy], Budget, status: [3,4]
       can :reports_admin, :report
+      can :home_access, :home
     end
     if user.has_role? :manager
       can :update_status, Budget
@@ -26,6 +29,7 @@ class Ability
       can :budget_pdf, Budget
       cannot [:update, :destroy], Budget, status: [3,4]
       can :reports_manager, :report
+      can :home_access, :home
     end
     if user.has_role? :representative
       can [:read, :update, :destroy], Budget, employee_id: user.employee.id
@@ -37,6 +41,7 @@ class Ability
       can [:read, :update], User, id: user.id
       can :update_status, Budget, status: [0]
       cannot [:update, :destroy], Budget, status: [3,4]
+      can :home_access, :home
     end
     #
     # The first argument to `can` is the action you are giving the user
