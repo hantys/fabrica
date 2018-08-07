@@ -1,18 +1,20 @@
 <%- model_class = Budget -%>
 <div class="page-header d-flex flex-row justify-content-start flex-wrap align-items-center w-100">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
-  <div class="d-flex flex-row justify-content-start align-items-center flex-wrap ml-auto">
-    <%= link_to t('.back', :default => t("helpers.links.back")),
-                  budgets_path, :class => 'btn btn-secondary'  %>
-    <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                  edit_budget_path(@budget), :class => 'btn btn-primary ml-2' %>
-    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                  budget_path(@budget),
-                  :method => 'delete',
-                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                  :class => 'btn btn-danger ml-2' %>
-    <%= link_to "Gerar PDF", budget_pdf_path(@budget), :class => 'btn btn-info mt-2 mt-md-0 mt-lg-0 ml-md-2 ml-lg-2', target: '_blank' %>
-  </div>
+  <% unless @modal %>
+    <div class="d-flex flex-row justify-content-start align-items-center flex-wrap ml-auto">
+      <%= link_to t('.back', :default => t("helpers.links.back")),
+                    budgets_path, :class => 'btn btn-secondary'  %>
+      <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                    edit_budget_path(@budget), :class => 'btn btn-primary ml-2' %>
+      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                    budget_path(@budget),
+                    :method => 'delete',
+                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                    :class => 'btn btn-danger ml-2' %>
+      <%= link_to "Gerar PDF", budget_pdf_path(@budget), :class => 'btn btn-info mt-2 mt-md-0 mt-lg-0 ml-md-2 ml-lg-2', target: '_blank' %>
+    </div>
+  <% end %>
 </div>
 <hr>
 <div class="row mt-4 mb-4">
@@ -98,17 +100,19 @@
       </strong>
         <%= label_status_budget @budget  %>
       <hr>
-      <strong>
+      <% unless @modal %>
+        <strong>
 
-        <% if (can? :update_status, Budget) %>
-          <%= link_to "Confirmar", budget_update_status_path(@budget.id, 'confirm', origin: 'show'), class: 'btn btn-info mb-1', data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } if @budget.status == 'waiting' %>
-          <%= link_to "Autorizar", "javascript:;", class: 'btn btn-success mb-1', data: { toggle: "modal", target: "#update_status", id: @budget.id, whatever: @budget.cod_name }, cache: false if @budget.status == 'confirm' %>
-          <%= link_to "Faturar", budget_update_status_path(@budget.id, 'billed', origin: 'show'), class: 'btn btn-primary mb-1', data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } if @budget.status == 'authorized' %>
-          <%= link_to "Despachar", budget_update_status_path(@budget.id, 'delivered', origin: 'show'), class: 'btn btn-dark mb-1', data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } if @budget.status == 'billed' %>
-          <%= link_to "Reprovar", budget_update_status_path(@budget.id, 'rejected', origin: 'show'), class: 'btn btn-secondary mb-1', data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } if @budget.status == 'waiting' or @budget.status == 'authorized' or @budget.status == 'confirm' %>
-          <hr>
-        <% end %>
-      </strong>
+          <% if (can? :update_status, Budget) %>
+            <%= link_to "Confirmar", budget_update_status_path(@budget.id, 'confirm', origin: 'show'), class: 'btn btn-info mb-1', data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } if @budget.status == 'waiting' %>
+            <%= link_to "Autorizar", "javascript:;", class: 'btn btn-success mb-1', data: { toggle: "modal", target: "#update_status", id: @budget.id, whatever: @budget.cod_name }, cache: false if @budget.status == 'confirm' %>
+            <%= link_to "Faturar", budget_update_status_path(@budget.id, 'billed', origin: 'show'), class: 'btn btn-primary mb-1', data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } if @budget.status == 'authorized' %>
+            <%= link_to "Despachar", budget_update_status_path(@budget.id, 'delivered', origin: 'show'), class: 'btn btn-dark mb-1', data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } if @budget.status == 'billed' %>
+            <%= link_to "Reprovar", budget_update_status_path(@budget.id, 'rejected', origin: 'show'), class: 'btn btn-secondary mb-1', data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } if @budget.status == 'waiting' or @budget.status == 'authorized' or @budget.status == 'confirm' %>
+            <hr>
+          <% end %>
+        </strong>
+      <% end %>
     </p>
   </div>
 </div>

@@ -35,6 +35,7 @@
       <th scope="col">#</th>
       <th scope="col"><%= sort_link @q, :cod, model_class.human_attribute_name(:cod), default_order: :desc %></th>
       <th scope="col"><%= sort_link @q, :name, model_class.human_attribute_name(:name), default_order: :desc %></th>
+      <th scope="col">Orçamentos</th>
       <th scope="col" class="d-print-none"><%= sort_link @q, :qnt, "Em Estoque", default_order: :desc %></th>
       <th scope="col" class="d-print-none"><%= sort_link @q, :qnt_pedidos, "Esperado", default_order: :desc %></th>
       <th scope="col"><%= sort_link @q, :para_produzir, "Para Produzir", default_order: :desc %></th>
@@ -46,6 +47,15 @@
           <th scope="row"><%= i+1 %></th>
           <th scope="row"><%= product.cod %></th>
           <td><%= link_to_modal product.name, product_path(product.id), 'text-dark' %></td>
+          <th scope="row">
+            <ul class="text-left">
+              <% product.budgets_ids.each_with_index do |single, i| %>
+                <%= i%4 == 0 ? '<li>'.html_safe : '' %>
+                  <%= link_to_modal single, budget_path(single) %>
+                <%= i%4 == 3 ? '</li>'.html_safe : '' %>
+              <% end %>
+            </ul>
+          </th>
           <td style="background-color: #c5ffe5 " class="d-print-none"><%= number_with_delimiter product.qnt.to_i, delimiter: ".", separator: "," %> itens</td>
           <td style="background-color: #fbffa2 " class="d-print-none"><%= number_with_delimiter product.qnt_pedidos.to_i, delimiter: ".", separator: "," %> itens</td>
           <td style="background-color: #ff9ea0 "><%= number_with_delimiter product.para_produzir.to_i, delimiter: ".", separator: "," %> itens</td>
