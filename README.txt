@@ -5,15 +5,15 @@
 TO DO
 - Criar relatorio de orcamentos
 - Ordem de serviço
-- Add obs quando for autorizar
 - Criar ordem de producao copia gerar pdf e bota oa itens
-- TODOS OS  ORÇAMENTOS:
 - Criar Contas a Pagar
 - Criar Contas a receber
+- TODOS OS  ORÇAMENTOS:
   * RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
 
 
 DONE
+- Add obs quando for autorizar
 * Tirar confidencial do nacional
 * Busca na producao diaria
 - relacao de produtos a serem produzidos
