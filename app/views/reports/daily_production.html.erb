@@ -1,33 +1,55 @@
-<%- model_class = Product -%>
 <div class="page-header d-flex justify-content-lg-between align-items-center">
   <h1>Previsão de produção do dia</h1>
 </div>
 
+<%- model_class = Budget -%>
+<%= search_form_for @q, url: daily_production_path, html: { class: 'form-horizonal d-print-none' } do |f| %>
+  <h3>Busca</h3>
+  <div class="row justify-content-md-center">
+    <div class="col-4">
+      <%= f.input :budget_products_budget_cod_name_cont, label: model_class.human_attribute_name(:cod_name), placeholder: 'Ex: 410/2018', required: false %>
+      <%= f.input :budget_products_budget_client_id_in, label: model_class.human_attribute_name(:client), as: :select, :collection => Client.where(id: Budget.where(status: 2).pluck(:client_id).uniq).order(:company_name).map { |e| [e.company_name, e.id] }, input_html: {class: 'multi-select2', multiple: true}, required: false %>
+      <%= f.input :cod_cont, label: "Código do Produto", placeholder: 'Ex: TS20', required: false %>
+
+    </div>
+    <div class="col-4">
+      <%= f.input :budget_products_budget_created_at_gteq, label: "#{model_class.human_attribute_name(:created_at)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+      <%= f.input :budget_products_budget_created_at_lteq, label: "#{model_class.human_attribute_name(:created_at)} final", as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+      <%= f.input :budget_products_budget_employee_id_in, label: model_class.human_attribute_name(:employee), :as => :select, :collection => Employee.where(id: Budget.where(status: 2).pluck(:employee_id).uniq).order(:name).map { |e| [e.name, e.id] }, input_html: {class: 'multi-select2', multiple: true}, required: false %>
+    </div>
+    <div class="col-4">
+      <%= f.input :budget_products_budget_deadline_gteq, label: "#{model_class.human_attribute_name(:deadline)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+      <%= f.input :budget_products_budget_deadline_lteq, label: "#{model_class.human_attribute_name(:deadline)} final", as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+    </div>
+    <%= f.button :submit, class: 'btn btn-success' %>
+    <%= link_to 'Limpar', daily_production_path, class: 'btn btn-info ml-3' %>
+  </div>
+  <hr>
+<% end %>
+
+
+<%- model_class = Product -%>
 <table class="table table-striped text-center table-bordered">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Código</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Em Estoque</th>
-      <th scope="col"> Esperado</th>
-      <th scope="col"> Para Produzir</th>
+      <th scope="col"><%= sort_link @q, :cod, model_class.human_attribute_name(:cod), default_order: :desc %></th>
+      <th scope="col"><%= sort_link @q, :name, model_class.human_attribute_name(:name), default_order: :desc %></th>
+      <th scope="col" class="d-print-none"><%= sort_link @q, :qnt, "Em Estoque", default_order: :desc %></th>
+      <th scope="col" class="d-print-none"><%= sort_link @q, :qnt_pedidos, "Esperado", default_order: :desc %></th>
+      <th scope="col"><%= sort_link @q, :para_produzir, "Para Produzir", default_order: :desc %></th>
     </tr>
   </thead>
   <tbody>
-    <% i = 1 %>
-    <% @products.each do |product| %>
-      <% if product['para_produzir'] > 0 %>
+    <% @products.each_with_index do |product, i| %>
         <tr>
-          <th scope="row"><%= i %></th>
-          <th scope="row"><%= product["cod"] %></th>
-          <td><%= link_to_modal product["name"], product_cod_path(product["cod"]), 'text-dark' %></td>
-          <td style="background-color: #c5ffe5 "><%= number_with_delimiter product["qnt_produto"].to_i, delimiter: ".", separator: "," %> itens</td>
-          <td style="background-color: #fbffa2 "><%= number_with_delimiter product["qnt_pedidos"].to_i, delimiter: ".", separator: "," %> itens</td>
-          <td style="background-color: #ff9ea0 "><%= number_with_delimiter product["para_produzir"].to_i, delimiter: ".", separator: "," %> itens</td>
+          <th scope="row"><%= i+1 %></th>
+          <th scope="row"><%= product.cod %></th>
+          <td><%= link_to_modal product.name, product_path(product.id), 'text-dark' %></td>
+          <td style="background-color: #c5ffe5 " class="d-print-none"><%= number_with_delimiter product.qnt.to_i, delimiter: ".", separator: "," %> itens</td>
+          <td style="background-color: #fbffa2 " class="d-print-none"><%= number_with_delimiter product.qnt_pedidos.to_i, delimiter: ".", separator: "," %> itens</td>
+          <td style="background-color: #ff9ea0 "><%= number_with_delimiter product.para_produzir.to_i, delimiter: ".", separator: "," %> itens</td>
         </tr>
-        <% i+=1 %>
-      <% end %>
     <% end %>
   </tbody>
 </table>

@@ -22,6 +22,12 @@ $(document).ready ->
     theme: 'bootstrap4'
     allowClear: true
 
+  $('.multi-select2').select2
+    theme: 'bootstrap4'
+    allowClear: true
+    multiple: true
+    placeholder: "Selecione"
+
   if $('.state').length > 0
     $('.state').change ->
       $.get("/busca/cidades/#{$(this).val()}", (data) ->

@@ -2,8 +2,15 @@ class ReportsController < ApplicationController
   authorize_resource class: false
 
   def daily_production
-    sql = "select sum(bp.qnt) as qnt_pedidos, p.qnt as qnt_produto, (sum(bp.qnt) - p.qnt) as para_produzir, count(bp.product_id) as total_produto, p.name, p.cod from budget_products as bp left join products as p on bp.product_id = p.id left join budgets as b on bp.budget_id = b.id where b.status = 2 group by bp.product_id, p.qnt, p.name, p.cod order by p.name asc"
-    @products = ActiveRecord::Base.connection.execute(sql)
+    @q = Product.ransack(params[:q])
+
+    order_by = "products.name asc"
+    if params[:q]
+      if params[:q][:s]
+        order_by = params[:q][:s]
+      end
+    end
+    @products = @q.result.left_joins(budget_products: [:budget]).where(budgets: {status: 2}).select("sum(budget_products.qnt) as qnt_pedidos", "(sum(budget_products.qnt) - products.qnt) as para_produzir", "count(budget_products.product_id) as total_produto", "products.*").group("budget_products.product_id", "products.id", "products.name", "products.cod").having("(sum(budget_products.qnt) - products.qnt) > ?", 0).order(order_by)
   end
 
 end

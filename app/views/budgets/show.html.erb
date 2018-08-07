@@ -123,7 +123,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @budget.budget_products.includes(:product).each do |budget_product| %>
+      <% @budget.budget_products.includes(:product, versions: :item).each do |budget_product| %>
         <tr>
           <td>
             <%= link_to "javascript:;",  data: { toggle: "modal", target: "#product", id: budget_product.product.id } do %>
@@ -166,7 +166,7 @@
     </thead>
     <tbody>
       <% id = 1 %>
-      <% @budget.versions.each do |event| %>
+      <% @budget.versions.includes(:item).each do |event| %>
         <tr>
           <td><%= id %></td>
           <td><%=t "paper_trail.#{event.event}" %></td>
