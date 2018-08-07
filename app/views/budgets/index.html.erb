@@ -49,15 +49,12 @@
         <%= form_tag(budget_update_status_obs_path, format: :js ,method: :post, id: 'apply-coupon', remote: true, class: 'simple_form form_update_budget') do %>
           <%= hidden_field_tag :id, '', id: 'budget_update_id' %>
           <%= hidden_field_tag :status, 'authorized' %>
-          <div class="form-group text required product_name">
+          <div class="form-group text required">
             <%= label_tag :obs, 'Observação:', class: "form-control-label text required" %>
             <%= text_area_tag :obs, nil, rows: 5, cols: 10, class: "form-control text required" %>
           </div>
-          <%= submit_tag 'Autorizar', class: "btn btn-primary" %>
+          <%= submit_tag 'Autorizar', class: "btn btn-primary float-right" %>
         <% end -%>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
       </div>
     </div>
   </div>
