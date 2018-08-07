@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     get '/orcamento/reserve_product/:id', to: "budgets#reserve_product"
     get '/orcamento/pdf/:id', to: "budgets#budget_pdf", as: :budget_pdf
     get '/orcamento/atualiza-status/:id/:status', to: "budgets#update_status", as: :budget_update_status
+    post '/orcamento/atualiza-status/', to: "budgets#update_status", as: :budget_update_status_obs
   end
 
   get '/load_hit_items/:composition', to: "hits#load_items"

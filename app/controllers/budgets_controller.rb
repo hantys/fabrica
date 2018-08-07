@@ -55,7 +55,7 @@ class BudgetsController < ApplicationController
     elsif @budget.status == 'confirm'
       case params[:status]
       when 'authorized'
-        if @budget.update status: params[:status].to_sym
+        if @budget.update status: params[:status].to_sym, obs: params[:obs]
           flash[:success] = 'Orçamento atualizado!'
         else
           flash[:error] = 'Ocorreu algum problema!'

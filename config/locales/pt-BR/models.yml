@@ -212,6 +212,7 @@ pt-BR:
 
       budget:
         cod_name: Pedido
+        obs: Observação
         budget_products: Produto do Orçamento
         budget_product: Produto do Orçamento
         user_id: Gerado por

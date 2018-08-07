@@ -3,12 +3,20 @@
 - criar template para auditoria
 
 TO DO
-- relacao de produtos a serem produzidos
+- Criar relatorio de orcamentos
+- Ordem de serviço
+- Add obs quando for autorizar
+- Criar ordem de producao copia gerar pdf e bota oa itens
 - TODOS OS  ORÇAMENTOS:
+- Criar Contas a Pagar
+- Criar Contas a receber
   * RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
 
 
 DONE
+* Tirar confidencial do nacional
+* Busca na producao diaria
+- relacao de produtos a serem produzidos
 - paginacao
 - foco do login
 - criar reserva no budget_product

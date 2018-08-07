@@ -12,6 +12,16 @@ jQuery ->
       modal.find('.modal-body').html(data)
     ), 'html'
 
+  $('#update_status').on 'show.bs.modal', (event) ->
+    button = $(event.relatedTarget)
+    # Button that triggered the modal
+    title = button.data('whatever')
+    id = button.data('id')
+
+    modal = $(this)
+    modal.find('.modal-title').text 'Autorizar orçamento ' + title
+    modal.find('#budget_update_id').val(id)
+
   $('#product').on 'show.bs.modal', (event) ->
     button = $(event.relatedTarget)
     # Button that triggered the modal
