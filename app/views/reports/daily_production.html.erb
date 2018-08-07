@@ -7,7 +7,7 @@
   <h3>Busca</h3>
   <div class="row justify-content-md-center">
     <div class="col-4">
-      <%= f.input :budget_products_budget_cod_name_cont, label: model_class.human_attribute_name(:cod_name), placeholder: 'Ex: 410/2018', required: false %>
+      <%= f.input :budget_products_budget_id_in, label: model_class.human_attribute_name(:cod_name), as: :select, :collection => Budget.where(status: 2).map { |e| [e.cod_name, e.id] }, input_html: {class: 'multi-select2', multiple: true}, required: false %>
       <%= f.input :budget_products_budget_client_id_in, label: model_class.human_attribute_name(:client), as: :select, :collection => Client.where(id: Budget.where(status: 2).pluck(:client_id).uniq).order(:company_name).map { |e| [e.company_name, e.id] }, input_html: {class: 'multi-select2', multiple: true}, required: false %>
       <%= f.input :cod_cont, label: "Código do Produto", placeholder: 'Ex: TS20', required: false %>
 
