@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2018_08_07_184954) do
     t.datetime "deleted_at"
     t.bigint "sub_type_payment_id"
     t.bigint "sub_delivery_option_id"
-    t.text "obs"
+    t.text "obs", default: ""
     t.index ["client_id"], name: "index_budgets_on_client_id"
     t.index ["deleted_at"], name: "index_budgets_on_deleted_at"
     t.index ["delivery_option_id"], name: "index_budgets_on_delivery_option_id"

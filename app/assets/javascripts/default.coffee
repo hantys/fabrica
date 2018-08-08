@@ -23,7 +23,6 @@ $(document).ready ->
     allowClear: true
 
   $('.multi-select2').select2
-    theme: 'bootstrap4'
     allowClear: true
     multiple: true
     placeholder: "Selecione"
