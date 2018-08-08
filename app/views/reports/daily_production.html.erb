@@ -14,19 +14,18 @@
     <div class="col-4">
       <%#= f.input :budget_products_budget_created_at_gteq, label: "#{model_class.human_attribute_name(:created_at)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
       <%#= f.input :budget_products_budget_created_at_lteq, label: "#{model_class.human_attribute_name(:created_at)} final", as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
-      <%= f.input :budget_products_budget_client_id_in, label: model_class.human_attribute_name(:client), as: :select, :collection => Client.where(id: Budget.where(status: 2).pluck(:client_id).uniq).order(:company_name).map { |e| [e.company_name, e.id] }, input_html: {class: 'multi-select2', multiple: true}, required: false %>
-      <%= f.input :budget_products_budget_employee_id_in, label: model_class.human_attribute_name(:employee), :as => :select, :collection => Employee.where(id: Budget.where(status: 2).pluck(:employee_id).uniq).order(:name).map { |e| [e.name, e.id] }, input_html: {class: 'multi-select2', multiple: true}, required: false %>
+      <%= f.input :budget_products_budget_client_id_in, label: model_class.human_attribute_name(:client), as: :select, :collection => Client.where(id: Budget.where(status: 2).pluck(:client_id).uniq).order(:company_name).map { |e| [e.company_name, e.id] }, selected: @client, input_html: {class: 'multi-select2', multiple: true}, required: false %>
+      <%= f.input :budget_products_budget_employee_id_in, label: model_class.human_attribute_name(:employee), :as => :select, :collection => Employee.where(id: Budget.where(status: 2).pluck(:employee_id).uniq).order(:name).map { |e| [e.name, e.id] }, selected: @employee, input_html: {class: 'multi-select2', multiple: true}, required: false %>
     </div>
     <div class="col-4">
-      <%= f.input :budget_products_budget_deadline_gteq, label: "#{model_class.human_attribute_name(:deadline)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
-      <%= f.input :budget_products_budget_deadline_lteq, label: "#{model_class.human_attribute_name(:deadline)} final", as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+      <%#= f.input :budget_products_budget_deadline_gteq, label: "#{model_class.human_attribute_name(:deadline)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+      <%#= f.input :budget_products_budget_deadline_lteq, label: "#{model_class.human_attribute_name(:deadline)} final", as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
     </div>
     <%= f.button :submit, class: 'btn btn-success' %>
     <%= link_to 'Limpar', daily_production_path, class: 'btn btn-info ml-3' %>
   </div>
   <hr>
 <% end %>
-
 
 <%- model_class = Product -%>
 <table class="table table-striped text-center table-bordered">
