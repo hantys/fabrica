@@ -11,6 +11,9 @@ update:
 create:
 	@rails db:create:all
 
+backup:
+	@sh backup.sh
+
 migrate:
 	@rails db:migrate
 
