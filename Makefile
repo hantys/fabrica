@@ -27,4 +27,4 @@ teste:
 	@bin/rspec
 
 reset:
-	@bundle install; yarn install; rails db:drop db:create db:migrate db:seed
+	@bundle install; yarn install; rails db:drop db:create db:migrate; sh backup.sh; rails db:migrate
