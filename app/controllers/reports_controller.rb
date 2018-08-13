@@ -19,10 +19,6 @@ class ReportsController < ApplicationController
     end
 
     @q = Product.ransack(params[:q])
-    if params[:q]
-      params[:q][:budget_products_budget_employee_id_in] = @employee
-      params[:q][:budget_products_budget_client_id_in] = @client
-    end
 
     if @client.present?
       merge_where[:client_id] = @client
