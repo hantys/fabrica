@@ -8,6 +8,7 @@ TO DO
 - Criar ordem de producao copia gerar pdf e bota oa itens
 - Criar Contas a Pagar
 - Criar Contas a receber
+
 - TODOS OS  ORÇAMENTOS:
   * RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
 
