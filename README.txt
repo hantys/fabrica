@@ -7,10 +7,60 @@ TO DO
 - Ordem de serviço
 - Criar ordem de producao copia gerar pdf e bota oa itens
 - Criar Contas a Pagar
+	* Contrato com fornecedor
+		° nome
+		° fornecedor
+		° obs
+		° valor total
+		° valor restante
+		° orcamentos
+			- valor parcial
+	* select contrato com fornecedor
+	* status
+	* categoria
+	* faturamento
+	* obs
+	* anexo
+	* total pago (ex: R$200,00 de R$1000,00)
+	* parcelas
+		º boleto
+			- codigo titulo/convenio (ideia de mascara contar por quantidade de caracter titulo: 47, convenio: 48)
+		º transferencia
+			- banco
+			- ag
+			- conta
+			- variacao
+			- banco de saida
+		º cartao de credito (criar cadastro de cartao)
+			- nome
+			- final (limit 4)
+			- vencimento
+		º anexo
+		º data
+		º valor
 - Criar Contas a receber
+	* tipo
+		º orcamento
+			- orcamento_id
+		° outros
+			- nome
+			- cpf/cnpj
+			- phone
+			- obs
+	* categoria
+	* faturamento
+	* anexo
+	* parcelas
+		º banco
+		º anexo
+		º data
+		º valor
+		º status
+	* status
+	* total pago (ex: R$200,00 de R$1000,00)
 
 - TODOS OS  ORÇAMENTOS:
-  * RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
+	* RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
 
 
 DONE
@@ -26,12 +76,12 @@ DONE
 - adicionar um status, confirmado para o representante
 - na entrada de porduto final por materia prima, deixar entrada de peso dos tubos e calcular a borra
 - composto nao e produto final, ele e igual a lista dos itens do orcamento
-  * fazer alteracao no sistema para produto final
+	* fazer alteracao no sistema para produto final
 - forma de pagamento criar item e sub item
 - implementar biblioteca paranoia
 - TODOS OS  ORÇAMENTOS:
-  * STATUS  DO  ORÇAMENTO (AGUARDANDO AUTORIZAÇÃO / AUTORIZADO  / REPROVADO / FATURADO  / ENTREGUE)
-  * DATA  DE  CRIAÇÃO
+	* STATUS  DO  ORÇAMENTO (AGUARDANDO AUTORIZAÇÃO / AUTORIZADO  / REPROVADO / FATURADO  / ENTREGUE)
+	* DATA  DE  CRIAÇÃO
 - criar auditoria
 - criar mascaras
 - add select2 no item do orcamento
