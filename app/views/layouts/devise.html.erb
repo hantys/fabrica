@@ -20,7 +20,7 @@
     <div class="container ">
       <div class="row justify-content-md-center">
         <div class="col-md-5">
-        <% if request.url.index(/teste.fabrica.nacionalservicos/) == nil %>
+          <% if request.url.index(/teste.fabrica.nacionalservicos/) != nil %>
           <div class="alert alert-warning text-center">
             Área de teste. Todos os dados e ações tem efeito apenas de simulação
           </div>
