@@ -16,6 +16,14 @@ pt-BR:
       budget_product: Produto do Orçamento
       delivery_option: Tipos de Entrega
       type_of_payment: Tipos de Pagamento
+      bill_receivable: Contas a receber
+      bill_payable: Contas a Pagar
+      provider_contract: Contrato com fornecedor
+      banks: Banco
+      cred_cards: Cartão
+      revenues: Faturamento
+      categories: Categoria
+
 
     attributes:
       user:
