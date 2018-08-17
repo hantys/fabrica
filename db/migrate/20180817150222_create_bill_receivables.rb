@@ -10,7 +10,7 @@ class CreateBillReceivables < ActiveRecord::Migration[5.2]
       t.text :obs_other
       t.references :category
       t.references :revenue
-      t.integer :status
+      t.integer :status, default: 0
       t.text :obs
       t.string :file
       t.float :total_value

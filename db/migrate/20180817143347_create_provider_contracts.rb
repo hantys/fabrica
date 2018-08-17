@@ -6,7 +6,7 @@ class CreateProviderContracts < ActiveRecord::Migration[5.2]
       t.text :obs
       t.float :total_value
       t.float :partil_value
-      t.integer :staus
+      t.integer :staus, default: 0
 
       t.timestamps
     end
