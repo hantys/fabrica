@@ -19,6 +19,11 @@
   <body>
 
     <%= render 'layouts/header' %>
+    <% if request.url.index(/teste.fabrica.nacionalservicos/) != nil %>
+      <div class="alert alert-warning text-center">
+        Área de teste. Todos os dados e ações tem efeito apenas de simulação
+      </div>
+    <% end %>
     <main role="main">
       <div class="container-fluid">
         <% flash.each do |name, msg| %>
