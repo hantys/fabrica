@@ -5,10 +5,10 @@
 <table>
   <thead>
     <tr>
-      <th>References</th>
+      <th>Provider contract</th>
       <th>Status</th>
-      <th>References</th>
-      <th>References</th>
+      <th>Category</th>
+      <th>Revenue</th>
       <th>Obs</th>
       <th>File</th>
       <th>Total value</th>
@@ -19,10 +19,10 @@
   <tbody>
     <% @bill_payables.each do |bill_payable| %>
       <tr>
-        <td><%= bill_payable.references %></td>
+        <td><%= bill_payable.provider_contract %></td>
         <td><%= bill_payable.status %></td>
-        <td><%= bill_payable.references %></td>
-        <td><%= bill_payable.references %></td>
+        <td><%= bill_payable.category %></td>
+        <td><%= bill_payable.revenue %></td>
         <td><%= bill_payable.obs %></td>
         <td><%= bill_payable.file %></td>
         <td><%= bill_payable.total_value %></td>

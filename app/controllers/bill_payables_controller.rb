@@ -69,6 +69,6 @@ class BillPayablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bill_payable_params
-      params.require(:bill_payable).permit(:references, :status, :references, :references, :obs, :file, :total_value)
+      params.require(:bill_payable).permit(:provider_contract_id, :status, :category_id, :revenue_id, :obs, :file, :total_value)
     end
 end

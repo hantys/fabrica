@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   resources :bill_receivables
-  resources :banks
-  resources :cred_cards
   resources :bill_payables
   resources :provider_contracts
+  resources :banks
+  resources :cred_cards
   resources :revenues
   resources :categories
   devise_for :users, controllers: { :registrations => 'registrations' }

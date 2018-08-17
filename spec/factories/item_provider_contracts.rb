@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :item_provider_contract do
-    references ""
+    budget nil
     value 1.5
   end
 end

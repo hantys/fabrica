@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_17_150222) do
+ActiveRecord::Schema.define(version: 2018_08_17_200242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,21 @@ ActiveRecord::Schema.define(version: 2018_08_17_150222) do
     t.string "op"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "bill_payable_installments", force: :cascade do |t|
+    t.bigint "bank_id"
+    t.bigint "cred_card_id"
+    t.boolean "billet"
+    t.string "code"
+    t.string "file"
+    t.string "date"
+    t.float "value"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_id"], name: "index_bill_payable_installments_on_bank_id"
+    t.index ["cred_card_id"], name: "index_bill_payable_installments_on_cred_card_id"
   end
 
   create_table "bill_payables", force: :cascade do |t|
@@ -39,8 +54,19 @@ ActiveRecord::Schema.define(version: 2018_08_17_150222) do
     t.index ["revenue_id"], name: "index_bill_payables_on_revenue_id"
   end
 
+  create_table "bill_receivable_installments", force: :cascade do |t|
+    t.bigint "bank_id"
+    t.string "file"
+    t.string "date"
+    t.float "value"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_id"], name: "index_bill_receivable_installments_on_bank_id"
+  end
+
   create_table "bill_receivables", force: :cascade do |t|
-    t.string "type_receivable"
+    t.integer "type_receivable"
     t.bigint "budget_id"
     t.string "name_other"
     t.string "cpf_other"
@@ -480,6 +506,15 @@ ActiveRecord::Schema.define(version: 2018_08_17_150222) do
     t.index ["transaction_id"], name: "index_versions_on_transaction_id"
   end
 
+  add_foreign_key "bill_payable_installments", "banks"
+  add_foreign_key "bill_payable_installments", "cred_cards"
+  add_foreign_key "bill_payables", "categories"
+  add_foreign_key "bill_payables", "provider_contracts"
+  add_foreign_key "bill_payables", "revenues"
+  add_foreign_key "bill_receivable_installments", "banks"
+  add_foreign_key "bill_receivables", "budgets"
+  add_foreign_key "bill_receivables", "categories"
+  add_foreign_key "bill_receivables", "revenues"
   add_foreign_key "budget_products", "budgets"
   add_foreign_key "budget_products", "products"
   add_foreign_key "budgets", "clients"
@@ -500,10 +535,12 @@ ActiveRecord::Schema.define(version: 2018_08_17_150222) do
   add_foreign_key "hits", "products"
   add_foreign_key "item_product_stocks", "products"
   add_foreign_key "item_product_stocks", "stock_final_products"
+  add_foreign_key "item_provider_contracts", "budgets"
   add_foreign_key "out_of_stocks", "budget_products"
   add_foreign_key "out_of_stocks", "budgets"
   add_foreign_key "out_of_stocks", "products"
   add_foreign_key "out_of_stocks", "users"
+  add_foreign_key "provider_contracts", "providers"
   add_foreign_key "providers", "cities"
   add_foreign_key "providers", "states"
   add_foreign_key "stock_final_products", "hits"

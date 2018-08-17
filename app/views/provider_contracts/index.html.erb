@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>References</th>
+      <th>Provider</th>
       <th>Obs</th>
       <th>Total value</th>
       <th>Partil value</th>
@@ -19,7 +19,7 @@
     <% @provider_contracts.each do |provider_contract| %>
       <tr>
         <td><%= provider_contract.name %></td>
-        <td><%= provider_contract.references %></td>
+        <td><%= provider_contract.provider %></td>
         <td><%= provider_contract.obs %></td>
         <td><%= provider_contract.total_value %></td>
         <td><%= provider_contract.partil_value %></td>

@@ -6,14 +6,14 @@
   <thead>
     <tr>
       <th>Type receivable</th>
-      <th>References</th>
+      <th>Budget</th>
       <th>Name other</th>
       <th>Cpf other</th>
       <th>Cnpj other</th>
       <th>Phone other</th>
       <th>Obs other</th>
-      <th>References</th>
-      <th>References</th>
+      <th>Category</th>
+      <th>Revenue</th>
       <th>Status</th>
       <th>Obs</th>
       <th>File</th>
@@ -26,14 +26,14 @@
     <% @bill_receivables.each do |bill_receivable| %>
       <tr>
         <td><%= bill_receivable.type_receivable %></td>
-        <td><%= bill_receivable.references %></td>
+        <td><%= bill_receivable.budget %></td>
         <td><%= bill_receivable.name_other %></td>
         <td><%= bill_receivable.cpf_other %></td>
         <td><%= bill_receivable.cnpj_other %></td>
         <td><%= bill_receivable.phone_other %></td>
         <td><%= bill_receivable.obs_other %></td>
-        <td><%= bill_receivable.references %></td>
-        <td><%= bill_receivable.references %></td>
+        <td><%= bill_receivable.category %></td>
+        <td><%= bill_receivable.revenue %></td>
         <td><%= bill_receivable.status %></td>
         <td><%= bill_receivable.obs %></td>
         <td><%= bill_receivable.file %></td>

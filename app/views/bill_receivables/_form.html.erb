@@ -5,14 +5,14 @@
 
   <div class="form-inputs">
     <%= f.input :type_receivable %>
-    <%= f.input :references %>
+    <%= f.association :budget %>
     <%= f.input :name_other %>
     <%= f.input :cpf_other %>
     <%= f.input :cnpj_other %>
     <%= f.input :phone_other %>
     <%= f.input :obs_other %>
-    <%= f.input :references %>
-    <%= f.input :references %>
+    <%= f.association :category %>
+    <%= f.association :revenue %>
     <%= f.input :status %>
     <%= f.input :obs %>
     <%= f.input :file %>

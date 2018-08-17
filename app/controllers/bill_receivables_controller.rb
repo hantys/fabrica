@@ -69,6 +69,6 @@ class BillReceivablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bill_receivable_params
-      params.require(:bill_receivable).permit(:type_receivable, :references, :name_other, :cpf_other, :cnpj_other, :phone_other, :obs_other, :references, :references, :status, :obs, :file, :total_value)
+      params.require(:bill_receivable).permit(:type_receivable, :budget_id, :name_other, :cpf_other, :cnpj_other, :phone_other, :obs_other, :category_id, :revenue_id, :status, :obs, :file, :total_value)
     end
 end
