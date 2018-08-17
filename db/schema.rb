@@ -10,10 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_07_184954) do
+ActiveRecord::Schema.define(version: 2018_08_17_150222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "banks", force: :cascade do |t|
+    t.string "name"
+    t.string "ag"
+    t.string "cc"
+    t.string "op"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bill_payables", force: :cascade do |t|
+    t.bigint "provider_contract_id"
+    t.integer "status"
+    t.bigint "category_id"
+    t.bigint "revenue_id"
+    t.text "obs"
+    t.string "file"
+    t.float "total_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_bill_payables_on_category_id"
+    t.index ["provider_contract_id"], name: "index_bill_payables_on_provider_contract_id"
+    t.index ["revenue_id"], name: "index_bill_payables_on_revenue_id"
+  end
+
+  create_table "bill_receivables", force: :cascade do |t|
+    t.string "type_receivable"
+    t.bigint "budget_id"
+    t.string "name_other"
+    t.string "cpf_other"
+    t.string "cnpj_other"
+    t.string "phone_other"
+    t.text "obs_other"
+    t.bigint "category_id"
+    t.bigint "revenue_id"
+    t.integer "status"
+    t.text "obs"
+    t.string "file"
+    t.float "total_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["budget_id"], name: "index_bill_receivables_on_budget_id"
+    t.index ["category_id"], name: "index_bill_receivables_on_category_id"
+    t.index ["revenue_id"], name: "index_bill_receivables_on_revenue_id"
+  end
 
   create_table "budget_products", force: :cascade do |t|
     t.bigint "budget_id"
@@ -64,6 +109,12 @@ ActiveRecord::Schema.define(version: 2018_08_07_184954) do
     t.index ["sub_type_payment_id"], name: "index_budgets_on_sub_type_payment_id"
     t.index ["type_of_payment_id"], name: "index_budgets_on_type_of_payment_id"
     t.index ["user_id"], name: "index_budgets_on_user_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "cities", force: :cascade do |t|
@@ -121,6 +172,14 @@ ActiveRecord::Schema.define(version: 2018_08_07_184954) do
     t.datetime "deleted_at"
     t.bigint "type_residue_id", default: 1
     t.index ["type_residue_id"], name: "index_compositions_on_type_residue_id"
+  end
+
+  create_table "cred_cards", force: :cascade do |t|
+    t.string "name"
+    t.integer "catd_final"
+    t.string "valid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "delivery_options", force: :cascade do |t|
@@ -208,6 +267,14 @@ ActiveRecord::Schema.define(version: 2018_08_07_184954) do
     t.index ["stock_final_product_id"], name: "index_item_product_stocks_on_stock_final_product_id"
   end
 
+  create_table "item_provider_contracts", force: :cascade do |t|
+    t.bigint "budget_id"
+    t.float "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["budget_id"], name: "index_item_provider_contracts_on_budget_id"
+  end
+
   create_table "out_of_stocks", force: :cascade do |t|
     t.bigint "budget_id"
     t.bigint "user_id"
@@ -238,6 +305,18 @@ ActiveRecord::Schema.define(version: 2018_08_07_184954) do
     t.boolean "derivative", default: false
     t.float "reserve", default: 0.0
     t.index ["deleted_at"], name: "index_products_on_deleted_at"
+  end
+
+  create_table "provider_contracts", force: :cascade do |t|
+    t.string "name"
+    t.bigint "provider_id"
+    t.text "obs"
+    t.float "total_value"
+    t.float "partil_value"
+    t.integer "staus"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider_id"], name: "index_provider_contracts_on_provider_id"
   end
 
   create_table "providers", force: :cascade do |t|
@@ -276,6 +355,14 @@ ActiveRecord::Schema.define(version: 2018_08_07_184954) do
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_raw_materials_on_deleted_at"
     t.index ["name"], name: "index_raw_materials_on_name", unique: true
+  end
+
+  create_table "revenues", force: :cascade do |t|
+    t.string "name"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_revenues_on_category_id"
   end
 
   create_table "states", force: :cascade do |t|

@@ -1,0 +1,2 @@
+class ItemProviderContract < ApplicationRecord
+end

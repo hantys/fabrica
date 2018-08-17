@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @cred_card.name %>
+</p>
+
+<p>
+  <strong>Catd final:</strong>
+  <%= @cred_card.catd_final %>
+</p>
+
+<p>
+  <strong>Valid:</strong>
+  <%= @cred_card.valid %>
+</p>
+
+<%= link_to 'Edit', edit_cred_card_path(@cred_card) %> |
+<%= link_to 'Back', cred_cards_path %>

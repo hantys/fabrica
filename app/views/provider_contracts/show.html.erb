@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @provider_contract.name %>
+</p>
+
+<p>
+  <strong>References:</strong>
+  <%= @provider_contract.references %>
+</p>
+
+<p>
+  <strong>Obs:</strong>
+  <%= @provider_contract.obs %>
+</p>
+
+<p>
+  <strong>Total value:</strong>
+  <%= @provider_contract.total_value %>
+</p>
+
+<p>
+  <strong>Partil value:</strong>
+  <%= @provider_contract.partil_value %>
+</p>
+
+<p>
+  <strong>Staus:</strong>
+  <%= @provider_contract.staus %>
+</p>
+
+<%= link_to 'Edit', edit_provider_contract_path(@provider_contract) %> |
+<%= link_to 'Back', provider_contracts_path %>

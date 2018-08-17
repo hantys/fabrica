@@ -6,7 +6,7 @@ TO DO
 - Criar relatorio de orcamentos
 - Ordem de serviço
 - Criar ordem de producao copia gerar pdf e bota oa itens
-- Criar Contas a Pagar
+- Criar Contas a Pagar - bill_payable_ installment
 	* Contrato com fornecedor
 		° nome
 		° fornecedor
@@ -38,7 +38,7 @@ TO DO
 		º anexo
 		º data
 		º valor
-- Criar Contas a receber
+- Criar Contas a receber  bill_receivable
 	* tipo
 		º orcamento
 			- orcamento_id

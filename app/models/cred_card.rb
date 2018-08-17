@@ -1,0 +1,2 @@
+class CredCard < ApplicationRecord
+end

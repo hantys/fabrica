@@ -1,0 +1,2 @@
+class ProviderContract < ApplicationRecord
+end

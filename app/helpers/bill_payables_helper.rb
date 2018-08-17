@@ -1,0 +1,2 @@
+module BillPayablesHelper
+end

@@ -1,0 +1,25 @@
+
+<%= simple_form_for(@bill_receivable) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :type_receivable %>
+    <%= f.input :references %>
+    <%= f.input :name_other %>
+    <%= f.input :cpf_other %>
+    <%= f.input :cnpj_other %>
+    <%= f.input :phone_other %>
+    <%= f.input :obs_other %>
+    <%= f.input :references %>
+    <%= f.input :references %>
+    <%= f.input :status %>
+    <%= f.input :obs %>
+    <%= f.input :file %>
+    <%= f.input :total_value %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

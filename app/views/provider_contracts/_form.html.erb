@@ -1,0 +1,18 @@
+
+<%= simple_form_for(@provider_contract) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :references %>
+    <%= f.input :obs %>
+    <%= f.input :total_value %>
+    <%= f.input :partil_value %>
+    <%= f.input :staus %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

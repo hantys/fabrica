@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>References:</strong>
+  <%= @bill_payable.references %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @bill_payable.status %>
+</p>
+
+<p>
+  <strong>References:</strong>
+  <%= @bill_payable.references %>
+</p>
+
+<p>
+  <strong>References:</strong>
+  <%= @bill_payable.references %>
+</p>
+
+<p>
+  <strong>Obs:</strong>
+  <%= @bill_payable.obs %>
+</p>
+
+<p>
+  <strong>File:</strong>
+  <%= @bill_payable.file %>
+</p>
+
+<p>
+  <strong>Total value:</strong>
+  <%= @bill_payable.total_value %>
+</p>
+
+<%= link_to 'Edit', edit_bill_payable_path(@bill_payable) %> |
+<%= link_to 'Back', bill_payables_path %>

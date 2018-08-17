@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :bill_receivables
+  resources :banks
+  resources :cred_cards
+  resources :bill_payables
+  resources :provider_contracts
+  resources :revenues
+  resources :categories
   devise_for :users, controllers: { :registrations => 'registrations' }
 
   # resources :out_of_stocks
