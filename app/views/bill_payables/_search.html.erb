@@ -1,0 +1,19 @@
+<%- model_class = BillPayable -%>
+<%= search_form_for @q, url: bill_payables_path, html: { class: 'form-horizonal' } do |f| %>
+  <h3>Busca</h3>
+  <div class="row justify-content-md-center">
+    <div class="col-4">
+      <%= f.input :provider_contract_name_cont, label: model_class.human_attribute_name(:provider_contract_name), placeholder: 'Ex: Transporte de PVC', required: false %>
+      <%= f.input :status_eq, label: model_class.human_attribute_name(:status), as: :select, placeholder: 'code', :as => :select, :collection => ProviderContract.statuses.map {|x| [t("enums.budget.status.#{x[0]}"), x[1]]}.sort_by {|a,b| a }, :include_blank => "Todas", input_html: {class: 'simple-select2'}, required: false %>
+    </div>
+    <div class="col-4">
+      <%= f.input :created_at_gteq, label: "#{model_class.human_attribute_name(:created_at)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+      <%= f.input :created_at_lteq, label: "#{model_class.human_attribute_name(:created_at)} final", as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+    </div>
+    <div class="col-4">,
+    </div>
+    <%= f.button :submit, class: 'btn btn-success' %>
+    <%= link_to 'Limpar', bill_payables_path, class: 'btn btn-info ml-3' %>
+  </div>
+  <hr>
+<% end %>

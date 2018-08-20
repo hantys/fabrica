@@ -3,7 +3,7 @@
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
   <%= link_to t('.new', :default => t("helpers.links.new")), new_provider_contract_path, class: "btn btn-primary" %>
 </div>
-
+<%= render 'search' %>
 <%= paginate @provider_contracts if @provider_contracts.size > 20 %>
 <%= page_entries_info @provider_contracts, entry_name: 'item' %>
 
@@ -17,6 +17,7 @@
         <th scope="col"><%= sort_link @q, :provider, model_class.human_attribute_name(:provider), default_order: :desc %></th>
         <th scope="col"><%= sort_link @q, :total_value, model_class.human_attribute_name(:total_value), default_order: :desc %></th>
         <th scope="col"><%= sort_link @q, :status, model_class.human_attribute_name(:status), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :created_at, model_class.human_attribute_name(:created_at), default_order: :desc %></th>
         <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
     </thead>
@@ -28,7 +29,8 @@
           <td><%= provider_contract.name %></td>
           <td><%= link_to_modal provider_contract.provider.company_name, provider_path(provider_contract.provider), "text-dark" %></td>
           <td><%= "#{number_to_currency provider_contract.partil_value} de #{number_to_currency provider_contract.total_value}" %></td>
-          <td><%= provider_contract.staus %></td>
+          <td><%= label_status_pc provider_contract.status %></td>
+          <td><%= provider_contract.created_at %></td>
           <td>
             <%#= link_to provider_contract, class: 'btn btn-info has-icon' do %>
               <!-- <i class="material-icons">remove_red_eye</i> -->

@@ -24,21 +24,23 @@ class AddDefaultAndDeletedAtToTables < ActiveRecord::Migration[5.2]
     add_index :categories, :deleted_at
 
     add_reference :item_provider_contracts, :provider_contract, foreign_key: true
+    add_reference :bill_payable_installments, :bill_payables, foreign_key: true
+    add_reference :bill_receivable_installments, :bill_receivables, foreign_key: true
 
     rename_column(:provider_contracts, :staus, :status)
     rename_column(:cred_cards, :catd_final, :card_final)
 
-    change_column_default :bill_receivable_installments, :value, 0
+    # change_column_default :bill_receivable_installments, :value, 0
     change_column_default :bill_receivable_installments, :status, 0
     change_column_default :bill_receivables, :status, 0
     change_column_default :bill_receivables, :total_value, 0
-    change_column_default :bill_payable_installments, :value, 0
+    # change_column_default :bill_payable_installments, :value, 0
     change_column_default :bill_payable_installments, :status, 0
     change_column_default :bill_payables, :status, 0
     change_column_default :bill_payables, :total_value, 0
-    change_column_default :item_provider_contracts, :value, 0
+    # change_column_default :item_provider_contracts, :value, 0
     change_column_default :provider_contracts, :status, 0
-    change_column_default :provider_contracts, :total_value, 0
+    # change_column_default :provider_contracts, :total_value, 0
     change_column_default :provider_contracts, :partil_value, 0
 
   end

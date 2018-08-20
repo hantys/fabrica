@@ -27,7 +27,7 @@
 
 <p>
   <strong>File:</strong>
-  <%= @bill_payable.file %>
+  <%= link_to @bill_payable.file_identifier, @bill_payable.file.url, download: @bill_payable.file_identifier %>
 </p>
 
 <p>

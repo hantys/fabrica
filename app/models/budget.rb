@@ -30,10 +30,6 @@ class Budget < ApplicationRecord
 
   validates :value, numericality: { greater_than: 0 }
 
-  def name
-    self.cod_name
-  end
-
   def stock_withdrawal(user_id)
     begin
       ActiveRecord::Base.transaction do

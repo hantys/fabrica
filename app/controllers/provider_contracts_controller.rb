@@ -7,7 +7,7 @@ class ProviderContractsController < ApplicationController
   def index
     @q = ProviderContract.ransack(params[:q])
 
-    @provider_contracts = @q.result.accessible_by(current_ability).order(id: :desc).page params[:page]
+    @provider_contracts = @q.result.includes(:provider).accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /provider_contracts/1
@@ -76,6 +76,6 @@ class ProviderContractsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def provider_contract_params
-      params.require(:provider_contract).permit(:name, :provider_id, :obs, :total_value, :partil_value, :staus)
+      params.require(:provider_contract).permit(:name, :provider_id, :obs, :total_value, item_provider_contracts_attributes: [:id, :budget_id, :value, :_destroy])
     end
 end

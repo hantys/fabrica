@@ -20,3 +20,7 @@ pt-BR:
         billed: Faturado
         delivered: Entregue
         confirm: Confirmado
+    provider_contract:
+      status:
+        active: Ativo
+        finish: Finalizado

@@ -1,19 +1,56 @@
-
-<%= simple_form_for(@bill_payable) do |f| %>
+<%= simple_nested_form_for(@bill_payable) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.association :provider_contract %>
-    <%= f.input :status %>
-    <%= f.association :category %>
-    <%= f.association :revenue %>
-    <%= f.input :obs %>
-    <%= f.input :file %>
-    <%= f.input :total_value %>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= f.association :provider_contract, collection: ProviderContract.order(:name), prompt: "Escolha um Contrato", input_html: { class: 'simple-select2' } %>
+      <%= f.input :total_value %>
+      <span id='file-name' class="badge badge-success"><%= @bill_payable.file.filename if @bill_payable.file.present? %></span>
+      <div class="d-flex flex-row bd-highlight mb-3">
+        <i class="material-icons p-2 bd-highlight">
+        <span id='icon-file' class="badge <%= @bill_payable.file.present? ? 'badge-success' : 'badge-danger' %> ">
+          <%= @bill_payable.file.present? ? 'cloud_done' : 'cloud' %>
+        </span>
+        </i>
+        <%= f.input :file, label: false, input_html: { class: 'p-2 bd-highlight' } %>
+      </div>
+      <%= f.hidden_field :file_cache %>
+    </div>
+    <div class="col-lg-6">
+      <%= f.association :category, input_html: { class: 'simple-select2' } %>
+      <%= f.association :revenue, input_html: { class: 'simple-select2' } %>
+      <%= f.input :obs %>
+
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div id="item_provider_contracts">
+    <%= f.fields_for :item_provider_contracts do |item_provider_contracts_form| %>
+      <div class="card card-body">
+        <div class="row ">
+          <div class="col">
+            <%= item_provider_contracts_form.input :budget_id, as: :select, collection: Budget.order(:cod_name).map{|x| [x.cod_name, x.id]}, input_html: {class: 'simple-select2'}, prompt: "Escolha um Orçamento" %>
+          </div>
+          <div class="col">
+            <%= item_provider_contracts_form.input :value, input_html: {class: 'value_budget'} %>
+          </div>
+          <div class="col">
+            <div class="form-group float optional provider_contract_item_provider_contracts_value form-group-valid">
+              <label class="form-control-label float optional">  </label>
+              <%= item_provider_contracts_form.link_to_remove "Remover orçamento", class: 'btn btn-outline-danger form-control float optional mt-2' %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+    <% end %>
   </div>
+  <hr>
+  <p><%= f.link_to_add "Adicionar Orçamento", :item_provider_contracts, :data => { :target => "#item_provider_contracts" }, class: 'btn btn-outline-primary' %></p>
+  <hr>
+
+  <hr>
+  <%= f.button :submit, class: 'btn btn-success' %>
+  <%= link_to 'Cancelar', bill_payables_path, class: 'btn btn-danger' %>
 <% end %>

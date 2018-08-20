@@ -1,39 +1,56 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = BillPayable -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_bill_payable_path, class: "btn btn-primary" %>
+</div>
+<%= render 'search' %>
+<%= paginate @bill_payables if @bill_payables.size > 20 %>
+<%= page_entries_info @bill_payables, entry_name: 'item' %>
 
-<h1>BillPayables</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Provider contract</th>
-      <th>Status</th>
-      <th>Category</th>
-      <th>Revenue</th>
-      <th>Obs</th>
-      <th>File</th>
-      <th>Total value</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @bill_payables.each do |bill_payable| %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
       <tr>
-        <td><%= bill_payable.provider_contract %></td>
-        <td><%= bill_payable.status %></td>
-        <td><%= bill_payable.category %></td>
-        <td><%= bill_payable.revenue %></td>
-        <td><%= bill_payable.obs %></td>
-        <td><%= bill_payable.file %></td>
-        <td><%= bill_payable.total_value %></td>
-        <td><%= link_to 'Show', bill_payable %></td>
-        <td><%= link_to 'Edit', edit_bill_payable_path(bill_payable) %></td>
-        <td><%= link_to 'Destroy', bill_payable, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th scope="col"><%= sort_link @q, :id, "#", default_order: :desc %></th>
+
+        <th scope="col"><%= sort_link @q, :provider_contract_name, model_class.human_attribute_name(:provider_contract), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :category, model_class.human_attribute_name(:category), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :revenue, model_class.human_attribute_name(:revenue), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :status, model_class.human_attribute_name(:status), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :total_value, model_class.human_attribute_name(:total_value), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :created_at, model_class.human_attribute_name(:created_at), default_order: :desc %></th>
+        <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @bill_payables.each do |bill_payable| %>
+        <tr>
+          <td scope="row"><%= link_to bill_payable.id, bill_payable %></td>
+          <td><%= link_to_modal bill_payable.provider_contract.name, provider_contract_path(bill_payable.provider_contract), 'text-dark' %></td>
+          <td><%= bill_payable.category %></td>
+          <td><%= bill_payable.revenue %></td>
+          <td><%= bill_payable.status %></td>
+          <td><%= number_to_currency bill_payable.total_value %></td>
+          <td><%= bill_payable.created_at %></td>
+          <td>
+            <%#= link_to bill_payable, class: 'btn btn-info has-icon' do %>
+              <!-- <i class="material-icons">remove_red_eye</i> -->
+              <%#= t('.show', :default => t("helpers.links.show")) %>
+            <%# end %>
+            <%= link_to edit_bill_payable_path(bill_payable), class: 'btn btn-primary has-icon' do %>
+              <!-- <i class="material-icons">edit</i> -->
+              <%= t('.edit', :default => t("helpers.links.edit")) %>
+            <% end %>
+            <%= link_to bill_payable, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
+              <!-- <i class="material-icons">delete</i> -->
+              <%= t('.destroy', :default => t("helpers.links.destroy")) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-<%= link_to 'New Bill Payable', new_bill_payable_path %>
+<%= paginate @bill_payables %>

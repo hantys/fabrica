@@ -7,7 +7,7 @@ class BillPayablesController < ApplicationController
   def index
     @q = BillPayable.ransack(params[:q])
 
-    @bill_payables = @q.result.accessible_by(current_ability).order(id: :desc).page params[:page]
+    @bill_payables = @q.result.includes(:provider_contract, :category, :revenue).accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /bill_payables/1
@@ -76,6 +76,6 @@ class BillPayablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bill_payable_params
-      params.require(:bill_payable).permit(:provider_contract_id, :status, :category_id, :revenue_id, :obs, :file, :total_value)
+      params.require(:bill_payable).permit!
     end
 end
