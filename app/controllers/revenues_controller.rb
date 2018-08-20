@@ -1,5 +1,6 @@
 class RevenuesController < ApplicationController
   before_action :set_revenue, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /revenues
   # GET /revenues.json
@@ -10,6 +11,10 @@ class RevenuesController < ApplicationController
   # GET /revenues/1
   # GET /revenues/1.json
   def show
+    if params[:modal] == 'true'
+      @modal = true
+      render :show, layout: false
+    end
   end
 
   # GET /revenues/new

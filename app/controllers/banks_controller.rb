@@ -1,5 +1,6 @@
 class BanksController < ApplicationController
   before_action :set_bank, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /banks
   # GET /banks.json
@@ -10,6 +11,10 @@ class BanksController < ApplicationController
   # GET /banks/1
   # GET /banks/1.json
   def show
+    if params[:modal] == 'true'
+      @modal = true
+      render :show, layout: false
+    end
   end
 
   # GET /banks/new

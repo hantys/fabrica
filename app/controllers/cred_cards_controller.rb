@@ -1,5 +1,6 @@
 class CredCardsController < ApplicationController
   before_action :set_cred_card, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /cred_cards
   # GET /cred_cards.json
@@ -10,6 +11,10 @@ class CredCardsController < ApplicationController
   # GET /cred_cards/1
   # GET /cred_cards/1.json
   def show
+    if params[:modal] == 'true'
+      @modal = true
+      render :show, layout: false
+    end
   end
 
   # GET /cred_cards/new

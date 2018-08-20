@@ -1,18 +1,32 @@
-
 <%= simple_form_for(@provider_contract) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.association :provider %>
-    <%= f.input :obs %>
-    <%= f.input :total_value %>
-    <%= f.input :partil_value %>
-    <%= f.input :staus %>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= f.input :name %>
+      <%= f.association :provider, collection: Provider.order(:company_name), prompt: "Escolha um Fornecedor", input_html: { class: 'simple-select2' } %>
+      <%= f.input :obs %>
+      <%= f.input :total_value %>
+
+      <div id="item_provider_contracts">
+        <%= f.fields_for :item_provider_contracts do |item_provider_contracts_form| %>
+          <div class="card card-body">
+            <div class="d-flex flex-row justify-content-start align-items-end">
+              <%= item_provider_contracts_form.input :budget, as: :select, collection: Budget.order(:name), input_html: {class: 'simple-select2'}, wrapper_html: {class: 'w-100'} %>
+              <%= item_provider_contracts_form.link_to_remove "Remover composto", class: 'btn btn-outline-danger float-right mb-3 ml-2' %>
+            </div>
+          </div>
+          <br>
+        <% end %>
+      </div>
+      <hr>
+      <p><%= f.link_to_add "Adicionar Composto", :item_provider_contracts, :data => { :target => "#item_provider_contracts" }, class: 'btn btn-outline-primary' %></p>
+      <hr>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <hr>
+  <%= f.button :submit, class: 'btn btn-success' %>
+  <%= link_to 'Cancelar', provider_contracts_path, class: 'btn btn-danger' %>
 <% end %>

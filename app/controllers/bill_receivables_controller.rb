@@ -1,15 +1,22 @@
 class BillReceivablesController < ApplicationController
   before_action :set_bill_receivable, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /bill_receivables
   # GET /bill_receivables.json
   def index
-    @bill_receivables = BillReceivable.all
+    @q = BillReceivable.ransack(params[:q])
+
+    @bill_receivables = @q.result.accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /bill_receivables/1
   # GET /bill_receivables/1.json
   def show
+    if params[:modal] == 'true'
+      @modal = true
+      render :show, layout: false
+    end
   end
 
   # GET /bill_receivables/new

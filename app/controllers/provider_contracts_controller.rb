@@ -1,15 +1,22 @@
 class ProviderContractsController < ApplicationController
   before_action :set_provider_contract, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /provider_contracts
   # GET /provider_contracts.json
   def index
-    @provider_contracts = ProviderContract.all
+    @q = ProviderContract.ransack(params[:q])
+
+    @provider_contracts = @q.result.accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /provider_contracts/1
   # GET /provider_contracts/1.json
   def show
+    if params[:modal] == 'true'
+      @modal = true
+      render :show, layout: false
+    end
   end
 
   # GET /provider_contracts/new

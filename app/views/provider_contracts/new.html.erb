@@ -1,5 +1,6 @@
-<h1>New Provider Contract</h1>
+<%- model_class = ProviderContract -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
 
 <%= render 'form', provider_contract: @provider_contract %>
-
-<%= link_to 'Back', provider_contracts_path %>

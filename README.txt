@@ -3,6 +3,8 @@
 - criar template para auditoria
 
 TO DO
+- Revisar todos os index das paginas e alterar links e botoes
+- Botao novo em todos os shows
 - Criar relatorio de orcamentos
 - Ordem de serviço
 - Criar ordem de producao copia gerar pdf e bota oa itens

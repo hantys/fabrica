@@ -1,4 +1,6 @@
 class BillPayableInstallment < ApplicationRecord
-  belongs_to :bank
-  belongs_to :cred_card
+  acts_as_paranoid
+
+  belongs_to :bank, -> { with_deleted }
+  belongs_to :cred_card, -> { with_deleted }
 end

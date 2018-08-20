@@ -16,6 +16,10 @@ class Provider < ApplicationRecord
   validates_uniqueness_of :cpf, :if => Proc.new{|client| not client.cpf.empty?}
   validates_uniqueness_of :cnpj, :if => Proc.new{|client| not client.cnpj.empty?}
 
+  def name
+    self.company_name
+  end
+
   def cpf?
     self.cnpj.present?
   end

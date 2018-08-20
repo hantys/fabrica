@@ -19,13 +19,13 @@
       <% end %>
 
       <!-- pagamentos  -->
-      <% if (can? :read, RawMaterial) or (can? :read, Product) %>
+      <% if (can? :read, ProviderContract) or (can? :read, BillPayable) or (can? :read, BillReceivable) %>
         <li class='nav-item dropdown <%= " #{active_class(provider_contracts_path)} #{active_class(bill_receivables_path)} #{active_class(bill_payables_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pagamentos e Contratos</a>
           <div class="dropdown-menu hasDropboxAnimation">
-            <%= link_to 'Contas a Pagar', bill_payables_path, class: "dropdown-item #{active_class(bill_payables_path)}" if can? :read, Product %>
-            <%= link_to 'Contas a Receber', bill_receivables_path, class: "dropdown-item #{active_class(bill_receivables_path)}" if can? :read, RawMaterial %>
-            <%= link_to 'Contratos com Fornecedor', provider_contracts_path, class: "dropdown-item #{active_class(provider_contracts_path)}" if can? :read, RawMaterial %>
+            <%= link_to 'Contas a Pagar', bill_payables_path, class: "dropdown-item #{active_class(bill_payables_path)}" if can? :read, BillPayable %>
+            <%= link_to 'Contas a Receber', bill_receivables_path, class: "dropdown-item #{active_class(bill_receivables_path)}" if can? :read, BillReceivable %>
+            <%= link_to 'Contratos com Fornecedor', provider_contracts_path, class: "dropdown-item #{active_class(provider_contracts_path)}" if can? :read, ProviderContract %>
           </div>
         </li>
       <% end %>

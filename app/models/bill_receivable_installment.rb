@@ -1,3 +1,5 @@
 class BillReceivableInstallment < ApplicationRecord
-  belongs_to :bank
+  acts_as_paranoid
+
+  belongs_to :bank, -> { with_deleted }
 end
