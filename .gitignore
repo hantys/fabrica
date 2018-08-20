@@ -28,3 +28,23 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+
+!/log/.keep
+/public/system
+/public/uploads
+/public/assets
+/public/sitemaps
+/public/sitemaps_images
+/public/ect*
+/*_history
+/.env.db
+/.env.web
+.vscode/
+
+# Ignore trash
+.DS_Store
+
+# Ignore Webpack bundle files and Node Modules
+/public/packs
+/public/packs-test
