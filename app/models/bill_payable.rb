@@ -17,5 +17,6 @@ class BillPayable < ApplicationRecord
 
   validates :total_value, numericality: { greater_than: 0 }
   validates :total_value, presence: true
+  validates :bill_payable_installments, presence: true
 
 end

@@ -18,15 +18,42 @@ pt-BR:
       type_of_payment: Tipos de Pagamento
       bill_receivable: Contas a receber
       bill_payable: Contas a Pagar
+      bill_payable_installment: Parcelas
       provider_contract: Contrato com Fornecedor
       item_provider_contract: Itens do Contrato
-      banks: Banco
-      cred_cards: Cartão
-      revenues: Faturamento
-      categories: Categoria
+      bank: Banco
+      cred_card: Cartão
+      revenue: Faturamento
+      category: Categoria
 
 
     attributes:
+      bank:
+        ag: Agência
+        cc: Conta
+        name: Nome
+        op: Variação
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      cred_card:
+        valid: Validade
+        name: Nome
+        card_final: 4 Últimos dígitos
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      revenue:
+        name: Nome
+        category: Categoria
+        category_id: Categoria
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      category:
+        name: Nome
+        created_at: Criado em
+        updated_at: Atualizado em
 
       item_provider_contract:
         provider_contract: Contrato com Fornecedor
@@ -34,6 +61,8 @@ pt-BR:
         budget: Orçamento
         budget_id: Orçamento
         value: Valor
+        created_at: Criado em
+        updated_at: Atualizado em
 
       bill_receivable:
         type_receivable: Tipo
@@ -59,7 +88,22 @@ pt-BR:
         revenue: Faturamento
         obs: Observação
         file: Arquivo
+        bill_payable_installments: Parcelas
         total_value: Valor Total
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      bill_payable_installment:
+        date: Data de vencimento
+        value: Valor
+        file: Arquivo
+        cred_card: Cartão
+        cred_card_id: Cartão
+        banck: Transferência
+        banck_id: Transferência
+        billet: Boleto
+        code: Código de Barras
+        status: Situação
         created_at: Criado em
         updated_at: Atualizado em
 

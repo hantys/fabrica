@@ -23,7 +23,7 @@
       <% @stock_final_products.each do |stock_final_product| %>
       <tr>
         <td scope="row"><%= link_to stock_final_product.id, stock_final_product %></td>
-        <td><%= link_to_modal "#{stock_final_product.try(:product).try(:cod)} - #{stock_final_product.try(:product).try(:name)}", product_path(stock_final_product.try(:product)), 'text-dark' %></td>
+        <td><%= link_to_modal "#{stock_final_product.try(:product).try(:cod)} - #{stock_final_product.try(:product).try(:name)}", product_path(stock_final_product.try(:product)), class: 'text-dark' %></td>
         <td><%= stock_final_product.amount %></td>
         <td><%= number_to_currency(stock_final_product.cost) %></td>
         <td><%= stock_final_product.created_at.to_s(:custom_datetime) %></td>

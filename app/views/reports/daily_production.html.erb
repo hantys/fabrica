@@ -45,7 +45,7 @@
         <tr>
           <th scope="row"><%= i+1 %></th>
           <th scope="row"><%= product.cod %></th>
-          <td><%= link_to_modal product.name, product_path(product.id), 'text-dark' %></td>
+          <td><%= link_to_modal product.name, product_path(product.id), class: 'text-dark' %></td>
           <th scope="row">
             <ul class="text-left">
               <% product.budgets_ids.each_with_index do |single, i| %>

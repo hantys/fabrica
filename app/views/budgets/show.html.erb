@@ -1,20 +1,22 @@
 <%- model_class = Budget -%>
 <div class="page-header d-flex flex-row justify-content-start flex-wrap align-items-center w-100">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
-  <% unless @modal %>
     <div class="d-flex flex-row justify-content-start align-items-center flex-wrap ml-auto">
-      <%= link_to t('.back', :default => t("helpers.links.back")),
-                    budgets_path, :class => 'btn btn-secondary'  %>
-      <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                    edit_budget_path(@budget), :class => 'btn btn-primary ml-2' %>
-      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                    budget_path(@budget),
-                    :method => 'delete',
-                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                    :class => 'btn btn-danger ml-2' %>
-      <%= link_to "Gerar PDF", budget_pdf_path(@budget), :class => 'btn btn-info mt-2 mt-md-0 mt-lg-0 ml-md-2 ml-lg-2', target: '_blank' %>
+      <% unless @modal %>
+        <%= link_to t('.back', :default => t("helpers.links.back")),
+                      budgets_path, :class => 'btn btn-secondary'  %>
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_budget_path(@budget), :class => 'btn btn-primary ml-2' %>
+        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      budget_path(@budget),
+                      :method => 'delete',
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-danger ml-2' %>
+        <%= link_to "Gerar PDF", budget_pdf_path(@budget), :class => 'btn btn-info mt-2 mt-md-0 mt-lg-0 ml-md-2 ml-lg-2', target: '_blank' %>
+        <% else %>
+          <%= link_to "Ver na página", budget_path(@budget), :class => 'btn btn-info mt-2 mt-md-0 mt-lg-0 ml-md-2 ml-lg-2', target: '_blank' %>
+        <% end %>
     </div>
-  <% end %>
 </div>
 <hr>
 <div class="row mt-4 mb-4">
@@ -53,7 +55,7 @@
       <strong>
         <%= model_class.human_attribute_name(:client) %>:
       </strong>
-        <%= link_to_modal @budget.client.try(:company_name), client_path(@budget.client), 'text-dark' %>
+        <%= link_to_modal @budget.client.try(:company_name), client_path(@budget.client), class: 'text-dark' %>
       <hr>
       <strong>
         <%= model_class.human_attribute_name(:employee) %>:
@@ -63,7 +65,7 @@
       <strong>
         <%= model_class.human_attribute_name(:user) %>:
       </strong>
-        <%= link_to_modal @budget.user.employee.name, employee_path(@budget.user.employee), 'text-dark' %>
+        <%= link_to_modal @budget.user.employee.name, employee_path(@budget.user.employee), class: 'text-dark' %>
       <hr>
       <strong>
         <%= model_class.human_attribute_name(:delivery_option) %>:
@@ -129,14 +131,21 @@
         <th scope="col">Total</th>
         <th scope="col">Total com Desconto</th>
         <th scope="col">Alterações</th>
-        <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
+        <% unless @modal %>
+          <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
       <% @budget.budget_products.includes(:product, versions: :item).each do |budget_product| %>
         <tr>
           <td>
-            <%= link_to "javascript:;",  data: { toggle: "modal", target: "#product", id: budget_product.product.id } do %>
+            <% unless @modal %>
+              <%= link_to "javascript:;",  data: { toggle: "modal", target: "#product", id: budget_product.product.id } do %>
+                <%= "#{budget_product.product.cod} - #{budget_product.product.name}" %> <br>
+                <%= "qnt: #{budget_product.product.qnt} / qnt livre: #{budget_product.product.qnt_free}" %>
+              <% end %>
+            <% else %>
               <%= "#{budget_product.product.cod} - #{budget_product.product.name}" %> <br>
               <%= "qnt: #{budget_product.product.qnt} / qnt livre: #{budget_product.product.qnt_free}" %>
             <% end %>
@@ -148,14 +157,16 @@
           <td><%= number_to_currency budget_product.total_value %></td>
           <td><%= number_to_currency budget_product.value_discount_total %></td>
           <td><%= budget_product.versions.size-1 %></td>
-          <td>
-            <%= link_to "Reservar", "javascript:;", class: 'btn btn-warning mb-1',  data: { toggle: "modal", target: "#budget_product_reserve", id: budget_product.id, whatever: budget_product.product.name } if @budget.status == 'authorized' and (current_user.has_role?(:admin) or current_user.has_role?(:manager)) %>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#budget_product-<%= budget_product.id %>">
-              Historico
-            </button>
-            <%= render 'budget_product_historical', budget_product: budget_product %>
-          </td>
+          <% unless @modal %>
+            <td>
+              <%= link_to "Reservar", "javascript:;", class: 'btn btn-warning mb-1',  data: { toggle: "modal", target: "#budget_product_reserve", id: budget_product.id, whatever: budget_product.product.name } if @budget.status == 'authorized' and (current_user.has_role?(:admin) or current_user.has_role?(:manager)) %>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#budget_product-<%= budget_product.id %>">
+                Historico
+              </button>
+              <%= render 'budget_product_historical', budget_product: budget_product %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

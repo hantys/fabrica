@@ -39,11 +39,12 @@
               aux = 'alert-warning'
             end
           %>
-          <%= content_tag(:div, msg, class: "alert #{aux}") %>
+          <%= content_tag(:div, msg, class: "alert #{aux} text-center") %>
         <% end %>
         <div class="my-3 p-3 bg-white rounded box-shadow">
           <%= yield %>
           <%= render 'layouts/modal_show' %>
+          <%= render 'layouts/modal_form' %>
         </div>
       </div>
     </main>

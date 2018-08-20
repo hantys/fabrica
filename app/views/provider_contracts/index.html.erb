@@ -27,7 +27,7 @@
         <tr>
           <td scope="row"><%= link_to provider_contract.id, provider_contract %></td>
           <td><%= provider_contract.name %></td>
-          <td><%= link_to_modal provider_contract.provider.company_name, provider_path(provider_contract.provider), "text-dark" %></td>
+          <td><%= link_to_modal provider_contract.provider.company_name, provider_path(provider_contract.provider), class: "text-dark" %></td>
           <td><%= "#{number_to_currency provider_contract.partil_value} de #{number_to_currency provider_contract.total_value}" %></td>
           <td><%= label_status_pc provider_contract.status %></td>
           <td><%= provider_contract.created_at %></td>

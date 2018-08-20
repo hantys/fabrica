@@ -2,8 +2,8 @@
   <%= link_to budget.id, budget %>
 </td>
 <td><%= link_to budget.cod_name, budget %></td>
-<td><%= link_to_modal budget.client.company_name, client_path(budget.client), "text-dark" %></td>
-<td><%= link_to_modal budget.employee.name, employee_path(budget.employee), "text-dark" %></td>
+<td><%= link_to_modal budget.client.company_name, client_path(budget.client), class: "text-dark" %></td>
+<td><%= link_to_modal budget.employee.name, employee_path(budget.employee), class: "text-dark" %></td>
 <td><%= budget.try(:delivery_option).try(:name) %></td>
 <td><%=l budget.deadline %></td>
 <!-- <td><%#= budget.try(:type_of_payment).try(:name) %></td> -->

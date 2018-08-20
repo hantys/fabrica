@@ -22,6 +22,11 @@ class ProviderContractsController < ApplicationController
   # GET /provider_contracts/new
   def new
     @provider_contract = ProviderContract.new
+    @modal = false
+    if params[:modal] == 'true'
+      @modal = true
+      render :new, layout: false
+    end
   end
 
   # GET /provider_contracts/1/edit
@@ -31,15 +36,20 @@ class ProviderContractsController < ApplicationController
   # POST /provider_contracts
   # POST /provider_contracts.json
   def create
+    @modal = false
     @provider_contract = ProviderContract.new(provider_contract_params)
-
-    respond_to do |format|
-      if @provider_contract.save
-        format.html { redirect_to @provider_contract, notice: 'Provider contract was successfully created.' }
-        format.json { render :show, status: :created, location: @provider_contract }
-      else
-        format.html { render :new }
-        format.json { render json: @provider_contract.errors, status: :unprocessable_entity }
+    if params[:modal] == 'true'
+      @modal = true
+      @provider_contract.save
+    else
+      respond_to do |format|
+        if @provider_contract.save
+          format.html { redirect_to @provider_contract, notice: 'Contrato criado coom sucesso.' }
+          format.json { render :show, status: :created, location: @provider_contract }
+        else
+          format.html { render :new }
+          format.json { render json: @provider_contract.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -71,7 +81,7 @@ class ProviderContractsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_provider_contract
-      @provider_contract = ProviderContract.find(params[:id])
+      @provider_contract = ProviderContract.with_deleted.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

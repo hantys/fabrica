@@ -30,7 +30,7 @@
         <%= model_class.human_attribute_name(:provider) %>:
       </strong>
 
-      <%= link_to_modal @provider_contract.provider.name, provider_path(@provider_contract.provider), "text-dark" %>
+      <%= link_to_modal @provider_contract.provider.name, provider_path(@provider_contract.provider), class: "text-dark" %>
       <hr>
       <strong>
         <%= model_class.human_attribute_name(:obs) %>:
@@ -59,7 +59,7 @@
       <ul>
         <% @provider_contract.item_provider_contracts.includes(:budget).each do |item_provider_contract| %>
           <li>
-            <%= link_to_modal item_provider_contract.budget.cod_name, budget_path(item_provider_contract.budget), "text-dark" %> - custo: <%= number_to_currency item_provider_contract.value %>
+            <%= link_to_modal item_provider_contract.budget.cod_name, budget_path(item_provider_contract.budget), class: "text-dark" %> - custo: <%= number_to_currency item_provider_contract.value %>
           </li>
         <% end %>
       </ul>

@@ -8,4 +8,7 @@ class BillPayableInstallment < ApplicationRecord
   belongs_to :bill_payable, -> { with_deleted }, touch: true, optional: true
 
   has_paper_trail
+
+  validates :value, presence: true
+  validates :date, presence: true
 end

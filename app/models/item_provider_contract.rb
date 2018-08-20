@@ -9,6 +9,7 @@ class ItemProviderContract < ApplicationRecord
   validates :value, numericality: { greater_than: 0 }
   validates :value, presence: true
   validates :budget_id, uniqueness: { scope: :provider_contract_id }
+  validates :budget_id, presence: true
 
 
 end

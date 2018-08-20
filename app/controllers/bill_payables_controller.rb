@@ -22,7 +22,6 @@ class BillPayablesController < ApplicationController
   # GET /bill_payables/new
   def new
     @bill_payable = BillPayable.new
-    @bill_payable.bill_payable_installments.build
   end
 
   # GET /bill_payables/1/edit

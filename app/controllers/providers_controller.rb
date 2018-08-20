@@ -18,7 +18,12 @@ class ProvidersController < ApplicationController
 
   # GET /providers/new
   def new
+    @modal = false
     @provider = Provider.new
+    if params[:modal] == 'true'
+      @modal = true
+      render :new, layout: false
+    end
   end
 
   # GET /providers/1/edit
@@ -28,15 +33,20 @@ class ProvidersController < ApplicationController
   # POST /providers
   # POST /providers.json
   def create
+    @modal = false
     @provider = Provider.new(provider_params)
-
-    respond_to do |format|
-      if @provider.save
-        format.html { redirect_to @provider, notice: 'Fornecedor criado com sucesso.' }
-        format.json { render :show, status: :created, location: @provider }
-      else
-        format.html { render :new }
-        format.json { render json: @provider.errors, status: :unprocessable_entity }
+    if params[:modal] == 'true'
+      @modal = true
+      @provider.save
+    else
+      respond_to do |format|
+        if @provider.save
+          format.html { redirect_to @provider, notice: 'Fornecedor criado com sucesso.' }
+          format.json { render :show, status: :created, location: @provider }
+        else
+          format.html { render :new }
+          format.json { render json: @provider.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

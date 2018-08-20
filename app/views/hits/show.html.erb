@@ -20,15 +20,15 @@
   <div class="col-6">
     <p>
       <strong><%= model_class.human_attribute_name(:product) %>:</strong>
-      <%= link_to_modal @hit.product.name, product_path(@hit.product), "text-dark" %>
+      <%= link_to_modal @hit.product.name, product_path(@hit.product), class: "text-dark" %>
       <hr/>
       <strong><%= model_class.human_attribute_name(:composition) %>:</strong>
-      <%= link_to_modal @hit.composition.name, composition_path(@hit.composition), "text-dark" %>
+      <%= link_to_modal @hit.composition.name, composition_path(@hit.composition), class: "text-dark" %>
       <ul>
         <% @hit.hit_items.includes(:raw_material).each do |hit_item| %>
           <li>
             <strong>
-              <%= link_to_modal hit_item.raw_material.name, raw_material_path(hit_item.raw_material), 'text-dark' %>:
+              <%= link_to_modal hit_item.raw_material.name, raw_material_path(hit_item.raw_material), class: 'text-dark' %>:
             </strong>
             <%= hit_item.weight.round(3) %>kg
           </li>
