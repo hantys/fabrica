@@ -33,12 +33,14 @@ ActiveRecord::Schema.define(version: 2018_08_20_005356) do
     t.string "code"
     t.string "file"
     t.string "date"
-    t.float "value", default: 0.0
+    t.float "value"
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.bigint "bill_payables_id"
     t.index ["bank_id"], name: "index_bill_payable_installments_on_bank_id"
+    t.index ["bill_payables_id"], name: "index_bill_payable_installments_on_bill_payables_id"
     t.index ["cred_card_id"], name: "index_bill_payable_installments_on_cred_card_id"
     t.index ["deleted_at"], name: "index_bill_payable_installments_on_deleted_at"
   end
@@ -64,12 +66,14 @@ ActiveRecord::Schema.define(version: 2018_08_20_005356) do
     t.bigint "bank_id"
     t.string "file"
     t.string "date"
-    t.float "value", default: 0.0
+    t.float "value"
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.bigint "bill_receivables_id"
     t.index ["bank_id"], name: "index_bill_receivable_installments_on_bank_id"
+    t.index ["bill_receivables_id"], name: "index_bill_receivable_installments_on_bill_receivables_id"
     t.index ["deleted_at"], name: "index_bill_receivable_installments_on_deleted_at"
   end
 
@@ -309,7 +313,7 @@ ActiveRecord::Schema.define(version: 2018_08_20_005356) do
 
   create_table "item_provider_contracts", force: :cascade do |t|
     t.bigint "budget_id"
-    t.float "value", default: 0.0
+    t.float "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
@@ -355,7 +359,7 @@ ActiveRecord::Schema.define(version: 2018_08_20_005356) do
     t.string "name"
     t.bigint "provider_id"
     t.text "obs"
-    t.float "total_value", default: 0.0
+    t.float "total_value"
     t.float "partil_value", default: 0.0
     t.integer "status", default: 0
     t.datetime "created_at", null: false
@@ -529,11 +533,13 @@ ActiveRecord::Schema.define(version: 2018_08_20_005356) do
   end
 
   add_foreign_key "bill_payable_installments", "banks"
+  add_foreign_key "bill_payable_installments", "bill_payables", column: "bill_payables_id"
   add_foreign_key "bill_payable_installments", "cred_cards"
   add_foreign_key "bill_payables", "categories"
   add_foreign_key "bill_payables", "provider_contracts"
   add_foreign_key "bill_payables", "revenues"
   add_foreign_key "bill_receivable_installments", "banks"
+  add_foreign_key "bill_receivable_installments", "bill_receivables", column: "bill_receivables_id"
   add_foreign_key "bill_receivables", "budgets"
   add_foreign_key "bill_receivables", "categories"
   add_foreign_key "bill_receivables", "revenues"

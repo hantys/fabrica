@@ -24,8 +24,8 @@ class AddDefaultAndDeletedAtToTables < ActiveRecord::Migration[5.2]
     add_index :categories, :deleted_at
 
     add_reference :item_provider_contracts, :provider_contract, foreign_key: true
-    add_reference :bill_payable_installments, :bill_payables, foreign_key: true
-    add_reference :bill_receivable_installments, :bill_receivables, foreign_key: true
+    add_reference :bill_payable_installments, :bill_payable, foreign_key: true
+    add_reference :bill_receivable_installments, :bill_receivable, foreign_key: true
 
     rename_column(:provider_contracts, :staus, :status)
     rename_column(:cred_cards, :catd_final, :card_final)
