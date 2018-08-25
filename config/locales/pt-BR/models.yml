@@ -113,6 +113,7 @@ pt-BR:
         obs: Observação
         status: Situação
         partil_value: Valor Parcial
+        item_provider_contracts: Custo por Orçamento
         total_value: Valor Total
         created_at: Criado Em
         updated_at: Atualizado Em

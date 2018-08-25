@@ -1,6 +1,8 @@
 class BillPayableInstallment < ApplicationRecord
   acts_as_paranoid
 
+  enum type_payment: { billet: 0, bank: 1, card: 2 }
+
   mount_uploader :file, FilesUploader
 
   belongs_to :bank, -> { with_deleted }, optional: true
@@ -10,5 +12,6 @@ class BillPayableInstallment < ApplicationRecord
   has_paper_trail
 
   validates :value, presence: true
+  validates :value, numericality: { greater_than: 0 }
   validates :date, presence: true
 end
