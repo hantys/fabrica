@@ -38,6 +38,8 @@ $(document).ready ->
   $('.cnpj').mask '00.000.000/0000-00', reverse: true
   $('.money').mask '000.000.000.000.000,00', reverse: true
   $('.money2').mask '#.##0,00', reverse: true
+  $('.code_title').mask '00000.00000 00000.000000 00000.000000 0 00000000000000', reverse: false
+  $('.code_pact').mask '00000000000-0 00000000000-0 00000000000-0 00000000000-0', reverse: false
 
   $('.simple-select2').select2
     theme: 'bootstrap4'

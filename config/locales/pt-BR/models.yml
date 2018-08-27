@@ -99,15 +99,14 @@ pt-BR:
         file: Arquivo
         cred_card: Cartão
         cred_card_id: Cartão
-        bank_name: Crédito
+        bank_name: Banco
         type_payment: Tipo de pagamento
         cc: Conta
         ag: Agência
         op: Variação
-
-        bank: Débito
-        bank_id: Débito
-        billet: Boleto
+        bank: Banco
+        bank_id: Banco
+        billet: Tipo de Boleto
         code: Código de Barras
         status: Situação
         created_at: Criado em

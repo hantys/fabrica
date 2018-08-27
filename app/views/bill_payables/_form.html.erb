@@ -67,30 +67,76 @@
           <div class="col-lg-6">
             <span class="tab-content" id="v-pills-tabContent-<%= bill_payable_installments_form.index %>">
               <div class="tab-pane fade show active" id="v-pills-boleto-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-boleto-tab-<%= bill_payable_installments_form.index %>">
-                boleto
+                <div class="card m-3">
+                  <div class="card-header">
+                    Tipo de Boleto
+                  </div>
+                  <div class="card-body">
+                    <%= bill_payable_installments_form.input :billet, as: :select, collection: [['Título', true], ['Convênio', false]], selected: true %>
+                    <%= bill_payable_installments_form.input :code, input_html: { class: "#{bill_payable_installments_form.object.billet ? 'code_title' : 'code_pact'}" } %>
+                  </div>
+                </div>
 
               </div>
 
               <div class="tab-pane fade" id="v-pills-transferencia-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-transferencia-tab-<%= bill_payable_installments_form.index %>">
-                <%= bill_payable_installments_form.association :bank, input_html: {class: 'simple-select2'}, prompt: "Escolha um Banco" %>
-                <%= bill_payable_installments_form.input :bank_name %>
-                <%= bill_payable_installments_form.input :cc %>
-                <%= bill_payable_installments_form.input :ag %>
-                <%= bill_payable_installments_form.input :op %>
+                <div class="card m-3">
+                  <div class="card-header">
+                    Débito
+                  </div>
+                  <div class="card-body">
+                    <%= bill_payable_installments_form.association :bank, input_html: {class: 'simple-select2'}, prompt: "Escolha um Banco" %>
+                  </div>
+                </div>
+                <div class="card m-3">
+                  <div class="card-header">
+                    Crédito
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <%= bill_payable_installments_form.input :bank_name %>
+                      </div>
+                      <div class="col">
+                        <%= bill_payable_installments_form.input :ag %>
+                      </div>
+                      <div class="col">
+                        <%= bill_payable_installments_form.input :cc %>
+                      </div>
+                      <div class="col">
+                        <%= bill_payable_installments_form.input :op %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div class="tab-pane fade" id="v-pills-cartao-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-cartao-tab-<%= bill_payable_installments_form.index %>">
-                <%= bill_payable_installments_form.association :cred_card, input_html: {class: 'simple-select2'}, prompt: "Escolha um cartão" %>
+                <div class="card m-3">
+                  <div class="card-header">
+                    Pago com cartão
+                  </div>
+                  <div class="card-body">
+                    <%= bill_payable_installments_form.association :cred_card, input_html: {class: 'simple-select2'}, prompt: "Escolha um cartão" %>
+                  </div>
+                </div>
 
               </div>
             </span>
 <!--
           </div>
           <div class="col-4"> -->
-            <%= bill_payable_installments_form.input :value, input_html: {class: 'value_budget'} %>
-            <%= bill_payable_installments_form.input :date, input_html: {class: 'date'} %>
+            <div class="card m-3">
+              <div class="card-header">
+                Informações de pagamento
+              </div>
+              <div class="card-body">
+                <%= bill_payable_installments_form.input :value, input_html: {class: 'value_budget'} %>
+                <%= bill_payable_installments_form.input :date, input_html: {class: 'date'} %>
 
-            <%= bill_payable_installments_form.input :type_payment, as: :hidden, input_html: { id: "item_type_payment_#{bill_payable_installments_form.index}" } %>
+                <%= bill_payable_installments_form.input :type_payment, as: :hidden, input_html: { id: "item_type_payment_#{bill_payable_installments_form.index}" } %>
+              </div>
+            </div>
 
             <span class="change_icon_file">
               <span class="badge badge-success file-name"><%= bill_payable_installments_form.object.file.file.identifier if bill_payable_installments_form.object.file.present? %></span>

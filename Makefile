@@ -1,4 +1,3 @@
-
 run:
 	RAILS_ENV=development rails s -b 0.0.0.0 -p 3000 -e development
 
@@ -28,3 +27,6 @@ teste:
 
 reset:
 	@bundle install; yarn install; rails db:drop db:create db:migrate; sh backup.sh; rails db:migrate
+
+rollback:
+	@rails db:rollback

@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2018_08_25_022027) do
   create_table "bill_payable_installments", force: :cascade do |t|
     t.bigint "bank_id"
     t.bigint "cred_card_id"
-    t.boolean "billet"
+    t.boolean "billet", default: true
     t.string "code"
     t.string "file"
     t.string "date"
@@ -40,6 +40,10 @@ ActiveRecord::Schema.define(version: 2018_08_25_022027) do
     t.datetime "deleted_at"
     t.bigint "bill_payable_id"
     t.integer "type_payment", default: 0
+    t.string "bank_name"
+    t.string "cc"
+    t.string "ag"
+    t.string "op"
     t.index ["bank_id"], name: "index_bill_payable_installments_on_bank_id"
     t.index ["bill_payable_id"], name: "index_bill_payable_installments_on_bill_payable_id"
     t.index ["cred_card_id"], name: "index_bill_payable_installments_on_cred_card_id"
