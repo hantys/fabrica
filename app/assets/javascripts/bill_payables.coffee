@@ -28,3 +28,6 @@ jQuery ->
   file_name.text(object.val().replace(/C:\\fakepath\\/i, ''))
   icon_file.text('cloud_done')
   icon_file.removeClass('badge-danger').addClass('badge-success')
+
+@change_type_payment=(type, id)->
+  alert type+id
