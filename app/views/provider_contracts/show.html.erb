@@ -54,7 +54,7 @@
       <hr>
 
       <strong>
-        <%= model_class.human_attribute_name(:item_provider_contracts) %>s:
+        <%= model_class.human_attribute_name(:item_provider_contracts) %>:
       </strong>
       <ul>
         <% @provider_contract.item_provider_contracts.includes(:budget).each do |item_provider_contract| %>

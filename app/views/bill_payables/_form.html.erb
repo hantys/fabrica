@@ -21,15 +21,17 @@
         </div>
       </div>
       <%= f.input :total_value, readonly: true %>
-      <span id='file-name' class="badge badge-success"><%= @bill_payable.file.filename if @bill_payable.file.present? %></span>
-      <div class="d-flex flex-row bd-highlight mb-3">
-        <i class="material-icons p-2 bd-highlight">
-        <span id='icon-file' class="badge <%= @bill_payable.file.present? ? 'badge-success' : 'badge-danger' %> ">
-          <%= @bill_payable.file.present? ? 'cloud_done' : 'cloud' %>
-        </span>
-        </i>
-        <%= f.input :file, label: false, input_html: { class: 'p-2 bd-highlight update_file_by_icon' } %>
-      </div>
+      <span class="change_icon_file">
+        <span class="file-name badge badge-success"><%= @bill_payable.file.file.identifier if @bill_payable.file.present? %></span>
+        <div class="d-flex flex-row bd-highlight mb-3">
+          <i class="material-icons p-2 bd-highlight">
+          <span class="icon-file badge <%= @bill_payable.file.present? ? 'badge-success' : 'badge-danger' %> ">
+            <%= @bill_payable.file.present? ? 'cloud_done' : 'cloud' %>
+          </span>
+          </i>
+          <%= f.input :file, label: false, input_html: { class: 'p-2 bd-highlight update_file_by_icon', onchange: "change_icon_file($(this));" } %>
+        </div>
+      </span>
       <%= f.hidden_field :file_cache %>
     </div>
     <div class="col-lg-4">
@@ -49,45 +51,65 @@
   <% end %>
   <div id="bill_payable_installments">
     <%= f.fields_for :bill_payable_installments do |bill_payable_installments_form| %>
-      <div class="card card-body">
-        <div class="row ">
-          <div class="col-2">
-
+      <div class="card card-body mb-3">
+        <div class="row">
+          <div class="col-lg-2">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-              <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
-              <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
-              <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+              <a class="nav-link <%= bill_payable_installments_form.object.type_payment == 'billet' ? 'active' : '' %>" id="v-pills-boleto-tab-<%= bill_payable_installments_form.index %>" data-toggle="pill" href="#v-pills-boleto-<%= bill_payable_installments_form.index %>" role="tab" aria-controls="v-pills-boleto-<%= bill_payable_installments_form.index %>" aria-selected="true">Boleto</a>
+
+              <a class="nav-link <%= bill_payable_installments_form.object.type_payment == 'bank' ? 'active' : '' %>" id="v-pills-transferencia-tab-<%= bill_payable_installments_form.index %>" data-toggle="pill" href="#v-pills-transferencia-<%= bill_payable_installments_form.index %>" role="tab" aria-controls="v-pills-transferencia-<%= bill_payable_installments_form.index %>" aria-selected="false">Transferência</a>
+
+              <a class="nav-link <%= bill_payable_installments_form.object.type_payment == 'card' ? 'active' : '' %>" id="v-pills-cartao-tab-<%= bill_payable_installments_form.index %>" data-toggle="pill" href="#v-pills-cartao-<%= bill_payable_installments_form.index %>" role="tab" aria-controls="v-pills-cartao-<%= bill_payable_installments_form.index %>" aria-selected="false">Cartao</a>
             </div>
             <div class="form-group float optional provider_contract_bill_payable_installments_value form-group-valid">
-              <label class="form-control-label float optional">  </label>
-              <%= bill_payable_installments_form.link_to_remove "Remover orçamento", class: 'btn btn-outline-danger form-control float optional mt-2' %>
+              <label class="form-control-label float optional d-none d-lg-block d-xl-block">  </label>
+              <%= bill_payable_installments_form.link_to_remove "Remover parcela", class: 'btn btn-outline-danger form-control float optional mt-2 d-none d-lg-block d-xl-block' %>
             </div>
           </div>
-          <div class="col-4">
-            <%= bill_payable_installments_form.association :cred_card, input_html: {class: 'simple-select2'}, prompt: "Escolha um cartão" %>
+          <div class="col-lg-6">
+            <span class="tab-content" id="v-pills-tabContent-<%= bill_payable_installments_form.index %>">
+              <div class="tab-pane fade show active" id="v-pills-boleto-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-boleto-tab-<%= bill_payable_installments_form.index %>">
+                boleto
+
+              </div>
+
+              <div class="tab-pane fade" id="v-pills-transferencia-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-transferencia-tab-<%= bill_payable_installments_form.index %>">
+                tranferencia
+              </div>
+
+              <div class="tab-pane fade" id="v-pills-cartao-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-cartao-tab-<%= bill_payable_installments_form.index %>">
+                <%= bill_payable_installments_form.association :cred_card, input_html: {class: 'simple-select2'}, prompt: "Escolha um cartão" %>
+
+              </div>
+            </span>
+<!--
           </div>
-          <div class="col-4">
+          <div class="col-4"> -->
             <%= bill_payable_installments_form.input :value, input_html: {class: 'value_budget'} %>
             <%= bill_payable_installments_form.input :date, input_html: {class: 'date'} %>
 
-            <span class="badge badge-success file-name"><%= bill_payable_installments_form.object.file.filename if bill_payable_installments_form.object.file.present? %></span>
-            <div class="d-flex flex-row bd-highlight mb-3">
-              <i class="material-icons p-2 bd-highlight">
-              <span class="icon-file badge <%= bill_payable_installments_form.object.file.present? ? 'badge-success' : 'badge-danger' %> ">
-                <%= bill_payable_installments_form.object.file.present? ? 'cloud_done' : 'cloud' %>
-              </span>
-              </i>
-              <%= bill_payable_installments_form.input :file, label: false, input_html: { class: 'p-2 bd-highlight update_file_by_icon' } %>
-            </div>
+            <span class="change_icon_file">
+              <span class="badge badge-success file-name"><%= bill_payable_installments_form.object.file.file.identifier if bill_payable_installments_form.object.file.present? %></span>
+              <div class="d-flex flex-row bd-highlight mb-3">
+                <i class="material-icons p-2 bd-highlight">
+                <span class="icon-file badge <%= bill_payable_installments_form.object.file.present? ? 'badge-success' : 'badge-danger' %> ">
+                  <%= bill_payable_installments_form.object.file.present? ? 'cloud_done' : 'cloud' %>
+                </span>
+                </i>
+                <%= bill_payable_installments_form.input :file, label: false, input_html: { class: 'p-2 bd-highlight update_file_by_icon', onchange: "change_icon_file($(this));" } %>
+              </div>
+              <%= bill_payable_installments_form.hidden_field :file_cache %>
+              <label class="form-control-label float optional d-lg-none d-xl-none">  </label>
+              <%= bill_payable_installments_form.link_to_remove "Remover parcela", class: 'btn btn-outline-danger form-control float optional mt-2 d-lg-none d-xl-none' %>
+            </span>
+
           </div>
         </div>
       </div>
-      <br>
     <% end %>
   </div>
   <hr>
-  <p><%= f.link_to_add "Adicionar Orçamento", :bill_payable_installments, :data => { :target => "#bill_payable_installments" }, class: 'btn btn-outline-primary' %></p>
+  <p><%= f.link_to_add "Adicionar Parcela", :bill_payable_installments, :data => { :target => "#bill_payable_installments" }, class: 'btn btn-outline-primary' %></p>
   <hr>
 
   <hr>

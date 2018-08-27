@@ -1,5 +1,5 @@
 <% if @provider.errors.present? %>
-  $(".new_form_remote").html("<%= escape_javascript(render partial: 'form', locals: {:'@provider' => @provider}) %>")
+  $(".modal-body").find(".new_form_remote").html("<%= escape_javascript(render partial: 'form', locals: {:'@provider' => @provider}) %>")
   init_all_js_basic()
 <% else %>
   init_all_js_basic()
@@ -10,7 +10,7 @@
     newOption = new Option('<%= @provider.name %>', <%= @provider.id %>, true, true)
     # Append it to the select
     $('#provider_contract_provider_id').append(newOption).trigger 'change'
-    $(".new_form_remote").html("<div class='alert alert-success text-center'>Fornecedor cadastrado com sucesso!</div>")
+    $(".modal-body").find(".new_form_remote").html("<div class='alert alert-success text-center'>Fornecedor cadastrado com sucesso!</div>")
   window.setTimeout (->
     $('#form_object').modal('hide')
   ), 1000
