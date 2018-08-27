@@ -3,7 +3,7 @@ run:
 	RAILS_ENV=development rails s -b 0.0.0.0 -p 3000 -e development
 
 install:
-	@bundle install --jobs=50
+	@bundle install --jobs=50; yarn install
 
 update:
 	@bundle update --jobs=50

@@ -3,6 +3,12 @@ module ApplicationHelper
     current_page?(link_path) ? 'active' : ""
   end
 
+  # def active_class(controller, link_path='')
+  #   # current_controller?(link_path) ? 'active' : ""
+  #   controller_name
+  #   ((current_page?(link_path)) or (controller_name == controller)) ? 'active' : "n"
+  # end
+
   def link_to_modal(name = nil, options = nil, html_options = nil, &block)
     html_options, options, name = options, name, block if block_given?
     options ||= {}

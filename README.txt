@@ -3,6 +3,7 @@
 - criar template para auditoria
 
 TO DO
+https://github.com/mbuckbee/Web-To-Pdf-Gem
 - Revisar todos os index das paginas e alterar links e botoes
 - Botao novo em todos os shows
 - Criar relatorio de orcamentos
