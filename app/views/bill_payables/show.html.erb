@@ -60,7 +60,7 @@
         <%= model_class.human_attribute_name(:file) %>:
       </strong>
 
-      <%= link_to @bill_payable.file_identifier, @bill_payable.file.url, download: @bill_payable.file_identifier %>
+      <%= link_to @bill_payable.file_identifier, @bill_payable.file.url, download: @bill_payable.file_identifier if @bill_payable.file.present? %>
       <hr>
 
       <strong>
@@ -76,7 +76,8 @@
       <ul>
         <% @bill_payable.bill_payable_installments.each do |bill_payable_installment| %>
           <li>
-            <%= bill_payable_installment.file.file.identifier %>
+            <%= bill_payable_installment.type_payment_i18n %>
+            <%= link_to bill_payable_installment.file_identifier, bill_payable_installment.file.url, download: bill_payable_installment.file_identifier if bill_payable_installment.file.present? %>
           </li>
         <% end %>
       </ul>
