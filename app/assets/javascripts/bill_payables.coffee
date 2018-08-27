@@ -29,5 +29,5 @@ jQuery ->
   icon_file.text('cloud_done')
   icon_file.removeClass('badge-danger').addClass('badge-success')
 
-@change_type_payment=(type, id)->
-  alert type+id
+@change_type_payment=(type_name, id)->
+  $("##{id}").val(type_name)

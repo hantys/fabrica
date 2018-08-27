@@ -99,8 +99,14 @@ pt-BR:
         file: Arquivo
         cred_card: Cartão
         cred_card_id: Cartão
-        banck: Transferência
-        banck_id: Transferência
+        bank_name: Crédito
+        type_payment: Tipo de pagamento
+        cc: Conta
+        ag: Agência
+        op: Variação
+
+        bank: Débito
+        bank_id: Débito
         billet: Boleto
         code: Código de Barras
         status: Situação

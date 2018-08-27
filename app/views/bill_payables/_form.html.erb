@@ -55,9 +55,9 @@
         <div class="row">
           <div class="col-lg-2">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <%= link_to "Boleto", "#v-pills-boleto-#{bill_payable_installments_form.index}", data: { toggle: "pill" }, role: "tab", aria: { controls: "v-pills-boleto-#{bill_payable_installments_form.index}", selected: "true" }, id: "v-pills-boleto-tab-#{bill_payable_installments_form.index}", class: "nav-link #{bill_payable_installments_form.object.type_payment == 'billet' ? 'active' : ''}", onclick: "change_type_payment('billet', 'type_payment_#{bill_payable_installments_form.index}');" %>
-              <%= link_to "Transferência", "#v-pills-transferencia-#{bill_payable_installments_form.index}", data: { toggle: "pill" }, role: "tab", aria: { controls: "v-pills-transferencia-#{bill_payable_installments_form.index}", selected: "true" }, id: "v-pills-transferencia-tab-#{bill_payable_installments_form.index}", class: "nav-link #{bill_payable_installments_form.object.type_payment == 'bank' ? 'active' : ''}" %>
-              <%= link_to "Cartão", "#v-pills-cartao-#{bill_payable_installments_form.index}", data: { toggle: "pill" }, role: "tab", aria: { controls: "v-pills-cartao-#{bill_payable_installments_form.index}", selected: "true" }, id: "v-pills-cartao-tab-#{bill_payable_installments_form.index}", class: "nav-link #{bill_payable_installments_form.object.type_payment == 'card' ? 'active' : ''}" %>
+              <%= link_to "Boleto", "#v-pills-boleto-#{bill_payable_installments_form.index}", data: { toggle: "pill" }, role: "tab", aria: { controls: "v-pills-boleto-#{bill_payable_installments_form.index}", selected: "true" }, id: "v-pills-boleto-tab-#{bill_payable_installments_form.index}", class: "nav-link #{bill_payable_installments_form.object.type_payment == 'billet' ? 'active' : ''}", onclick: "change_type_payment('billet', 'item_type_payment_#{bill_payable_installments_form.index}');" %>
+              <%= link_to "Transferência", "#v-pills-transferencia-#{bill_payable_installments_form.index}", data: { toggle: "pill" }, role: "tab", aria: { controls: "v-pills-transferencia-#{bill_payable_installments_form.index}", selected: "true" }, id: "v-pills-transferencia-tab-#{bill_payable_installments_form.index}", class: "nav-link #{bill_payable_installments_form.object.type_payment == 'bank' ? 'active' : ''}", onclick: "change_type_payment('bank', 'item_type_payment_#{bill_payable_installments_form.index}');" %>
+              <%= link_to "Cartão", "#v-pills-cartao-#{bill_payable_installments_form.index}", data: { toggle: "pill" }, role: "tab", aria: { controls: "v-pills-cartao-#{bill_payable_installments_form.index}", selected: "true" }, id: "v-pills-cartao-tab-#{bill_payable_installments_form.index}", class: "nav-link #{bill_payable_installments_form.object.type_payment == 'card' ? 'active' : ''}", onclick: "change_type_payment('card', 'item_type_payment_#{bill_payable_installments_form.index}');" %>
             </div>
             <div class="form-group float optional provider_contract_bill_payable_installments_value form-group-valid">
               <label class="form-control-label float optional d-none d-lg-block d-xl-block">  </label>
@@ -72,7 +72,11 @@
               </div>
 
               <div class="tab-pane fade" id="v-pills-transferencia-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-transferencia-tab-<%= bill_payable_installments_form.index %>">
-                tranferencia
+                <%= bill_payable_installments_form.association :bank, input_html: {class: 'simple-select2'}, prompt: "Escolha um Banco" %>
+                <%= bill_payable_installments_form.input :bank_name %>
+                <%= bill_payable_installments_form.input :cc %>
+                <%= bill_payable_installments_form.input :ag %>
+                <%= bill_payable_installments_form.input :op %>
               </div>
 
               <div class="tab-pane fade" id="v-pills-cartao-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-cartao-tab-<%= bill_payable_installments_form.index %>">
@@ -86,7 +90,7 @@
             <%= bill_payable_installments_form.input :value, input_html: {class: 'value_budget'} %>
             <%= bill_payable_installments_form.input :date, input_html: {class: 'date'} %>
 
-            <%= bill_payable_installments_form.input :type_payment, input_html: { id: "type_payment_#{bill_payable_installments_form.index}" } %>
+            <%= bill_payable_installments_form.input :type_payment, as: :hidden, input_html: { id: "item_type_payment_#{bill_payable_installments_form.index}" } %>
 
             <span class="change_icon_file">
               <span class="badge badge-success file-name"><%= bill_payable_installments_form.object.file.file.identifier if bill_payable_installments_form.object.file.present? %></span>
