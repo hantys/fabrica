@@ -3,12 +3,20 @@
 - criar template para auditoria
 
 TO DO
-https://github.com/mbuckbee/Web-To-Pdf-Gem
+	https://github.com/mbuckbee/Web-To-Pdf-Gem
 - Revisar todos os index das paginas e alterar links e botoes
 - Botao novo em todos os shows
 - Criar relatorio de orcamentos
-- Ordem de serviço
 - Criar ordem de producao copia gerar pdf e bota oa itens
+- Ordem de serviço (igual ao gerar pdf so que sem valores)
+
+- quando pagar possibilidade de juros
+- pagamentos multiplos e pagina de anexo
+- Produtos criar categorias
+- Reservar orcamento completo
+- Cadastro de inventario
+- Muda nome orcamento p pedidos
+- Criar sistema de viagens com vinculacao aos orcamentos
 
 - Criar Contas a receber  bill_receivable
 	* tipo
