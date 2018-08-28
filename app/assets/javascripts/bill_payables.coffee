@@ -31,3 +31,9 @@ jQuery ->
 
 @change_type_payment=(type_name, id)->
   $("##{id}").val(type_name)
+
+@change_bar_code=(type, id)->
+  if type.val() == 'true'
+    $("##{id}").mask '00000.00000 00000.000000 00000.000000 0 00000000000000', reverse: false
+  else
+    $("##{id}").mask '00000000000-0 00000000000-0 00000000000-0 00000000000-0', reverse: false

@@ -36,7 +36,7 @@ class BillPayablesController < ApplicationController
 
     respond_to do |format|
       if @bill_payable.save
-        format.html { redirect_to @bill_payable, notice: 'Bill payable was successfully created.' }
+        format.html { redirect_to @bill_payable, notice: 'Conta a pagar criada com sucesso.' }
         format.json { render :show, status: :created, location: @bill_payable }
       else
         format.html { render :new }
@@ -50,7 +50,7 @@ class BillPayablesController < ApplicationController
   def update
     respond_to do |format|
       if @bill_payable.update(bill_payable_params)
-        format.html { redirect_to @bill_payable, notice: 'Bill payable was successfully updated.' }
+        format.html { redirect_to @bill_payable, notice: 'Conta a pagar atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @bill_payable }
       else
         format.html { render :edit }
@@ -64,7 +64,7 @@ class BillPayablesController < ApplicationController
   def destroy
     @bill_payable.destroy
     respond_to do |format|
-      format.html { redirect_to bill_payables_url, notice: 'Bill payable was successfully destroyed.' }
+      format.html { redirect_to bill_payables_url, notice: 'Conta a pagar Apagada com sucesso.' }
       format.json { head :no_content }
     end
   end

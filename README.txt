@@ -3,12 +3,47 @@
 - criar template para auditoria
 
 TO DO
-https://github.com/mbuckbee/Web-To-Pdf-Gem
+	https://github.com/mbuckbee/Web-To-Pdf-Gem
 - Revisar todos os index das paginas e alterar links e botoes
 - Botao novo em todos os shows
 - Criar relatorio de orcamentos
-- Ordem de serviço
 - Criar ordem de producao copia gerar pdf e bota oa itens
+- Ordem de serviço (igual ao gerar pdf so que sem valores)
+
+- quando pagar possibilidade de juros
+- pagamentos multiplos e pagina de anexo
+- Produtos criar categorias
+- Reservar orcamento completo
+- Cadastro de inventario
+- Muda nome orcamento p pedidos
+- Criar sistema de viagens com vinculacao aos orcamentos
+
+- Criar Contas a receber  bill_receivable
+	* tipo
+		º orcamento
+			- orcamento_id
+		° outros
+			- nome
+			- cpf/cnpj
+			- phone
+			- obs
+	* categoria
+	* faturamento
+	* anexo
+	* parcelas
+		º banco
+		º anexo
+		º data
+		º valor
+		º status
+	* status
+	* total pago (ex: R$200,00 de R$1000,00)
+
+- TODOS OS  ORÇAMENTOS:
+	* RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
+
+
+DONE
 - Criar Contas a Pagar - bill_payable_ installment
 	* Contrato com fornecedor
 		° nome
@@ -41,32 +76,6 @@ https://github.com/mbuckbee/Web-To-Pdf-Gem
 		º anexo
 		º data
 		º valor
-- Criar Contas a receber  bill_receivable
-	* tipo
-		º orcamento
-			- orcamento_id
-		° outros
-			- nome
-			- cpf/cnpj
-			- phone
-			- obs
-	* categoria
-	* faturamento
-	* anexo
-	* parcelas
-		º banco
-		º anexo
-		º data
-		º valor
-		º status
-	* status
-	* total pago (ex: R$200,00 de R$1000,00)
-
-- TODOS OS  ORÇAMENTOS:
-	* RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
-
-
-DONE
 - Add obs quando for autorizar
 * Tirar confidencial do nacional
 * Busca na producao diaria

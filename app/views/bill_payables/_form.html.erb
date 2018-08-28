@@ -66,20 +66,20 @@
           </div>
           <div class="col-lg-6">
             <span class="tab-content" id="v-pills-tabContent-<%= bill_payable_installments_form.index %>">
-              <div class="tab-pane fade show active" id="v-pills-boleto-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-boleto-tab-<%= bill_payable_installments_form.index %>">
+              <div class="tab-pane fade <%= bill_payable_installments_form.object.type_payment == 'billet' ? 'active show' : '' %> " id="v-pills-boleto-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-boleto-tab-<%= bill_payable_installments_form.index %>">
                 <div class="card m-3">
                   <div class="card-header">
                     Tipo de Boleto
                   </div>
                   <div class="card-body">
-                    <%= bill_payable_installments_form.input :billet, as: :select, collection: [['Título', true], ['Convênio', false]], selected: true %>
-                    <%= bill_payable_installments_form.input :code, input_html: { class: "#{bill_payable_installments_form.object.billet ? 'code_title' : 'code_pact'}" } %>
+                    <%= bill_payable_installments_form.input :billet, as: :select, collection: [['Título', true], ['Convênio', false]], selected: true, input_html: { onchange: "change_bar_code($(this), 'item_bar_code_#{bill_payable_installments_form.index}');" } %>
+                    <%= bill_payable_installments_form.input :code, input_html: { class: "#{bill_payable_installments_form.object.billet ? 'code_title' : 'code_pact'}", id: "item_bar_code_#{bill_payable_installments_form.index}" } %>
                   </div>
                 </div>
 
               </div>
 
-              <div class="tab-pane fade" id="v-pills-transferencia-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-transferencia-tab-<%= bill_payable_installments_form.index %>">
+              <div class="tab-pane fade <%= bill_payable_installments_form.object.type_payment == 'bank' ? 'active show' : '' %>" id="v-pills-transferencia-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-transferencia-tab-<%= bill_payable_installments_form.index %>">
                 <div class="card m-3">
                   <div class="card-header">
                     Débito
@@ -111,7 +111,7 @@
                 </div>
               </div>
 
-              <div class="tab-pane fade" id="v-pills-cartao-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-cartao-tab-<%= bill_payable_installments_form.index %>">
+              <div class="tab-pane fade <%= bill_payable_installments_form.object.type_payment == 'card' ? 'active show' : '' %>" id="v-pills-cartao-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-cartao-tab-<%= bill_payable_installments_form.index %>">
                 <div class="card m-3">
                   <div class="card-header">
                     Pago com cartão

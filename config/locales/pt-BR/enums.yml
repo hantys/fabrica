@@ -24,3 +24,8 @@ pt-BR:
       status:
         active: Ativo
         finish: Finalizado
+    bill_payable_installment:
+      type_payment:
+        billet: Boleto
+        bank: Transferência
+        card: Cartão
