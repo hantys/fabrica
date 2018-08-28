@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2018_08_25_022027) do
   create_table "bill_payable_installments", force: :cascade do |t|
     t.bigint "bank_id"
     t.bigint "cred_card_id"
-    t.boolean "billet", default: true
+    t.boolean "billet"
     t.string "code"
     t.string "file"
     t.string "date"
