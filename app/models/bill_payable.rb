@@ -24,6 +24,7 @@ class BillPayable < ApplicationRecord
   after_create :set_value_create
 
   def verify_total
+    ## valor vem zerado. corigir
     value_item = self.bill_payable_installments.sum(:value).round(2)
     puts "***************************************"
     puts value_item
