@@ -7,15 +7,12 @@ TO DO
 - Revisar todos os index das paginas e alterar links e botoes
 - Botao novo em todos os shows
 - Criar relatorio de orcamentos
-- Criar ordem de producao copia gerar pdf e bota oa itens
-- Ordem de serviço (igual ao gerar pdf so que sem valores)
 
+- Produtos criar categorias
 - quando pagar possibilidade de juros
 - pagamentos multiplos e pagina de anexo
-- Produtos criar categorias
 - Reservar orcamento completo
 - Cadastro de inventario
-- Muda nome orcamento p pedidos
 - Criar sistema de viagens com vinculacao aos orcamentos
 
 - Criar Contas a receber  bill_receivable
@@ -44,6 +41,8 @@ TO DO
 
 
 DONE
+- Ordem de serviço (igual ao gerar pdf so que sem valores)
+- Muda nome orcamento p pedidos
 - Criar Contas a Pagar - bill_payable_ installment
 	* Contrato com fornecedor
 		° nome

@@ -11,9 +11,9 @@ pt-BR:
       provider: Fornecedor
       client: Cliente
       hit: Batida
-      budget: Orçamento
+      budget: Pedido
       product: Produto
-      budget_product: Produto do Orçamento
+      budget_product: Produto do Pedido
       delivery_option: Tipos de Entrega
       type_of_payment: Tipos de Pagamento
       bill_receivable: Contas a receber
@@ -58,15 +58,15 @@ pt-BR:
       item_provider_contract:
         provider_contract: Contrato com Fornecedor
         provider_contract_id: Contrato com Fornecedor
-        budget: Orçamento
-        budget_id: Orçamento
+        budget: Pedido
+        budget_id: Pedido
         value: Valor
         created_at: Criado em
         updated_at: Atualizado em
 
       bill_receivable:
         type_receivable: Tipo
-        budget: Orçamento
+        budget: Pedido
         name_other:  Nome
         cpf_other: CPF
         cnpj_other: CNPJ
@@ -118,7 +118,7 @@ pt-BR:
         obs: Observação
         status: Situação
         partil_value: Valor Parcial
-        item_provider_contracts: Custo por Orçamento
+        item_provider_contracts: Custo por Pedido
         total_value: Valor Total
         created_at: Criado Em
         updated_at: Atualizado Em
@@ -298,8 +298,8 @@ pt-BR:
       budget_product:
         reserve_qnt: 'Quantidade reservada'
         reserve: 'Reserva'
-        budget_id: Orçamento
-        budget: Orçamento
+        budget_id: Pedido
+        budget: Pedido
         product_id: Produto
         product: Produto
         unit_value: Valor unitário
@@ -318,8 +318,8 @@ pt-BR:
       budget:
         cod_name: Pedido
         obs: Observação
-        budget_products: Produto do Orçamento
-        budget_product: Produto do Orçamento
+        budget_products: Produto do Pedido
+        budget_product: Produto do Pedido
         user_id: Gerado por
         user: Gerado por
         client_id: Cliente

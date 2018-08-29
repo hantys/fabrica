@@ -12,6 +12,7 @@
                       :method => 'delete',
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-danger ml-2' %>
+        <%= link_to "Gerar ordem de serviço", order_service_path(@budget), :class => 'btn btn-outline-dark mt-2 mt-md-0 mt-lg-0 ml-md-2 ml-lg-2', target: '_blank' %>
         <%= link_to "Gerar PDF", budget_pdf_path(@budget), :class => 'btn btn-info mt-2 mt-md-0 mt-lg-0 ml-md-2 ml-lg-2', target: '_blank' %>
         <% else %>
           <%= link_to "Ver na página", budget_path(@budget), :class => 'btn btn-info mt-2 mt-md-0 mt-lg-0 ml-md-2 ml-lg-2', target: '_blank' %>

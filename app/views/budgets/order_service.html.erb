@@ -1,0 +1,105 @@
+<div class="row mb-4">
+  <div class="col-sm-12 col-md-2 col-lg-2">
+    <%= image_tag 'Logo2.png', alt: "Tubos Poty", width: "128", height: "128" %>
+  </div>
+  <div class="col-sm-12 col-md-3 col-lg-3">
+    <p>
+      <strong>
+        Data:
+      </strong>
+        <%= @budget.created_at.to_s(:custom_date) %>
+      <br>
+      <strong>
+        Pedido:
+      </strong>
+        Nº <%= @budget.cod_name.to_s.rjust(10, "0") %>
+      <br>
+      <strong>
+        Cliente:
+      </strong>
+        <%= @budget.client.company_name %>
+    </p>
+  </div>
+  <div class="col-sm-12 col-md-7 col-lg-7">
+    <p>
+      <strong>
+        Endereço:
+      </strong>
+        <%= @budget.client.street %>,
+        n° <%= @budget.client.number %> -
+        <%= @budget.client.neighborhood %>,
+        <%= @budget.client.city.name %> -
+        <%= @budget.client.state.acronym %>,
+        cep: <%= @budget.client.cep %>
+      <br>
+      <strong>
+        CNPJ/CPF:
+      </strong>
+        <%= @budget.client.cnpj.present? ? @budget.client.cnpj : @budget.client.cpf %>
+      <br>
+      <strong>
+        Vendedor (a):
+      </strong>
+        <%= @budget.employee.name %>
+    </p>
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Produto</th>
+        <th scope="col">Quantidade</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @budget.budget_products.includes(:product).each do |item_product| %>
+        <tr>
+          <td><%= item_product.product.cod %></td>
+          <td><%= item_product.product.name %></td>
+          <td><%= item_product.qnt %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<p>
+  <strong>
+    Prazo de entrega:
+  </strong>
+  <%=l @budget.deadline %>
+  <br>
+  <strong>
+    Opções de entrega:
+  </strong>
+  <%= @budget.try(:delivery_option).try(:name) %> - <%= @budget.try(:sub_delivery_option).try(:name) %>
+  <br>
+</p>
+<hr>
+<p class="text-secondary">
+  <small>
+    Qualquer dúvida ou esclarecimento favor entrar em contato pelos numeros: (86) 3231-7007 / (86) 99452-9454
+  </small>
+</p>
+<div class="row">
+  <div class="col-sm-12 col-md-6 mt-5 p-5">
+    <div class="d-flex flex-row align-items-center justify-content-center pt-2 border-top">
+      <p>Cliente</p>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6 pl-5 pr-5 pb-5">
+    <div class="d-flex flex-row align-items-center justify-content-center">
+      <div class="sign">
+        <span class="brand">
+          Tubos Poty
+        </span>
+        <div class="text-content">
+          <span>Assinado eletronicamente por:</span>
+          <span><%= @budget.user.employee.name %></span>
+          <span><%= l(@budget.created_at).gsub('-0300', '')  %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

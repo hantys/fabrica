@@ -37,7 +37,7 @@
           <div class="card card-body">
             <div class="row ">
               <div class="col">
-                <%= item_provider_contracts_form.input :budget_id, as: :select, collection: Budget.order(:cod_name).map{|x| [x.cod_name, x.id]}, input_html: {class: 'simple-select2'}, prompt: "Escolha um Orçamento" %>
+                <%= item_provider_contracts_form.input :budget_id, as: :select, collection: Budget.order(:cod_name).map{|x| [x.cod_name, x.id]}, input_html: {class: 'simple-select2'}, prompt: "Escolha um Pedido" %>
               </div>
               <div class="col">
                 <%= item_provider_contracts_form.input :value, input_html: {class: 'item_provider_contract_value_budget'} %>
@@ -45,7 +45,7 @@
               <div class="col">
                 <div class="form-group float optional provider_contract_item_provider_contracts_value form-group-valid">
                   <label class="form-control-label float optional">  </label>
-                  <%= item_provider_contracts_form.link_to_remove "Remover orçamento", class: 'btn btn-outline-danger form-control float optional mt-2' %>
+                  <%= item_provider_contracts_form.link_to_remove "Remover Pedido", class: 'btn btn-outline-danger form-control float optional mt-2' %>
                 </div>
               </div>
             </div>
@@ -54,7 +54,7 @@
         <% end %>
       </div>
       <hr>
-      <p><%= f.link_to_add "Adicionar Orçamento", :item_provider_contracts, :data => { :target => "#item_provider_contracts" }, class: 'btn btn-outline-primary' %></p>
+      <p><%= f.link_to_add "Adicionar Pedido", :item_provider_contracts, :data => { :target => "#item_provider_contracts" }, class: 'btn btn-outline-primary' %></p>
       <hr>
       <%= f.input :total_value, wrapper_html: {class: 'w-25'} %>
     </div>

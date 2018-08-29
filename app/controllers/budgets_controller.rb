@@ -23,6 +23,10 @@ class BudgetsController < ApplicationController
     @budget = Budget.find params[:id]
   end
 
+  def order_service
+    @budget = Budget.find params[:id]
+  end
+
   def reserve_product
     render partial: 'reserve_product', layout: false
   end
@@ -41,13 +45,13 @@ class BudgetsController < ApplicationController
       case params[:status]
       when 'confirm'
         if @budget.update status: params[:status].to_sym
-          flash[:success] = 'Orçamento atualizado!'
+          flash[:success] = 'Pedido atualizado!'
         else
           flash[:error] = 'Ocorreu algum problema!'
         end
       when 'rejected'
         if @budget.update status: params[:status].to_sym
-          flash[:success] = 'Orçamento atualizado!'
+          flash[:success] = 'Pedido atualizado!'
         else
           flash[:error] = 'Ocorreu algum problema!'
         end
@@ -56,13 +60,13 @@ class BudgetsController < ApplicationController
       case params[:status]
       when 'authorized'
         if @budget.update status: params[:status].to_sym, obs: params[:obs]
-          flash[:success] = 'Orçamento atualizado!'
+          flash[:success] = 'Pedido atualizado!'
         else
           flash[:error] = 'Ocorreu algum problema!'
         end
       when 'rejected'
         if @budget.update status: params[:status].to_sym
-          flash[:success] = 'Orçamento atualizado!'
+          flash[:success] = 'Pedido atualizado!'
         else
           flash[:error] = 'Ocorreu algum problema!'
         end
@@ -71,13 +75,13 @@ class BudgetsController < ApplicationController
       case params[:status]
       when 'billed'
         if @budget.billed_budget
-          flash[:success] = 'Orçamento atualizado!'
+          flash[:success] = 'Pedido atualizado!'
         else
           flash[:error] = 'Você não tem estoque para faturar o pedido'
         end
       when 'rejected'
         if @budget.update status: params[:status].to_sym
-          flash[:success] = 'Orçamento atualizado!'
+          flash[:success] = 'Pedido atualizado!'
         else
           flash[:error] = 'Ocorreu algum problema!'
         end
@@ -115,7 +119,7 @@ class BudgetsController < ApplicationController
 
     respond_to do |format|
       if @budget.save
-        format.html { redirect_to @budget, success: 'Orçamento criado com sucesso.' }
+        format.html { redirect_to @budget, success: 'Pedido criado com sucesso.' }
         format.json { render :show, status: :created, location: @budget }
       else
         format.html { render :new }
@@ -130,7 +134,7 @@ class BudgetsController < ApplicationController
     respond_to do |format|
       budget_params[:employee_id] = Client.find(budget_params[:client_id]).employee.id
       if @budget.update(budget_params)
-        format.html { redirect_to @budget, success: 'Orçamento atualizado com sucesso.' }
+        format.html { redirect_to @budget, success: 'Pedido atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @budget }
       else
         format.html { render :edit }
@@ -144,7 +148,7 @@ class BudgetsController < ApplicationController
   def destroy
     @budget.destroy
     respond_to do |format|
-      format.html { redirect_to budgets_url, notice: 'Orçamento apagado com sucesso.' }
+      format.html { redirect_to budgets_url, notice: 'Pedido apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

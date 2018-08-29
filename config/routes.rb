@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :category_products
   resources :bill_receivables
   resources :bill_payables
   resources :provider_contracts
@@ -39,11 +40,12 @@ Rails.application.routes.draw do
     get '/produto-primitivo/:id', to: "home#produto_primitivo"
   end
 
-  scope '/busca' do
-    get '/orcamento/reserve_product/:id', to: "budgets#reserve_product"
-    get '/orcamento/pdf/:id', to: "budgets#budget_pdf", as: :budget_pdf
-    get '/orcamento/atualiza-status/:id/:status', to: "budgets#update_status", as: :budget_update_status
-    post '/orcamento/atualiza-status/', to: "budgets#update_status", as: :budget_update_status_obs
+  scope '/pedido' do
+    get '/reserve_product/:id', to: "budgets#reserve_product"
+    get '/pdf/:id', to: "budgets#budget_pdf", as: :budget_pdf
+    get '/orderm-de-servico/:id', to: "budgets#order_service", as: :order_service
+    get '/atualiza-status/:id/:status', to: "budgets#update_status", as: :budget_update_status
+    post '/atualiza-status/', to: "budgets#update_status", as: :budget_update_status_obs
   end
 
   get '/load_hit_items/:composition', to: "hits#load_items"

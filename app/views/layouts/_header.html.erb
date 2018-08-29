@@ -10,10 +10,10 @@
       <!-- orcamentos   -->
       <% if (can? :create, Budget) or (can? :read, Budget) %>
         <li class='nav-item dropdown <%= "#{active_class(new_budget_path)} #{active_class(budgets_path)}" %>'>
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Orçamentos</a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pedidos</a>
           <div class="dropdown-menu hasDropboxAnimation">
-            <%= link_to 'Novo Orçamento', new_budget_path, class: "dropdown-item #{active_class(new_budget_path)}" if can? :create, Budget %>
-            <%= link_to 'Orçamentos', budgets_path, class: "dropdown-item #{active_class(budgets_path)}" if can? :read, Budget %>
+            <%= link_to 'Novo Pedido', new_budget_path, class: "dropdown-item #{active_class(new_budget_path)}" if can? :create, Budget %>
+            <%= link_to 'Pedidos', budgets_path, class: "dropdown-item #{active_class(budgets_path)}" if can? :read, Budget %>
           </div>
         </li>
       <% end %>
@@ -78,10 +78,15 @@
       <% end %>
 
       <!-- sistema  -->
-      <% if (can? :read, DeliveryOption) or (can? :read, TypeOfPayment) %>
-        <li class='nav-item dropdown <%= "#{active_class(delivery_options_path)} #{active_class(type_of_payments_path)}" %>'>
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sistema</a>
+      <% if (can? :read, DeliveryOption) or (can? :read, TypeOfPayment) or (can? :read, CategoryProduct) or (can? :read, Bank) or (can? :read, Category) or (can? :read, Revenue) or (can? :read, CredCard) %>
+        <li class='nav-item dropdown <%= "#{active_class(category_products_path)} active_class(delivery_options_path)} #{active_class(cred_cards_path)} #{active_class(type_of_payments_path)} #{active_class(revenues_path)} #{active_class(banks_path)} #{active_class(categories_path)}" %>'>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cadastros do Sistema</a>
           <div class="dropdown-menu hasDropboxAnimation">
+            <%= link_to t('.title', :default => CategoryProduct.model_name.human.pluralize.titleize), category_products_path, class: "dropdown-item #{active_class(category_products_path)}" if can? :read, CategoryProduct %>
+            <%= link_to t('.title', :default => Bank.model_name.human.pluralize.titleize), banks_path, class: "dropdown-item #{active_class(banks_path)}" if can? :read, Bank %>
+            <%= link_to t('.title', :default => CredCard.model_name.human.pluralize.titleize), cred_cards_path, class: "dropdown-item #{active_class(cred_cards_path)}" if can? :read, CredCard %>
+            <%= link_to t('.title', :default => Category.model_name.human.pluralize.titleize), categories_path, class: "dropdown-item #{active_class(categories_path)}" if can? :read, Category %>
+            <%= link_to t('.title', :default => Revenue.model_name.human.pluralize.titleize), revenues_path, class: "dropdown-item #{active_class(revenues_path)}" if can? :read, Revenue %>
             <%= link_to 'Opções de entrega', delivery_options_path, class: "dropdown-item #{active_class(delivery_options_path)}" if can? :read, DeliveryOption %>
             <%= link_to 'Tipos de pagamento', type_of_payments_path, class: "dropdown-item #{active_class(type_of_payments_path)}" if can? :read, TypeOfPayment %>
           </div>

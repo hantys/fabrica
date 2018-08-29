@@ -79,9 +79,9 @@ pt-BR:
       provider: Fornecedor
       client: Cliente
       hit: Batida
-      budget: Orçamento
+      budget: Pedido
       product: Produto
-      budget_product: Produto do Orçamento
+      budget_product: Produto do Pedido
       delivery_option: Tipos de Entrega
       type_of_payment: Tipos de Pagamento
 
@@ -256,8 +256,8 @@ pt-BR:
         updated_at: Atualizado em
 
       budget_product:
-        budget_id: Orçamento
-        budget: Orçamento
+        budget_id: Pedido
+        budget: Pedido
         product_id: Produto
         product: Produto
         unit_value: Valor unitário
@@ -275,8 +275,8 @@ pt-BR:
 
       budget:
         cod_name: Pedido
-        budget_products: Produto do Orçamento
-        budget_product: Produto do Orçamento
+        budget_products: Produto do Pedido
+        budget_product: Produto do Pedido
         user_id: Gerado por
         user: Gerado por
         client_id: Cliente

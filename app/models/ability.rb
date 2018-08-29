@@ -14,6 +14,7 @@ class Ability
     if user.has_role? :admin
       can :crud, :all
       can :budget_pdf, Budget
+      can :order_service, Budget
       can :update_status, Budget
       can :product_cod, Product
       cannot [:update, :destroy], Budget, status: [3,4]
@@ -27,6 +28,7 @@ class Ability
       cannot [:create, :read, :update, :destroy], DeliveryOption
       cannot [:create, :read, :update, :destroy], TypeOfPayment
       can :budget_pdf, Budget
+      can :order_service, Budget
       cannot [:update, :destroy], Budget, status: [3,4]
       can :reports_manager, :report
       can :home_access, :home
