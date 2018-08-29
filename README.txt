@@ -15,6 +15,7 @@ TO DO
 - Cadastro de inventario
 - Criar sistema de viagens com vinculacao aos orcamentos
 
+- alterar contas a pagar nao herda de pedidos
 - Criar Contas a receber  bill_receivable
 	* tipo
 		º orcamento
