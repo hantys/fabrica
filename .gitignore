@@ -15,7 +15,7 @@
 
 # Ignore uploaded files in development
 /storage/*
-# /public/uploads
+/public/uploads
 
 /vendor/*.dump
 /vendor/*.dmp
