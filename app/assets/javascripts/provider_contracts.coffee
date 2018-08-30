@@ -3,8 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
-  $('.item_provider_contract_value_budget').on 'input', ->
-    setTotalValue()
+  on_input_value()
 
   $(document).on 'nested:fieldRemoved:item_provider_contracts', (event) ->
     field = event.field
@@ -20,12 +19,12 @@ jQuery ->
       allowClear: true
     # this field was just inserted into your form
     field = event.field
+    on_input_value()
 
-    item_provider_contract_value_budget = field.find('.item_provider_contract_value_budget')
-
-    item_provider_contract_value_budget.on 'input', ->
-      setTotalValue()
-
+  $(document).on 'nested:fieldAdded:budget_provider_contracts', (event) ->
+    $('.simple-select2').select2
+      theme: 'bootstrap4'
+      allowClear: true
 
 @setTotalValue = () ->
   sum = 0
@@ -33,3 +32,6 @@ jQuery ->
     sum += parseFloat(@value)
   $('#provider_contract_total_value').val sum.toFixed(2)
 
+@on_input_value=(type, id)->
+  $('.item_provider_contract_value_budget').on 'input', ->
+    setTotalValue()

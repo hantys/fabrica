@@ -7,7 +7,21 @@ class BillPayablesController < ApplicationController
   def index
     @q = BillPayable.ransack(params[:q])
 
-    @bill_payables = @q.result.includes(:provider_contract, :category, :revenue).accessible_by(current_ability).order(id: :desc).page params[:page]
+    @bill_payables = @q.result.includes(:provider_contract, :category, :revenue).accessible_by(current_ability).order(id: :desc).page(params[:page])
+  end
+
+  def pays
+    @pays = BillPayableInstallment.where(id: params[:pagar])
+    # render json: {pays: @pays.pluck(:id), count: @pays.size}
+  end
+
+  def pay_item
+    @pay = BillPayableInstallment.find(params[:item_id])
+    @bill_payable = @pay.bill_payable
+    if params[:modal] == 'true'
+      @modal = true
+      render :pay_item, layout: false
+    end
   end
 
   # GET /bill_payables/1

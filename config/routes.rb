@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   resources :compositions
   resources :raw_materials
 
+  post '/contas_a_pagar/paga_itens', to: 'bill_payables#pays', as: :pays
+  get '/contas_a_pagar/item/pagar/:item_id', to: 'bill_payables#pay_item', as: :pay_item
+
   get "/product/cod/:cod", to: 'products#product_cod', as: :product_cod
 
   put '/reserve_product/:id' => 'budgets#updated_reserve_product', as: :reserve_product

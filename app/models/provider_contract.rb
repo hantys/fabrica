@@ -7,8 +7,10 @@ class ProviderContract < ApplicationRecord
 
   belongs_to :provider, -> { with_deleted }
   has_many :item_provider_contracts, dependent: :destroy
+  has_many :budget_provider_contracts, dependent: :destroy
 
   accepts_nested_attributes_for :item_provider_contracts, allow_destroy: true
+  accepts_nested_attributes_for :budget_provider_contracts, allow_destroy: true
 
   has_paper_trail
 

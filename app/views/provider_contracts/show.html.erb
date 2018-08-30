@@ -57,9 +57,21 @@
         <%= model_class.human_attribute_name(:item_provider_contracts) %>:
       </strong>
       <ul>
-        <% @provider_contract.item_provider_contracts.includes(:budget).each do |item_provider_contract| %>
+        <% @provider_contract.item_provider_contracts.each do |item_provider_contract| %>
           <li>
-            <%= link_to_modal item_provider_contract.budget.cod_name, budget_path(item_provider_contract.budget), class: "text-dark" %> - custo: <%= number_to_currency item_provider_contract.value %>
+            <%= item_provider_contract.name %> - custo: <%= number_to_currency item_provider_contract.value %>
+          </li>
+        <% end %>
+      </ul>
+      <hr>
+
+      <strong>
+        <%= model_class.human_attribute_name(:budget_provider_contracts) %>:
+      </strong>
+      <ul>
+        <% @provider_contract.budget_provider_contracts.includes(:budget).each do |budget_provider_contract| %>
+          <li>
+            <%= link_to_modal budget_provider_contract.budget.cod_name, budget_path(budget_provider_contract.budget), class: "text-dark" %> - custo: <%= number_to_currency budget_provider_contract.value %>
           </li>
         <% end %>
       </ul>

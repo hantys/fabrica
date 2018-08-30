@@ -15,6 +15,8 @@ TO DO
 - Cadastro de inventario
 - Criar sistema de viagens com vinculacao aos orcamentos
 
+- revisar textos dos controller em criar/atualizar/deletar
+- validacoes de contas a pgar e contrato com fornecedor referentes ao valor
 - alterar contas a pagar nao herda de pedidos
 - Criar Contas a receber  bill_receivable
 	* tipo

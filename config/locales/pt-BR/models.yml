@@ -21,6 +21,7 @@ pt-BR:
       bill_payable_installment: Parcelas
       provider_contract: Contrato com Fornecedor
       item_provider_contract: Itens do Contrato
+      budget_provider_contract: Pedidos Associados
       bank: Banco
       cred_card: Cartão
       revenue: Faturamento
@@ -61,6 +62,14 @@ pt-BR:
         updated_at: Atualizado em
 
       item_provider_contract:
+        provider_contract: Contrato com Fornecedor
+        provider_contract_id: Contrato com Fornecedor
+        name: Item
+        value: Valor
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      budget_provider_contract:
         provider_contract: Contrato com Fornecedor
         provider_contract_id: Contrato com Fornecedor
         budget: Pedido
@@ -123,7 +132,8 @@ pt-BR:
         obs: Observação
         status: Situação
         partil_value: Valor Parcial
-        item_provider_contracts: Custo por Pedido
+        item_provider_contracts: Itens do Contrato
+        budget_provider_contracts: Pedidos Associados
         total_value: Valor Total
         created_at: Criado Em
         updated_at: Atualizado Em

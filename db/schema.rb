@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_30_020727) do
+ActiveRecord::Schema.define(version: 2018_08_30_182908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 2018_08_30_020727) do
     t.boolean "billet", default: true
     t.string "code"
     t.string "file"
-    t.string "date"
     t.float "value"
     t.integer "status", default: 0
     t.datetime "created_at", null: false
@@ -44,6 +43,7 @@ ActiveRecord::Schema.define(version: 2018_08_30_020727) do
     t.string "cc"
     t.string "ag"
     t.string "op"
+    t.date "date"
     t.index ["bank_id"], name: "index_bill_payable_installments_on_bank_id"
     t.index ["bill_payable_id"], name: "index_bill_payable_installments_on_bill_payable_id"
     t.index ["cred_card_id"], name: "index_bill_payable_installments_on_cred_card_id"
@@ -70,13 +70,13 @@ ActiveRecord::Schema.define(version: 2018_08_30_020727) do
   create_table "bill_receivable_installments", force: :cascade do |t|
     t.bigint "bank_id"
     t.string "file"
-    t.string "date"
     t.float "value"
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.bigint "bill_receivable_id"
+    t.date "date"
     t.index ["bank_id"], name: "index_bill_receivable_installments_on_bank_id"
     t.index ["bill_receivable_id"], name: "index_bill_receivable_installments_on_bill_receivable_id"
     t.index ["deleted_at"], name: "index_bill_receivable_installments_on_deleted_at"
@@ -122,6 +122,18 @@ ActiveRecord::Schema.define(version: 2018_08_30_020727) do
     t.index ["budget_id"], name: "index_budget_products_on_budget_id"
     t.index ["deleted_at"], name: "index_budget_products_on_deleted_at"
     t.index ["product_id"], name: "index_budget_products_on_product_id"
+  end
+
+  create_table "budget_provider_contracts", force: :cascade do |t|
+    t.bigint "budget_id"
+    t.bigint "provider_contract_id"
+    t.float "value"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["budget_id"], name: "index_budget_provider_contracts_on_budget_id"
+    t.index ["deleted_at"], name: "index_budget_provider_contracts_on_deleted_at"
+    t.index ["provider_contract_id"], name: "index_budget_provider_contracts_on_provider_contract_id"
   end
 
   create_table "budgets", force: :cascade do |t|
@@ -325,13 +337,12 @@ ActiveRecord::Schema.define(version: 2018_08_30_020727) do
   end
 
   create_table "item_provider_contracts", force: :cascade do |t|
-    t.bigint "budget_id"
     t.float "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.bigint "provider_contract_id"
-    t.index ["budget_id"], name: "index_item_provider_contracts_on_budget_id"
+    t.string "name"
     t.index ["deleted_at"], name: "index_item_provider_contracts_on_deleted_at"
     t.index ["provider_contract_id"], name: "index_item_provider_contracts_on_provider_contract_id"
   end
@@ -560,6 +571,8 @@ ActiveRecord::Schema.define(version: 2018_08_30_020727) do
   add_foreign_key "bill_receivables", "revenues"
   add_foreign_key "budget_products", "budgets"
   add_foreign_key "budget_products", "products"
+  add_foreign_key "budget_provider_contracts", "budgets"
+  add_foreign_key "budget_provider_contracts", "provider_contracts"
   add_foreign_key "budgets", "clients"
   add_foreign_key "budgets", "employees"
   add_foreign_key "budgets", "sub_delivery_options"
@@ -578,7 +591,6 @@ ActiveRecord::Schema.define(version: 2018_08_30_020727) do
   add_foreign_key "hits", "products"
   add_foreign_key "item_product_stocks", "products"
   add_foreign_key "item_product_stocks", "stock_final_products"
-  add_foreign_key "item_provider_contracts", "budgets"
   add_foreign_key "item_provider_contracts", "provider_contracts"
   add_foreign_key "out_of_stocks", "budget_products"
   add_foreign_key "out_of_stocks", "budgets"

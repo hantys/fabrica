@@ -13,6 +13,8 @@ class Ability
     # can :manage, :all if user.has_role? :admin
     if user.has_role? :admin
       can :crud, :all
+      can :pays, BillPayable
+      can :pay_item, BillPayable
       can :budget_pdf, Budget
       can :order_service, Budget
       can :update_status, Budget
@@ -22,6 +24,8 @@ class Ability
       can :home_access, :home
     end
     if user.has_role? :manager
+      can :pays, BillPayable
+      can :pay_item, BillPayable
       can :update_status, Budget
       can :crud, :all
       can :product_cod, Product

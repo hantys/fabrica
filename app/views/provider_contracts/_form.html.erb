@@ -31,16 +31,16 @@
         </div>
       </div>
       <%= f.input :obs %>
-
+      <legend>Itens</legend>
       <div id="item_provider_contracts">
         <%= f.fields_for :item_provider_contracts do |item_provider_contracts_form| %>
           <div class="card card-body">
             <div class="row ">
               <div class="col">
-                <%= item_provider_contracts_form.input :budget_id, as: :select, collection: Budget.order(:cod_name).map{|x| [x.cod_name, x.id]}, input_html: {class: 'simple-select2'}, prompt: "Escolha um Pedido" %>
+                <%= item_provider_contracts_form.input :name %>
               </div>
               <div class="col">
-                <%= item_provider_contracts_form.input :value, input_html: {class: 'item_provider_contract_value_budget'} %>
+                <%= item_provider_contracts_form.input :value, input_html: {class: 'item_provider_contract_value_budget', oninput: "on_input_value();"} %>
               </div>
               <div class="col">
                 <div class="form-group float optional provider_contract_item_provider_contracts_value form-group-valid">
@@ -54,9 +54,36 @@
         <% end %>
       </div>
       <hr>
-      <p><%= f.link_to_add "Adicionar Pedido", :item_provider_contracts, :data => { :target => "#item_provider_contracts" }, class: 'btn btn-outline-primary' %></p>
+      <p><%= f.link_to_add "Adicionar Item", :item_provider_contracts, :data => { :target => "#item_provider_contracts" }, class: 'btn btn-outline-primary' %></p>
       <hr>
+
       <%= f.input :total_value, wrapper_html: {class: 'w-25'} %>
+      <hr>
+      <legend>Associar Pedidos</legend>
+      <div id="budget_provider_contracts">
+        <%= f.fields_for :budget_provider_contracts do |budget_provider_contracts_form| %>
+          <div class="card card-body">
+            <div class="row ">
+              <div class="col">
+                <%= budget_provider_contracts_form.input :budget_id, as: :select, collection: Budget.order(:cod_name).map{|x| [x.cod_name, x.id]}, input_html: {class: 'simple-select2'}, prompt: "Escolha um Pedido" %>
+              </div>
+              <div class="col">
+                <%= budget_provider_contracts_form.input :value, input_html: {class: 'item_provider_contract_value_budget'} %>
+              </div>
+              <div class="col">
+                <div class="form-group float optional provider_contract_budget_provider_contracts_value form-group-valid">
+                  <label class="form-control-label float optional">  </label>
+                  <%= budget_provider_contracts_form.link_to_remove "Remover Pedido", class: 'btn btn-outline-danger form-control float optional mt-2' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        <% end %>
+      </div>
+      <hr>
+      <p><%= f.link_to_add "Associar Pedido", :budget_provider_contracts, :data => { :target => "#budget_provider_contracts" }, class: 'btn btn-outline-primary' %></p>
+
     </div>
   </div>
 

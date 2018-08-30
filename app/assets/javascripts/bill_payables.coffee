@@ -2,6 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
+  $("#select_all").click ->
+    $(".styled").each ->
+      $(this).attr("checked", !$(this).attr("checked"))
 
   $('#bill_payable_provider_contract_id').change ->
     $.getJSON "/provider_contracts/#{$(this).val()}", {modal: 'true'}, (data) ->

@@ -22,6 +22,7 @@ class ProviderContractsController < ApplicationController
   # GET /provider_contracts/new
   def new
     @provider_contract = ProviderContract.new
+    @provider_contract.item_provider_contracts.build
     @modal = false
     if params[:modal] == 'true'
       @modal = true
@@ -86,6 +87,6 @@ class ProviderContractsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def provider_contract_params
-      params.require(:provider_contract).permit(:name, :provider_id, :obs, :total_value, item_provider_contracts_attributes: [:id, :budget_id, :value, :_destroy])
+      params.require(:provider_contract).permit(:name, :provider_id, :obs, :total_value, item_provider_contracts_attributes: [:id, :name, :value, :_destroy], budget_provider_contracts_attributes: [:id, :budget_id, :value, :_destroy])
     end
 end
