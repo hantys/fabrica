@@ -1,6 +1,6 @@
-<h1>Editing Revenue</h1>
+<%- model_class = Revenue -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
 
 <%= render 'form', revenue: @revenue %>
-
-<%= link_to 'Show', @revenue %> |
-<%= link_to 'Back', revenues_path %>

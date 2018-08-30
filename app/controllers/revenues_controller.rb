@@ -5,7 +5,7 @@ class RevenuesController < ApplicationController
   # GET /revenues
   # GET /revenues.json
   def index
-    @revenues = Revenue.all
+    @revenues = Revenue.accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /revenues/1
@@ -33,7 +33,7 @@ class RevenuesController < ApplicationController
 
     respond_to do |format|
       if @revenue.save
-        format.html { redirect_to @revenue, notice: 'Revenue was successfully created.' }
+        format.html { redirect_to @revenue, notice: 'Faturamento criada com sucesso.' }
         format.json { render :show, status: :created, location: @revenue }
       else
         format.html { render :new }
@@ -47,7 +47,7 @@ class RevenuesController < ApplicationController
   def update
     respond_to do |format|
       if @revenue.update(revenue_params)
-        format.html { redirect_to @revenue, notice: 'Revenue was successfully updated.' }
+        format.html { redirect_to @revenue, notice: 'Faturamento atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @revenue }
       else
         format.html { render :edit }
@@ -61,7 +61,7 @@ class RevenuesController < ApplicationController
   def destroy
     @revenue.destroy
     respond_to do |format|
-      format.html { redirect_to revenues_url, notice: 'Revenue was successfully destroyed.' }
+      format.html { redirect_to revenues_url, notice: 'Faturamento apagada com sucesso.' }
       format.json { head :no_content }
     end
   end
@@ -74,6 +74,6 @@ class RevenuesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def revenue_params
-      params.require(:revenue).permit(:name, :references)
+      params.require(:revenue).permit(:name, :category_id)
     end
 end

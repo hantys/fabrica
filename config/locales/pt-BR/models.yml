@@ -25,9 +25,14 @@ pt-BR:
       cred_card: Cartão
       revenue: Faturamento
       category: Categoria
+      category_product: Categoria de Produto
 
 
     attributes:
+      category_product:
+        name: Nome
+        products: Produtos
+
       bank:
         ag: Agência
         cc: Conta
@@ -37,7 +42,7 @@ pt-BR:
         updated_at: Atualizado em
 
       cred_card:
-        valid: Validade
+        valid_card: Validade
         name: Nome
         card_final: 4 Últimos dígitos
         created_at: Criado em
@@ -292,6 +297,8 @@ pt-BR:
         derivative: 'Derivado'
         description: Descrição
         price: Preço
+        category_product: Categoria
+        category_product_id: Categoria
         created_at: Criado em
         updated_at: Atualizado em
 

@@ -1,27 +1,44 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = CategoryProduct  -%>
 
-<h1>Category Products</h1>
+<div class="page-header d-flex justify-content-lg-between align-items-center mb-2">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_category_product_path, class: "btn btn-primary" %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @category_products.each do |category_product| %>
+<%= paginate @category_products if @category_products.size > 20 %>
+<%= page_entries_info @category_products, entry_name: 'item' %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:products) %></th>
+        <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @category_products.each do |category_product| %>
       <tr>
         <td><%= category_product.name %></td>
-        <td><%= link_to 'Show', category_product %></td>
-        <td><%= link_to 'Edit', edit_category_product_path(category_product) %></td>
-        <td><%= link_to 'Destroy', category_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= category_product.products.size %></td>
+        <td>
+          <%= link_to category_product, class: 'btn btn-info has-icon' do %>
+            <i class="material-icons">remove_red_eye</i>
+            <%#= t('.show', :default => t("helpers.links.show")) %>
+          <% end %>
+          <%= link_to edit_category_product_path(category_product), class: 'btn btn-primary has-icon' do %>
+            <i class="material-icons">edit</i>
+            <%#= t('.edit', :default => t("helpers.links.edit")) %>
+          <% end %>
+          <%= link_to category_product, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
+            <i class="material-icons">delete</i>
+            <%#= t('.destroy', :default => t("helpers.links.destroy")) %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
+<%= paginate @category_products %>
 
-<br>
-
-<%= link_to 'New Category Product', new_category_product_path %>

@@ -1,15 +1,23 @@
-
-<%= simple_form_for(@cred_card) do |f| %>
+<%= simple_nested_form_for(@cred_card) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :catd_final %>
-    <%= f.input :valid %>
+  <% if @cred_card.errors.full_messages.any? %>
+    <ul>
+      <% @cred_card.errors.full_messages.each do |error_message| %>
+        <li class="alert alert-danger">
+          <%= error_message if @cred_card.errors.full_messages.first == error_message %> <br />
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class="row">
+    <div class="col-lg-4">
+      <%= f.input :name %>
+      <%= f.input :card_final, input_html: { class: 'dig_card' } %>
+      <%= f.input :valid_card, input_html: { class: 'date_card' } %>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <hr>
+  <%= f.button :submit, class: 'btn btn-success' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")), cred_cards_path, class: 'btn btn-danger' %>
 <% end %>

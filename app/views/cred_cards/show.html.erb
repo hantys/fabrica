@@ -1,19 +1,40 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = CredCard -%>
+<div class="page-header d-flex flex-row justify-content-start align-items-center flex-wrap w-100">
+  <h1><strong><%=t '.title', :default => model_class.model_name.human.titleize %></strong></h1>
+  <% unless @modal %>
+    <div class="d-flex flex-row justify-content-start align-items-center ml-sm-0 ml-md-auto ml-lg-auto">
+      <%= link_to t('.back', :default => t("helpers.links.back")),
+                    cred_cards_path, :class => 'btn btn-secondary' %>
+      <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                    edit_cred_card_path(@cred_card), :class => 'btn btn-primary ml-2' %>
+      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                    cred_card_path(@cred_card),
+                    :method => 'delete',
+                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                    :class => 'btn btn-danger ml-2' %>
+    </div>
+  <% end %>
+</div>
+<div class="row mt-4 mb-4">
+  <div class="col-sm-12 col-lg-4 col-md-12">
+    <p>
+      <strong>
+        <%= model_class.human_attribute_name(:name) %>:
+      </strong>
+      <%= @cred_card.name %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:card_final) %>:
+      </strong>
+      <%= @cred_card.card_final %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:valid_card) %>:
+      </strong>
+      <%= @cred_card.valid_card %>
+      <hr>
+    </p>
+  </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @cred_card.name %>
-</p>
 
-<p>
-  <strong>Catd final:</strong>
-  <%= @cred_card.catd_final %>
-</p>
-
-<p>
-  <strong>Valid:</strong>
-  <%= @cred_card.valid %>
-</p>
-
-<%= link_to 'Edit', edit_cred_card_path(@cred_card) %> |
-<%= link_to 'Back', cred_cards_path %>

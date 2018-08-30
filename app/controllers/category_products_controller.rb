@@ -1,15 +1,19 @@
 class CategoryProductsController < ApplicationController
   before_action :set_category_product, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /category_products
   # GET /category_products.json
   def index
-    @category_products = CategoryProduct.all
+    @category_products = CategoryProduct.accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /category_products/1
   # GET /category_products/1.json
   def show
+    if params[:modal] == 'true'
+      @modal = true
+      render :show, layout: false
+    end
   end
 
   # GET /category_products/new
@@ -28,7 +32,7 @@ class CategoryProductsController < ApplicationController
 
     respond_to do |format|
       if @category_product.save
-        format.html { redirect_to @category_product, notice: 'Category product was successfully created.' }
+        format.html { redirect_to @category_product, notice: 'Categoria do produto criada com  sucesso.' }
         format.json { render :show, status: :created, location: @category_product }
       else
         format.html { render :new }
@@ -42,7 +46,7 @@ class CategoryProductsController < ApplicationController
   def update
     respond_to do |format|
       if @category_product.update(category_product_params)
-        format.html { redirect_to @category_product, notice: 'Category product was successfully updated.' }
+        format.html { redirect_to @category_product, notice: 'Categoria do produto atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @category_product }
       else
         format.html { render :edit }
@@ -56,7 +60,7 @@ class CategoryProductsController < ApplicationController
   def destroy
     @category_product.destroy
     respond_to do |format|
-      format.html { redirect_to category_products_url, notice: 'Category product was successfully destroyed.' }
+      format.html { redirect_to category_products_url, notice: 'Categoria do produto apagada com sucesso.' }
       format.json { head :no_content }
     end
   end
