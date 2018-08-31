@@ -14,23 +14,19 @@ class BillPayable < ApplicationRecord
 
   has_paper_trail
 
+  validate :verify_total
   validates :total_value, numericality: { greater_than: 0 }
   validates :total_value, presence: true
   validates :bill_payable_installments, presence: true
 
-  before_create :verify_total
   before_update :set_partial_value
   after_update :set_value
   after_create :set_value_create
 
   def verify_total
-    ## valor vem zerado. corigir
-    value_item = self.bill_payable_installments.sum(:value).round(2)
-    puts "***************************************"
-    puts value_item
-    puts (provider_contract.total_value - provider_contract.partil_value)
-    puts value_item > (provider_contract.total_value - provider_contract.partil_value)
-    provider_contract = ProviderContract.find self.provider_contract_id
+    value_item = 0
+    self.bill_payable_installments.map { |e| value_item += e.value  }
+
     if value_item > (provider_contract.total_value - provider_contract.partil_value)
       errors.add :total_value, "Não pode ser menos que a soma das parcelas."
       false

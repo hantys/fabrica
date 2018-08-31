@@ -13,8 +13,9 @@ jQuery ->
   $(document).on 'nested:fieldAdded:bill_payable_installments', (event) ->
     init_all_js_basic()
     # this field was just inserted into your form
-    # field = event.field
-    # file_update = field.find('.update_file_by_icon')
+    field = event.field
+    date_input = field.find('.datepicker-here')
+    date_input.datepicker()
     # file_name = field.find('.file-name')
     # icon_file = field.find('.icon-file')
 
