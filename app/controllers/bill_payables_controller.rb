@@ -11,6 +11,8 @@ class BillPayablesController < ApplicationController
   end
 
   def pays
+    # people = { 1 => { name: "David" }, 2 => { name: "Jeremy" }, 3 => { name: "pedro" } }
+    # Category.update(people.keys, people.values)
     @pays = BillPayableInstallment.where(id: params[:pagar])
     # render json: {pays: @pays.pluck(:id), count: @pays.size}
   end
