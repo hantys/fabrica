@@ -60,7 +60,7 @@ class ProviderContractsController < ApplicationController
   def update
     respond_to do |format|
       if @provider_contract.update(provider_contract_params)
-        format.html { redirect_to @provider_contract, notice: 'Provider contract was successfully updated.' }
+        format.html { redirect_to @provider_contract, notice: 'Contrato atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @provider_contract }
       else
         format.html { render :edit }
@@ -72,9 +72,13 @@ class ProviderContractsController < ApplicationController
   # DELETE /provider_contracts/1
   # DELETE /provider_contracts/1.json
   def destroy
-    @provider_contract.destroy
+    if @provider_contract.destroy
+      flash[:notice] = 'Contrato apagado com sucesso.'
+    else
+      flash[:error] = @provider_contract.errors[:base].to_sentence
+    end
     respond_to do |format|
-      format.html { redirect_to provider_contracts_url, notice: 'Provider contract was successfully destroyed.' }
+      format.html { redirect_to provider_contracts_url }
       format.json { head :no_content }
     end
   end

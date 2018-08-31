@@ -7,7 +7,7 @@ class BillPayablesController < ApplicationController
   def index
     @q = BillPayable.ransack(params[:q])
 
-    @bill_payables = @q.result.includes(:provider_contract, :category, :revenue).accessible_by(current_ability).order(id: :desc).page(params[:page])
+    @bill_payables = @q.result.includes(:provider_contract, :category, :revenue, :bill_payable_installments).accessible_by(current_ability).order(id: :desc).page(params[:page])
   end
 
   def pays
@@ -76,9 +76,13 @@ class BillPayablesController < ApplicationController
   # DELETE /bill_payables/1
   # DELETE /bill_payables/1.json
   def destroy
-    @bill_payable.destroy
+    if @bill_payable.destroy
+      flash[:notice] = 'Conta a pagar apagada com sucesso.'
+    else
+      flash[:error] = @bill_payable.errors[:base].to_sentence
+    end
     respond_to do |format|
-      format.html { redirect_to bill_payables_url, notice: 'Conta a pagar Apagada com sucesso.' }
+      format.html { redirect_to bill_payables_url }
       format.json { head :no_content }
     end
   end

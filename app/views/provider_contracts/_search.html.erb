@@ -4,7 +4,7 @@
   <div class="row justify-content-md-center">
     <div class="col-4">
       <%= f.input :name_cont, label: model_class.human_attribute_name(:name), placeholder: 'Ex: Transporte de PVC', required: false %>
-      <%= f.input :status_eq, label: model_class.human_attribute_name(:status), as: :select, placeholder: 'code', :as => :select, :collection => ProviderContract.statuses.map {|x| [t("enums.budget.status.#{x[0]}"), x[1]]}.sort_by {|a,b| a }, :include_blank => "Todas", input_html: {class: 'simple-select2'}, required: false %>
+      <%= f.input :status_eq, label: model_class.human_attribute_name(:status), as: :select, placeholder: 'code', :as => :select, :collection => ProviderContract.statuses.map {|x| [t("enums.provider_contract.status.#{x[0]}"), x[1]]}.sort_by {|a,b| a }, :include_blank => "Todas", input_html: {class: 'simple-select2'}, required: false %>
     </div>
     <div class="col-4">
       <%= f.input :created_at_gteq, label: "#{model_class.human_attribute_name(:created_at)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>

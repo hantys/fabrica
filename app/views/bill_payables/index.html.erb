@@ -28,7 +28,7 @@
           <th scope="col"><%= sort_link @q, :revenue, model_class.human_attribute_name(:revenue), default_order: :desc %></th>
           <th scope="col"><%= sort_link @q, :status, model_class.human_attribute_name(:status), default_order: :desc %></th>
           <th scope="col"><%= sort_link @q, :total_value, model_class.human_attribute_name(:total_value), default_order: :desc %></th>
-          <th scope="col"><%= sort_link @q, :created_at, model_class.human_attribute_name(:created_at), default_order: :desc %></th>
+          <th scope="col"><%= sort_link @q, :due_date, model_class.human_attribute_name(:due_date), default_order: :desc %></th>
           <th scope="col" class="d-print-none text-center">Selecione</th>
           <th scope="col" class="d-print-none text-center"><%=t '.actions', :default => t("helpers.actions") %></th>
         </tr>
@@ -41,9 +41,9 @@
             <td><%= link_to_modal bill_payable.provider_contract.name, provider_contract_path(bill_payable.provider_contract), class: 'text-dark' %></td>
             <td><%= bill_payable.category %></td>
             <td><%= bill_payable.revenue %></td>
-            <td><%= bill_payable.status %></td>
+            <td><%= label_status_bp bill_payable %></td>
             <td><%= number_to_currency bill_payable.total_value %></td>
-            <td><%= bill_payable.created_at %></td>
+            <td><%= bill_payable.due_date %></td>
             <% pays = bill_payable.bill_payable_installments.where(status: 0).order(:date) %>
             <% if pays.present? %>
               <% pay = pays.first %>

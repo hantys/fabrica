@@ -102,6 +102,7 @@ pt-BR:
         revenue: Faturamento
         obs: Observação
         file: Arquivo
+        due_date: Vencimento
         bill_payable_installments: Parcelas
         total_value: Valor Total
         created_at: Criado em
