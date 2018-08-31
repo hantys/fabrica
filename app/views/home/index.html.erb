@@ -8,7 +8,7 @@
       <li class="mb-2"><%= link_to t('.title', :default => Budget.model_name.human.titleize), budgets_path, class: "btn btn-info" %></li>
     </ul>
   </div>
-
+<% if false %>
   <div class="col border-left border-dark">
     <legend>Pagamentos e Contratos (Criar novo)</legend>
     <ul>
@@ -17,9 +17,9 @@
       <li class="mb-2"><%= link_to t('.title', :default => ProviderContract.model_name.human.titleize), new_provider_contract_path, class: "btn btn-info" %></li>
     </ul>
   </div>
-
   <div class="col border-left border-dark">
   </div>
+<% end %>
 </div>
 <hr>
 <div class="row">

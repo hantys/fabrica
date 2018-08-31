@@ -19,7 +19,8 @@
       <% end %>
 
       <!-- pagamentos  -->
-      <% if (can? :read, RawMaterial) or (can? :read, Product) %>
+      <%# if (can? :read, RawMaterial) or (can? :read, Product) %>
+      <% if false %>
         <li class='nav-item dropdown <%= " #{active_class(provider_contracts_path)} #{active_class(bill_receivables_path)} #{active_class(bill_payables_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pagamentos e Contratos</a>
           <div class="dropdown-menu hasDropboxAnimation">
