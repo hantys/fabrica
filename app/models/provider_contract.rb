@@ -25,7 +25,7 @@ class ProviderContract < ApplicationRecord
   private
     def verify_total
       value_item = 0
-      self.item_provider_contracts.map { |e| value_item += e.value  }
+      self.item_provider_contracts.map { |e| value_item = value_item + e.value  }
       self.total_value = value_item
       if value_item < self.partil_value
         errors.add :total_value, "Não pode ser menos que #{self.partil_value}."

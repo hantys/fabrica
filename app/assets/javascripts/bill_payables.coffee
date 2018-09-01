@@ -3,8 +3,18 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
   $("#select_all").click ->
+    count = 0
     $(".styled").each ->
-      $(this).attr("checked", !$(this).attr("checked"))
+      $(this).prop("checked", !$(this).prop("checked"))
+      if $(this).prop("checked")
+        count =+ 1
+        $("#check_#{$(this).prop("id")}").html('check_box')
+      else
+        $("#check_#{$(this).prop("id")}").html('check_box_outline_blank')
+    if count > 0
+      $(".pay_all").prop("disabled", false)
+    else
+      $(".pay_all").prop("disabled", true)
 
   $('#bill_payable_provider_contract_id').change ->
     $.getJSON "/provider_contracts/#{$(this).val()}", {modal: 'true'}, (data) ->
@@ -41,3 +51,18 @@ jQuery ->
     $("##{id}").mask '00000.00000 00000.000000 00000.000000 0 00000000000000', reverse: false
   else
     $("##{id}").mask '00000000000-0 00000000000-0 00000000000-0 00000000000-0', reverse: false
+
+@change_check_pay=(object)->
+  $("##{object}").prop('checked', !$("##{object}").prop('checked'))
+  if $("##{object}").prop("checked")
+    count =+ 1
+    $("#check_#{$("##{object}").prop("id")}").html('check_box')
+  else
+    $("#check_#{$("##{object}").prop("id")}").html('check_box_outline_blank')
+  $(".styled").each ->
+    if $(this).prop("checked")
+      count =+ 1
+  if count > 0
+    $(".pay_all").prop("disabled", false)
+  else
+    $(".pay_all").prop("disabled", true)

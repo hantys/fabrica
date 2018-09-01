@@ -116,6 +116,8 @@ pt-BR:
         cred_card_id: Cartão
         bank_name: Banco
         type_payment: Tipo de pagamento
+        interest: Juros em R$
+        payday: Pago Em
         cc: Conta
         ag: Agência
         op: Variação

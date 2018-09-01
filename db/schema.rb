@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_31_130358) do
+ActiveRecord::Schema.define(version: 2018_09_01_121821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2018_08_31_130358) do
     t.string "op"
     t.date "date"
     t.date "payday"
+    t.float "interest", default: 0.0
     t.index ["bank_id"], name: "index_bill_payable_installments_on_bank_id"
     t.index ["bill_payable_id"], name: "index_bill_payable_installments_on_bill_payable_id"
     t.index ["cred_card_id"], name: "index_bill_payable_installments_on_cred_card_id"

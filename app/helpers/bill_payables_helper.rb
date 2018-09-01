@@ -5,7 +5,6 @@ module BillPayablesHelper
     status = bill_payable.status
 
     bill_payable.due_date_verify
-    bill_payable.check_status
 
     if status != bill_payable.status
       bill_payable.save

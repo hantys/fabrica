@@ -57,7 +57,7 @@
       <p><%= f.link_to_add "Adicionar Item", :item_provider_contracts, :data => { :target => "#item_provider_contracts" }, class: 'btn btn-outline-primary' %></p>
       <hr>
 
-      <%= f.input :total_value, wrapper_html: {class: 'w-25'}, disabled: true %>
+      <%= f.input :total_value, wrapper_html: {class: 'w-25'}, readonly: true %>
       <hr>
       <legend>Associar Pedidos</legend>
       <div id="budget_provider_contracts">

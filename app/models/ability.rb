@@ -13,59 +13,59 @@ class Ability
     # can :manage, :all if user.has_role? :admin
     if user.has_role? :admin
       can :crud, :all
+      # pagamento
       can :pays, BillPayable
       can :pay_item, BillPayable
+      can :pay_item_update, BillPayable
+      # orcamento
       can :budget_pdf, Budget
       can :order_service, Budget
       can :update_status, Budget
-      can :product_cod, Product
       cannot [:update, :destroy], Budget, status: [3,4]
+      # produto
+      can :product_cod, Product
+      # relatorios
       can :reports_admin, :report
+      # home
       can :home_access, :home
     end
     if user.has_role? :manager
+      can :crud, :all
+      # pagamento
       can :pays, BillPayable
       can :pay_item, BillPayable
+      can :pay_item_update, BillPayable
+      # orcamento
       can :update_status, Budget
-      can :crud, :all
-      can :product_cod, Product
-      cannot [:create, :read, :update, :destroy], DeliveryOption
-      cannot [:create, :read, :update, :destroy], TypeOfPayment
       can :budget_pdf, Budget
       can :order_service, Budget
       cannot [:update, :destroy], Budget, status: [3,4]
+      # produto
+      can :product_cod, Product
+      # sistema
+      cannot [:create, :read, :update, :destroy], DeliveryOption
+      cannot [:create, :read, :update, :destroy], TypeOfPayment
+      # relatorios
       can :reports_manager, :report
+      # home
       can :home_access, :home
     end
     if user.has_role? :representative
+      # orcamento
       can [:read, :update, :destroy], Budget, employee_id: user.employee.id
       can :budget_pdf, Budget
-      can :read, [Product]
-      can :product_cod, Product
-      can [:read, :update], Client, employee_id: user.employee.id
-      can :create, [Budget, Client]
-      can [:read, :update], User, id: user.id
       can :update_status, Budget, status: [0]
       cannot [:update, :destroy], Budget, status: [3,4]
+      # produto
+      can :read, [Product]
+      can :product_cod, Product
+      # cliente
+      can [:read, :update], Client, employee_id: user.employee.id
+      can :create, [Budget, Client]
+      # usuario
+      can [:read, :update], User, id: user.id
+      # home
       can :home_access, :home
     end
-    #
-    # The first argument to `can` is the action you are giving the user
-    # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
-    # here are :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on.
-    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
-    # class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the
-    # objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details:
-    # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
   end
 end

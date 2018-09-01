@@ -1,0 +1,52 @@
+<%= simple_nested_form_for(@bill_payable, :url => pay_item_update_path(@pay.id), :method => :put, remote: @modal) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <% if @bill_payable.errors[:bill_payable_installments].present? %>
+    <legend class="alert alert-danger">
+      <small class=""><%= @bill_payable.errors.full_messages.first %></small>
+    </legend>
+  <% end %>
+  <div id="bill_payable_installments">
+    <%= f.fields_for :bill_payable_installments do |bill_payable_installments_form| %>
+      <% if bill_payable_installments_form.object.id == @pay.id %>
+        <div class="card card-body mb-3">
+          <div class="row">
+            <div class="col-lg-8">
+              <span class="change_icon_file">
+                <span class="badge badge-success file-name"><%= bill_payable_installments_form.object.file.file.identifier if bill_payable_installments_form.object.file.present? %></span>
+                <div class="d-flex flex-row bd-highlight mb-3">
+                  <i class="material-icons p-2 bd-highlight">
+                  <span class="icon-file badge <%= bill_payable_installments_form.object.file.present? ? 'badge-success' : 'badge-danger' %> ">
+                    <%= bill_payable_installments_form.object.file.present? ? 'cloud_done' : 'cloud' %>
+                  </span>
+                  </i>
+                  <%= bill_payable_installments_form.input :file, label: false, input_html: { class: 'p-2 bd-highlight update_file_by_icon', onchange: "change_icon_file($(this));" } %>
+                </div>
+                <%= bill_payable_installments_form.hidden_field :file_cache %>
+                <label class="form-control-label float optional d-lg-none d-xl-none">  </label>
+                <%= bill_payable_installments_form.link_to_remove "Remover parcela", class: 'btn btn-outline-danger form-control float optional mt-2 d-lg-none d-xl-none' %>
+              </span>
+            <script>
+              $('.datepicker-here').datepicker({
+
+                  minDate: new Date() // Now can select only dates, which goes after today
+              })
+            </script>
+            <style>
+              .datepicker{z-index:1151 !important;}
+            </style>
+              <%= bill_payable_installments_form.input :payday, as: :string, required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'}, value: Date.today } %>
+              <%= bill_payable_installments_form.input :interest %>
+              <%= bill_payable_installments_form.input :status, as: :hidden, input_html: { value: 'paid' } %>
+              <%= hidden_field_tag :modal, @modal  %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <hr>
+  <%= f.button :submit, "Pagar", class: 'btn btn-success ' %>
+<% end %>

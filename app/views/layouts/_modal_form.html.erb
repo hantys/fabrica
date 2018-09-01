@@ -1,5 +1,5 @@
 <div class="modal fade mt-5" id="form_object" tabindex="-1" role="dialog" aria-labelledby="form_objectLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-<%= @modal_size.present? ? @modal_size : 'xl' %>" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="form_objectLabel"></h5>

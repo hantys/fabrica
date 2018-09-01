@@ -22,35 +22,30 @@ class BillPayable < ApplicationRecord
   validates :total_value, presence: true
   validates :bill_payable_installments, presence: true
 
-  before_update :set_partial_value
-  after_update :set_value
-  after_create :set_value_create
   before_create :set_due_date_and_status
-  before_update :due_date_verify
-  before_update :check_status
+  after_create :set_value_create
 
-  def check_status
-    # self.due_date_verify
-    if self.status == 'pending' or self.status == 'late'
-      if self.due_date < Date.today
-        self.status = 1
-      else
-        self.status = 0
-      end
-    end
-  end
+  before_update :set_partial_value
+  before_update :due_date_verify
+  after_update :set_value
 
   def due_date_verify
     data = []
     check = true
     self.bill_payable_installments.map do |e|
-      data << e.date
       if e.status == 'pending'
+        data << e.date
         check = false
       end
     end
-    self.due_date = data.sort.first
-    if self.due_date < Date.today
+    if data.present?
+      self.due_date = data.sort.first
+      if self.due_date < Date.today
+        self.status = 1
+      else
+        self.status = 0
+      end
+    else
       if check
         self.status = 2
       end

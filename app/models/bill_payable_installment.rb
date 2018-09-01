@@ -11,6 +11,9 @@ class BillPayableInstallment < ApplicationRecord
 
   has_paper_trail
 
+  validates :payday, presence: true, if: Proc.new{|item| item.status == 'paid' }
+  validates :file, presence: true, if: Proc.new{|item| item.status == 'paid' }
+
   validates :code, length: {is: 55}, if: Proc.new{|item| ((item.billet == false) and item.billet?) }
   validates :code, length: {is: 54}, if: Proc.new{|item| ((item.billet == true) and item.billet?) }
   validates :code, uniqueness: true, allow_nil: true, allow_blank: true, if: Proc.new{|item| (item.billet?) }

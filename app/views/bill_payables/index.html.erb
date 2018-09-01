@@ -13,7 +13,7 @@
     </div>
     <div class="mb-2">
       <%= link_to "Selecionar todos", "javascript:;", :id => "select_all", :class => 'btn btn-info d-print-none' -%>
-      <%= submit_tag "Pagar selecionados", :class => 'btn btn-success d-print-none' %>
+      <%= submit_tag "Pagar selecionados", :class => 'btn btn-success d-print-none pay_all', disabled: true %>
     </div>
   </div>
 <%= paginate @bill_payables %>
@@ -36,36 +36,8 @@
 
       <tbody>
         <% @bill_payables.each do |bill_payable| %>
-          <tr>
-            <td scope="row"><%= link_to bill_payable.id, bill_payable %></td>
-            <td><%= link_to_modal bill_payable.provider_contract.name, provider_contract_path(bill_payable.provider_contract), class: 'text-dark' %></td>
-            <td><%= bill_payable.category %></td>
-            <td><%= bill_payable.revenue %></td>
-            <td><%= label_status_bp bill_payable %></td>
-            <td><%= number_to_currency bill_payable.total_value %></td>
-            <td><%= bill_payable.due_date %></td>
-            <% pays = bill_payable.bill_payable_installments.where(status: 0).order(:date) %>
-            <% if pays.present? %>
-              <% pay = pays.first %>
-              <td class="d-print-none text-center" onclick="$('#pay_<%= pay.id %>').attr('checked', !$('#pay_<%= pay.id %>').attr('checked'));">
-                <%= check_box_tag "pagar[]", pay.id, false , :class=>"styled", id: "pay_#{pay.id}" %>
-              </td>
-            <% end %>
-            <td class="d-print-none text-center">
-              <%= link_to_modal_form "Pagar", pay_item_path(pay), class: 'btn btn-outline-success' if pays.present? %>
-              <%#= link_to bill_payable, class: 'btn btn-info has-icon' do %>
-                <!-- <i class="material-icons">remove_red_eye</i> -->
-                <%#= t('.show', :default => t("helpers.links.show")) %>
-              <%# end %>
-              <%= link_to edit_bill_payable_path(bill_payable), class: 'btn btn-primary has-icon' do %>
-                <!-- <i class="material-icons">edit</i> -->
-                <%= t('.edit', :default => t("helpers.links.edit")) %>
-              <% end %>
-              <%= link_to bill_payable, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
-                <!-- <i class="material-icons">delete</i> -->
-                <%= t('.destroy', :default => t("helpers.links.destroy")) %>
-              <% end %>
-            </td>
+          <tr id="bill_payable-item-<% bill_payable.id %>">
+            <%= render 'bill_payable_item', bill_payable: bill_payable %>
           </tr>
         <% end %>
       </tbody>

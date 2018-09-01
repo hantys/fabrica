@@ -76,7 +76,11 @@
       <ul>
         <% @bill_payable.bill_payable_installments.each do |bill_payable_installment| %>
           <li>
-            <%= bill_payable_installment.type_payment_i18n %>
+            <%= bill_payable_installment.type_payment_i18n %> <br>
+            <%= bill_payable_installment.status_i18n %> <br>
+            <%= bill_payable_installment.date %> <br>
+            <%= bill_payable_installment.interest %> <br>
+            <%= bill_payable_installment.payday %> <br>
             <%= link_to bill_payable_installment.file_identifier, bill_payable_installment.file.url, download: bill_payable_installment.file_identifier if bill_payable_installment.file.present? %>
           </li>
         <% end %>
