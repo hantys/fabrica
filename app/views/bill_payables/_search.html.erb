@@ -3,7 +3,7 @@
   <h3>Busca</h3>
   <div class="row justify-content-md-center">
     <div class="col-4">
-      <%= f.input :provider_contract_name_cont, label: model_class.human_attribute_name(:provider_contract_name), placeholder: 'Ex: Transporte de PVC', required: false %>
+      <%= f.input :provider_contract_name_cont, label: model_class.human_attribute_name(:provider_contract), placeholder: 'Ex: Transporte de PVC', required: false %>
       <%= f.input :status_eq, label: model_class.human_attribute_name(:status), as: :select, placeholder: 'code', :as => :select, :collection => BillPayable.statuses.map {|x| [t("enums.bill_payable.status.#{x[0]}"), x[1]]}.sort_by {|a,b| a }, :include_blank => "Todas", input_html: {class: 'simple-select2'}, required: false %>
     </div>
     <div class="col-4">
