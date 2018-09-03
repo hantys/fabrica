@@ -18,6 +18,7 @@ class Ability
       can :pay_item, BillPayable
       can :pay_item_update, BillPayable
       # orcamento
+      can :reserve_all_budget, Budget
       can :budget_pdf, Budget
       can :order_service, Budget
       can :update_status, Budget
@@ -36,6 +37,7 @@ class Ability
       can :pay_item, BillPayable
       can :pay_item_update, BillPayable
       # orcamento
+      can :reserve_all_budget, Budget
       can :update_status, Budget
       can :budget_pdf, Budget
       can :order_service, Budget

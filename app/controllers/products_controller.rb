@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @q = Product.ransack(params[:q])
-    @products = @q.result.accessible_by(current_ability).order(id: :desc).page params[:page]
+    @products = @q.result.accessible_by(current_ability).includes(:category_product).order(id: :desc).page params[:page]
   end
 
   # GET /products/1

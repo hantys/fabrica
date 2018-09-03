@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2018_09_01_121821) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.date "due_date"
+    t.float "interest", default: 0.0
     t.index ["category_id"], name: "index_bill_payables_on_category_id"
     t.index ["deleted_at"], name: "index_bill_payables_on_deleted_at"
     t.index ["due_date"], name: "index_bill_payables_on_due_date"
@@ -163,6 +164,7 @@ ActiveRecord::Schema.define(version: 2018_09_01_121821) do
     t.bigint "sub_type_payment_id"
     t.bigint "sub_delivery_option_id"
     t.text "obs", default: ""
+    t.boolean "reserve", default: false
     t.index ["client_id"], name: "index_budgets_on_client_id"
     t.index ["deleted_at"], name: "index_budgets_on_deleted_at"
     t.index ["delivery_option_id"], name: "index_budgets_on_delivery_option_id"

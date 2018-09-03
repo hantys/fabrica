@@ -48,6 +48,27 @@ class Budget < ApplicationRecord
     end
   end
 
+  def reserve_all
+    begin
+      ActiveRecord::Base.transaction do
+        if self.reserve
+          self.budget_products.each do |budget_product|
+            budget_product.update reserve_qnt: 0
+          end
+          self.update reserve: false
+        else
+          self.budget_products.each do |budget_product|
+            budget_product.update reserve_qnt: budget_product.qnt
+          end
+          self.update reserve: true
+        end
+      end
+      return true
+    rescue Exception => e
+      return false
+    end
+  end
+
   def billed_budget
     begin
       ActiveRecord::Base.transaction do

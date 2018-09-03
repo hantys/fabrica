@@ -32,6 +32,8 @@ Rails.application.routes.draw do
 
   put '/reserve_product/:id' => 'budgets#updated_reserve_product', as: :reserve_product
 
+  get '/reserve_all_budget/:id' => 'budgets#reserve_all_budget', as: :reserve_all_budget
+
   scope '/relatorio' do
     get '/producao-diaria' => "reports#daily_production", as: :daily_production
   end

@@ -98,10 +98,15 @@ class BillPayable < ApplicationRecord
     def set_value
       total_bill = self.total_value.round(2)
       value_item = self.bill_payable_installments.sum(:value).round(2)
+      interest_item = self.bill_payable_installments.sum(:interest).round(2)
         ActiveRecord::Base.transaction do
           unless total_bill == value_item
             self.update total_value: value_item
           end
+          unless self.interest == interest_item
+            self.update interest: interest_item
+          end
+
           provider_contract = self.provider_contract
           provider_contract.update partil_value: (provider_contract.partil_value + value_item)
         end

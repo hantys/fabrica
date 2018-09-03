@@ -8,16 +8,11 @@ TO DO
 - Botao novo em todos os shows
 - Criar relatorio de orcamentos
 
-- Produtos criar categorias
-- quando pagar possibilidade de juros
 - pagamentos multiplos e pagina de anexo
-- Reservar orcamento completo
+
 - Cadastro de inventario
 - Criar sistema de viagens com vinculacao aos orcamentos
 
-- revisar textos dos controller em criar/atualizar/deletar
-- validacoes de contas a pgar e contrato com fornecedor referentes ao valor
-- alterar contas a pagar nao herda de pedidos
 - Criar Contas a receber  bill_receivable
 	* tipo
 		º orcamento
@@ -44,6 +39,12 @@ TO DO
 
 
 DONE
+- revisar textos dos controller em criar/atualizar/deletar
+- Reservar orcamento completo
+- quando pagar possibilidade de juros
+- Produtos criar categorias
+- validacoes de contas a pgar e contrato com fornecedor referentes ao valor
+- alterar contas a pagar nao herda de pedidos
 - Ordem de serviço (igual ao gerar pdf so que sem valores)
 - Muda nome orcamento p pedidos
 - Criar Contas a Pagar - bill_payable_ installment
@@ -78,6 +79,8 @@ DONE
 		º anexo
 		º data
 		º valor
+
+
 - Add obs quando for autorizar
 * Tirar confidencial do nacional
 * Busca na producao diaria

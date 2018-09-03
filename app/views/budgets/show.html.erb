@@ -119,7 +119,13 @@
     </p>
   </div>
 </div>
-<legend><%= model_class.human_attribute_name(:budget_products) %></legend>
+
+<div class="d-flex flex-row">
+  <legend><%= model_class.human_attribute_name(:budget_products) %>
+    <%= link_to @budget.reserve ? "Libera da reserva" : "Reservar todos", reserve_all_budget_path(@budget), class: "btn btn-#{@budget.reserve ? 'outline-success' : "warning"}" %>
+  </legend>
+</div>
+
 <div class="table-responsive">
   <table class="table table-bordered">
     <thead>

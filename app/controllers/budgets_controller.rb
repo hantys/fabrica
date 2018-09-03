@@ -39,6 +39,16 @@ class BudgetsController < ApplicationController
     end
   end
 
+  def reserve_all_budget
+    budget = Budget.find params[:id]
+    if budget.reserve_all
+      flash[:success] = 'Alteração na reserva realizada com sucesso!'
+    else
+      flash[:error] = 'Alteração na reserva não pode ser feita. Tente novamente'
+    end
+    redirect_back(fallback_location: root_path)
+  end
+
   def update_status
     @budget = Budget.find params[:id]
     if @budget.status == 'waiting'
