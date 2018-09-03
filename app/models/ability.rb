@@ -15,6 +15,7 @@ class Ability
       can :crud, :all
       # pagamento
       can :pays, BillPayable
+      can :pays_update, BillPayable
       can :pay_item, BillPayable
       can :pay_item_update, BillPayable
       # orcamento

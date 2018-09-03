@@ -24,8 +24,7 @@
                   <%= bill_payable_installments_form.input :file, label: false, input_html: { class: 'p-2 bd-highlight update_file_by_icon', onchange: "change_icon_file($(this));" } %>
                 </div>
                 <%= bill_payable_installments_form.hidden_field :file_cache %>
-                <label class="form-control-label float optional d-lg-none d-xl-none">  </label>
-                <%= bill_payable_installments_form.link_to_remove "Remover parcela", class: 'btn btn-outline-danger form-control float optional mt-2 d-lg-none d-xl-none' %>
+
               </span>
             <script>
               $('.datepicker-here').datepicker({

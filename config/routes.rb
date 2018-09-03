@@ -24,9 +24,10 @@ Rails.application.routes.draw do
   resources :raw_materials
 
   put '/contas_a_pagar/item/pagar/:item_id', to: 'bill_payables#pay_item_update', as: :pay_item_update
+  get '/contas_a_pagar/item/pagar/:item_id', to: 'bill_payables#pay_item', as: :pay_item
 
   post '/contas_a_pagar/paga_itens', to: 'bill_payables#pays', as: :pays
-  get '/contas_a_pagar/item/pagar/:item_id', to: 'bill_payables#pay_item', as: :pay_item
+  put '/contas_a_pagar/paga_itens', to: 'bill_payables#pays_update', as: :pays_update
 
   get "/product/cod/:cod", to: 'products#product_cod', as: :product_cod
 

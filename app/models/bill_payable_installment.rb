@@ -13,6 +13,7 @@ class BillPayableInstallment < ApplicationRecord
 
   validates :payday, presence: true, if: Proc.new{|item| item.status == 'paid' }
   validates :file, presence: true, if: Proc.new{|item| item.status == 'paid' }
+  validates :interest, numericality: { greater_than_or_equal_to: 0 }, if: Proc.new{|item| item.status == 'paid' }
 
   validates :code, length: {is: 55}, if: Proc.new{|item| ((item.billet == false) and item.billet?) }
   validates :code, length: {is: 54}, if: Proc.new{|item| ((item.billet == true) and item.billet?) }

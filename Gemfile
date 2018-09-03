@@ -59,7 +59,7 @@ end
 group :development do
   # gem 'web-console' #https://github.com/rails/web-console#usage
   gem 'better_errors' #https://github.com/charliesome/better_errors/wiki/Link-to-your-editor
-
+  gem 'binding_of_caller'
   gem 'mina'
   gem 'mina-puma'
   gem 'mina-multistage', require: false

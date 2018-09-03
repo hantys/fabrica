@@ -9,6 +9,8 @@ TO DO
 - Criar relatorio de orcamentos
 
 - pagamentos multiplos e pagina de anexo
+- puxar categoria/faturamento do contrato com fornecedor
+- puxa banco do fornecedor
 
 - Cadastro de inventario
 - Criar sistema de viagens com vinculacao aos orcamentos

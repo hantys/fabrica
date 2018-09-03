@@ -12,10 +12,24 @@ class BillPayablesController < ApplicationController
   end
 
   def pays
-    # people = { 1 => { name: "David" }, 2 => { name: "Jeremy" }, 3 => { name: "pedro" } }
-    # Category.update(people.keys, people.values)
     @pays = BillPayableInstallment.where(id: params[:pagar])
     # render json: {pays: @pays.pluck(:id), count: @pays.size}
+  end
+
+  def pays_update
+    pays = params[:pays]
+    @pays = BillPayableInstallment.update(pays.keys, pays.values)
+    aux = true
+    @pays.each do |e|
+      if e.errors.present?
+        aux = false
+      end
+    end
+    if aux
+      redirect_to bill_payables_url, success: 'Parcelas pagas com sucesso.'
+    else
+      render :pays
+    end
   end
 
   def pay_item
