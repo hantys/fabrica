@@ -23,6 +23,14 @@ Rails.application.routes.draw do
   resources :compositions
   resources :raw_materials
 
+  # contas a receber
+  put '/contas_a_receber/item/receber/:item_id', to: 'bill_receivables#receive_item_update', as: :receive_item_update
+  get '/contas_a_receber/item/receber/:item_id', to: 'bill_receivables#receive_item', as: :receive_item
+
+  post '/contas_a_receber/receber_itens', to: 'bill_receivables#receives', as: :receives
+  put '/contas_a_receber/receber_itens', to: 'bill_receivables#receives_update', as: :receives_update
+
+  # contas a pagar
   put '/contas_a_pagar/item/pagar/:item_id', to: 'bill_payables#pay_item_update', as: :pay_item_update
   get '/contas_a_pagar/item/pagar/:item_id', to: 'bill_payables#pay_item', as: :pay_item
 

@@ -8,13 +8,18 @@ TO DO
 - Botao novo em todos os shows
 - Criar relatorio de orcamentos
 
-- pagamentos multiplos e pagina de anexo
 - puxar categoria/faturamento do contrato com fornecedor
 - puxa banco do fornecedor
 
 - Cadastro de inventario
 - Criar sistema de viagens com vinculacao aos orcamentos
 
+
+- TODOS OS  ORÇAMENTOS:
+	* RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
+
+
+DONE
 - Criar Contas a receber  bill_receivable
 	* tipo
 		º orcamento
@@ -35,12 +40,7 @@ TO DO
 		º status
 	* status
 	* total pago (ex: R$200,00 de R$1000,00)
-
-- TODOS OS  ORÇAMENTOS:
-	* RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
-
-
-DONE
+- pagamentos multiplos e pagina de anexo
 - revisar textos dos controller em criar/atualizar/deletar
 - Reservar orcamento completo
 - quando pagar possibilidade de juros

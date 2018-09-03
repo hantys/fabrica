@@ -1,15 +1,41 @@
+<%- model_class = BillReceivable -%>
 <td scope="row"><%= link_to bill_receivable.id, bill_receivable %></td>
-<td><%= link_to_modal bill_receivable.budget.code_name, budget_path(bill_receivable.budget), class: 'text-dark' %></td>
+<td>
+  <% if bill_receivable.type_receivable == 'budget' %>
+    <%= link_to_modal bill_receivable.budget.cod_name, budget_path(bill_receivable.budget), class: 'text-dark' %>
+  <% else %>
+    <ul class="list-unstyled">
+      <li>
+        <strong>
+          <%= model_class.human_attribute_name(:name_other) %>:
+        </strong>
+        <%= bill_receivable.name_other %>
+      </li>
+      <li>
+        <strong>
+          <%= model_class.human_attribute_name(:cpf_other) %>/<%= model_class.human_attribute_name(:cnpj_other) %>:
+        </strong>
+        <%= bill_receivable.cpf_other.present? ? bill_receivable.cpf_other : bill_receivable.cnpj_other %>
+      </li>
+      <li>
+        <strong>
+          <%= model_class.human_attribute_name(:phone_other) %>:
+        </strong>
+        <%= bill_receivable.phone_other %>
+      </li>
+    </ul>
+  <% end %>
+</td>
 <td><%= bill_receivable.category.try(:name) %></td>
 <td><%= bill_receivable.revenue.try(:name) %></td>
-<td><%#= label_status_bp bill_receivable %></td>
+<td><%= label_status_br bill_receivable %></td>
 <td><%= number_to_currency bill_receivable.total_value %></td>
-<td><%#= bill_receivable.status != 'paid' ? bill_receivable.due_date : '-' %></td>
+<td><%= bill_receivable.status != 'paid' ? bill_receivable.due_date : '-' %></td>
 <% pays = bill_receivable.bill_receivable_installments.where(status: 0).order(:date) %>
 <% if pays.present? %>
 <% pay = pays.first %>
   <td class="d-print-none text-center" onclick="change_check_pay('pay_<%= pay.id %>');">
-    <%= check_box_tag "pagar[]", pay.id, false , :class=>"styled d-none", id: "pay_#{pay.id}" %>
+    <%= check_box_tag "receber[]", pay.id, false , :class=>"styled d-none", id: "pay_#{pay.id}" %>
     <i class="material-icons " id="check_pay_<%= pay.id %>">
       check_box_outline_blank
     </i>
@@ -18,7 +44,7 @@
   <td>-</td>
 <% end %>
 <td class="d-print-none text-center">
-  <%= link_to_modal_form "Pagar", pay_item_path(pay), class: 'btn btn-outline-success' if pays.present? %>
+  <%= link_to_modal_form "Receber", receive_item_path(pay), class: 'btn btn-outline-success' if pays.present? %>
   <%#= link_to bill_receivable, class: 'btn btn-info has-icon' do %>
   <!-- <i class="material-icons">remove_red_eye</i> -->
   <%#= t('.show', :default => t("helpers.links.show")) %>

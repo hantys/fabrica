@@ -1,0 +1,60 @@
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h3>Recebimento de parcelas</h3>
+</div>
+
+<%= simple_form_for(:receives, :url => receives_update_path, :method => :put) do |f| %>
+
+  <div class="row">
+    <% @receives.includes(:bank, bill_receivable: :budget).each do |pay| %>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <%= f.fields_for "#{pay.id}" do |bill_receivable_installments_form| %>
+          <div class="card card-body mb-3">
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <b>Vencimento:</b> <%= pay.date %>
+              </li>
+              <li class="list-inline-item">
+                <b>Contrato:</b> <%= pay.bill_receivable.budget.try(:cod_name) %>
+              </li>
+              <li class="list-inline-item">
+                <b>Banco:</b> <%= pay.bank.name %>
+              </li>
+              <li class="list-inline-item">
+                <b>Valor:</b> <%= number_to_currency pay.value %>
+              </li>
+            </ul>
+            <hr>
+            <% if pay.errors.full_messages.any? %>
+              <ul class="list-unstyled">
+                <% pay.errors.full_messages.each do |error_message| %>
+                  <li class="alert alert-danger">
+                    <%= error_message %> <br />
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+            <span class="change_icon_file">
+              <span class="badge badge-success file-name"><%= pay.file.file.identifier if pay.file.present? %></span>
+              <div class="d-flex flex-row bd-highlight mb-3">
+                <i class="material-icons p-2 bd-highlight">
+                <span class="icon-file badge <%= pay.file.present? ? 'badge-success' : 'badge-danger' %> ">
+                  <%= pay.file.present? ? 'cloud_done' : 'cloud' %>
+                </span>
+                </i>
+                <%= bill_receivable_installments_form.input :file, as: :file, required: true, label: false, input_html: { class: 'p-2 bd-highlight update_file_by_icon', onchange: "change_icon_file($(this));" }, error: "pay.error.file" %>
+              </div>
+              <%= bill_receivable_installments_form.hidden_field :file_cache %>
+              <label class="form-control-label float optional d-lg-none d-xl-none"></label>
+            </span>
+
+            <%= bill_receivable_installments_form.input :payday, as: :string, label: 'Pago Em', required: true, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'}, value: params[:receives].present? ? params[:receives]["#{pay.id}"][:payday] : Date.today } %>
+            <%= bill_receivable_installments_form.input :status, as: :hidden, input_html: { value: 'paid' } %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <hr>
+  <%= f.button :submit, "Pagar", class: 'btn btn-success ' %>
+<% end %>

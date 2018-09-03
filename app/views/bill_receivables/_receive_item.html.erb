@@ -1,0 +1,50 @@
+<%= simple_nested_form_for(@bill_receivable, :url => receive_item_update_path(@receive.id), :method => :put, remote: @modal) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <% if @bill_receivable.errors[:bill_receivable_installments].present? %>
+    <legend class="alert alert-danger">
+      <small class=""><%= @bill_receivable.errors.full_messages.first %></small>
+    </legend>
+  <% end %>
+  <div id="bill_receivable_installments">
+    <%= f.fields_for :bill_receivable_installments do |bill_receivable_installments_form| %>
+      <% if bill_receivable_installments_form.object.id == @receive.id %>
+        <div class="card card-body mb-3">
+          <div class="row">
+            <div class="col-lg-8">
+              <span class="change_icon_file">
+                <span class="badge badge-success file-name"><%= bill_receivable_installments_form.object.file.file.identifier if bill_receivable_installments_form.object.file.present? %></span>
+                <div class="d-flex flex-row bd-highlight mb-3">
+                  <i class="material-icons p-2 bd-highlight">
+                  <span class="icon-file badge <%= bill_receivable_installments_form.object.file.present? ? 'badge-success' : 'badge-danger' %> ">
+                    <%= bill_receivable_installments_form.object.file.present? ? 'cloud_done' : 'cloud' %>
+                  </span>
+                  </i>
+                  <%= bill_receivable_installments_form.input :file, label: false, input_html: { class: 'p-2 bd-highlight update_file_by_icon', onchange: "change_icon_file($(this));" } %>
+                </div>
+                <%= bill_receivable_installments_form.hidden_field :file_cache %>
+
+              </span>
+            <script>
+              $('.datepicker-here').datepicker({
+
+                  minDate: new Date() // Now can select only dates, which goes after today
+              })
+            </script>
+            <style>
+              .datepicker{z-index:1151 !important;}
+            </style>
+              <%= bill_receivable_installments_form.input :payday, as: :string, required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'}, value: Date.today } %>
+              <%= bill_receivable_installments_form.input :status, as: :hidden, input_html: { value: 'paid' } %>
+              <%= hidden_field_tag :modal, @modal  %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <hr>
+  <%= f.button :submit, "Receber", class: 'btn btn-success ' %>
+<% end %>

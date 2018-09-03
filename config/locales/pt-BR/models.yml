@@ -87,6 +87,7 @@ pt-BR:
         cpf_other: CPF
         cnpj_other: CNPJ
         phone_other: Telefone
+        due_date: Vencimento
         obs_other: Observação
         category: Categoria
         revenue: Faturamento

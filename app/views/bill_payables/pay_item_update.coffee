@@ -4,7 +4,7 @@
 <% else %>
   init_all_js_basic()
   # Create a DOM Option and pre-select by default
-  $("#bill_payable-item-<% @bill_payable.id %>").html("<%= escape_javascript(render 'bill_payable_item', bill_payable: @bill_payable) %>")
+  $("#bill_payable-item-<%= @bill_payable.id %>").html("<%= escape_javascript(render 'bill_payable_item', bill_payable: @bill_payable) %>")
   $(".modal-body").find(".new_form_remote").html("<div class='alert alert-success text-center'>Conta Paga com sucesso!</div>")
   window.setTimeout (->
     $('#form_object').modal('hide')

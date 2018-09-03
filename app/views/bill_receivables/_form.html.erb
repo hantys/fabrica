@@ -3,7 +3,7 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <% BillReceivable.type_receivables.each do |type_receivable| %>
@@ -47,8 +47,7 @@
         </div>
       </span>
       <%= f.hidden_field :file_cache %>
-    </div>
-    <div class="col-lg-4">
+
       <%= f.association :category, input_html: { class: 'simple-select2' } %>
       <%= f.association :revenue, input_html: { class: 'simple-select2' } %>
       <%= f.input :obs %>
@@ -65,14 +64,14 @@
   <% end %>
   <div id="bill_receivable_installments">
     <%= f.fields_for :bill_receivable_installments do |bill_receivable_installments_form| %>
-      <div class="card card-body mb-3">
-        <div class="row">
-          <div class="col-lg-6">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card card-body mb-3">
             <%= bill_receivable_installments_form.association :bank, input_html: {class: 'simple-select2'}, prompt: "Escolha um Banco" %>
 
 
             <%= bill_receivable_installments_form.input :value, input_html: {class: 'value_budget'} %>
-            <%= bill_receivable_installments_form.input :date, as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+            <%= bill_receivable_installments_form.input :date, as: :string, placeholder: '', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
 
 
 
