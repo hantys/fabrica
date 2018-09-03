@@ -38,3 +38,16 @@ pt-BR:
         pending: Pendente
         late: Atrasado
         paid: Pago
+    bill_receivable:
+      type_receivables:
+        budget: Pedido
+        other: Outro
+      status:
+        pending: Pendente
+        late: Atrasado
+        paid: Pago
+    bill_receivable_installment:
+      status:
+        pending: Pendente
+        late: Atrasado
+        paid: Pago

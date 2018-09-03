@@ -1,51 +1,48 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = BillReceivable -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_bill_receivable_path, class: "btn btn-primary d-print-none" %>
+</div>
+<%= render 'search' %>
 
-<h1>BillReceivables</h1>
+<%= form_tag pays_path do %>
+  <div class="d-flex justify-content-between w-100">
+    <div class="mb-2">
+      <%= paginate @bill_receivables if @bill_receivables.size > 20 %>
+      <%= page_entries_info @bill_receivables, entry_name: 'item' %>
+    </div>
+    <div class="mb-2">
+      <%= link_to "Selecionar todos", "javascript:;", :id => "select_all", :class => 'btn btn-info d-print-none' -%>
+      <%= submit_tag "Pagar selecionados", :class => 'btn btn-success d-print-none pay_all', disabled: true %>
+    </div>
+  </div>
+<%= paginate @bill_receivables %>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover text-center">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col"><%= sort_link @q, :id, "#", default_order: :desc %></th>
 
-<table>
-  <thead>
-    <tr>
-      <th>Type receivable</th>
-      <th>Budget</th>
-      <th>Name other</th>
-      <th>Cpf other</th>
-      <th>Cnpj other</th>
-      <th>Phone other</th>
-      <th>Obs other</th>
-      <th>Category</th>
-      <th>Revenue</th>
-      <th>Status</th>
-      <th>Obs</th>
-      <th>File</th>
-      <th>Total value</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+          <th scope="col"><%= sort_link @q, :type_receivable, model_class.human_attribute_name(:type_receivable), default_order: :desc %></th>
+          <th scope="col"><%= sort_link @q, :budget, model_class.human_attribute_name(:budget), default_order: :desc %></th>
+          <th scope="col"><%= sort_link @q, :category, model_class.human_attribute_name(:category), default_order: :desc %></th>
+          <th scope="col"><%= sort_link @q, :revenue, model_class.human_attribute_name(:revenue), default_order: :desc %></th>
+          <th scope="col"><%= sort_link @q, :status, model_class.human_attribute_name(:status), default_order: :desc %></th>
+          <th scope="col"><%= sort_link @q, :total_value, model_class.human_attribute_name(:total_value), default_order: :desc %></th>
+          <th scope="col" class="d-print-none text-center">Selecione</th>
+          <th scope="col" class="d-print-none text-center"><%=t '.actions', :default => t("helpers.actions") %></th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @bill_receivables.each do |bill_receivable| %>
-      <tr>
-        <td><%= bill_receivable.type_receivable %></td>
-        <td><%= bill_receivable.budget %></td>
-        <td><%= bill_receivable.name_other %></td>
-        <td><%= bill_receivable.cpf_other %></td>
-        <td><%= bill_receivable.cnpj_other %></td>
-        <td><%= bill_receivable.phone_other %></td>
-        <td><%= bill_receivable.obs_other %></td>
-        <td><%= bill_receivable.category %></td>
-        <td><%= bill_receivable.revenue %></td>
-        <td><%= bill_receivable.status %></td>
-        <td><%= bill_receivable.obs %></td>
-        <td><%= bill_receivable.file %></td>
-        <td><%= bill_receivable.total_value %></td>
-        <td><%= link_to 'Show', bill_receivable %></td>
-        <td><%= link_to 'Edit', edit_bill_receivable_path(bill_receivable) %></td>
-        <td><%= link_to 'Destroy', bill_receivable, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <% @bill_receivables.each do |bill_receivable| %>
+          <tr id="bill_receivable-item-<% bill_receivable.id %>">
+            <%= render 'bill_receivable_item', bill_receivable: bill_receivable %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
 
-<br>
-
-<%= link_to 'New Bill Receivable', new_bill_receivable_path %>
+<%= paginate @bill_receivables %>

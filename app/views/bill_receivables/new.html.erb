@@ -1,5 +1,6 @@
-<h1>New Bill Receivable</h1>
+<%- model_class = BillReceivable -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
 
 <%= render 'form', bill_receivable: @bill_receivable %>
-
-<%= link_to 'Back', bill_receivables_path %>

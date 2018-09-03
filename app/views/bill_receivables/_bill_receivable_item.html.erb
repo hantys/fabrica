@@ -1,0 +1,34 @@
+<td scope="row"><%= link_to bill_receivable.id, bill_receivable %></td>
+<td><%= link_to_modal bill_receivable.budget.code_name, budget_path(bill_receivable.budget), class: 'text-dark' %></td>
+<td><%= bill_receivable.category.try(:name) %></td>
+<td><%= bill_receivable.revenue.try(:name) %></td>
+<td><%#= label_status_bp bill_receivable %></td>
+<td><%= number_to_currency bill_receivable.total_value %></td>
+<td><%#= bill_receivable.status != 'paid' ? bill_receivable.due_date : '-' %></td>
+<% pays = bill_receivable.bill_receivable_installments.where(status: 0).order(:date) %>
+<% if pays.present? %>
+<% pay = pays.first %>
+  <td class="d-print-none text-center" onclick="change_check_pay('pay_<%= pay.id %>');">
+    <%= check_box_tag "pagar[]", pay.id, false , :class=>"styled d-none", id: "pay_#{pay.id}" %>
+    <i class="material-icons " id="check_pay_<%= pay.id %>">
+      check_box_outline_blank
+    </i>
+  </td>
+<% else %>
+  <td>-</td>
+<% end %>
+<td class="d-print-none text-center">
+  <%= link_to_modal_form "Pagar", pay_item_path(pay), class: 'btn btn-outline-success' if pays.present? %>
+  <%#= link_to bill_receivable, class: 'btn btn-info has-icon' do %>
+  <!-- <i class="material-icons">remove_red_eye</i> -->
+  <%#= t('.show', :default => t("helpers.links.show")) %>
+  <%# end %>
+  <%= link_to edit_bill_receivable_path(bill_receivable), class: 'btn btn-primary has-icon' do %>
+  <!-- <i class="material-icons">edit</i> -->
+  <%= t('.edit', :default => t("helpers.links.edit")) %>
+  <% end %>
+  <%= link_to bill_receivable, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
+  <!-- <i class="material-icons">delete</i> -->
+  <%= t('.destroy', :default => t("helpers.links.destroy")) %>
+  <% end %>
+</td>

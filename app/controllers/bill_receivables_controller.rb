@@ -8,6 +8,9 @@ class BillReceivablesController < ApplicationController
     @q = BillReceivable.ransack(params[:q])
 
     @bill_receivables = @q.result.accessible_by(current_ability).order(id: :desc).page params[:page]
+    @modal_size = 'lg'
+
+    # @bill_payables = @q.result.includes(:provider_contract, :category, :revenue, :bill_payable_installments).accessible_by(current_ability).order(id: :desc).page(params[:page])
   end
 
   # GET /bill_receivables/1

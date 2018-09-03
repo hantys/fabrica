@@ -4,9 +4,9 @@
 
 <%= simple_form_for(:pays, :url => pays_update_path, :method => :put) do |f| %>
 
-  <ul class="list-inline ">
-    <% @pays.includes(bill_payable: :provider_contract).each do |pay| %>
-      <li class="list-inline-item">
+  <div class="row">
+    <% @pays.each do |pay| %>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
         <%= f.fields_for "#{pay.id}" do |bill_payable_installments_form| %>
           <div class="card card-body mb-3">
             <ul class="list-inline">
@@ -25,7 +25,7 @@
             </ul>
             <hr>
             <% if pay.errors.full_messages.any? %>
-              <ul>
+              <ul class="list-unstyled">
                 <% pay.errors.full_messages.each do |error_message| %>
                   <li class="alert alert-danger">
                     <%= error_message %> <br />
@@ -48,13 +48,13 @@
             </span>
 
             <%= bill_payable_installments_form.input :payday, as: :string, label: 'Pago Em', required: true, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'}, value: params[:pays].present? ? params[:pays]["#{pay.id}"][:payday] : Date.today } %>
-            <%= bill_payable_installments_form.input :interest, as: :float, label: "Juros em R$", required: false, input_html: { value: params[:pays].present? ? params[:pays]["#{pay.id}"][:interest] : 0 } %>
+            <%= bill_payable_installments_form.input :interest, as: :float, label: "Juros em R$", required: false, input_html: { value: params[:pays].present? ? params[:pays]["#{pay.id}"][:interest] : 0, min: 0 } %>
             <%= bill_payable_installments_form.input :status, as: :hidden, input_html: { value: 'paid' } %>
           </div>
         <% end %>
-      </li>
+      </div>
     <% end %>
-  </ul>
+  </div>
 
   <hr>
   <%= f.button :submit, "Pagar", class: 'btn btn-success ' %>

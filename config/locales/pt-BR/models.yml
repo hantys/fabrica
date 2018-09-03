@@ -19,6 +19,7 @@ pt-BR:
       bill_receivable: Contas a receber
       bill_payable: Contas a Pagar
       bill_payable_installment: Parcelas
+      bill_receivable_installment: Parcelas
       provider_contract: Contrato com Fornecedor
       item_provider_contract: Itens do Contrato
       budget_provider_contract: Pedidos Associados
@@ -81,6 +82,7 @@ pt-BR:
       bill_receivable:
         type_receivable: Tipo
         budget: Pedido
+        budget_id: Pedido
         name_other:  Nome
         cpf_other: CPF
         cnpj_other: CNPJ
@@ -91,7 +93,20 @@ pt-BR:
         status: Situação
         obs: Observação
         file: Arquivo
+        bill_receivable_installments: Parcelas
         total_value: Valor Total
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      bill_receivable_installment:
+        date: Data de vencimento
+        value: Valor
+        file: Arquivo
+        interest: Juros em R$
+        payday: Pago Em
+        bank: Banco
+        bank_id: Banco
+        status: Situação
         created_at: Criado em
         updated_at: Atualizado em
 

@@ -1,7 +1,7 @@
 <td scope="row"><%= link_to bill_payable.id, bill_payable %></td>
 <td><%= link_to_modal bill_payable.provider_contract.name, provider_contract_path(bill_payable.provider_contract), class: 'text-dark' %></td>
-<td><%= bill_payable.category %></td>
-<td><%= bill_payable.revenue %></td>
+<td><%= bill_payable.category.try(:name) %></td>
+<td><%= bill_payable.revenue.try(:name) %></td>
 <td><%= label_status_bp bill_payable %></td>
 <td><%= number_to_currency bill_payable.total_value %></td>
 <td><%= bill_payable.status != 'paid' ? bill_payable.due_date : '-' %></td>
