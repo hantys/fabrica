@@ -2,6 +2,14 @@ class HomeController < ApplicationController
   authorize_resource class: false
 
   def index
+    order_by = "products.name asc"
+    merge_where = {status: 2}
+
+    @products = Product.left_joins(budget_products: [:budget]).where(budgets: merge_where).select("array_agg(distinct(budgets.id)) as budgets_ids, sum(budget_products.qnt) as qnt_pedidos", "(sum(budget_products.qnt) - products.qnt) as para_produzir", "count(budget_products.product_id) as total_produto", "products.*").group("budget_products.product_id", "products.id", "products.name", "products.cod").having("(sum(budget_products.qnt) - products.qnt) > ?", 0).order(order_by)
+
+    @modal_size = 'lg'
+
+    @bill_payables = BillPayable.includes(:provider_contract, :bill_payable_installments).where(status: [0,1]).accessible_by(current_ability).order(id: :desc).limit(20)
   end
 
   def find_by_address

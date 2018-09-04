@@ -1,52 +1,79 @@
-<h1>Tubos Poty</h1>
-
 <div class="row">
-  <div class="col border-left border-dark">
-    <legend>Pedido</legend>
-    <ul>
-      <li class="mb-2"><%= link_to 'Novo ' + t('.title', :default => Budget.model_name.human.titleize), new_budget_path, class: "btn btn-info" %></li>
-      <li class="mb-2"><%= link_to t('.title', :default => Budget.model_name.human.titleize), budgets_path, class: "btn btn-info" %></li>
-    </ul>
-  </div>
-<% if false %>
-  <div class="col border-left border-dark">
-    <legend>Pagamentos e Contratos (Criar novo)</legend>
-    <ul>
-      <li class="mb-2"><%= link_to t('.title', :default => BillPayable.model_name.human.titleize), new_bill_payable_path, class: "btn btn-info" %></li>
-      <li class="mb-2"><%= link_to t('.title', :default => BillReceivable.model_name.human.titleize), new_bill_receivable_path, class: "btn btn-info" %></li>
-      <li class="mb-2"><%= link_to t('.title', :default => ProviderContract.model_name.human.titleize), new_provider_contract_path, class: "btn btn-info" %></li>
-    </ul>
-  </div>
-  <div class="col border-left border-dark">
-  </div>
-<% end %>
-</div>
-<hr>
-<div class="row">
-  <div class="col border-left border-dark">
-    <legend>Entradas(Criar novo)</legend>
-    <ul>
-      <li class="mb-2"><%= link_to t('.title', :default => Hit.model_name.human.titleize), new_hit_path, class: "btn btn-info" %></li>
-      <li class="mb-2"><%= link_to t('.title', :default => StockFinalProduct.model_name.human.titleize), new_stock_final_product_path, class: "btn btn-info" %></li>
-      <li class="mb-2"><%= link_to t('.title', :default => StockRawMaterial.model_name.human.titleize), new_stock_raw_material_path, class: "btn btn-info" %></li>
-    </ul>
-  </div>
+  <div class="col-xl-6 col border-left border-dark">
+    <h2 class="text-center">
+      Contas a pagar
+    </h2>
+    <%- model_class = BillPayable -%>
+    <table class="table table-bordered table-hover text-center">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col"><%= "#" %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:provider_contract) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:status) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:total_value) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:due_date) %></th>
+          <th scope="col" class="d-print-none text-center"><%=t '.actions', :default => t("helpers.actions") %></th>
+        </tr>
+      </thead>
 
-  <div class="col border-left border-dark">
-    <legend>Cadastross(Criar novo)</legend>
-    <ul>
-      <li class="mb-2"><%= link_to t('.title', :default => Client.model_name.human.titleize), new_client_path, class: "btn btn-info" %></li>
-      <li class="mb-2"><%= link_to t('.title', :default => Provider.model_name.human.titleize), new_provider_path, class: "btn btn-info" %></li>
-      <li class="mb-2"><%= link_to t('.title', :default => Composition.model_name.human.titleize), new_composition_path, class: "btn btn-info" %></li>
-    </ul>
-  </div>
+      <tbody>
+        <% @bill_payables.each do |bill_payable| %>
+          <tr id="bill_payable-item-<% bill_payable.id %>">
+            <td scope="row"><%= link_to bill_payable.id, bill_payable %></td>
+            <td><%= link_to_modal bill_payable.provider_contract.name, provider_contract_path(bill_payable.provider_contract), class: 'text-dark' %></td>
+            <td><%= label_status_bp bill_payable %></td>
+            <td><%= number_to_currency bill_payable.total_value %></td>
+            <td><%= bill_payable.status != 'paid' ? bill_payable.due_date : '-' %></td>
+            <% pays = bill_payable.bill_payable_installments.where(status: 0).order(:date) %>
+            <% pay = pays.first if pays.present? %>
 
-  <div class="col border-left border-dark">
-    <legend>Estoques(Lista)</legend>
-    <ul>
-      <li class="mb-2"><%= link_to 'Previsão de produção diária', daily_production_path, class: "btn btn-info" %></li>
-      <li class="mb-2"><%= link_to t('.title', :default => Product.model_name.human.titleize), products_path, class: "btn btn-info" %></li>
-      <li class="mb-2"><%= link_to t('.title', :default => RawMaterial.model_name.human.titleize), raw_materials_path, class: "btn btn-info" %></li>
-    </ul>
+            <td class="d-print-none text-center">
+              <%= link_to "Pagar", pay_item_path(pay), class: 'btn btn-outline-success' if pays.present? %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-xl-6 col">
+    <h2 class="text-center">
+      Produção
+    </h2>
+    <%- model_class = Product -%>
+    <table class="table table-striped text-center table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col"><%= model_class.human_attribute_name(:cod) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
+          <!-- <th scope="col">Pedidos</th> -->
+          <th scope="col" class="d-print-none"><%= "Em Estoque" %></th>
+          <th scope="col" class="d-print-none"><%= "Esperado" %></th>
+          <th scope="col"><%= "Para Produzir" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each_with_index do |product, i| %>
+            <tr>
+              <th scope="row"><%= i+1 %></th>
+              <th scope="row"><%= product.cod %></th>
+              <td><%= link_to_modal product.name, product_path(product.id), class: 'text-dark' %></td>
+             <!--  <th scope="row">
+                <ul class="text-left">
+                  <% product.budgets_ids.each_with_index do |single, i| %>
+                    <%= i%4 == 0 ? '<li>'.html_safe : '' %>
+                      <%= link_to_modal Budget.find(single).cod_name, budget_path(single) %>
+                    <%= i%4 == 3 ? '</li>'.html_safe : ',' %>
+                  <% end %>
+                </ul>
+              </th> -->
+              <td style="background-color: #c5ffe5 " class="d-print-none"><%= number_with_delimiter product.qnt.to_i, delimiter: ".", separator: "," %> itens</td>
+              <td style="background-color: #fbffa2 " class="d-print-none"><%= number_with_delimiter product.qnt_pedidos.to_i, delimiter: ".", separator: "," %> itens</td>
+              <td style="background-color: #ff9ea0 "><%= number_with_delimiter product.para_produzir.to_i, delimiter: ".", separator: "," %> itens</td>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
+
