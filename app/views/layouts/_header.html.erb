@@ -10,23 +10,22 @@
       <!-- orcamentos   -->
       <% if (can? :create, Budget) or (can? :read, Budget) %>
         <li class='nav-item dropdown <%= "#{active_class(new_budget_path)} #{active_class(budgets_path)}" %>'>
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Orçamentos</a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pedidos</a>
           <div class="dropdown-menu hasDropboxAnimation">
-            <%= link_to 'Novo Orçamento', new_budget_path, class: "dropdown-item #{active_class(new_budget_path)}" if can? :create, Budget %>
-            <%= link_to 'Orçamentos', budgets_path, class: "dropdown-item #{active_class(budgets_path)}" if can? :read, Budget %>
+            <%= link_to 'Novo Pedido', new_budget_path, class: "dropdown-item #{active_class(new_budget_path)}" if can? :create, Budget %>
+            <%= link_to 'Pedidos', budgets_path, class: "dropdown-item #{active_class(budgets_path)}" if can? :read, Budget %>
           </div>
         </li>
       <% end %>
 
       <!-- pagamentos  -->
-      <%# if (can? :read, RawMaterial) or (can? :read, Product) %>
-      <% if false %>
+      <% if (can? :read, ProviderContract) or (can? :read, BillPayable) or (can? :read, BillReceivable) %>
         <li class='nav-item dropdown <%= " #{active_class(provider_contracts_path)} #{active_class(bill_receivables_path)} #{active_class(bill_payables_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pagamentos e Contratos</a>
           <div class="dropdown-menu hasDropboxAnimation">
-            <%= link_to 'Contas a Pagar', bill_payables_path, class: "dropdown-item #{active_class(bill_payables_path)}" if can? :read, Product %>
-            <%= link_to 'Contas a Receber', bill_receivables_path, class: "dropdown-item #{active_class(bill_receivables_path)}" if can? :read, RawMaterial %>
-            <%= link_to 'Contratos com Fornecedor', provider_contracts_path, class: "dropdown-item #{active_class(provider_contracts_path)}" if can? :read, RawMaterial %>
+            <%= link_to 'Contas a Pagar', bill_payables_path, class: "dropdown-item #{active_class(bill_payables_path)}" if can? :read, BillPayable %>
+            <%= link_to 'Contas a Receber', bill_receivables_path, class: "dropdown-item #{active_class(bill_receivables_path)}" if can? :read, BillReceivable %>
+            <%= link_to 'Contratos com Fornecedor', provider_contracts_path, class: "dropdown-item #{active_class(provider_contracts_path)}" if can? :read, ProviderContract %>
           </div>
         </li>
       <% end %>
@@ -65,10 +64,11 @@
       <% end %>
 
       <!-- cadastros -->
-      <% if (can? :read, Client) or (can? :read, Composition) or (can? :read, Provider) or (can? :read, Employee) or (can? :read, RawMaterial) or (can? :read, User) %>
-        <li class='nav-item dropdown <%= " #{active_class(compositions_path)} #{active_class(users_path)} #{active_class(employees_path)} #{active_class(providers_path)} #{active_class(clients_path)}" %>'>
+      <% if (can? :read, Client) or (can? :read, Composition) or (can? :read, Provider) or (can? :read, Employee) or (can? :read, RawMaterial) or (can? :read, User) or (can? :new, Product) %>
+        <li class='nav-item dropdown <%= " #{active_class(compositions_path)} #{active_class(new_product_path)} #{active_class(users_path)} #{active_class(employees_path)} #{active_class(providers_path)} #{active_class(clients_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cadastros</a>
           <div class="dropdown-menu hasDropboxAnimation">
+            <%= link_to 'Novo Produtos', new_product_path, class: "dropdown-item #{active_class(new_product_path)}" if can? :read, Product %>
             <%= link_to 'Clientes', clients_path, class: "dropdown-item #{active_class(clients_path)}" if can? :read, Client %>
             <%= link_to 'Compósições', compositions_path, class: "dropdown-item #{active_class(compositions_path)}" if can? :read, Composition %>
             <%= link_to 'Fornecedores', providers_path, class: "dropdown-item #{active_class(providers_path)}" if can? :read, Provider %>
@@ -79,10 +79,15 @@
       <% end %>
 
       <!-- sistema  -->
-      <% if (can? :read, DeliveryOption) or (can? :read, TypeOfPayment) %>
-        <li class='nav-item dropdown <%= "#{active_class(delivery_options_path)} #{active_class(type_of_payments_path)}" %>'>
+      <% if (can? :read, DeliveryOption) or (can? :read, TypeOfPayment) or (can? :read, CategoryProduct) or (can? :read, Bank) or (can? :read, Category) or (can? :read, Revenue) or (can? :read, CredCard) %>
+        <li class='nav-item dropdown <%= "#{active_class(category_products_path)} active_class(delivery_options_path)} #{active_class(cred_cards_path)} #{active_class(type_of_payments_path)} #{active_class(revenues_path)} #{active_class(banks_path)} #{active_class(categories_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sistema</a>
           <div class="dropdown-menu hasDropboxAnimation">
+            <%= link_to t('.title', :default => Bank.model_name.human.pluralize.titleize), banks_path, class: "dropdown-item #{active_class(banks_path)}" if can? :read, Bank %>
+            <%= link_to t('.title', :default => CredCard.model_name.human.pluralize.titleize), cred_cards_path, class: "dropdown-item #{active_class(cred_cards_path)}" if can? :read, CredCard %>
+            <%= link_to t('.title', :default => CategoryProduct.model_name.human.pluralize.titleize), category_products_path, class: "dropdown-item #{active_class(category_products_path)}" if can? :read, CategoryProduct %>
+            <%= link_to t('.title', :default => Category.model_name.human.pluralize.titleize), categories_path, class: "dropdown-item #{active_class(categories_path)}" if can? :read, Category %>
+            <%= link_to t('.title', :default => Revenue.model_name.human.pluralize.titleize), revenues_path, class: "dropdown-item #{active_class(revenues_path)}" if can? :read, Revenue %>
             <%= link_to 'Opções de entrega', delivery_options_path, class: "dropdown-item #{active_class(delivery_options_path)}" if can? :read, DeliveryOption %>
             <%= link_to 'Tipos de pagamento', type_of_payments_path, class: "dropdown-item #{active_class(type_of_payments_path)}" if can? :read, TypeOfPayment %>
           </div>

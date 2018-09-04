@@ -1,33 +1,48 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Bank  -%>
 
-<h1>Banks</h1>
+<div class="page-header d-flex justify-content-lg-between align-items-center mb-2">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_bank_path, class: "btn btn-primary" %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Ag</th>
-      <th>Cc</th>
-      <th>Op</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @banks.each do |bank| %>
+<%= paginate @banks if @banks.size > 20 %>
+<%= page_entries_info @banks, entry_name: 'item' %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:ag) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:cc) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:op) %></th>
+        <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @banks.each do |bank| %>
       <tr>
         <td><%= bank.name %></td>
         <td><%= bank.ag %></td>
         <td><%= bank.cc %></td>
         <td><%= bank.op %></td>
-        <td><%= link_to 'Show', bank %></td>
-        <td><%= link_to 'Edit', edit_bank_path(bank) %></td>
-        <td><%= link_to 'Destroy', bank, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to bank, class: 'btn btn-info has-icon' do %>
+            <i class="material-icons">remove_red_eye</i>
+            <%#= t('.show', :default => t("helpers.links.show")) %>
+          <% end %>
+          <%= link_to edit_bank_path(bank), class: 'btn btn-primary has-icon' do %>
+            <i class="material-icons">edit</i>
+            <%#= t('.edit', :default => t("helpers.links.edit")) %>
+          <% end %>
+          <%= link_to bank, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
+            <i class="material-icons">delete</i>
+            <%#= t('.destroy', :default => t("helpers.links.destroy")) %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
+<%= paginate @banks %>
 
-<br>
-
-<%= link_to 'New Bank', new_bank_path %>

@@ -1,31 +1,46 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = CredCard  -%>
 
-<h1>Cred Cards</h1>
+<div class="page-header d-flex justify-content-lg-between align-items-center mb-2">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_cred_card_path, class: "btn btn-primary" %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Catd final</th>
-      <th>Valid</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @cred_cards.each do |cred_card| %>
+<%= paginate @cred_cards if @cred_cards.size > 20 %>
+<%= page_entries_info @cred_cards, entry_name: 'item' %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col"><%= model_class.human_attribute_name(:name) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:card_final) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:valid_card) %></th>
+        <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cred_cards.each do |cred_card| %>
       <tr>
         <td><%= cred_card.name %></td>
-        <td><%= cred_card.catd_final %></td>
-        <td><%= cred_card.valid %></td>
-        <td><%= link_to 'Show', cred_card %></td>
-        <td><%= link_to 'Edit', edit_cred_card_path(cred_card) %></td>
-        <td><%= link_to 'Destroy', cred_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= cred_card.card_final %></td>
+        <td><%= cred_card.valid_card %></td>
+        <td>
+          <%= link_to cred_card, class: 'btn btn-info has-icon' do %>
+            <i class="material-icons">remove_red_eye</i>
+            <%#= t('.show', :default => t("helpers.links.show")) %>
+          <% end %>
+          <%= link_to edit_cred_card_path(cred_card), class: 'btn btn-primary has-icon' do %>
+            <i class="material-icons">edit</i>
+            <%#= t('.edit', :default => t("helpers.links.edit")) %>
+          <% end %>
+          <%= link_to cred_card, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
+            <i class="material-icons">delete</i>
+            <%#= t('.destroy', :default => t("helpers.links.destroy")) %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
+<%= paginate @cred_cards %>
 
-<br>
-
-<%= link_to 'New Cred Card', new_cred_card_path %>

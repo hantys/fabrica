@@ -4,7 +4,7 @@ class BudgetProduct < ApplicationRecord
   before_save :reserve_product, if: :will_save_change_to_reserve_qnt?
   before_save :set_total_value
 
-  belongs_to :budget
+  belongs_to :budget, touch: true, optional: true
   belongs_to :product
 
   has_paper_trail ignore: [:budget_id, :updated_at, :created_at, :id]

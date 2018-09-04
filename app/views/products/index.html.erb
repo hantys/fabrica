@@ -14,6 +14,7 @@
       <tr>
         <th scope="col"><%= sort_link @q, :id, "#", default_order: :desc %></th>
         <th scope="col"><%= sort_link @q, :cod, model_class.human_attribute_name(:cod), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :category_product, model_class.human_attribute_name(:category_product), default_order: :desc %></th>
         <th scope="col"><%= sort_link @q, :name, model_class.human_attribute_name(:name), default_order: :desc %></th>
         <th scope="col"><%= sort_link @q, :reserve, model_class.human_attribute_name(:reserve), default_order: :desc %></th>
         <!-- <th scope="col"><%#= sort_link @q, :derivative, model_class.human_attribute_name(:derivative), default_order: :desc %></th> -->
@@ -27,6 +28,7 @@
       <tr>
         <td scope="row"><%= link_to product.id, product %></td>
         <td><%= product.cod %></td>
+        <td><%= product.category_product.try(:name) %></td>
         <td><%= link_to product.name, product %></td>
         <td><%= product.reserve %></td>
         <!-- <td><%#= product.derivative ? 'Sim' : 'Não' %></td> -->

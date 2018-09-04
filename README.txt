@@ -3,9 +3,87 @@
 - criar template para auditoria
 
 TO DO
+	https://github.com/mbuckbee/Web-To-Pdf-Gem
+- Revisar todos os index das paginas e alterar links e botoes
+- Botao novo em todos os shows
 - Criar relatorio de orcamentos
-- Ordem de serviço
-- Criar ordem de producao copia gerar pdf e bota oa itens
+
+- puxar categoria/faturamento do contrato com fornecedor
+- puxa banco do fornecedor
+
+- Cadastro de inventario
+- Criar sistema de viagens com vinculacao aos orcamentos
+
+- Contas a receber juros
+- Bloquear cliente opcao
+- Saldo de conta em bancos
+- Transferencia de valores
+- Faturar pedido direciona para contas a receber
+- Gerar varias ordem de pedido
+
+- RELATÓRIOS
+	1.0 – FATURAMENTO
+		1.1 VALOR VENDIDO POR PERIODO
+		1.2 VALOR FATURADO POR PERIODO
+		1.3 VALOR RECEBIDO POR PERIODO
+
+	2.0 – PEDIDOS
+		2.1 QUAIS PEDIDOS FALTAM FATURAR
+		2.2 RESUMO DE RESULTADO DOS PEDIDOS POR PERIODO, DESPESA E RECEITA.
+		2.3 RESUMO DE PEDIDOS POR CLIENTES (HISTORICO GERAL ENVOLVENDO PARCELAS DE CONTAS Á RECEBER)
+
+	3.0 – DOS PRODUTOS
+		3.1 TOTAL DE PRODUÇÃO POR PERIODO
+		3.2 CUSTO DE PRODUÇÃO DOS PRODUTOS (COM MÉDIA)
+		3.3 % DE LUCRO BRUTO DOS PRODUTOS.
+
+	4.0 – DA MATERIA PRIMA
+		4.1 SALDO DE MATERIA PRIMA
+		4.2 QUANTIDADE DE MATERIA PRIMA EXTRUSSADA POR PERIODO
+
+	5.0 DO CONTAS Á RECEBER
+		5.1 VALOR Á RECEBER VENCIDO E VICENDOS
+		5.2 PREVISÃO DE RECEBIMENTO (TABELA COM JUROS)
+		5.3 CONTAS Á RECEBER VENCIDO E VICENDO POR REPRESENTANTE
+		5.4 CONSULTA DO CLIENTE (MOSTRA SE O CLIENTE TEM ALGUM BLOETO VENCIDO E HISTÓRICO
+
+	6.0 DO CONTAS Á PAGAR
+		6.1 VALOR TOTAL Á PAGAR E PAGO POR PERIODO
+
+	7.0 DOS REPRESENTANTES
+		7.1 VALOR TOTAL VENDIDO / FATURADO POR REPRESENTANTE.
+
+
+DONE
+- Criar Contas a receber  bill_receivable
+	* tipo
+		º orcamento
+			- orcamento_id
+		° outros
+			- nome
+			- cpf/cnpj
+			- phone
+			- obs
+	* categoria
+	* faturamento
+	* anexo
+	* parcelas
+		º banco
+		º anexo
+		º data
+		º valor
+		º status
+	* status
+	* total pago (ex: R$200,00 de R$1000,00)
+- pagamentos multiplos e pagina de anexo
+- revisar textos dos controller em criar/atualizar/deletar
+- Reservar orcamento completo
+- quando pagar possibilidade de juros
+- Produtos criar categorias
+- validacoes de contas a pgar e contrato com fornecedor referentes ao valor
+- alterar contas a pagar nao herda de pedidos
+- Ordem de serviço (igual ao gerar pdf so que sem valores)
+- Muda nome orcamento p pedidos
 - Criar Contas a Pagar - bill_payable_ installment
 	* Contrato com fornecedor
 		° nome
@@ -38,32 +116,8 @@ TO DO
 		º anexo
 		º data
 		º valor
-- Criar Contas a receber  bill_receivable
-	* tipo
-		º orcamento
-			- orcamento_id
-		° outros
-			- nome
-			- cpf/cnpj
-			- phone
-			- obs
-	* categoria
-	* faturamento
-	* anexo
-	* parcelas
-		º banco
-		º anexo
-		º data
-		º valor
-		º status
-	* status
-	* total pago (ex: R$200,00 de R$1000,00)
-
-- TODOS OS  ORÇAMENTOS:
-	* RELATÓRIO DO  DOS ORÇAMENTOS  (GERAL),  COM EXPORTAÇÃO  PRO EXCEL COM DADOS DO  CLIENTE
 
 
-DONE
 - Add obs quando for autorizar
 * Tirar confidencial do nacional
 * Busca na producao diaria

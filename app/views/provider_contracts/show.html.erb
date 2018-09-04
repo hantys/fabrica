@@ -1,34 +1,82 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = ProviderContract -%>
 
-<p>
-  <strong>Name:</strong>
-  <%= @provider_contract.name %>
-</p>
+<div class="page-header d-flex flex-row justify-content-start align-items-center w-100">
+  <h1><strong><%=t '.title', :default => model_class.model_name.human.titleize %></strong></h1>
+  <% unless @modal %>
+    <div class="d-flex flex-row justify-content-start align-items-center ml-auto">
+    <%= link_to t('.new', :default => t("helpers.links.new")), new_provider_contract_path, class: "btn btn-info" %>
+    <%= link_to t('.back', :default => t("helpers.links.back")),
+                provider_contracts_path, :class => 'btn btn-secondary ml-2'  %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_provider_contract_path(@provider_contract), :class => 'btn btn-primary ml-2' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  provider_contract_path(@provider_contract),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-danger ml-2' %>
+    </div>
+  <% end %>
+</div>
 
-<p>
-  <strong>Provider:</strong>
-  <%= @provider_contract.provider %>
-</p>
+<div class="row mt-4 mb-4">
+  <div class="col-6">
+    <p>
+      <strong>
+        <%= model_class.human_attribute_name(:name) %>:
+      </strong>
+      <%= @provider_contract.name %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:provider) %>:
+      </strong>
 
-<p>
-  <strong>Obs:</strong>
-  <%= @provider_contract.obs %>
-</p>
+      <%= link_to_modal @provider_contract.provider.name, provider_path(@provider_contract.provider), class: "text-dark" %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:obs) %>:
+      </strong>
 
-<p>
-  <strong>Total value:</strong>
-  <%= @provider_contract.total_value %>
-</p>
+      <%= @provider_contract.obs %>
+      <hr>
 
-<p>
-  <strong>Partil value:</strong>
-  <%= @provider_contract.partil_value %>
-</p>
+      <strong>
+        <%= model_class.human_attribute_name(:status) %>:
+      </strong>
 
-<p>
-  <strong>Staus:</strong>
-  <%= @provider_contract.staus %>
-</p>
+      <%= label_status_pc @provider_contract.status %>
+      <hr>
 
-<%= link_to 'Edit', edit_provider_contract_path(@provider_contract) %> |
-<%= link_to 'Back', provider_contracts_path %>
+      <strong>
+        <%= model_class.human_attribute_name(:total_value) %>:
+      </strong>
+
+      <%= "#{number_to_currency @provider_contract.partil_value} de #{number_to_currency @provider_contract.total_value}" %>
+      <hr>
+
+      <strong>
+        <%= model_class.human_attribute_name(:item_provider_contracts) %>:
+      </strong>
+      <ul>
+        <% @provider_contract.item_provider_contracts.each do |item_provider_contract| %>
+          <li>
+            <%= item_provider_contract.name %> - custo: <%= number_to_currency item_provider_contract.value %>
+          </li>
+        <% end %>
+      </ul>
+      <hr>
+
+      <strong>
+        <%= model_class.human_attribute_name(:budget_provider_contracts) %>:
+      </strong>
+      <ul>
+        <% @provider_contract.budget_provider_contracts.includes(:budget).each do |budget_provider_contract| %>
+          <li>
+            <%= link_to_modal budget_provider_contract.budget.cod_name, budget_path(budget_provider_contract.budget), class: "text-dark" %> - custo: <%= number_to_currency budget_provider_contract.value %>
+          </li>
+        <% end %>
+      </ul>
+      <hr>
+    </p>
+  </div>
+</div>
+

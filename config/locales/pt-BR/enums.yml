@@ -20,3 +20,34 @@ pt-BR:
         billed: Faturado
         delivered: Entregue
         confirm: Confirmado
+    provider_contract:
+      status:
+        active: Ativo
+        finish: Finalizado
+    bill_payable:
+      status:
+        pending: Pendente
+        late: Atrasado
+        paid: Pago
+    bill_payable_installment:
+      type_payment:
+        billet: Boleto
+        bank: Transferência
+        card: Cartão
+      status:
+        pending: Pendente
+        late: Atrasado
+        paid: Pago
+    bill_receivable:
+      type_receivables:
+        budget: Pedido
+        other: Outro
+      status:
+        pending: Pendente
+        late: Atrasado
+        paid: Pago
+    bill_receivable_installment:
+      status:
+        pending: Pendente
+        late: Atrasado
+        paid: Pago

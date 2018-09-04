@@ -11,21 +11,152 @@ pt-BR:
       provider: Fornecedor
       client: Cliente
       hit: Batida
-      budget: Orçamento
+      budget: Pedido
       product: Produto
-      budget_product: Produto do Orçamento
+      budget_product: Produto do Pedido
       delivery_option: Tipos de Entrega
       type_of_payment: Tipos de Pagamento
       bill_receivable: Contas a receber
       bill_payable: Contas a Pagar
-      provider_contract: Contrato com fornecedor
-      banks: Banco
-      cred_cards: Cartão
-      revenues: Faturamento
-      categories: Categoria
+      bill_payable_installment: Parcelas
+      bill_receivable_installment: Parcelas
+      provider_contract: Contrato com Fornecedor
+      item_provider_contract: Itens do Contrato
+      budget_provider_contract: Pedidos Associados
+      bank: Banco
+      cred_card: Cartão
+      revenue: Faturamento
+      category: Categoria
+      category_product: Categoria de Produto
 
 
     attributes:
+      category_product:
+        name: Nome
+        products: Produtos
+
+      bank:
+        ag: Agência
+        cc: Conta
+        name: Nome
+        op: Variação
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      cred_card:
+        valid_card: Validade
+        name: Nome
+        card_final: 4 Últimos dígitos
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      revenue:
+        name: Nome
+        category: Categoria
+        category_id: Categoria
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      category:
+        name: Nome
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      item_provider_contract:
+        provider_contract: Contrato com Fornecedor
+        provider_contract_id: Contrato com Fornecedor
+        name: Item
+        value: Valor
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      budget_provider_contract:
+        provider_contract: Contrato com Fornecedor
+        provider_contract_id: Contrato com Fornecedor
+        budget: Pedido
+        budget_id: Pedido
+        value: Valor
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      bill_receivable:
+        type_receivable: Tipo
+        budget: Pedido
+        budget_id: Pedido
+        name_other:  Nome
+        cpf_other: CPF
+        cnpj_other: CNPJ
+        phone_other: Telefone
+        due_date: Vencimento
+        obs_other: Observação
+        category: Categoria
+        revenue: Faturamento
+        status: Situação
+        obs: Observação
+        file: Arquivo
+        bill_receivable_installments: Parcelas
+        total_value: Valor Total
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      bill_receivable_installment:
+        date: Data de vencimento
+        value: Valor
+        file: Arquivo
+        interest: Juros em R$
+        payday: Pago Em
+        bank: Banco
+        bank_id: Banco
+        status: Situação
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      bill_payable:
+        provider_contract: Contrato com fornecedor
+        status: Situação
+        category: Categoria
+        revenue: Faturamento
+        obs: Observação
+        file: Arquivo
+        due_date: Vencimento
+        bill_payable_installments: Parcelas
+        total_value: Valor Total
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      bill_payable_installment:
+        date: Data de vencimento
+        value: Valor
+        file: Arquivo
+        cred_card: Cartão
+        cred_card_id: Cartão
+        bank_name: Banco
+        type_payment: Tipo de pagamento
+        interest: Juros em R$
+        payday: Pago Em
+        cc: Conta
+        ag: Agência
+        op: Variação
+        bank: Banco
+        bank_id: Banco
+        billet: Tipo de Boleto
+        code: Código de Barras
+        status: Situação
+        created_at: Criado em
+        updated_at: Atualizado em
+
+      provider_contract:
+        name: Nome
+        provider: Fornecedor
+        obs: Observação
+        status: Situação
+        partil_value: Valor Parcial
+        item_provider_contracts: Itens do Contrato
+        budget_provider_contracts: Pedidos Associados
+        total_value: Valor Total
+        created_at: Criado Em
+        updated_at: Atualizado Em
+
       user:
         login: "Nome de Usuário ou E-mail"
         username: 'Nome de Usuário'
@@ -195,14 +326,16 @@ pt-BR:
         derivative: 'Derivado'
         description: Descrição
         price: Preço
+        category_product: Categoria
+        category_product_id: Categoria
         created_at: Criado em
         updated_at: Atualizado em
 
       budget_product:
         reserve_qnt: 'Quantidade reservada'
         reserve: 'Reserva'
-        budget_id: Orçamento
-        budget: Orçamento
+        budget_id: Pedido
+        budget: Pedido
         product_id: Produto
         product: Produto
         unit_value: Valor unitário
@@ -221,8 +354,8 @@ pt-BR:
       budget:
         cod_name: Pedido
         obs: Observação
-        budget_products: Produto do Orçamento
-        budget_product: Produto do Orçamento
+        budget_products: Produto do Pedido
+        budget_product: Produto do Pedido
         user_id: Gerado por
         user: Gerado por
         client_id: Cliente
@@ -251,13 +384,21 @@ pt-BR:
       delivery_option:
         name: Nome
         sub: Sub-itens
+        created_at: Criado em
+        updated_at: Atualizado em
 
       sub_delivery_option:
         name: Nome
+        created_at: Criado em
+        updated_at: Atualizado em
 
       sub_type_payment:
         name: Nome
+        created_at: Criado em
+        updated_at: Atualizado em
 
       type_of_payment:
         name: Nome
         sub: Sub-itens
+        created_at: Criado em
+        updated_at: Atualizado em

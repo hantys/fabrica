@@ -37,6 +37,8 @@ gem "correios_api", github: "hantys/correios_api"#, branch: 'update_rails'
 #paginacao
 gem 'kaminari'
 
+gem 'carrierwave'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -57,7 +59,7 @@ end
 group :development do
   # gem 'web-console' #https://github.com/rails/web-console#usage
   gem 'better_errors' #https://github.com/charliesome/better_errors/wiki/Link-to-your-editor
-
+  gem 'binding_of_caller'
   gem 'mina'
   gem 'mina-puma'
   gem 'mina-multistage', require: false

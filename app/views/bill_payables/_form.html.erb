@@ -1,19 +1,170 @@
-
-<%= simple_form_for(@bill_payable) do |f| %>
+<%= simple_nested_form_for(@bill_payable) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.association :provider_contract %>
-    <%= f.input :status %>
-    <%= f.association :category %>
-    <%= f.association :revenue %>
-    <%= f.input :obs %>
-    <%= f.input :file %>
-    <%= f.input :total_value %>
+  <div class="row">
+    <div class="col-lg-4">
+
+      <div class="form-group select required bill_payable_provider_contract">
+        <label class="form-control-label select required" for="bill_payable_provider_contract_id">Contrato com fornecedor <abbr title="requerido">*</abbr></label>
+        <div class="d-flex align-items-center">
+          <%= f.association :provider_contract, collection: ProviderContract.where(status: 0).order(:name), prompt: "Escolha um Contrato", input_html: { class: 'simple-select2 w-100' }, wrapper: false, label: false, disabled: !f.object.new_record? %>
+          <% if f.object.new_record? %>
+            <div class="ml-2">
+              <%= link_to_modal_form new_provider_contract_path, class: 'text-white' do %>
+                <span class="badge badge-info ">
+                  <i class="material-icons" >
+                      add_circle_outline
+                  </i>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <%= f.input :total_value, readonly: true %>
+      <span class="change_icon_file">
+        <span class="file-name badge badge-success"><%= @bill_payable.file.file.identifier if @bill_payable.file.present? %></span>
+        <div class="d-flex flex-row bd-highlight mb-3">
+          <i class="material-icons p-2 bd-highlight">
+          <span class="icon-file badge <%= @bill_payable.file.present? ? 'badge-success' : 'badge-danger' %> ">
+            <%= @bill_payable.file.present? ? 'cloud_done' : 'cloud' %>
+          </span>
+          </i>
+          <%= f.input :file, label: false, input_html: { class: 'p-2 bd-highlight update_file_by_icon', onchange: "change_icon_file($(this));" } %>
+        </div>
+      </span>
+      <%= f.hidden_field :file_cache %>
+    </div>
+    <div class="col-lg-4">
+      <%= f.association :category, input_html: { class: 'simple-select2' } %>
+      <%= f.association :revenue, input_html: { class: 'simple-select2' } %>
+      <%= f.input :obs %>
+
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <% if @bill_payable.errors[:bill_payable_installments].present? %>
+    <legend class="alert alert-danger">
+      <small class=""><%= @bill_payable.errors.full_messages.first %></small>
+    </legend>
+  <% else %>
+    <legend>Parcelas</legend>
+  <% end %>
+  <div id="bill_payable_installments">
+    <%= f.fields_for :bill_payable_installments do |bill_payable_installments_form| %>
+      <div class="card card-body mb-3">
+        <div class="row">
+          <div class="col-lg-2">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <%= link_to "Boleto", "#v-pills-boleto-#{bill_payable_installments_form.index}", data: { toggle: "pill" }, role: "tab", aria: { controls: "v-pills-boleto-#{bill_payable_installments_form.index}", selected: "true" }, id: "v-pills-boleto-tab-#{bill_payable_installments_form.index}", class: "nav-link #{bill_payable_installments_form.object.type_payment == 'billet' ? 'active' : ''}", onclick: "change_type_payment('billet', 'item_type_payment_#{bill_payable_installments_form.index}');" %>
+              <%= link_to "Transferência", "#v-pills-transferencia-#{bill_payable_installments_form.index}", data: { toggle: "pill" }, role: "tab", aria: { controls: "v-pills-transferencia-#{bill_payable_installments_form.index}", selected: "true" }, id: "v-pills-transferencia-tab-#{bill_payable_installments_form.index}", class: "nav-link #{bill_payable_installments_form.object.type_payment == 'bank' ? 'active' : ''}", onclick: "change_type_payment('bank', 'item_type_payment_#{bill_payable_installments_form.index}');" %>
+              <%= link_to "Cartão", "#v-pills-cartao-#{bill_payable_installments_form.index}", data: { toggle: "pill" }, role: "tab", aria: { controls: "v-pills-cartao-#{bill_payable_installments_form.index}", selected: "true" }, id: "v-pills-cartao-tab-#{bill_payable_installments_form.index}", class: "nav-link #{bill_payable_installments_form.object.type_payment == 'card' ? 'active' : ''}", onclick: "change_type_payment('card', 'item_type_payment_#{bill_payable_installments_form.index}');" %>
+            </div>
+            <div class="form-group float optional provider_contract_bill_payable_installments_value form-group-valid">
+              <label class="form-control-label float optional d-none d-lg-block d-xl-block">  </label>
+              <%= bill_payable_installments_form.link_to_remove "Remover parcela", class: 'btn btn-outline-danger form-control float optional mt-2 d-none d-lg-block d-xl-block' %>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <span class="tab-content" id="v-pills-tabContent-<%= bill_payable_installments_form.index %>">
+              <div class="tab-pane fade <%= bill_payable_installments_form.object.type_payment == 'billet' ? 'active show' : '' %> " id="v-pills-boleto-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-boleto-tab-<%= bill_payable_installments_form.index %>">
+                <div class="card m-3">
+                  <div class="card-header">
+                    Tipo de Boleto
+                  </div>
+                  <div class="card-body">
+                    <%= bill_payable_installments_form.input :billet, as: :select, collection: [['Título', true], ['Convênio', false]], selected: true, input_html: { onchange: "change_bar_code($(this), 'item_bar_code_#{bill_payable_installments_form.index}');" } %>
+                    <%= bill_payable_installments_form.input :code, input_html: { class: "#{bill_payable_installments_form.object.billet ? 'code_title' : 'code_pact'}", id: "item_bar_code_#{bill_payable_installments_form.index}" } %>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="tab-pane fade <%= bill_payable_installments_form.object.type_payment == 'bank' ? 'active show' : '' %>" id="v-pills-transferencia-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-transferencia-tab-<%= bill_payable_installments_form.index %>">
+                <div class="card m-3">
+                  <div class="card-header">
+                    Débito
+                  </div>
+                  <div class="card-body">
+                    <%= bill_payable_installments_form.association :bank, input_html: {class: 'simple-select2'}, prompt: "Escolha um Banco" %>
+                  </div>
+                </div>
+                <div class="card m-3">
+                  <div class="card-header">
+                    Crédito
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <%= bill_payable_installments_form.input :bank_name %>
+                      </div>
+                      <div class="col">
+                        <%= bill_payable_installments_form.input :ag %>
+                      </div>
+                      <div class="col">
+                        <%= bill_payable_installments_form.input :cc %>
+                      </div>
+                      <div class="col">
+                        <%= bill_payable_installments_form.input :op %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade <%= bill_payable_installments_form.object.type_payment == 'card' ? 'active show' : '' %>" id="v-pills-cartao-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-cartao-tab-<%= bill_payable_installments_form.index %>">
+                <div class="card m-3">
+                  <div class="card-header">
+                    Pago com cartão
+                  </div>
+                  <div class="card-body">
+                    <%= bill_payable_installments_form.association :cred_card, input_html: {class: 'simple-select2'}, prompt: "Escolha um cartão" %>
+                  </div>
+                </div>
+
+              </div>
+            </span>
+<!--
+          </div>
+          <div class="col-4"> -->
+            <div class="card m-3">
+              <div class="card-header">
+                Informações de pagamento
+              </div>
+              <div class="card-body">
+                <%= bill_payable_installments_form.input :value, input_html: {class: 'value_budget'} %>
+                <%= bill_payable_installments_form.input :date, as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+
+                <%= bill_payable_installments_form.input :type_payment, as: :hidden, input_html: { id: "item_type_payment_#{bill_payable_installments_form.index}" } %>
+              </div>
+            </div>
+
+            <span class="change_icon_file">
+              <span class="badge badge-success file-name"><%= bill_payable_installments_form.object.file.file.identifier if bill_payable_installments_form.object.file.present? %></span>
+              <div class="d-flex flex-row bd-highlight mb-3">
+                <i class="material-icons p-2 bd-highlight">
+                <span class="icon-file badge <%= bill_payable_installments_form.object.file.present? ? 'badge-success' : 'badge-danger' %> ">
+                  <%= bill_payable_installments_form.object.file.present? ? 'cloud_done' : 'cloud' %>
+                </span>
+                </i>
+                <%= bill_payable_installments_form.input :file, label: false, input_html: { class: 'p-2 bd-highlight update_file_by_icon', onchange: "change_icon_file($(this));" } %>
+              </div>
+              <%= bill_payable_installments_form.hidden_field :file_cache %>
+              <label class="form-control-label float optional d-lg-none d-xl-none">  </label>
+              <%= bill_payable_installments_form.link_to_remove "Remover parcela", class: 'btn btn-outline-danger form-control float optional mt-2 d-lg-none d-xl-none' %>
+            </span>
+
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
+  <hr>
+  <p><%= f.link_to_add "Adicionar Parcela", :bill_payable_installments, :data => { :target => "#bill_payable_installments" }, class: 'btn btn-outline-primary' %></p>
+  <hr>
+
+  <hr>
+  <%= f.button :submit, class: 'btn btn-success' %>
+  <%= link_to 'Cancelar', bill_payables_path, class: 'btn btn-danger' %>
 <% end %>

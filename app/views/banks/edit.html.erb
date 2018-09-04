@@ -1,6 +1,6 @@
-<h1>Editing Bank</h1>
+<%- model_class = Bank -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
 
 <%= render 'form', bank: @bank %>
-
-<%= link_to 'Show', @bank %> |
-<%= link_to 'Back', banks_path %>

@@ -1,18 +1,98 @@
-
-<%= simple_form_for(@provider_contract) do |f| %>
+<%= simple_nested_form_for(@provider_contract, remote: @modal) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <%= hidden_field_tag :modal, @modal  %>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= f.input :name %>
+      <div class="form-group select required bill_payable_provider_contract">
+        <label class="form-control-label select required" for="bill_payable_provider_contract_id">Fornecedor<abbr title="requerido">*</abbr></label>
+        <div class="d-flex align-items-center">
+          <%= f.association :provider, collection: Provider.order(:company_name), prompt: "Escolha um Contrato", input_html: { class: 'simple-select2 w-100' }, wrapper: false, label: false %>
+          <div class="ml-2">
+            <% if @modal %>
+              <%= link_to new_provider_path, class: 'text-white', target: :blank do %>
+                <span id='icon-file' class="badge badge-info ">
+                  <i class="material-icons" >
+                      add_circle_outline
+                  </i>
+                </span>
+              <% end %>
+            <% else %>
+              <%= link_to_modal_form new_provider_path, class: 'text-white' do %>
+                <span id='icon-file' class="badge badge-info ">
+                  <i class="material-icons" >
+                      add_circle_outline
+                  </i>
+                </span>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <%= f.input :obs %>
+      <legend>Itens</legend>
+      <div id="item_provider_contracts">
+        <%= f.fields_for :item_provider_contracts do |item_provider_contracts_form| %>
+          <div class="card card-body">
+            <div class="row ">
+              <div class="col">
+                <%= item_provider_contracts_form.input :name %>
+              </div>
+              <div class="col">
+                <%= item_provider_contracts_form.input :value, input_html: {class: 'item_provider_contract_value_budget', oninput: "on_input_value();"} %>
+              </div>
+              <div class="col">
+                <div class="form-group float optional provider_contract_item_provider_contracts_value form-group-valid">
+                  <label class="form-control-label float optional">  </label>
+                  <%= item_provider_contracts_form.link_to_remove "Remover Pedido", class: 'btn btn-outline-danger form-control float optional mt-2' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        <% end %>
+      </div>
+      <hr>
+      <p><%= f.link_to_add "Adicionar Item", :item_provider_contracts, :data => { :target => "#item_provider_contracts" }, class: 'btn btn-outline-primary' %></p>
+      <hr>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.association :provider %>
-    <%= f.input :obs %>
-    <%= f.input :total_value %>
-    <%= f.input :partil_value %>
-    <%= f.input :staus %>
+      <%= f.input :total_value, wrapper_html: {class: 'w-25'}, readonly: true %>
+      <hr>
+      <legend>Associar Pedidos</legend>
+      <div id="budget_provider_contracts">
+        <%= f.fields_for :budget_provider_contracts do |budget_provider_contracts_form| %>
+          <div class="card card-body">
+            <div class="row ">
+              <div class="col">
+                <%= budget_provider_contracts_form.input :budget_id, as: :select, collection: Budget.includes(:client).order(:cod_name).map{|x| ["#{x.cod_name} - #{x.client.company_name}", x.id]}, input_html: {class: 'simple-select2'}, prompt: "Escolha um Pedido" %>
+              </div>
+              <div class="col">
+                <%= budget_provider_contracts_form.input :value, input_html: {class: 'item_provider_contract_value_budget'} %>
+              </div>
+              <div class="col">
+                <div class="form-group float optional provider_contract_budget_provider_contracts_value form-group-valid">
+                  <label class="form-control-label float optional">  </label>
+                  <%= budget_provider_contracts_form.link_to_remove "Remover Pedido", class: 'btn btn-outline-danger form-control float optional mt-2' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        <% end %>
+      </div>
+      <hr>
+      <p><%= f.link_to_add "Associar Pedido", :budget_provider_contracts, :data => { :target => "#budget_provider_contracts" }, class: 'btn btn-outline-primary' %></p>
+
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <hr>
+  <%= f.button :submit, class: 'btn btn-success' %>
+  <%= link_to 'Cancelar', provider_contracts_path, class: 'btn btn-danger' unless @modal %>
+  <%= link_to 'Cancelar', 'javascript:;', class: 'btn btn-danger', data: { dismiss: 'modal' } if @modal %>
+<% end %>
+
+<% if @modal %>
+  <%= javascript_include_tag 'provider_contracts' %>
 <% end %>

@@ -2,8 +2,8 @@
   <%= link_to budget.id, budget %>
 </td>
 <td><%= link_to budget.cod_name, budget %></td>
-<td><%= link_to_modal budget.client.company_name, client_path(budget.client), "text-dark" %></td>
-<td><%= link_to_modal budget.employee.name, employee_path(budget.employee), "text-dark" %></td>
+<td><%= link_to_modal budget.client.company_name, client_path(budget.client), class: "text-dark" %></td>
+<td><%= link_to_modal budget.employee.name, employee_path(budget.employee), class: "text-dark" %></td>
 <td><%= budget.try(:delivery_option).try(:name) %></td>
 <td><%=l budget.deadline %></td>
 <!-- <td><%#= budget.try(:type_of_payment).try(:name) %></td> -->
@@ -31,7 +31,7 @@
 </td>
 <td>
   <% if (can? :update_status, Budget) %>
-    <%= link_to "Reservar", budget, class: 'btn btn-warning mb-1' if budget.status == 'authorized' and (current_user.has_role?(:admin) or current_user.has_role?(:manager)) %>
+    <%= link_to budget.reserve ? "Libera da reserva" : "Reservar todos", reserve_all_budget_path(budget), class: "btn btn-#{budget.reserve ? 'outline-success' : 'warning'} mb-1" if budget.status == 'authorized' and (current_user.has_role?(:admin) or current_user.has_role?(:manager)) %>
     <%= link_to "Confirmar", budget_update_status_path(budget.id, 'confirm'), class: 'btn btn-info mb-1', data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, remote: true, cache: false if budget.status == 'waiting' %>
     <%= link_to "Autorizar", "javascript:;", class: 'btn btn-success mb-1', data: { toggle: "modal", target: "#update_status", id: budget.id, whatever: budget.cod_name }, cache: false if budget.status == 'confirm' %>
     <%= link_to "Faturar", budget_update_status_path(budget.id, 'billed'), class: 'btn btn-primary mb-1', data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, remote: true, cache: false if budget.status == 'authorized' %>
@@ -51,4 +51,5 @@
     <%# <i class="material-icons">delete</i> %>
     <%= t('.destroy', :default => t("helpers.links.destroy")) %>
   <% end %>
+  <%= link_to "Ordem de serviço", order_service_path(budget), :class => 'btn btn-outline-dark', target: '_blank' %>
 </td>

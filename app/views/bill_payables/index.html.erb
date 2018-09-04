@@ -1,39 +1,48 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = BillPayable -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_bill_payable_path, class: "btn btn-primary d-print-none" %>
+</div>
+<%= render 'search' %>
 
-<h1>Bill Payables</h1>
+<%= form_tag pays_path do %>
+  <div class="d-flex justify-content-between w-100">
+    <div class="mb-2">
+      <%= paginate @bill_payables if @bill_payables.size > 20 %>
+      <%= page_entries_info @bill_payables, entry_name: 'item' %>
+    </div>
+    <div class="mb-2">
+      <%= link_to "Selecionar todos", "javascript:;", :id => "select_all", :class => 'btn btn-info d-print-none' -%>
+      <%= submit_tag "Pagar selecionados", :class => 'btn btn-success d-print-none pay_all', disabled: true %>
+    </div>
+  </div>
+<%= paginate @bill_payables %>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover text-center">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col"><%= sort_link @q, :id, "#", default_order: :desc %></th>
 
-<table>
-  <thead>
-    <tr>
-      <th>Provider contract</th>
-      <th>Status</th>
-      <th>Category</th>
-      <th>Revenue</th>
-      <th>Obs</th>
-      <th>File</th>
-      <th>Total value</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+          <th scope="col"><%= sort_link @q, :provider_contract_name, model_class.human_attribute_name(:provider_contract), default_order: :desc %></th>
+          <th scope="col"><%= sort_link @q, :category, model_class.human_attribute_name(:category), default_order: :desc %></th>
+          <th scope="col"><%= sort_link @q, :revenue, model_class.human_attribute_name(:revenue), default_order: :desc %></th>
+          <th scope="col"><%= sort_link @q, :status, model_class.human_attribute_name(:status), default_order: :desc %></th>
+          <th scope="col"><%= sort_link @q, :total_value, model_class.human_attribute_name(:total_value), default_order: :desc %></th>
+          <th scope="col"><%= sort_link @q, :due_date, model_class.human_attribute_name(:due_date), default_order: :desc %></th>
+          <th scope="col" class="d-print-none text-center">Selecione</th>
+          <th scope="col" class="d-print-none text-center"><%=t '.actions', :default => t("helpers.actions") %></th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @bill_payables.each do |bill_payable| %>
-      <tr>
-        <td><%= bill_payable.provider_contract %></td>
-        <td><%= bill_payable.status %></td>
-        <td><%= bill_payable.category %></td>
-        <td><%= bill_payable.revenue %></td>
-        <td><%= bill_payable.obs %></td>
-        <td><%= bill_payable.file %></td>
-        <td><%= bill_payable.total_value %></td>
-        <td><%= link_to 'Show', bill_payable %></td>
-        <td><%= link_to 'Edit', edit_bill_payable_path(bill_payable) %></td>
-        <td><%= link_to 'Destroy', bill_payable, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <% @bill_payables.each do |bill_payable| %>
+          <tr id="bill_payable-item-<% bill_payable.id %>">
+            <%= render 'bill_payable_item', bill_payable: bill_payable %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
 
-<br>
-
-<%= link_to 'New Bill Payable', new_bill_payable_path %>
+<%= paginate @bill_payables %>

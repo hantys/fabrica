@@ -22,7 +22,7 @@
       <% @stock_raw_materials.each do |stock_raw_material| %>
       <tr>
         <td scope="row"><%= link_to stock_raw_material.id, stock_raw_material %></td>
-        <td><%= link_to_modal stock_raw_material.raw_material.name, raw_material_path(stock_raw_material.raw_material), "text-dark" %></td>
+        <td><%= link_to_modal stock_raw_material.raw_material.name, raw_material_path(stock_raw_material.raw_material), class: "text-dark" %></td>
         <td><%= stock_raw_material.weight.round(3) %> kg</td>
         <!-- <td><%#= stock_raw_material.weight_out.round(3) %> kg</td> -->
         <td><%=  number_to_currency(stock_raw_material.price, :unit => "R$") %></td>

@@ -1,39 +1,154 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = BillPayable -%>
 
-<p>
-  <strong>Provider contract:</strong>
-  <%= @bill_payable.provider_contract %>
-</p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @bill_payable.status %>
-</p>
+<div class="page-header d-flex flex-row justify-content-start align-items-center w-100">
+  <h1><strong><%=t '.title', :default => model_class.model_name.human.titleize %></strong></h1>
+  <% unless @modal %>
+    <div class="d-flex flex-row justify-content-start align-items-center ml-auto">
+    <%= link_to t('.new', :default => t("helpers.links.new")), new_bill_payable_path, class: "btn btn-info" %>
+    <%= link_to t('.back', :default => t("helpers.links.back")),
+                bill_payables_path, :class => 'btn btn-secondary ml-2'  %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_bill_payable_path(@bill_payable), :class => 'btn btn-primary ml-2' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  bill_payable_path(@bill_payable),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-danger ml-2' %>
+    </div>
+  <% end %>
+</div>
 
-<p>
-  <strong>Category:</strong>
-  <%= @bill_payable.category %>
-</p>
+<div class="row mt-4 mb-4">
+  <div class="col-6">
+    <p>
+      <strong>
+        <%= model_class.human_attribute_name(:provider_contract) %>:
+      </strong>
+      <%= link_to_modal @bill_payable.provider_contract.name, provider_contract_path(@bill_payable.provider_contract), class: "text-dark" %>
+      <hr>
 
-<p>
-  <strong>Revenue:</strong>
-  <%= @bill_payable.revenue %>
-</p>
+      <strong>
+        <%= model_class.human_attribute_name(:status) %>:
+      </strong>
 
-<p>
-  <strong>Obs:</strong>
-  <%= @bill_payable.obs %>
-</p>
+      <%= label_status_bp @bill_payable %>
+      <hr>
 
-<p>
-  <strong>File:</strong>
-  <%= @bill_payable.file %>
-</p>
+      <strong>
+        <%= model_class.human_attribute_name(:total_value) %>:
+      </strong>
 
-<p>
-  <strong>Total value:</strong>
-  <%= @bill_payable.total_value %>
-</p>
+      <%= number_to_currency @bill_payable.total_value %>
+      <hr>
 
-<%= link_to 'Edit', edit_bill_payable_path(@bill_payable) %> |
-<%= link_to 'Back', bill_payables_path %>
+      <strong>
+        <%= model_class.human_attribute_name(:file) %>:
+      </strong>
+
+      <%= link_to @bill_payable.file_identifier, @bill_payable.file.url, download: @bill_payable.file_identifier if @bill_payable.file.present? %>
+      <hr>
+    </p>
+  </div>
+  <div class="col-6">
+    <p>
+      <strong>
+        <%= model_class.human_attribute_name(:category) %>:
+      </strong>
+
+      <%= @bill_payable.category.try(:name) %>
+      <hr>
+
+      <strong>
+        <%= model_class.human_attribute_name(:revenue) %>:
+      </strong>
+
+      <%= @bill_payable.revenue.try(:name) %>
+      <hr>
+
+      <strong>
+        <%= model_class.human_attribute_name(:obs) %>:
+      </strong>
+      <%= @bill_payable.obs %>
+      <hr>
+
+    </p>
+  </div>
+
+  <strong>
+    <%= model_class.human_attribute_name(:bill_payable_installments) %>:
+  </strong>
+  <%- model_class = BillPayableInstallment -%>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover text-center">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col"><%= model_class.human_attribute_name(:type_payment) %></th>
+          <th scope="col">Informaçõs do pagamento</th>
+          <th scope="col"><%= model_class.human_attribute_name(:file) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:status) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:interest) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:value) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:date) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:payday) %></th>
+          <th scope="col" class="d-print-none text-center"><%=t '.actions', :default => t("helpers.actions") %></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @bill_payable.bill_payable_installments.each do |bill_payable_installment| %>
+          <tr>
+            <td>
+              <%= bill_payable_installment.type_payment_i18n %>
+            </td>
+            <td>
+              <% case %>
+              <% when bill_payable_installment.type_payment == 'card' %>
+                <%= bill_payable_installment.cred_card.name %>-<%= bill_payable_installment.cred_card.card_final %>
+              <% when bill_payable_installment.type_payment == 'billet' %>
+                <%= bill_payable_installment.code %>
+              <% when bill_payable_installment.type_payment == 'bank' %>
+              <ul class="list-unstyled text-justify pl-5">
+                <li>
+                  <strong>Debitado de:</strong> <%= bill_payable_installment.bank.name %>
+                  <hr>
+                </li>
+                <li>
+                  <strong>Creditado em:</strong> <%= bill_payable_installment.bank_name %> <br>
+                  <strong>          ag:</strong> <%= bill_payable_installment.ag %> <br>
+                  <strong>          cc:</strong> <%= bill_payable_installment.cc %> <br>
+                  <strong>          op:</strong> <%= bill_payable_installment.op %>
+                  <hr>
+                </li>
+              </ul>
+              <% else %>
+                -
+              <% end %>
+            </td>
+            <td>
+              <%= link_to bill_payable_installment.file_identifier, bill_payable_installment.file.url, download: bill_payable_installment.file_identifier if bill_payable_installment.file.present? %>
+            </td>
+            <td>
+              <%= bill_payable_installment.status_i18n %>
+            </td>
+            <td>
+              <%= bill_payable_installment.interest %>
+            </td>
+            <td>
+              <%= number_to_currency bill_payable_installment.value %>
+            </td>
+            <td>
+              <%= bill_payable_installment.date %>
+            </td>
+            <td>
+              <%= bill_payable_installment.payday %>
+            </td>
+            <td>
+              -
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

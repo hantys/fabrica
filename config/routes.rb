@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :category_products
   resources :bill_receivables
   resources :bill_payables
   resources :provider_contracts
@@ -22,9 +23,25 @@ Rails.application.routes.draw do
   resources :compositions
   resources :raw_materials
 
+  # contas a receber
+  put '/contas_a_receber/item/receber/:item_id', to: 'bill_receivables#receive_item_update', as: :receive_item_update
+  get '/contas_a_receber/item/receber/:item_id', to: 'bill_receivables#receive_item', as: :receive_item
+
+  post '/contas_a_receber/receber_itens', to: 'bill_receivables#receives', as: :receives
+  put '/contas_a_receber/receber_itens', to: 'bill_receivables#receives_update', as: :receives_update
+
+  # contas a pagar
+  put '/contas_a_pagar/item/pagar/:item_id', to: 'bill_payables#pay_item_update', as: :pay_item_update
+  get '/contas_a_pagar/item/pagar/:item_id', to: 'bill_payables#pay_item', as: :pay_item
+
+  post '/contas_a_pagar/paga_itens', to: 'bill_payables#pays', as: :pays
+  put '/contas_a_pagar/paga_itens', to: 'bill_payables#pays_update', as: :pays_update
+
   get "/product/cod/:cod", to: 'products#product_cod', as: :product_cod
 
   put '/reserve_product/:id' => 'budgets#updated_reserve_product', as: :reserve_product
+
+  get '/reserve_all_budget/:id' => 'budgets#reserve_all_budget', as: :reserve_all_budget
 
   scope '/relatorio' do
     get '/producao-diaria' => "reports#daily_production", as: :daily_production
@@ -39,11 +56,12 @@ Rails.application.routes.draw do
     get '/produto-primitivo/:id', to: "home#produto_primitivo"
   end
 
-  scope '/busca' do
-    get '/orcamento/reserve_product/:id', to: "budgets#reserve_product"
-    get '/orcamento/pdf/:id', to: "budgets#budget_pdf", as: :budget_pdf
-    get '/orcamento/atualiza-status/:id/:status', to: "budgets#update_status", as: :budget_update_status
-    post '/orcamento/atualiza-status/', to: "budgets#update_status", as: :budget_update_status_obs
+  scope '/pedido' do
+    get '/reserve_product/:id', to: "budgets#reserve_product"
+    get '/pdf/:id', to: "budgets#budget_pdf", as: :budget_pdf
+    get '/orderm-de-servico/:id', to: "budgets#order_service", as: :order_service
+    get '/atualiza-status/:id/:status', to: "budgets#update_status", as: :budget_update_status
+    post '/atualiza-status/', to: "budgets#update_status", as: :budget_update_status_obs
   end
 
   get '/load_hit_items/:composition', to: "hits#load_items"

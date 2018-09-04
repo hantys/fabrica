@@ -1,69 +1,152 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = BillReceivable -%>
 
-<p>
-  <strong>Type receivable:</strong>
-  <%= @bill_receivable.type_receivable %>
-</p>
 
-<p>
-  <strong>Budget:</strong>
-  <%= @bill_receivable.budget %>
-</p>
+<div class="page-header d-flex flex-row justify-content-start align-items-center w-100">
+  <h1><strong><%=t '.title', :default => model_class.model_name.human.titleize %></strong></h1>
+  <% unless @modal %>
+    <div class="d-flex flex-row justify-content-start align-items-center ml-auto">
+    <%= link_to t('.new', :default => t("helpers.links.new")), new_bill_receivable_path, class: "btn btn-info" %>
+    <%= link_to t('.back', :default => t("helpers.links.back")),
+                bill_receivables_path, :class => 'btn btn-secondary ml-2'  %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_bill_receivable_path(@bill_receivable), :class => 'btn btn-primary ml-2' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  bill_receivable_path(@bill_receivable),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-danger ml-2' %>
+    </div>
+  <% end %>
+</div>
 
-<p>
-  <strong>Name other:</strong>
-  <%= @bill_receivable.name_other %>
-</p>
+<div class="row mt-4 mb-4">
+  <div class="col-6">
+    <p>
+      <% if @bill_receivable.type_receivable == 'budget' %>
+        <strong>
+          <%= model_class.human_attribute_name(:budget) %>:
+        </strong>
+        <%= link_to_modal @bill_receivable.budget.cod_name, budget_path(@bill_receivable.budget), class: "text-dark" %>
+        <hr>
+      <% else %>
+        <strong>
+          <%= model_class.human_attribute_name(:name_other) %>:
+        </strong>
+        <%= @bill_receivable.name_other %>
+        <hr>
 
-<p>
-  <strong>Cpf other:</strong>
-  <%= @bill_receivable.cpf_other %>
-</p>
+        <strong>
+          <%= model_class.human_attribute_name(:cpf_other) %>/<%= model_class.human_attribute_name(:cnpj_other) %>:
+        </strong>
+        <%= @bill_receivable.cpf_other.present? ? @bill_receivable.cpf_other : @bill_receivable.cnpj_other %>
+        <hr>
 
-<p>
-  <strong>Cnpj other:</strong>
-  <%= @bill_receivable.cnpj_other %>
-</p>
+        <strong>
+          <%= model_class.human_attribute_name(:phone_other) %>:
+        </strong>
+        <%= @bill_receivable.phone_other %>
+        <hr>
 
-<p>
-  <strong>Phone other:</strong>
-  <%= @bill_receivable.phone_other %>
-</p>
+        <strong>
+          <%= model_class.human_attribute_name(:obs_other) %>:
+        </strong>
+        <%= @bill_receivable.obs_other %>
+        <hr>
+      <% end %>
 
-<p>
-  <strong>Obs other:</strong>
-  <%= @bill_receivable.obs_other %>
-</p>
+      <strong>
+        <%= model_class.human_attribute_name(:total_value) %>:
+      </strong>
 
-<p>
-  <strong>Category:</strong>
-  <%= @bill_receivable.category %>
-</p>
+      <%= number_to_currency @bill_receivable.total_value %>
+      <hr>
 
-<p>
-  <strong>Revenue:</strong>
-  <%= @bill_receivable.revenue %>
-</p>
+      <strong>
+        <%= model_class.human_attribute_name(:status) %>:
+      </strong>
 
-<p>
-  <strong>Status:</strong>
-  <%= @bill_receivable.status %>
-</p>
+      <%= label_status_br @bill_receivable %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:file) %>:
+      </strong>
 
-<p>
-  <strong>Obs:</strong>
-  <%= @bill_receivable.obs %>
-</p>
+      <%= link_to @bill_receivable.file_identifier, @bill_receivable.file.url, download: @bill_receivable.file_identifier if @bill_receivable.file.present? %>
+      <hr>
+    </p>
+  </div>
+  <div class="col-6">
+    <p>
+      <strong>
+        <%= model_class.human_attribute_name(:category) %>:
+      </strong>
 
-<p>
-  <strong>File:</strong>
-  <%= @bill_receivable.file %>
-</p>
+      <%= @bill_receivable.category.try(:name) %>
+      <hr>
 
-<p>
-  <strong>Total value:</strong>
-  <%= @bill_receivable.total_value %>
-</p>
+      <strong>
+        <%= model_class.human_attribute_name(:revenue) %>:
+      </strong>
 
-<%= link_to 'Edit', edit_bill_receivable_path(@bill_receivable) %> |
-<%= link_to 'Back', bill_receivables_path %>
+      <%= @bill_receivable.revenue.try(:name) %>
+      <hr>
+
+      <strong>
+        <%= model_class.human_attribute_name(:obs) %>:
+      </strong>
+
+      <%= @bill_receivable.obs %>
+      <hr>
+
+    </p>
+  </div>
+
+  <strong>
+    <%= model_class.human_attribute_name(:bill_receivable_installments) %>:
+  </strong>
+  <%- model_class = BillReceivableInstallment -%>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover text-center">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col"><%= model_class.human_attribute_name(:bank) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:file) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:status) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:value) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:date) %></th>
+          <th scope="col"><%= model_class.human_attribute_name(:payday) %></th>
+          <th scope="col" class="d-print-none text-center"><%=t '.actions', :default => t("helpers.actions") %></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @bill_receivable.bill_receivable_installments.includes(:bank).each do |bill_receivable_installment| %>
+          <tr>
+            <td>
+              <%= bill_receivable_installment.bank.name %>
+            </td>
+
+            <td>
+              <%= link_to bill_receivable_installment.file_identifier, bill_receivable_installment.file.url, download: bill_receivable_installment.file_identifier if bill_receivable_installment.file.present? %>
+            </td>
+            <td>
+              <%= bill_receivable_installment.status_i18n %>
+            </td>
+            <td>
+              <%= number_to_currency bill_receivable_installment.value %>
+            </td>
+            <td>
+              <%= bill_receivable_installment.date %>
+            </td>
+            <td>
+              <%= bill_receivable_installment.payday %>
+            </td>
+            <td>
+              -
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h3>Parcela de <%= @pay.date %> do contrato <%= @bill_payable.provider_contract.name %> </h3>
+</div>
+<legend>Valor: <%= number_to_currency @pay.value %></legend>
+
+
+<span class="new_form_remote">
+  <%= render 'pay_item', bill_payable: @bill_payable, pay: @pay, modal: @modal %>
+</span>

@@ -6,6 +6,7 @@
     <div class="col-lg-6">
       <%= f.input :cod %>
       <%= f.input :name %>
+      <%= f.association :category_product, prompt: "Escolha uma categoria", input_html: { class: 'simple-select2' }  %>
       <%= f.input :derivative %>
       <% if f.object.new_record? %>
         <%= f.input :price, as: :string, input_html: { class: 'money' } %>

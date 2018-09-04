@@ -1,5 +1,6 @@
 class HitsController < ApplicationController
   before_action :set_hit, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource except: [:load_items]
   # GET /hits
   # GET /hits.json
   def index

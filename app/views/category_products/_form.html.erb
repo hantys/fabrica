@@ -1,0 +1,21 @@
+<%= simple_nested_form_for(@category_product) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <% if @category_product.errors.full_messages.any? %>
+    <ul>
+      <% @category_product.errors.full_messages.each do |error_message| %>
+        <li class="alert alert-danger">
+          <%= error_message if @category_product.errors.full_messages.first == error_message %> <br />
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class="row">
+    <div class="col-lg-4">
+      <%= f.input :name %>
+    </div>
+  </div>
+  <hr>
+  <%= f.button :submit, class: 'btn btn-success' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")), category_products_path, class: 'btn btn-danger' %>
+<% end %>

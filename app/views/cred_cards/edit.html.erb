@@ -1,6 +1,6 @@
-<h1>Editing Cred Card</h1>
+<%- model_class = CredCard -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
 
 <%= render 'form', cred_card: @cred_card %>
-
-<%= link_to 'Show', @cred_card %> |
-<%= link_to 'Back', cred_cards_path %>

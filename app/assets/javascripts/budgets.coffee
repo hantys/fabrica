@@ -8,7 +8,7 @@ jQuery ->
     modal = $(this)
     modal.find('.modal-title').text 'Reservar ' + title
 
-    $.get '/busca/orcamento/reserve_product/' + id, {}, ((data) ->
+    $.get '/pedido/reserve_product/' + id, {}, ((data) ->
       modal.find('.modal-body').html(data)
     ), 'html'
 
@@ -19,7 +19,7 @@ jQuery ->
     id = button.data('id')
 
     modal = $(this)
-    modal.find('.modal-title').text 'Autorizar orçamento ' + title
+    modal.find('.modal-title').text 'Autorizar pedido ' + title
     modal.find('#budget_update_id').val(id)
 
   $('#product').on 'show.bs.modal', (event) ->
