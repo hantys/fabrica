@@ -43,6 +43,8 @@ module Fabrica
     config.i18n.default_locale = :'pt-BR'
     config.i18n.available_locales = ["pt-BR"]
 
+    config.active_job.queue_adapter = :sidekiq
+
     config.cache_store = :memory_store, { size: 64.megabytes }
 
     config.action_controller.include_all_helpers = true
