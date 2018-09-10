@@ -4,12 +4,12 @@ module BillPayablesHelper
     # bill_payable.status_i18n
     status = bill_payable.status
 
-    bill_payable.due_date_verify
+    # bill_payable.due_date_verify
 
-    if status != bill_payable.status
-      bill_payable.save
-      status = bill_payable.status
-    end
+    # if status != bill_payable.status
+    #   bill_payable.save
+    #   status = bill_payable.status
+    # end
     aux = ''
     text = t "enums.bill_payable.status.#{status}"
 

@@ -4,12 +4,12 @@ module BillReceivablesHelper
     # bill_receivable.status_i18n
     status = bill_receivable.status
 
-    bill_receivable.due_date_verify
+    # bill_receivable.due_date_verify
 
-    if status != bill_receivable.status
-      bill_receivable.save
-      status = bill_receivable.status
-    end
+    # if status != bill_receivable.status
+    #   bill_receivable.save
+    #   status = bill_receivable.status
+    # end
     aux = ''
     text = t "enums.bill_receivable.status.#{status}"
 
