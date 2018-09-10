@@ -4,7 +4,7 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/rvm'
 require 'mina/puma'
-
+require 'mina_sidekiq/tasks'
 
 set :application, 'fabrica'
 set :domain, '162.243.169.133'
@@ -24,7 +24,6 @@ set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/
 # set :keep_releases, 10
 
 # set :force_asset_precompile, true
-
 task :environment do
   invoke :'rvm:use', 'ruby-2.5.1'
 end
@@ -50,6 +49,9 @@ task :setup do
 
   command %[mkdir -p "/#{fetch(:shared_path)}/public/assets"]
   command %[chmod g+rx,u+rwx "/#{fetch(:shared_path)}/public/assets"]
+
+  command %(mkdir -p "#{fetch(:deploy_to)}/shared/pids/")
+  command %(mkdir -p "#{fetch(:deploy_to)}/shared/log/")
 
   command %[touch "/#{fetch(:shared_path)}/config/application.yml"]
   command %[touch "/#{fetch(:shared_path)}/config/database.yml"]
@@ -79,6 +81,7 @@ task :deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
     invoke :'git:clone'
+    invoke :'sidekiq:quiet'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
@@ -88,6 +91,7 @@ task :deploy do
     on :launch do
       # invoke :'puma:phased_restart'
       invoke :'puma:hard_restart'
+      invoke :'sidekiq:restart'
       # invoke :'sitemap:refresh'
     end
   end

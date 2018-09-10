@@ -202,6 +202,8 @@ GEM
     mina-puma (1.1.0)
       mina (~> 1.2.0)
       puma (>= 2.13)
+    mina-sidekiq (1.0.3)
+      mina (>= 1.0.2)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
@@ -441,6 +443,7 @@ DEPENDENCIES
   mina
   mina-multistage
   mina-puma
+  mina-sidekiq
   nested_form
   paper_trail
   paper_trail-association_tracking
