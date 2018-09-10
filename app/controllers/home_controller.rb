@@ -9,7 +9,7 @@ class HomeController < ApplicationController
 
     @modal_size = 'lg'
 
-    @bill_payables = BillPayable.includes(:provider_contract, :bill_payable_installments).where(status: [0,1]).accessible_by(current_ability).order(id: :desc).limit(20)
+    @bill_payables = BillPayable.includes(:provider_contract).where(status: [0,1]).accessible_by(current_ability).order(id: :desc).limit(20)
   end
 
   def find_by_address

@@ -53,7 +53,6 @@
         </tr>
       </thead>
       <tbody>
-        <% if false %>
         <% @products.each_with_index do |product, i| %>
             <tr>
               <th scope="row"><%= i+1 %></th>
@@ -72,7 +71,6 @@
               <td style="background-color: #fbffa2 " class="d-print-none"><%= number_with_delimiter product.qnt_pedidos.to_i, delimiter: ".", separator: "," %> itens</td>
               <td style="background-color: #ff9ea0 "><%= number_with_delimiter product.para_produzir.to_i, delimiter: ".", separator: "," %> itens</td>
             </tr>
-        <% end %>
         <% end %>
       </tbody>
     </table>
