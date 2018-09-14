@@ -6,4 +6,6 @@ class Bank < ApplicationRecord
   validates :name, presence: true
   validates :ag, presence: true
   validates :cc, presence: true
+
+  
 end
