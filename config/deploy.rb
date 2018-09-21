@@ -4,6 +4,7 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/rvm'
 require 'mina/puma'
+require 'mina/webpacker'
 require 'mina_sidekiq/tasks'
 
 set :application, 'fabrica'
@@ -86,6 +87,7 @@ task :deploy do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
+    invoke :'webpacker:compile'
     invoke :'deploy:cleanup'
 
     on :launch do

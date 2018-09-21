@@ -42,6 +42,7 @@ gem 'carrierwave'
 gem 'redis'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
+gem 'webpacker', '~> 3.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -67,6 +68,7 @@ group :development do
   gem 'mina'
   gem 'mina-puma'
   gem 'mina-sidekiq'
+  gem "mina-webpacker"
   gem 'mina-multistage', require: false
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
