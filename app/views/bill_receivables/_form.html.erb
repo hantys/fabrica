@@ -16,7 +16,14 @@
 
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade <%= f.object.type_receivable == 'budget' ? 'show active' : '' %>" id="nav-type-receivable-budget" role="tabpanel" aria-labelledby="nav-budget-tab">
-          <%= f.association :budget, collection: Budget.accessible_by(current_ability).order(:cod_name).map {|x| [x.cod_name, x.id]}, prompt: "Escolha um Pedido", input_html: { class: 'simple-select2' } %>
+          
+          <% if params[:budget].present? %>
+            <%= f.association :budget, collection: Budget.accessible_by(current_ability).order(:cod_name).map {|x| [x.cod_name, x.id]}, prompt: "Escolha um Pedido", selected: params[:budget], input_html: { class: 'simple-select2' } %>
+          <% else %>
+            <%= f.association :budget, collection: Budget.accessible_by(current_ability).order(:cod_name).map {|x| [x.cod_name, x.id]}, prompt: "Escolha um Pedido", input_html: { class: 'simple-select2' } %>
+          <% end %>
+          
+
         </div>
         <div class="tab-pane fade <%= f.object.type_receivable == 'other' ? 'show active' : '' %>" id="nav-type-receivable-other" role="tabpanel" aria-labelledby="nav-budget-tab">
           <div class="row">
@@ -69,8 +76,13 @@
           <div class="card card-body mb-3">
             <%= bill_receivable_installments_form.association :bank, input_html: {class: 'simple-select2'}, prompt: "Escolha um Banco" %>
 
-
-            <%= bill_receivable_installments_form.input :value, input_html: {class: 'value_budget'} %>
+            
+            <% if params[:value].present? %>
+            <%= bill_receivable_installments_form.input :value, input_html: {class: 'value_budget', value: params[:value]} %>
+            <% else %>
+              <%= bill_receivable_installments_form.input :value, input_html: {class: 'value_budget'} %>
+            <% end %>
+            
             <%= bill_receivable_installments_form.input :date, as: :string, placeholder: '', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
 
 
@@ -103,7 +115,11 @@
   <hr>
     <div class="row">
       <div class="col-xl-3 col-lg-3 col-md-4 col-sm">
-        <%= f.input :total_value, readonly: true %>
+        <% if params[:value].present? %>
+          <%= f.input :total_value, readonly: true, input_html: {value: params[:value]} %>
+        <% else %>
+          <%= f.input :total_value, readonly: true %>
+        <% end %>
       </div>
     </div>
   <hr>

@@ -13,13 +13,12 @@ TO DO
 
 - Cadastro de inventario
 - Criar sistema de viagens com vinculacao aos orcamentos
+- Bloquear cliente opcao
+- Gerar varias ordem de pedido
 
 - Contas a receber juros
-- Bloquear cliente opcao
 - Saldo de conta em bancos
 - Transferencia de valores
-- Faturar pedido direciona para contas a receber
-- Gerar varias ordem de pedido
 
 - RELATÓRIOS
 	1.0 – FATURAMENTO
@@ -55,6 +54,7 @@ TO DO
 
 
 DONE
+- Faturar pedido direciona para contas a receber
 - Criar Contas a receber  bill_receivable
 	* tipo
 		º orcamento

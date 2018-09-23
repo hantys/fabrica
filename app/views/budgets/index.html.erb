@@ -51,7 +51,7 @@
           <%= hidden_field_tag :status, 'authorized' %>
           <div class="form-group text required">
             <%= label_tag :obs, 'Observação:', class: "form-control-label text required" %>
-            <%= text_area_tag :obs, nil, rows: 5, cols: 10, class: "form-control text required" %>
+            <%= text_area_tag :obs, nil, rows: 5, cols: 10, class: "form-control text required", id: 'obs-status' %>
           </div>
           <%= submit_tag 'Autorizar', class: "btn btn-primary float-right" %>
         <% end -%>

@@ -69,6 +69,7 @@ class BudgetsController < ApplicationController
     elsif @budget.status == 'confirm'
       case params[:status]
       when 'authorized'
+        @update_status = true
         if @budget.update status: params[:status].to_sym, obs: params[:obs]
           flash[:success] = 'Pedido atualizado!'
         else
@@ -86,6 +87,7 @@ class BudgetsController < ApplicationController
       when 'billed'
         if @budget.billed_budget
           flash[:success] = 'Pedido atualizado!'
+          @new_bill =  new_bill_receivable_path(budget: @budget.id, value: @budget.value_with_discount)
         else
           flash[:error] = 'Você não tem estoque para faturar o pedido'
         end
@@ -107,7 +109,11 @@ class BudgetsController < ApplicationController
     end
 
     if params[:origin] == 'show'
-      redirect_to @budget
+      if @new_bill.present?
+        redirect_to @new_bill
+      else
+        redirect_to @budget
+      end
     end
   end
 
