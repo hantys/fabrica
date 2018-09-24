@@ -16,7 +16,6 @@ TO DO
 - Bloquear cliente opcao
 - Gerar varias ordem de pedido
 
-- Contas a receber juros
 - Saldo de conta em bancos
 - Transferencia de valores
 
@@ -54,6 +53,7 @@ TO DO
 
 
 DONE
+- Contas a receber juros
 - Faturar pedido direciona para contas a receber
 - Criar Contas a receber  bill_receivable
 	* tipo

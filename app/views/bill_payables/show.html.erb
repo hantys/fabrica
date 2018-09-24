@@ -132,7 +132,7 @@
               <%= bill_payable_installment.status_i18n %>
             </td>
             <td>
-              <%= bill_payable_installment.interest %>
+              <%= number_to_currency bill_payable_installment.interest %>
             </td>
             <td>
               <%= number_to_currency bill_payable_installment.value %>
