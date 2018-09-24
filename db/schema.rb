@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_03_200610) do
+ActiveRecord::Schema.define(version: 2018_09_24_131220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2018_09_03_200610) do
     t.bigint "bill_receivable_id"
     t.date "date"
     t.date "payday"
+    t.float "interest", default: 0.0
     t.index ["bank_id"], name: "index_bill_receivable_installments_on_bank_id"
     t.index ["bill_receivable_id"], name: "index_bill_receivable_installments_on_bill_receivable_id"
     t.index ["deleted_at"], name: "index_bill_receivable_installments_on_deleted_at"
@@ -106,6 +107,7 @@ ActiveRecord::Schema.define(version: 2018_09_03_200610) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.date "due_date"
+    t.float "interest", default: 0.0
     t.index ["budget_id"], name: "index_bill_receivables_on_budget_id"
     t.index ["category_id"], name: "index_bill_receivables_on_category_id"
     t.index ["deleted_at"], name: "index_bill_receivables_on_deleted_at"

@@ -48,6 +48,7 @@
             </span>
 
             <%= bill_receivable_installments_form.input :payday, as: :string, label: 'Pago Em', required: true, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'}, value: params[:receives].present? ? params[:receives]["#{pay.id}"][:payday] : Date.today } %>
+            <%= bill_receivable_installments_form.input :interest, as: :float, label: "Juros em R$", required: false, input_html: { value: params[:pays].present? ? params[:pays]["#{pay.id}"][:interest] : 0, min: 0 } %>
             <%= bill_receivable_installments_form.input :status, as: :hidden, input_html: { value: 'paid' } %>
           </div>
         <% end %>

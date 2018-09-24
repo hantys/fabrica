@@ -37,6 +37,7 @@
             </style>
               <%= bill_receivable_installments_form.input :payday, as: :string, required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'}, value: Date.today } %>
               <%= bill_receivable_installments_form.input :status, as: :hidden, input_html: { value: 'paid' } %>
+              <%= bill_receivable_installments_form.input :interest %>
               <%= hidden_field_tag :modal, @modal  %>
             </div>
           </div>

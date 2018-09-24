@@ -12,6 +12,7 @@ class BillReceivableInstallment < ApplicationRecord
 
   validates :payday, presence: true, if: Proc.new{|item| item.status == 'paid' }
   validates :file, presence: true, if: Proc.new{|item| item.status == 'paid' }
+  validates :interest, numericality: { greater_than_or_equal_to: 0 }, if: Proc.new{|item| item.status == 'paid' }
 
   validates :value, numericality: { greater_than: 0 }
   validates :bank, presence: true

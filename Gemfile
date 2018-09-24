@@ -66,6 +66,7 @@ group :development do
   gem 'better_errors' #https://github.com/charliesome/better_errors/wiki/Link-to-your-editor
   gem 'binding_of_caller'
   gem 'mina'
+  gem 'foreman'
   gem 'mina-puma'
   gem 'mina-sidekiq'
   gem "mina-webpacker"

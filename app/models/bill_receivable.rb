@@ -30,6 +30,8 @@ class BillReceivable < ApplicationRecord
   before_create :set_due_date_and_status
   before_update :due_date_verify
 
+  after_update :set_value
+
   def due_date_verify
     data = []
     check = true
@@ -65,6 +67,21 @@ class BillReceivable < ApplicationRecord
   end
 
   private
+
+    def set_value
+      total_bill = self.total_value.round(2)
+      value_item = self.bill_receivable_installments.sum(:value).round(2)
+      interest_item = self.bill_receivable_installments.sum(:interest).round(2)
+      ActiveRecord::Base.transaction do
+        unless total_bill == value_item
+          self.update total_value: value_item
+        end
+        unless self.interest == interest_item
+          self.update interest: interest_item
+        end
+      end
+    end
+
     def other?
       self.type_receivable == 'other'
     end

@@ -1,8 +1,11 @@
 run:
-	RAILS_ENV=development rails s -b 0.0.0.0 -p 3000 -e development
+	rails s -b 0.0.0.0 -p 3000 -e development
 
 webpack:
 	./bin/webpack-dev-server
+
+start:
+	foreman start -f Procfile.dev
 
 install:
 	@bundle install --jobs=50; yarn install
