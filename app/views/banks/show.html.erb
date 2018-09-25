@@ -38,6 +38,11 @@
       </strong>
       <%= @bank.op %>
       <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:op) %>:
+      </strong>
+      <%= number_to_currency @bank.balance %>
+      <hr>
     </p>
   </div>
 </div>

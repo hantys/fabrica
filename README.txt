@@ -18,6 +18,7 @@ TO DO
 
 - Saldo de conta em bancos
 - Transferencia de valores
+- alterar nome da tabela transaction
 
 - RELATÓRIOS
 	1.0 – FATURAMENTO

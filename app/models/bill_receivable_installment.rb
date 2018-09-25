@@ -7,7 +7,7 @@ class BillReceivableInstallment < ApplicationRecord
 
   belongs_to :bank, -> { with_deleted }
   belongs_to :bill_receivable, -> { with_deleted }, optional: true, touch: true
-  has_one :transaction, as: :transactionable
+  has_one :op_transaction, as: :transactionable
 
   has_paper_trail
 

@@ -82,14 +82,7 @@
               </div>
 
               <div class="tab-pane fade <%= bill_payable_installments_form.object.type_payment == 'bank' ? 'active show' : '' %>" id="v-pills-transferencia-<%= bill_payable_installments_form.index %>" role="tabpanel" aria-labelledby="v-pills-transferencia-tab-<%= bill_payable_installments_form.index %>">
-                <div class="card m-3">
-                  <div class="card-header">
-                    Débito
-                  </div>
-                  <div class="card-body">
-                    <%= bill_payable_installments_form.association :bank, input_html: {class: 'simple-select2'}, prompt: "Escolha um Banco" %>
-                  </div>
-                </div>
+                
                 <div class="card m-3">
                   <div class="card-header">
                     Crédito
@@ -125,6 +118,15 @@
 
               </div>
             </span>
+
+            <div class="card m-3">
+              <div class="card-header">
+                Débito
+              </div>
+              <div class="card-body">
+                <%= bill_payable_installments_form.association :bank, input_html: {class: 'simple-select2'}, prompt: "Escolha um Banco" %>
+              </div>
+            </div>
 <!--
           </div>
           <div class="col-4"> -->
