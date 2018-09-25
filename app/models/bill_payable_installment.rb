@@ -8,6 +8,7 @@ class BillPayableInstallment < ApplicationRecord
   belongs_to :bank, -> { with_deleted }, optional: true
   belongs_to :cred_card, -> { with_deleted }, optional: true
   belongs_to :bill_payable, -> { with_deleted }, touch: true, optional: true
+  has_one :transaction, as: :transactionable
 
   has_paper_trail
 
