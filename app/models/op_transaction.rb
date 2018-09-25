@@ -2,16 +2,17 @@ class OpTransaction < ApplicationRecord
   acts_as_paranoid
 
   enum type_action: { credit: 0, debit: 1 }
-  enum action: { transfer: 0, paid: 1, receive: 2 }
+  enum action: { transfer: 0, paid: 1, receive: 2, operation: 3}
   
   before_destroy :check_destroy
 
-  belongs_to :bank
+  belongs_to :bank, -> { with_deleted }
   belongs_to :transactionable, polymorphic: true
 
   has_paper_trail
 
-  validates :value, numericality: { greater_than_or_equal_to: 0 }
+  validates :value, numericality: { greater_than: 0 }
+  validates :type_action, presence: true
 
   before_save :check_mod_value
   after_save :update_bank

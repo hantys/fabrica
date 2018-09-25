@@ -1,0 +1,47 @@
+<%- model_class = Transfer -%>
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_transfer_path, class: "btn btn-primary" %>
+</div>
+
+<%#= render 'search' %>
+
+<%= paginate @transfers if @transfers.size > 20 %>
+<%= page_entries_info @transfers, entry_name: 'item' %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col"><%= sort_link @q, :id, "#", default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :user, model_class.human_attribute_name(:user), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :bank, model_class.human_attribute_name(:bank), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :bank_receiver, model_class.human_attribute_name(:bank_receiver), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :obs, model_class.human_attribute_name(:obs), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :value, model_class.human_attribute_name(:value), default_order: :desc %></th>
+        <th scope="col"><%= sort_link @q, :created_at, model_class.human_attribute_name(:created_at), default_order: :desc %></th>
+        <th scope="col"><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @transfers.each do |transfer| %>
+      <tr>
+        <td scope="row"><%= link_to transfer.id, transfer %></td>
+        <td><%= transfer.user.username %></td>
+        <td><%= link_to_modal transfer.bank.name, bank_path(transfer.bank), class: "text-dark" %></td>
+        <td><%= link_to_modal transfer.bank_receiver.name, bank_path(transfer.bank_receiver), class: "text-dark" %></td>
+        <!-- <td><%#= transfer.derivative ? 'Sim' : 'Não' %></td> -->
+        <td><%= transfer.obs %></td>
+        <td><%= number_to_currency transfer.value %></td>
+        <td><%= transfer.created_at %></td>
+        <td>
+          <%= link_to transfer, method: :delete, data: { confirm: t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, class: 'btn btn-danger has-icon' do %>
+            <!-- <i class="material-icons">delete</i> -->
+            <%= t('.destroy', :default => t("helpers.links.destroy")) %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= paginate @transfers %>

@@ -81,9 +81,10 @@
 
       <!-- Financas  -->
       <% if (can? :read, Bank) or (can? :read, CredCard) %>
-        <li class='nav-item dropdown <%= "#{active_class(cred_cards_path)} #{active_class(banks_path)}" %>'>
+        <li class='nav-item dropdown <%= "#{active_class(cred_cards_path)} #{active_class(transfers_path)} #{active_class(banks_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Finanças</a>
           <div class="dropdown-menu hasDropboxAnimation">
+            <%= link_to t('.title', :default => Transfer.model_name.human.pluralize.titleize), transfers_path, class: "dropdown-item #{active_class(transfers_path)}" if can? :read, Transfer %>
             <%= link_to t('.title', :default => Bank.model_name.human.pluralize.titleize), banks_path, class: "dropdown-item #{active_class(banks_path)}" if can? :read, Bank %>
             <%= link_to t('.title', :default => CredCard.model_name.human.pluralize.titleize), cred_cards_path, class: "dropdown-item #{active_class(cred_cards_path)}" if can? :read, CredCard %>
           </div>

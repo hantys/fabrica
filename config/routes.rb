@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :revenues
   resources :categories
   devise_for :users, controllers: { :registrations => 'registrations' }
+  resources :transfers, except: [:edit, :update]
 
   # resources :out_of_stocks
   resources :delivery_options
@@ -26,6 +27,10 @@ Rails.application.routes.draw do
   resources :stock_final_products
   resources :compositions
   resources :raw_materials
+
+  # credito / debito
+  get '/bank/credit_or_debit/:id', to: 'banks#credit_or_debit', as: :credit_or_debit
+  post '/bank/credit_or_debit/:id', to: 'banks#credit_or_debit_update', as: :credit_or_debit_update
 
   # contas a receber
   put '/contas_a_receber/item/receber/:item_id', to: 'bill_receivables#receive_item_update', as: :receive_item_update

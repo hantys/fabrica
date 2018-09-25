@@ -30,6 +30,7 @@
             </span>
         </td>
         <td>
+          <%= link_to 'Crédito/Débido', credit_or_debit_path(bank), class: 'btn btn-info has-icon' %>
           <%= link_to edit_bank_path(bank), class: 'btn btn-primary has-icon' do %>
             <%# <i class="material-icons">edit</i> %>
             <%= t('.edit', :default => t("helpers.links.edit")) %>

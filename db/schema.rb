@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_25_123436) do
+ActiveRecord::Schema.define(version: 2018_09_25_193850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -534,6 +534,21 @@ ActiveRecord::Schema.define(version: 2018_09_25_123436) do
     t.index ["type_of_payment_id"], name: "index_sub_type_payments_on_type_of_payment_id"
   end
 
+  create_table "transfers", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "bank_id"
+    t.integer "bank_receiver_id"
+    t.float "value"
+    t.text "obs"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_id"], name: "index_transfers_on_bank_id"
+    t.index ["bank_receiver_id"], name: "index_transfers_on_bank_receiver_id"
+    t.index ["deleted_at"], name: "index_transfers_on_deleted_at"
+    t.index ["user_id"], name: "index_transfers_on_user_id"
+  end
+
   create_table "type_of_payments", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -634,5 +649,7 @@ ActiveRecord::Schema.define(version: 2018_09_25_123436) do
   add_foreign_key "stock_raw_materials", "raw_materials"
   add_foreign_key "sub_delivery_options", "delivery_options"
   add_foreign_key "sub_type_payments", "type_of_payments"
+  add_foreign_key "transfers", "banks"
+  add_foreign_key "transfers", "users"
   add_foreign_key "users", "employees"
 end

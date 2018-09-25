@@ -1,0 +1,26 @@
+
+<%= simple_form_for(@transfer) do |f| %>
+
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <% if @transfer.errors.full_messages.any? %>
+    <ul>
+      <% @transfer.errors.full_messages.each do |error_message| %>
+        <li class="alert alert-danger">
+          <%= error_message if @transfer.errors.full_messages.first == error_message %> <br />
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class="row">
+    <div class="col-lg-4">
+    <%= f.association :bank, collection: Bank.accessible_by(current_ability).order(:name).map {|x| [x.name, x.id]}, prompt: "Escolha um Banco", input_html: { class: 'simple-select2' } %>
+    <%= f.input :bank_receiver_id, as: :select, collection: Bank.accessible_by(current_ability).order(:name).map {|x| [x.name, x.id]}, prompt: "Escolha um Banco", input_html: { class: 'simple-select2' } %>
+    <%= f.input :value %>
+    <%= f.input :obs %>
+    </div>
+  </div>
+
+  <hr>
+  <%= f.button :submit, class: 'btn btn-success' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")), transfers_path, class: 'btn btn-danger' %>
+<% end %>

@@ -1,0 +1,30 @@
+ <% model_class = Bank -%>
+
+<div class="page-header d-flex justify-content-lg-between align-items-center">
+  <h1><%=t '.title', :default => "Crédito/Débido no %{model} #{@bank.name.capitalize}", :model => model_class.model_name.human.titleize %></h1>
+</div>
+ <% model_class = OpTransaction -%>
+
+<%= simple_nested_form_for(@op_transaction, :url => credit_or_debit_update_path(@bank.id), :method => :post) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <% if @op_transaction.errors.full_messages.any? %>
+    <ul>
+      <% @op_transaction.errors.full_messages.each do |error_message| %>
+        <li class="alert alert-danger">
+          <%= error_message if @op_transaction.errors.full_messages.first == error_message %> <br />
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class="row">
+    <div class="col-lg-4">
+      <%= f.input :type_action, as: :select, :as => :select, :collection => OpTransaction.type_actions.map {|x| [t("enums.op_transaction.type_action.#{x[0]}"), x[0]]}.sort_by {|a,b| a }, :include_blank => "Selecione a operação", input_html: { name: 'bank[op_transaction][type_action]' } %>
+      <%= f.input :value, input_html: { name: 'bank[op_transaction][value]' } %>
+      <%= f.input :obs, input_html: { name: 'bank[op_transaction][obs]' } %>
+    </div>
+  </div>
+  <hr>
+  <%= f.button :submit, 'Confirmar Transação', class: 'btn btn-success' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")), banks_path, class: 'btn btn-danger' %>
+<% end %>   

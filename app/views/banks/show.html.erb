@@ -1,6 +1,7 @@
 <%- model_class = Bank -%>
 <div class="page-header d-flex flex-row justify-content-start align-items-center w-100">
   <h1><strong><%=t '.title', :default => model_class.model_name.human.titleize %></strong></h1>
+  <%= link_to 'Crédito/Débido', credit_or_debit_path(@bank), class: 'btn btn-info has-icon ml-3' %>
   <% unless @modal %>
     <div class="d-flex flex-row justify-content-start align-items-center ml-sm-0 ml-md-auto ml-lg-auto">
       <%= link_to t('.back', :default => t("helpers.links.back")),
@@ -28,8 +29,9 @@
       <strong>
         <%= model_class.human_attribute_name(:balance) %>:
       </strong>
-
-      <%= number_to_currency @bank.balance %>
+      <span class='text-<%= @bank.balance > 0 ? 'success' : 'danger' %>'>
+        <%= number_to_currency @bank.balance %>
+      </span>
       <hr>
       <strong>
         <%= model_class.human_attribute_name(:updated_at) %>:
@@ -57,7 +59,6 @@
       </strong>
       <%= @bank.op %>
       <hr>
-
     </p>
   </div>
 </div>
@@ -80,7 +81,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @bank.op_transactions.each do |op_transaction| %>
+      <% @bank.op_transactions.order(id: :desc).each do |op_transaction| %>
         <tr>
           <td>
             <%= op_transaction.id %>
@@ -94,16 +95,16 @@
             <%= op_transaction.action_i18n %>
           </td>
           <td>
-            <%= op_transaction.transactionable_type.constantize.model_name.human.titleize %> nº
+            <%= op_transaction.transactionable_type.constantize.model_name.human.titleize %>
             <% case %>
             <% when op_transaction.transactionable_type == 'User' %>
-              <%= op_transaction.transactionable.try(:name) %>
+              <%= op_transaction.transactionable.try(:username) %>
             <% when op_transaction.transactionable_type == 'BillPayableInstallment' %>
-              <%= op_transaction.transactionable.id %>
+              nº<%= op_transaction.transactionable.id %>
             <% when op_transaction.transactionable_type == 'BillReceivableInstallment' %>
-              <%= op_transaction.transactionable.id %>
+              nº<%= op_transaction.transactionable.id %>
             <% else %>
-              <%= op_transaction.transactionable.id %>
+              nº<%= op_transaction.transactionable.id %>
             <% end %>
           </td>
           <td>

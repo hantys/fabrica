@@ -1,7 +1,8 @@
 pt-BR:
   activerecord:
     models:
-      user: 'Usuários'
+      user: 'Usuário'
+      transfer: 'Transferência'
       composition: 'Composição'
       raw_material: 'Matéria-prima'
       compositional: 'Composto'
@@ -35,7 +36,18 @@ pt-BR:
       category_product:
         name: Nome
         products: Produtos
-      
+
+      transfer:
+        value: Valor
+        user: Solicitante
+        bank: Banco de origem
+        bank_id: Banco de origem
+        bank_receiver_id: Banco de destino
+        bank_receiver: Banco de destino
+        obs: Observação
+        created_at: Efetuado em
+        updated_at: Atualizado em
+
       op_transaction:
         type_action: Tipo
         action: Ação
