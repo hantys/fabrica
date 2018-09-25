@@ -51,7 +51,7 @@ pt-BR:
         pending: Pendente
         late: Atrasado
         paid: Pago
-    transaction:
+    op_transaction:
       type_action:
         credit: Crédito
         debit: Débito

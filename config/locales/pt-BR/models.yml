@@ -18,8 +18,8 @@ pt-BR:
       type_of_payment: Tipos de Pagamento
       bill_receivable: Contas a receber
       bill_payable: Contas a Pagar
-      bill_payable_installment: Parcelas
-      bill_receivable_installment: Parcelas
+      bill_payable_installment: Parcela
+      bill_receivable_installment: Parcela
       provider_contract: Contrato com Fornecedor
       item_provider_contract: Itens do Contrato
       budget_provider_contract: Pedidos Associados
@@ -28,18 +28,29 @@ pt-BR:
       revenue: Faturamento
       category: Categoria
       category_product: Categoria de Produto
+      op_transaction: Transações
 
 
     attributes:
       category_product:
         name: Nome
         products: Produtos
+      
+      op_transaction:
+        type_action: Tipo
+        action: Ação
+        value: Valor
+        transactionable: Origem
+        obs: Observação
+        created_at: Efetuado em
+        updated_at: Atualizado em
 
       bank:
         ag: Agência
         cc: Conta
         name: Nome
         op: Variação
+        op_transactions: Extrato
         created_at: Criado em
         updated_at: Atualizado em
 

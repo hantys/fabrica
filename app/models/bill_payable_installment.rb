@@ -4,6 +4,8 @@ class BillPayableInstallment < ApplicationRecord
   enum type_payment: { billet: 0, bank: 1, card: 2 }
   enum status: { pending: 0, paid: 1 }
   mount_uploader :file, FilesUploader
+
+  before_destroy :check_destroy
   
   belongs_to :bank, -> { with_deleted }, optional: true
   belongs_to :cred_card, -> { with_deleted }, optional: true
@@ -49,16 +51,16 @@ class BillPayableInstallment < ApplicationRecord
   
   def new_transaction
     if self.status == 'paid' and self.op_transaction.blank?
-      self.op_transaction.create 
+      self.op_transaction.create bank: self.bank, type_action: 1, action: 1, value: (self.value + self.interest), obs: "Pagamento da conta #{self.bill_payable_id}"
+    end
+  end
+
+  def check_destroy
+    if self.op_transaction.present?
+      ActiveRecord::Base.transaction do
+        self.op_transaction.destroy_all
+      end
     end
   end
   
 end
-
-# t.bigint "bank_id"
-# t.string "transactionable_type"
-# t.bigint "transactionable_id"
-# t.integer "action"
-# t.integer "type_action"
-# t.float "value", default: 0.0
-# t.text "obs", default: ""

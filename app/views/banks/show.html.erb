@@ -1,5 +1,5 @@
 <%- model_class = Bank -%>
-<div class="page-header d-flex flex-row justify-content-start align-items-center flex-wrap w-100">
+<div class="page-header d-flex flex-row justify-content-start align-items-center w-100">
   <h1><strong><%=t '.title', :default => model_class.model_name.human.titleize %></strong></h1>
   <% unless @modal %>
     <div class="d-flex flex-row justify-content-start align-items-center ml-sm-0 ml-md-auto ml-lg-auto">
@@ -15,8 +15,10 @@
     </div>
   <% end %>
 </div>
+
+
 <div class="row mt-4 mb-4">
-  <div class="col-sm-12 col-lg-4 col-md-12">
+  <div class="col-6">
     <p>
       <strong>
         <%= model_class.human_attribute_name(:name) %>:
@@ -24,10 +26,27 @@
       <%= @bank.name %>
       <hr>
       <strong>
+        <%= model_class.human_attribute_name(:balance) %>:
+      </strong>
+
+      <%= number_to_currency @bank.balance %>
+      <hr>
+      <strong>
+        <%= model_class.human_attribute_name(:updated_at) %>:
+      </strong>
+
+      <%= @bank.updated_at %>
+      <hr>
+    </p>
+  </div>
+  <div class="col-6">
+    <p>
+      <strong>
         <%= model_class.human_attribute_name(:ag) %>:
       </strong>
       <%= @bank.ag %>
       <hr>
+
       <strong>
         <%= model_class.human_attribute_name(:cc) %>:
       </strong>
@@ -38,13 +57,68 @@
       </strong>
       <%= @bank.op %>
       <hr>
-      <strong>
-        <%= model_class.human_attribute_name(:op) %>:
-      </strong>
-      <%= number_to_currency @bank.balance %>
-      <hr>
+
     </p>
   </div>
 </div>
+<strong>
+  <%= model_class.human_attribute_name(:op_transactions) %>:
+</strong>
+<%- model_class = OpTransaction -%>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col"><%= model_class.human_attribute_name(:id) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:type_action) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:action) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:transactionable) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:obs) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:value) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:created_at) %></th>
 
-
+      </tr>
+    </thead>
+    <tbody>
+      <% @bank.op_transactions.each do |op_transaction| %>
+        <tr>
+          <td>
+            <%= op_transaction.id %>
+          </td>
+          <td>
+            <span class='text-<%= op_transaction.type_action == 'credit' ? 'success' : 'danger' %>'>
+              <%= op_transaction.type_action_i18n %>
+            </span>
+          </td>
+          <td>
+            <%= op_transaction.action_i18n %>
+          </td>
+          <td>
+            <%= op_transaction.transactionable_type.constantize.model_name.human.titleize %> nº
+            <% case %>
+            <% when op_transaction.transactionable_type == 'User' %>
+              <%= op_transaction.transactionable.try(:name) %>
+            <% when op_transaction.transactionable_type == 'BillPayableInstallment' %>
+              <%= op_transaction.transactionable.id %>
+            <% when op_transaction.transactionable_type == 'BillReceivableInstallment' %>
+              <%= op_transaction.transactionable.id %>
+            <% else %>
+              <%= op_transaction.transactionable.id %>
+            <% end %>
+          </td>
+          <td>
+            <%= op_transaction.obs %>
+          </td>
+          <td>
+            <span class='text-<%= op_transaction.value > 0 ? 'success' : 'danger' %>'>
+              <%= number_to_currency op_transaction.value %>
+            </span>
+          </td>
+          <td>
+            <%= op_transaction.created_at %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

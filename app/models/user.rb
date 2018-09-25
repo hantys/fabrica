@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   belongs_to :employee, touch: true#, optional: true
   has_many :out_of_stocks, dependent: :destroy
+  has_many :op_transactions, as: :transactionable
 
   has_paper_trail
 

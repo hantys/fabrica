@@ -18,17 +18,18 @@ class Ability
       can :pays_update, BillPayable
       can :pay_item, BillPayable
       can :pay_item_update, BillPayable
+      cannot [:edit, :update], BillPayable, status: 2
       # recebimento
       can :receive_item_update, BillReceivable
       can :receive_item, BillReceivable
       can :receives, BillReceivable
       can :receives_update, BillReceivable
+      cannot [:edit, :update], BillReceivable, status: 2
       # orcamento
       can :reserve_all_budget, Budget
       can :budget_pdf, Budget
       can :order_service, Budget
       can :update_status, Budget
-      cannot [:update, :destroy], Budget, status: [3,4]
       # produto
       can :product_cod, Product
       # relatorios
@@ -42,6 +43,13 @@ class Ability
       can :pays, BillPayable
       can :pay_item, BillPayable
       can :pay_item_update, BillPayable
+      cannot [:edit, :update], BillPayable, status: 2
+      # recebimento
+      can :receive_item_update, BillReceivable
+      can :receive_item, BillReceivable
+      can :receives, BillReceivable
+      can :receives_update, BillReceivable
+      cannot [:edit, :update], BillReceivable, status: 2
       # orcamento
       can :reserve_all_budget, Budget
       can :update_status, Budget

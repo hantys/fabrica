@@ -5,9 +5,11 @@ class BillReceivableInstallment < ApplicationRecord
 
   mount_uploader :file, FilesUploader
 
+  before_destroy :check_destroy
+
   belongs_to :bank, -> { with_deleted }
   belongs_to :bill_receivable, -> { with_deleted }, optional: true, touch: true
-  has_one :op_transaction, as: :transactionable
+  has_many :op_transaction, as: :transactionable
 
   has_paper_trail
 
@@ -18,4 +20,22 @@ class BillReceivableInstallment < ApplicationRecord
   validates :value, numericality: { greater_than: 0 }
   validates :bank, presence: true
   validates :date, presence: true
+
+  after_save :new_transaction
+
+  private
+  
+  def new_transaction
+    if self.status == 'paid' and self.op_transaction.blank?
+      self.op_transaction.create bank: self.bank, type_action: 0, action: 2, value: (self.value + self.interest), obs: "Recebimento da conta #{self.bill_receivable_id}"
+    end
+  end
+
+  def check_destroy
+    if self.op_transaction.present?
+      ActiveRecord::Base.transaction do
+        self.op_transaction.destroy_all
+      end
+    end
+  end
 end

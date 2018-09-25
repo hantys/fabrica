@@ -21,15 +21,15 @@
     <tbody>
       <% @banks.each do |bank| %>
       <tr>
-        <td><%= bank.name %></td>
+        <td><%= link_to bank.name, bank %></td>
         <td><%= bank.ag %></td>
         <td><%= bank.cc %></td>
-        <td><%= number_to_currency bank.balance %></td>
         <td>
-          <%= link_to bank, class: 'btn btn-info has-icon' do %>
-            <%# <i class="material-icons">remove_red_eye</i> %>
-            <%= t('.show', :default => t("helpers.links.show")) %>
-          <% end %>
+          <span class='text-<%= bank.balance > 0 ? 'success' : 'danger' %>'>
+            <%= number_to_currency bank.balance %>
+            </span>
+        </td>
+        <td>
           <%= link_to edit_bank_path(bank), class: 'btn btn-primary has-icon' do %>
             <%# <i class="material-icons">edit</i> %>
             <%= t('.edit', :default => t("helpers.links.edit")) %>

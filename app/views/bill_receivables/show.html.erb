@@ -100,57 +100,57 @@
 
     </p>
   </div>
+</div>
 
-  <strong>
-    <%= model_class.human_attribute_name(:bill_receivable_installments) %>:
-  </strong>
-  <%- model_class = BillReceivableInstallment -%>
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover text-center">
-      <thead class="thead-light">
+<strong>
+  <%= model_class.human_attribute_name(:bill_receivable_installments) %>:
+</strong>
+<%- model_class = BillReceivableInstallment -%>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col"><%= model_class.human_attribute_name(:bank) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:file) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:status) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:value) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:interest) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:date) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:payday) %></th>
+        <th scope="col" class="d-print-none text-center"><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @bill_receivable.bill_receivable_installments.includes(:bank).each do |bill_receivable_installment| %>
         <tr>
-          <th scope="col"><%= model_class.human_attribute_name(:bank) %></th>
-          <th scope="col"><%= model_class.human_attribute_name(:file) %></th>
-          <th scope="col"><%= model_class.human_attribute_name(:status) %></th>
-          <th scope="col"><%= model_class.human_attribute_name(:value) %></th>
-          <th scope="col"><%= model_class.human_attribute_name(:interest) %></th>
-          <th scope="col"><%= model_class.human_attribute_name(:date) %></th>
-          <th scope="col"><%= model_class.human_attribute_name(:payday) %></th>
-          <th scope="col" class="d-print-none text-center"><%=t '.actions', :default => t("helpers.actions") %></th>
+          <td>
+            <%= bill_receivable_installment.bank.name %>
+          </td>
+
+          <td>
+            <%= link_to bill_receivable_installment.file_identifier, bill_receivable_installment.file.url, download: bill_receivable_installment.file_identifier if bill_receivable_installment.file.present? %>
+          </td>
+          <td>
+            <%= bill_receivable_installment.status_i18n %>
+          </td>
+          <td>
+            <%= number_to_currency bill_receivable_installment.value %>
+          </td>
+          <td>
+            <%= number_to_currency bill_receivable_installment.interest %>
+          </td>
+          <td>
+            <%= bill_receivable_installment.date %>
+          </td>
+          <td>
+            <%= bill_receivable_installment.payday %>
+          </td>
+          <td>
+            -
+          </td>
         </tr>
-      </thead>
-
-      <tbody>
-        <% @bill_receivable.bill_receivable_installments.includes(:bank).each do |bill_receivable_installment| %>
-          <tr>
-            <td>
-              <%= bill_receivable_installment.bank.name %>
-            </td>
-
-            <td>
-              <%= link_to bill_receivable_installment.file_identifier, bill_receivable_installment.file.url, download: bill_receivable_installment.file_identifier if bill_receivable_installment.file.present? %>
-            </td>
-            <td>
-              <%= bill_receivable_installment.status_i18n %>
-            </td>
-            <td>
-              <%= number_to_currency bill_receivable_installment.value %>
-            </td>
-            <td>
-              <%= number_to_currency bill_receivable_installment.interest %>
-            </td>
-            <td>
-              <%= bill_receivable_installment.date %>
-            </td>
-            <td>
-              <%= bill_receivable_installment.payday %>
-            </td>
-            <td>
-              -
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+      <% end %>
+    </tbody>
+  </table>
 </div>

@@ -3,6 +3,8 @@ class OpTransaction < ApplicationRecord
 
   enum type_action: { credit: 0, debit: 1 }
   enum action: { transfer: 0, paid: 1, receive: 2 }
+  
+  before_destroy :check_destroy
 
   belongs_to :bank
   belongs_to :transactionable, polymorphic: true
@@ -27,4 +29,20 @@ class OpTransaction < ApplicationRecord
     balance = bank.balance  
     bank.update balance: (balance + self.value)
   end
+
+  def check_destroy
+    begin
+      ActiveRecord::Base.transaction do
+        bank = self.bank  
+        balance = bank.balance
+        bank.update balance: (balance - self.value)
+      end
+    rescue Exception => e
+      errors.add :base, "Não pode ser apagado. Ocorreu algum problema"
+      false
+      # Rails 5
+      throw(:abort)
+    end
+  end
+  
 end

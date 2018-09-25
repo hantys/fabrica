@@ -1,7 +1,7 @@
 class Bank < ApplicationRecord
   acts_as_paranoid
 
-  has_many :op_transactions, as: :transactionable
+  has_many :op_transactions
 
   has_paper_trail
 
