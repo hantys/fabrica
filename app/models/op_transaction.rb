@@ -1,4 +1,4 @@
-class Transaction < ApplicationRecord
+class OpTransaction < ApplicationRecord
   acts_as_paranoid
 
   enum type_action: { credit: 0, debit: 1 }

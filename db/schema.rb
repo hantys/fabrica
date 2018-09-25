@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_25_033223) do
+ActiveRecord::Schema.define(version: 2018_09_25_123436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -359,6 +359,22 @@ ActiveRecord::Schema.define(version: 2018_09_25_033223) do
     t.index ["provider_contract_id"], name: "index_item_provider_contracts_on_provider_contract_id"
   end
 
+  create_table "op_transactions", force: :cascade do |t|
+    t.bigint "bank_id"
+    t.string "transactionable_type"
+    t.bigint "transactionable_id"
+    t.integer "action"
+    t.integer "type_action"
+    t.float "value", default: 0.0
+    t.text "obs", default: ""
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_id"], name: "index_op_transactions_on_bank_id"
+    t.index ["deleted_at"], name: "index_op_transactions_on_deleted_at"
+    t.index ["transactionable_type", "transactionable_id"], name: "index_op_transactions_transactionable"
+  end
+
   create_table "out_of_stocks", force: :cascade do |t|
     t.bigint "budget_id"
     t.bigint "user_id"
@@ -518,22 +534,6 @@ ActiveRecord::Schema.define(version: 2018_09_25_033223) do
     t.index ["type_of_payment_id"], name: "index_sub_type_payments_on_type_of_payment_id"
   end
 
-  create_table "transactions", force: :cascade do |t|
-    t.bigint "bank_id"
-    t.string "transactionable_type"
-    t.bigint "transactionable_id"
-    t.integer "action"
-    t.integer "type_action"
-    t.float "value", default: 0.0
-    t.text "obs", default: ""
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["bank_id"], name: "index_transactions_on_bank_id"
-    t.index ["deleted_at"], name: "index_transactions_on_deleted_at"
-    t.index ["transactionable_type", "transactionable_id"], name: "index_transactionable"
-  end
-
   create_table "type_of_payments", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -620,6 +620,7 @@ ActiveRecord::Schema.define(version: 2018_09_25_033223) do
   add_foreign_key "item_product_stocks", "products"
   add_foreign_key "item_product_stocks", "stock_final_products"
   add_foreign_key "item_provider_contracts", "provider_contracts"
+  add_foreign_key "op_transactions", "banks"
   add_foreign_key "out_of_stocks", "budget_products"
   add_foreign_key "out_of_stocks", "budgets"
   add_foreign_key "out_of_stocks", "products"
@@ -633,6 +634,5 @@ ActiveRecord::Schema.define(version: 2018_09_25_033223) do
   add_foreign_key "stock_raw_materials", "raw_materials"
   add_foreign_key "sub_delivery_options", "delivery_options"
   add_foreign_key "sub_type_payments", "type_of_payments"
-  add_foreign_key "transactions", "banks"
   add_foreign_key "users", "employees"
 end

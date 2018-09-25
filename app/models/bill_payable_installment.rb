@@ -8,7 +8,7 @@ class BillPayableInstallment < ApplicationRecord
   belongs_to :bank, -> { with_deleted }, optional: true
   belongs_to :cred_card, -> { with_deleted }, optional: true
   belongs_to :bill_payable, -> { with_deleted }, touch: true, optional: true
-  has_many :transactions, as: :transactionable
+  has_many :op_transaction, as: :transactionable
   
   has_paper_trail
   
@@ -48,9 +48,17 @@ class BillPayableInstallment < ApplicationRecord
   private
   
   def new_transaction
-    if self.status == 'paid' and self.transactions.blank?
-      self.op_transaction.create
+    if self.status == 'paid' and self.op_transaction.blank?
+      self.op_transaction.create 
     end
   end
   
 end
+
+# t.bigint "bank_id"
+# t.string "transactionable_type"
+# t.bigint "transactionable_id"
+# t.integer "action"
+# t.integer "type_action"
+# t.float "value", default: 0.0
+# t.text "obs", default: ""
