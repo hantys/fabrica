@@ -58,7 +58,9 @@
         <li class='nav-item dropdown <%= "#{active_class(daily_production_path)}" %>'>
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Relatórios</a>
           <div class="dropdown-menu hasDropboxAnimation">
-            <%= link_to 'Pedidos', "https://datastudio.google.com/open/1dexf-o6M2NEt9OsKRM8TudBNlJsOVyRg", class: "dropdown-item", target: '_blank' %>
+            <%= link_to 'Pedidos - Visão geral
+', "https://datastudio.google.com/open/1dexf-o6M2NEt9OsKRM8TudBNlJsOVyRg", class: "dropdown-item", target: '_blank' %>
+            <%= link_to 'Produtos - Custos/Produzido', "https://datastudio.google.com/open/1Mn4Cfo6AO1Zi9gkjImhOCMdDLZiN_aSs", target: '_blank' %>
             <%= link_to 'Previsão de produção diária', daily_production_path, class: "dropdown-item #{active_class(daily_production_path)}" if can? :daily_production, :report %>
           </div>
         </li>
