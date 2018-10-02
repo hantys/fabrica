@@ -5,13 +5,13 @@
     <div class="col-4">
       <%= f.input :cod_name_cont, label: model_class.human_attribute_name(:cod_name), placeholder: 'Ex: 410/2018', required: false %>
       <%= f.input :status_eq, label: model_class.human_attribute_name(:status), as: :select, placeholder: 'code', :as => :select, :collection => Budget.statuses.map {|x| [t("enums.budget.status.#{x[0]}"), x[0]]}.sort_by {|a,b| a }, :include_blank => "Todas", input_html: {class: 'simple-select2'}, required: false %>
-      <%= f.input :client_id_eq, label: model_class.human_attribute_name(:client), as: :select, :collection => Client.accessible_by(current_ability).order(:company_name).map { |e| [e.company_name, e.id] }, :include_blank => "Todos", input_html: {class: 'simple-select2'}, required: false %>
+      <%= f.input :client_id_eq, label: "#{model_class.human_attribute_name(:client)}", as: :select, :collection => Client.accessible_by(current_ability).order(:fantasy_name).map { |e| [e.company_name, e.id] }, :include_blank => "Todos", input_html: {id: 'client', class: 'simple-select2'}, required: false %>
 
     </div>
     <div class="col-4">
       <%= f.input :created_at_gteq, label: "#{model_class.human_attribute_name(:created_at)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
       <%= f.input :created_at_lteq, label: "#{model_class.human_attribute_name(:created_at)} final", as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
-      <%= f.input :client_id_eq, label: "#{model_class.human_attribute_name(:client)} nome fantasia", as: :select, :collection => Client.accessible_by(current_ability).order(:fantasy_name).map { |e| [e.fantasy_name, e.id] }, :include_blank => "Todos", input_html: {class: 'simple-select2'}, required: false %>
+      <%= f.input :client_fantasy_name_cont, label: "#{model_class.human_attribute_name(:client)} nome fantasia", as: :select, :collection => Client.accessible_by(current_ability).order(:fantasy_name).map { |e| [e.fantasy_name, e.fantasy_name] }, :include_blank => "Todos", input_html: {class: 'simple-select2'}, required: false %>
     </div>
     <div class="col-4">
       <%= f.input :deadline_gteq, label: "#{model_class.human_attribute_name(:deadline)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>

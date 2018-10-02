@@ -16,8 +16,17 @@ TO DO
 - Bloquear cliente opcao
 - Gerar varias ordem de pedido
 
-- Transferencia de valores
-- credito/debito de banco
+- Filtro por cliente nos pedidos nao funciona
+- Conferir entrada de materia prima
+- Se o valor e unitário ou totak
+- Exibir valor d parcela em contas a receber e a pagar
+- Situacao
+- A pagar
+- Vencido
+- Pago
+- Contas a receber nao precisa ser obrigatorio o anexo
+- Exibir parcelas e nao o pagamento
+- Nome arquivo para nota fiscal
 
 - RELATÓRIOS
 	1.0 – FATURAMENTO
@@ -53,6 +62,8 @@ TO DO
 
 
 DONE
+- Transferencia de valores
+- credito/debito de banco
 - Saldo de conta em bancos
 - Contas a receber juros
 - Faturar pedido direciona para contas a receber
