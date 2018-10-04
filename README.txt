@@ -18,10 +18,8 @@ TO DO
 
 
 - Exibir valor d parcela em contas a receber e a pagar
-- Situacao: A pagar, Vencido, Pago
-- Contas a receber nao precisa ser obrigatorio o anexo
 - Exibir parcelas e nao o pagamento
-- Nome arquivo para nota fiscal
+
 
 - RELATÓRIOS
 	1.0 – FATURAMENTO
@@ -57,6 +55,9 @@ TO DO
 
 
 DONE
+- Contas a receber nao precisa ser obrigatorio o anexo
+- Nome arquivo para nota fiscal
+- Situacao: A pagar, Vencido, Pago
 - Filtro por cliente nos pedidos nao funciona
 - Conferir entrada de materia prima
 - Se o valor e unitário ou total

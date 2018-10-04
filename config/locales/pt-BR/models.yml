@@ -116,7 +116,7 @@ pt-BR:
         revenue: Faturamento
         status: Situação
         obs: Observação
-        file: Arquivo
+        file: Anexo
         bill_receivable_installments: Parcelas
         total_value: Valor Total
         created_at: Criado em
@@ -125,7 +125,8 @@ pt-BR:
       bill_receivable_installment:
         date: Data de vencimento
         value: Valor
-        file: Arquivo
+        file: Nota Fiscal
+        file_to_pay: Boleto
         interest: Juros em R$
         payday: Pago Em
         bank: Banco
@@ -140,7 +141,7 @@ pt-BR:
         category: Categoria
         revenue: Faturamento
         obs: Observação
-        file: Arquivo
+        file: Anexo
         due_date: Vencimento
         bill_payable_installments: Parcelas
         total_value: Valor Total
@@ -150,7 +151,8 @@ pt-BR:
       bill_payable_installment:
         date: Data de vencimento
         value: Valor
-        file: Arquivo
+        file: Nota Fiscal
+        file_to_pay: Boleto
         cred_card: Cartão
         cred_card_id: Cartão
         bank_name: Banco

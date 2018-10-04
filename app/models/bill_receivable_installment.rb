@@ -4,6 +4,7 @@ class BillReceivableInstallment < ApplicationRecord
   enum status: { pending: 0, paid: 1 }
 
   mount_uploader :file, FilesUploader
+  mount_uploader :file_to_pay, FilesUploader
 
   before_destroy :check_destroy
 
@@ -14,7 +15,7 @@ class BillReceivableInstallment < ApplicationRecord
   has_paper_trail
 
   validates :payday, presence: true, if: Proc.new{|item| item.status == 'paid' }
-  validates :file, presence: true, if: Proc.new{|item| item.status == 'paid' }
+  # validates :file, presence: true, if: Proc.new{|item| item.status == 'paid' }
   validates :interest, numericality: { greater_than_or_equal_to: 0 }, if: Proc.new{|item| item.status == 'paid' }
 
   validates :value, numericality: { greater_than: 0 }
