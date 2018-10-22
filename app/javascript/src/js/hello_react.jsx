@@ -7,11 +7,15 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 const Hello = props => (
-  <div>Hello {props.name}!</div>
+  <div>
+    Hello {props.name}, {props.teste} e {props.id}!
+  </div>
 )
 
 Hello.defaultProps = {
-  name: 'David'
+  name: 'David',
+  teste: 'testando react',
+  id: '12321'
 }
 
 Hello.propTypes = {
@@ -20,7 +24,10 @@ Hello.propTypes = {
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Hello name="React" />,
+    <Hello />,
     document.getElementById('budget_search').appendChild(document.createElement('div')),
   )
 })
+
+
+// https://www.npmjs.com/package/react-currency-format
