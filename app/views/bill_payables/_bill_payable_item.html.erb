@@ -1,16 +1,14 @@
-<td scope="row"><%= link_to bill_payable.id, bill_payable %></td>
+<td scope="row"><%= link_to bill_payable_installment.id, bill_payable %></td>
 <td><%= link_to_modal bill_payable.provider_contract.name, provider_contract_path(bill_payable.provider_contract), class: 'text-dark' %></td>
 <td><%= bill_payable.category.try(:name) %></td>
 <td><%= bill_payable.revenue.try(:name) %></td>
-<td><%= label_status_bp bill_payable %></td>
-<td><%= number_to_currency bill_payable.total_value %></td>
-<td><%= bill_payable.status != 'paid' ? bill_payable.due_date : '-' %></td>
-<% pays = bill_payable.bill_payable_installments.where(status: 0).order(:date) %>
-<% if pays.present? %>
-<% pay = pays.first %>
-  <td class="d-print-none text-center" onclick="change_check_pay('pay_<%= pay.id %>');">
-    <%= check_box_tag "pagar[]", pay.id, false , :class=>"styled d-none", id: "pay_#{pay.id}" %>
-    <i class="material-icons " id="check_pay_<%= pay.id %>">
+<td><%= label_status_bpi bill_payable_installment %></td>
+<td><%= number_to_currency bill_payable_installment.value %></td>
+<td><%= bill_payable_installment.status != 'paid' ? bill_payable_installment.date : '-' %></td>
+<% if bill_payable_installment.status != 'paid' %>
+  <td class="d-print-none text-center" onclick="change_check_pay('pay_<%= bill_payable_installment.id %>');">
+    <%= check_box_tag "pagar[]", bill_payable_installment.id, false , :class=>"styled d-none", id: "pay_#{bill_payable_installment.id}" %>
+    <i class="material-icons " id="check_pay_<%= bill_payable_installment.id %>">
       check_box_outline_blank
     </i>
   </td>
@@ -18,7 +16,7 @@
   <td>-</td>
 <% end %>
 <td class="d-print-none text-center">
-  <%= link_to_modal_form "Pagar", pay_item_path(pay), class: 'btn btn-outline-success' if pays.present? %>
+  <%= link_to_modal_form "Pagar", pay_item_path(bill_payable_installment), class: 'btn btn-outline-success' if bill_payable_installment.status != 'paid' %>
   <%#= link_to bill_payable, class: 'btn btn-info has-icon' do %>
   <!-- <i class="material-icons">remove_red_eye</i> -->
   <%#= t('.show', :default => t("helpers.links.show")) %>

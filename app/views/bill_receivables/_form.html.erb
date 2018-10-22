@@ -95,7 +95,7 @@
                   <%= bill_receivable_installments_form.object.file.present? ? 'cloud_done' : 'cloud' %>
                 </span>
                 </i>
-                <%= bill_receivable_installments_form.input :file, label: false, input_html: { class: 'p-2 bd-highlight update_file_by_icon', onchange: "change_icon_file($(this));" } %>
+                <%= bill_receivable_installments_form.input :file_to_pay, input_html: { class: 'p-2 bd-highlight update_file_by_icon', onchange: "change_icon_file($(this));" } %>
               </div>
               <%= bill_receivable_installments_form.hidden_field :file_cache %>
               <label class="form-control-label float optional d-lg-none d-xl-none">  </label>

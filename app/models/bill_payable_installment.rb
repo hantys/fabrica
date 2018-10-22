@@ -4,6 +4,7 @@ class BillPayableInstallment < ApplicationRecord
   enum type_payment: { billet: 0, bank: 1, card: 2 }
   enum status: { pending: 0, paid: 1 }
   mount_uploader :file, FilesUploader
+  mount_uploader :file_to_pay, FilesUploader
 
   before_destroy :check_destroy
   

@@ -112,6 +112,7 @@
       <tr>
         <th scope="col"><%= model_class.human_attribute_name(:bank) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:file) %></th>
+        <th scope="col"><%= model_class.human_attribute_name(:file_to_pay) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:status) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:value) %></th>
         <th scope="col"><%= model_class.human_attribute_name(:interest) %></th>
@@ -130,6 +131,9 @@
 
           <td>
             <%= link_to bill_receivable_installment.file_identifier, bill_receivable_installment.file.url, download: bill_receivable_installment.file_identifier if bill_receivable_installment.file.present? %>
+          </td>
+          <td>
+            <%= link_to bill_receivable_installment.file_to_pay_identifier, bill_receivable_installment.file_to_pay.url, download: bill_receivable_installment.file_to_pay_identifier if bill_receivable_installment.file_to_pay.present? %>
           </td>
           <td>
             <%= bill_receivable_installment.status_i18n %>
