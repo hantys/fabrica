@@ -4,6 +4,9 @@ class Client < ApplicationRecord
   belongs_to :state
   belongs_to :city
   belongs_to :employee, -> { with_deleted }
+  has_many :product_customs, dependent: :destroy
+
+  accepts_nested_attributes_for :product_customs, allow_destroy: true
 
   has_paper_trail
 
@@ -24,5 +27,10 @@ class Client < ApplicationRecord
   def cnpj?
     self.cpf.present?
   end
+
+  private
+    def custom_products
+      
+    end
 
 end

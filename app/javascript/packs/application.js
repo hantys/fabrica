@@ -6,5 +6,4 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
-import '../src/js/hello_react';
-console.log('Hello World from Webpacker')
+import '../src/js/custom_product_table/customProductTable';

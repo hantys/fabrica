@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_04_013150) do
+ActiveRecord::Schema.define(version: 2018_10_23_113301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -395,6 +395,18 @@ ActiveRecord::Schema.define(version: 2018_10_04_013150) do
     t.index ["user_id"], name: "index_out_of_stocks_on_user_id"
   end
 
+  create_table "product_customs", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "client_id"
+    t.float "value"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_product_customs_on_client_id"
+    t.index ["deleted_at"], name: "index_product_customs_on_deleted_at"
+    t.index ["product_id"], name: "index_product_customs_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "cod"
     t.string "name"
@@ -642,6 +654,8 @@ ActiveRecord::Schema.define(version: 2018_10_04_013150) do
   add_foreign_key "out_of_stocks", "budgets"
   add_foreign_key "out_of_stocks", "products"
   add_foreign_key "out_of_stocks", "users"
+  add_foreign_key "product_customs", "clients"
+  add_foreign_key "product_customs", "products"
   add_foreign_key "products", "category_products"
   add_foreign_key "provider_contracts", "providers"
   add_foreign_key "providers", "cities"

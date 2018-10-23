@@ -8,6 +8,7 @@ class Product < ApplicationRecord
   has_many :item_product_stocks, dependent: :destroy
   has_many :out_of_stocks, dependent: :destroy
   has_many :budget_products
+  has_many :product_customs, dependent: :destroy
   belongs_to :category_product, -> { with_deleted }, optional: true
 
   has_paper_trail
