@@ -1,9 +1,8 @@
 import React from 'react'
 import { Input } from 'reactstrap';
 
-
 export default props => (
-  <tr id={"row-" + props.id}>
+  <tr id={`row-${props.id}`}>
     <th scope="row">{props.cod}</th>
     <td>{props.name}</td>
     <td>

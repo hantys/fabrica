@@ -170,9 +170,19 @@ class BudgetsController < ApplicationController
   end
 
   def find_product
-    @product = Product.find params[:id]
+    client_id = params[:client_id]
+    price = 0
+
+    product_custom = ProductCustom.where(client_id: client_id, product_id: params[:id])
+    if product_custom.present?
+      price = product_custom.first.value
+    else
+      @product = Product.find(params[:id])
+      price = @product.price
+    end
+
     authorize! :read, @product
-    render json: @product.price.round(2)
+    render json: price.round(2)
   end
 
   private

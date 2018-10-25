@@ -18,35 +18,37 @@ export default class TableProduct extends Component {
       hide: false,
       visible: false
     }
-    this.changeValue = this.changeValue.bind(this)
-    this.createList = this.createList.bind(this)
-    this.loadList = this.loadList.bind(this)
-    this.saveList = this.saveList.bind(this)
+  }
 
+  componentDidMount() {
     this.loadList()
   }
 
-  loadList(loading=false) {
-    const getProductsUrl = URL+'/product_customs'
+  loadList = (loading=false, order='product_name+asc', filter='') => {
+    // &q%5Bs%5D=employee+desc
+    // &q%5Bproduct_name_or_product_cod_cont%5D=
+    const getProductsUrl = `${URL}/product_customs?q%5Bs%5D=${order}&q%5Bproduct_name_or_product_cod_cont%5D=${filter}`
     if(loading == true){
       this.setState({...this.state, hide: false})
     }
     axios.get(getProductsUrl)
-    .then(resp => this.setState({...this.state, products: resp.data, hide: true}))
+    .then(resp => {
+      this.setState({...this.state, products: resp.data, hide: true})
+      this.state.products.map( p => document.getElementById('row-'+p.id).removeAttribute('class'))
+    })
   }
 
-  saveList() {
+  saveList = () => {
     const postProductsUrl = URL+'/product_customs_update'
-    const updateList = this.state.products.filter(p => p.updated === "true")
-
+    const auxList = this.state.products.filter(p => p.updated === "true")
+    const updateList = {}
+    auxList.map(p => (updateList[p.id] = {value: p.value}))
     axios.put(postProductsUrl, {data: updateList})
     .then(resp => this.loadList(true))
-    .then(resp => updateList.map( p => document.getElementById('row-'+p.id).removeAttribute('class')))
   }
 
-  changeValue(e, id) {
-    // const cod = this.state.products[index].cod
-    const teste = []
+  changeValue = (e, id) => {
+    const newRows = []
     const row = document.getElementById('row-'+id)
     this.state.products.forEach(item => {
       if (item.id == id) {
@@ -54,12 +56,12 @@ export default class TableProduct extends Component {
         row.setAttribute("class", "table-info")
         item["updated"] = "true"
       }
-      teste.push(item)
+      newRows.push(item)
     })
-    this.setState({...this.state, products: teste})
+    this.setState({...this.state, products: newRows})
   }
 
-  createList() {
+  createList = () => {
     const getCreateListUrl = URL+'/create_product_customs'
     this.setState({...this.state,hide: false})
     axios.get(getCreateListUrl).then(resp => this.setState({...this.state, products: resp.data, hide: true, visible: true})).then(resp => setTimeout(() => (this.setState({...this.state, visible: false})), 2000))

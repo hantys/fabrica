@@ -46,8 +46,8 @@ jQuery ->
     total_value_with_discount = $(this).parent().parent().parent().find('.total_value_with_discount')
     discount_type = $(this).parent().parent().parent().find('.discount_type')
     discount = $(this).parent().parent().parent().parent().find('.discount_item')
-    console.log $(this).val()
-    $.get("/find_product/#{$(this).val()}", (date) ->
+    console.log $("#budget_client_id").val()
+    $.get("/find_product/#{$(this).val()}", {client_id: $("#budget_client_id").val()}, (date) ->
       unit_value.val date
       $('#budget_discount').val('')
       if qnt.val().length > 0
@@ -222,7 +222,7 @@ $(document).on 'nested:fieldAdded', (event) ->
       discountField.attr("readonly", true)
 
   budgetItemField.change ->
-    $.get("/find_product/#{$(this).val()}", (date) ->
+    $.get("/find_product/#{$(this).val()}", {client_id: $("#budget_client_id").val()}, (date) ->
       unitValueField.val date
       $('#budget_discount').val('')
       if qntField.val().length > 0

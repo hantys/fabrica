@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: [:show, :edit, :update, :destroy, :set_client]
+  before_action :set_client, only: [:show, :edit, :update, :destroy, :list_product_customs, :update_list_product_customs, :create_product_customs]
   load_and_authorize_resource
   # GET /clients
   # GET /clients.json
@@ -71,11 +71,17 @@ class ClientsController < ApplicationController
   end
 
   def list_product_customs
-    render json: @client.product_customs, except: [:client_id, :product_id, :deleted_at, :created_at, :updated_at], include: {product: {only: [:id, :cod, :name]}}
+    params[:q][:client_id_eq] = @client.id
+    puts params[:q]
+    @q = ProductCustom.ransack(params[:q])
+    @product_customs = @q.result.order(:id)
+
+    render json: @product_customs, except: [:client_id, :product_id, :deleted_at, :created_at, :updated_at], include: {product: {only: [:id, :cod, :name]}}
   end
 
   def update_list_product_customs
-    # @pays = BillPayableInstallment.update(pays.keys, pays.values)
+    product_customs = params[:data]
+    @client.product_customs.update(product_customs.keys, product_customs.values)
     render json: params[:data]
   end
 

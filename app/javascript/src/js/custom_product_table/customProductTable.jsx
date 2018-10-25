@@ -8,7 +8,6 @@ import TableProduct from './component/tableProduct'
 
 
 if (document.getElementById('custom_product_table')) {
-  console.log('elemtento encontrado')
 
   document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(
