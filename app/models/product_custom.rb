@@ -6,5 +6,8 @@ class ProductCustom < ApplicationRecord
 
   has_paper_trail
 
-  # validates :price, presence: true
+  validates_uniqueness_of :product_id, scope: :client_id
+
+  validates :value, presence: true
+  validates :value, numericality: { greater_than: 0 }
 end

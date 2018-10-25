@@ -3,7 +3,7 @@ import { Input } from 'reactstrap';
 
 
 export default props => (
-  <tr>
+  <tr id={"row-" + props.id}>
     <th scope="row">{props.cod}</th>
     <td>{props.name}</td>
     <td>

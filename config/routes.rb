@@ -28,6 +28,10 @@ Rails.application.routes.draw do
   resources :compositions
   resources :raw_materials
 
+  #client_product_custom
+  get '/clients/:id/create_product_customs', to: 'clients#create_product_customs'
+  get '/clients/:id/product_customs', to: 'clients#list_product_customs'
+
   # credito / debito
   get '/bank/credit_or_debit/:id', to: 'banks#credit_or_debit', as: :credit_or_debit
   post '/bank/credit_or_debit/:id', to: 'banks#credit_or_debit_update', as: :credit_or_debit_update

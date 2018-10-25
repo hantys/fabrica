@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :set_client, only: [:show, :edit, :update, :destroy, :set_client]
   load_and_authorize_resource
   # GET /clients
   # GET /clients.json
@@ -63,6 +63,15 @@ class ClientsController < ApplicationController
       format.html { redirect_to clients_url, notice: 'Cliente apagado com sucesso.' }
       format.json { head :no_content }
     end
+  end
+
+  def create_product_customs
+    @client.custom_products
+    render json: @client.product_customs, except: [:client_id, :product_id, :deleted_at, :created_at, :updated_at], include: {product: {only: [:id, :cod, :name]}}
+  end
+
+  def list_product_customs
+    render json: @client.product_customs, except: [:client_id, :product_id, :deleted_at, :created_at, :updated_at], include: {product: {only: [:id, :cod, :name]}}
   end
 
   private

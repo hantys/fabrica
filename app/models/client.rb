@@ -28,9 +28,14 @@ class Client < ApplicationRecord
     self.cpf.present?
   end
 
-  private
-    def custom_products
-      
+  def custom_products
+    product_customs = []
+    client_id = self.id
+    Product.all.each do |product|
+      product_customs << {product_id: product.id, client_id: client_id, value: product.price}
     end
-
+    ActiveRecord::Base.transaction do
+      ProductCustom.create(product_customs)
+    end
+  end
 end
