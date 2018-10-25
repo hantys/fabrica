@@ -26,15 +26,22 @@ export default class TableProduct extends Component {
     this.loadList()
   }
 
-  loadList() {
+  loadList(loading=false) {
     const getProductsUrl = URL+'/product_customs'
-    // window.location.pathname
-    axios.get(getProductsUrl).then(resp => this.setState({...this.state, products: resp.data, hide: true}))
+    if(loading == true){
+      this.setState({...this.state, hide: false})
+    }
+    axios.get(getProductsUrl)
+    .then(resp => this.setState({...this.state, products: resp.data, hide: true}))
   }
 
   saveList() {
+    const postProductsUrl = URL+'/product_customs_update'
     const updateList = this.state.products.filter(p => p.updated === "true")
-    console.log(updateList)
+
+    axios.put(postProductsUrl, {data: updateList})
+    .then(resp => this.loadList(true))
+    .then(resp => updateList.map( p => document.getElementById('row-'+p.id).removeAttribute('class')))
   }
 
   changeValue(e, id) {

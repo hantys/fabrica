@@ -74,6 +74,11 @@ class ClientsController < ApplicationController
     render json: @client.product_customs, except: [:client_id, :product_id, :deleted_at, :created_at, :updated_at], include: {product: {only: [:id, :cod, :name]}}
   end
 
+  def update_list_product_customs
+    # @pays = BillPayableInstallment.update(pays.keys, pays.values)
+    render json: params[:data]
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client

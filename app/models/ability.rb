@@ -14,7 +14,7 @@ class Ability
     if user.has_role? :admin
       can :crud, :all
       #cliente
-      can [:create_product_customs, :list_product_customs], Client
+      can [:create_product_customs, :list_product_customs, :update_list_product_customs ], Client
       #banco
       can :credit_or_debit, Bank
       can :credit_or_debit_update, Bank

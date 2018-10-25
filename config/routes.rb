@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   #client_product_custom
   get '/clients/:id/create_product_customs', to: 'clients#create_product_customs'
   get '/clients/:id/product_customs', to: 'clients#list_product_customs'
+  put '/clients/:id/product_customs_update', to: 'clients#update_list_product_customs'
 
   # credito / debito
   get '/bank/credit_or_debit/:id', to: 'banks#credit_or_debit', as: :credit_or_debit
