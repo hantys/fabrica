@@ -253,6 +253,7 @@ GEM
       puma (>= 2.7, < 4)
     raabro (1.1.6)
     rack (2.0.5)
+    rack-cors (1.0.2)
     rack-protection (2.0.3)
       rack
     rack-proxy (0.6.5)
@@ -463,6 +464,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 3.11)
   puma_worker_killer
+  rack-cors
   rails (~> 5.2.1)
   rails-controller-testing
   rails_12factor

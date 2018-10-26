@@ -36,6 +36,7 @@ gem "correios_api", github: "hantys/correios_api"#, branch: 'update_rails'
 
 #paginacao
 gem 'kaminari'
+gem 'rack-cors', require: 'rack/cors'
 
 gem 'carrierwave'
 
