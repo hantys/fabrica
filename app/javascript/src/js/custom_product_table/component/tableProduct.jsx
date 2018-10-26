@@ -6,7 +6,7 @@ import RowTable from './rowTable'
 import If from '../../template/if'
 import Loading from '../../template/loading'
 
-const URL = "http://"+window.location.host+"/clients/"+document.getElementById('custom_product_table').getAttribute('data-id')
+const URL = "https://"+window.location.host+"/clients/"+document.getElementById('custom_product_table').getAttribute('data-id')
 export default class TableProduct extends Component {
   constructor(props) {
     super(props)
