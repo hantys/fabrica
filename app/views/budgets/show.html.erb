@@ -126,6 +126,12 @@
   </legend>
 </div>
 
+<% if ProductCustom.where(client_id: @budget.client_id ).present? %>
+  <div class="alert alert-warning text-center" role="alert">Preços referentes a tabela do personalizada do cliente
+    <%= link_to "ver tabela", "javascript:;", class: 'btn btn-warning mb-1',  data: { toggle: "modal", target: "#budget_custom_product_table"} %>
+  </div>
+<% end %>
+
 <div class="table-responsive">
   <table class="table table-bordered">
     <thead>
@@ -308,6 +314,25 @@
       </div>
       <div class="modal-body">
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="budget_custom_product_table" tabindex="-1" role="dialog" aria-labelledby="budget_custom_product_tableLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="budget_custom_product_tableLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="custom_product_table" data-id="<%= @budget.client_id %>"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

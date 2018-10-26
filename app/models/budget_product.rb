@@ -29,7 +29,16 @@ class BudgetProduct < ApplicationRecord
     end
 
     def set_total_value
-      self.unit_value = Product.find(self.product_id).price.round(2)
+      client_id = self.budget.client_id
+      product_custom = ProductCustom.where(client_id: client_id, product_id: self.product_id)
+      price = 0
+      if product_custom.present?
+        price = product_custom.first.value
+      else
+        price = Product.find(self.product_id).price.round(2)
+      end
+
+      self.unit_value = price
       self.total_value = (self.unit_value * self.qnt).round(2)
 
       if self.discount.to_f > 0

@@ -90,5 +90,6 @@
     </p>
   </div>
 </div>
-
-<%= render 'custom_product_table' %>
+<% unless @modal %>
+  <%= render 'custom_product_table', client_id: @client.id %>
+<% end %>

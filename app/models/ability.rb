@@ -7,12 +7,13 @@ class Ability
     alias_action :daily_production, to: :reports_admin
     alias_action :daily_production, to: :reports_manager
     alias_action :index, :find_by_address, :find_city, :find_hit, :produto_primitivo, :find_payment, :find_delivery, to: :home_access
-    
+
     # Define abilities for the passed in user here. For example:
     #
     # can :manage, :all if user.has_role? :admin
     if user.has_role? :admin
       can :crud, :all
+      # cannot :update, ProductCustom
       #cliente
       can [:create_product_customs, :list_product_customs, :update_list_product_customs ], Client
       #banco
@@ -44,6 +45,7 @@ class Ability
     end
     if user.has_role? :manager
       can :crud, :all
+      # cannot :update, ProductCustom
       #banco
       can :credit_or_debit, Bank
       can :credit_or_debit_update, Bank
@@ -76,6 +78,7 @@ class Ability
     end
     if user.has_role? :representative
       # orcamento
+      # cannot :update, ProductCustom
       can [:read, :update, :destroy], Budget, employee_id: user.employee.id
       can :budget_pdf, Budget
       can :update_status, Budget, status: [0]

@@ -81,6 +81,7 @@ class ClientsController < ApplicationController
 
   def update_list_product_customs
     product_customs = params[:data]
+    authorize! :update, ProductCustom
     @client.product_customs.update(product_customs.keys, product_customs.values)
     render json: params[:data]
   end
