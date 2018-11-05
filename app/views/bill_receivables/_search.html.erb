@@ -5,10 +5,10 @@
     <div class="col-4">
       <%= f.input :budget_cod_name_or_name_other_cont, label: model_class.human_attribute_name(:type_receivable), placeholder: 'Ex: 434/2018', required: false %>
       <%= f.input :status_eq, label: model_class.human_attribute_name(:status), as: :select, placeholder: 'code', :as => :select, :collection => BillReceivable.statuses.map {|x| [t("enums.bill_receivable.status.#{x[0]}"), x[1]]}.sort_by {|a,b| a }, :include_blank => "Todas", input_html: {class: 'simple-select2'}, required: false %>
-    </div>
+    </div> 
     <div class="col-4">
-      <%= f.input :due_date_gteq, label: "#{model_class.human_attribute_name(:due_date)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
-      <%= f.input :due_date_lteq, label: "#{model_class.human_attribute_name(:due_date)} final", as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+      <%= f.input :bill_receivable_installments_date_gteq, label: "#{model_class.human_attribute_name(:bill_receivable_installments_date)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
+      <%= f.input :bill_receivable_installments_date_lteq, label: "#{model_class.human_attribute_name(:bill_receivable_installments_date)} final", as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
     </div>
     <div class="col-4">,
     </div>

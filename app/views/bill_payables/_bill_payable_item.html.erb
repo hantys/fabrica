@@ -1,4 +1,4 @@
-<td scope="row"><%= link_to bill_payable_installment.id, bill_payable %></td>
+<td scope="row"><%= link_to bill_payable.id, bill_payable %></td>
 <td><%= link_to_modal bill_payable.provider_contract.name, provider_contract_path(bill_payable.provider_contract), class: 'text-dark' %></td>
 <td><%= bill_payable.category.try(:name) %></td>
 <td><%= bill_payable.revenue.try(:name) %></td>
