@@ -35,7 +35,7 @@
       </thead>
 
       <tbody>
-        <% @bill_payables.each do |bill_payable| %>
+        <% @bill_payables.includes(:bill_payable_installments).each do |bill_payable| %>
           <% bill_payable.bill_payable_installments.each do |bill_payable_installment| %>
             <tr id="bill_payable-item-<% bill_payable_installment.id %>">
               <%= render 'bill_payable_item', bill_payable: bill_payable, bill_payable_installment: bill_payable_installment %>
