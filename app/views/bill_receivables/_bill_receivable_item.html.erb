@@ -29,8 +29,8 @@
 <td><%= bill_receivable.category.try(:name) %></td>
 <td><%= bill_receivable.revenue.try(:name) %></td>
 <td><%= label_status_bri bill_receivable_installment %></td>
-<td><%= number_to_currency bill_receivable_installment.value if bill_receivable_installment%></td>
-<td><%= (bill_receivable_installment.status != 'paid' ? bill_payable_installment.date : '-') if bill_receivable_installment %></td>
+<td><%= number_to_currency bill_receivable_installment.value %></td>
+<td><%= bill_receivable_installment.status != 'paid' ? bill_receivable_installment.date : '-' %></td>
 <% if bill_receivable_installment.status != 'paid' %>
   <td class="d-print-none text-center" onclick="change_check_pay('pay_<%= bill_receivable_installment.id %>');">
     <%= check_box_tag "receber[]", bill_receivable_installment.id, false , :class=>"styled d-none", id: "pay_#{bill_receivable_installment.id}" %>
