@@ -61,6 +61,10 @@
             <%= link_to 'Pedidos - Visão geral
 ', "https://datastudio.google.com/open/1dexf-o6M2NEt9OsKRM8TudBNlJsOVyRg", class: "dropdown-item", target: '_blank' %>
             <%= link_to 'Produtos - Custos/Produzido', "https://datastudio.google.com/open/1Mn4Cfo6AO1Zi9gkjImhOCMdDLZiN_aSs", class: "dropdown-item", target: '_blank' %>
+            <%= link_to 'PEDIDOS', "https://datastudio.google.com/open/1Ki8Q94wD7C2O0VbqfQNv0zxs4SAI_eCH", class: "dropdown-item", target: '_blank' %>
+            <%= link_to 'MATERIA PRIMA', "https://datastudio.google.com/open/1M879-e7fbUIWoOUfJnWLb9H2QF-1vrGY", class: "dropdown-item", target: '_blank' %>
+            <%= link_to 'CONTAS Á RECEBER', "https://datastudio.google.com/open/1Fyt7HP99pgTef2aUMP6oiaVgI83htRgj", class: "dropdown-item", target: '_blank' %>
+            <%= link_to 'CONTAS Á PAGAR', "https://datastudio.google.com/open/17svp71JQeALlLTp3e19w0hxqJ-J-zDmZ", class: "dropdown-item", target: '_blank' %>
             <%= link_to 'Previsão de produção diária', daily_production_path, class: "dropdown-item #{active_class(daily_production_path)}" if can? :daily_production, :report %>
           </div>
         </li>
