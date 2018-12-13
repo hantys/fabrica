@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  acts_as_paranoid
+  
   attr_accessor :login
 
   ROLES = %i[admin manager representative]

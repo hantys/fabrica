@@ -3,9 +3,9 @@ class OutOfStock < ApplicationRecord
 
   after_create :update_qnt_product
 
-  belongs_to :budget
-  belongs_to :user
-  belongs_to :product
+  belongs_to :budget, -> { with_deleted }
+  belongs_to :user, -> { with_deleted }
+  belongs_to :product, -> { with_deleted }
 
   has_paper_trail
 
