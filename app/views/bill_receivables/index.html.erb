@@ -27,7 +27,7 @@
           <th scope="col"><%= sort_link @q, :category, model_class.human_attribute_name(:category), default_order: :desc %></th>
           <th scope="col"><%= sort_link @q, :revenue, model_class.human_attribute_name(:revenue), default_order: :desc %></th>
           <th scope="col"><%= sort_link @q, :status, model_class.human_attribute_name(:status), default_order: :desc %></th>
-          <th scope="col"><%= sort_link @q, :total_value, model_class.human_attribute_name(:total_value), default_order: :desc %></th>
+          <th scope="col"><%= sort_link @q, :total_value, "Valor", default_order: :desc %></th>
           <th scope="col"><%= sort_link @q, :total_value, model_class.human_attribute_name(:due_date), default_order: :desc %></th>
           <th scope="col" class="d-print-none text-center">Selecione</th>
           <th scope="col" class="d-print-none text-center"><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -36,9 +36,11 @@
 
       <tbody>
         <% @bill_receivables.includes(:bill_receivable_installments).each do |bill_receivable| %>
-          <tr id="bill_receivable-item-<%= bill_receivable.id %>">
-            <%= render 'bill_receivable_item', bill_receivable: bill_receivable %>
-          </tr>
+          <% bill_receivable.bill_receivable_installments.each do |bill_receivable_installment| %>
+            <tr id="bill_receivable-item-<%= bill_receivable_installment.id %>">
+              <%= render 'bill_receivable_item', bill_receivable: bill_receivable, bill_receivable_installment: bill_receivable_installment %>
+            </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>

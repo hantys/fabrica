@@ -1,27 +1,40 @@
-- falar com pablo sobre o layout
-- otimizar desempenho das paginas do sistema
-- criar template para auditoria
-
-TO DO
-	https://github.com/mbuckbee/Web-To-Pdf-Gem
-- Revisar todos os index das paginas e alterar links e botoes
-- Botao novo em todos os shows
-- Criar relatorio de orcamentos
-
-- puxar categoria/faturamento do contrato com fornecedor
-- puxa banco do fornecedor
-
 - Cadastro de inventario
 - Criar sistema de viagens com vinculacao aos orcamentos
 - Bloquear cliente opcao
 - Gerar varias ordem de pedido
 
-
-- Exibir valor d parcela em contas a receber e a pagar
-- Exibir parcelas e nao o pagamento
+TO DO
+- Revisar todos os index das paginas e alterar links e botoes
+- Botao novo em todos os shows
+- puxar categoria/faturamento do contrato com fornecedor
+- puxa banco do fornecedor
 
 
 - RELATÓRIOS
+
+	6.0 DO CONTAS Á PAGAR
+		6.1 VALOR TOTAL Á PAGAR E PAGO POR PERIODO
+
+DONE
+- RELATÓRIOS
+	2.0 – PEDIDOS
+		2.2 RESUMO DE RESULTADO DOS PEDIDOS POR PERIODO, DESPESA E RECEITA. - pensar como fazer no sistema ou no data studio e linkar com o sistema
+		2.3 RESUMO DE PEDIDOS POR CLIENTES (HISTORICO GERAL ENVOLVENDO PARCELAS DE CONTAS Á RECEBER) - pensar como fazer no sistema ou no data studio e linkar com o sistema
+		
+	7.0 DOS REPRESENTANTES - todos no data studio criar link para pedido
+	  	7.1 VALOR TOTAL VENDIDO / FATURADO POR REPRESENTANTE.
+
+
+	4.0 – DA MATERIA PRIMA - todos no data studio
+		4.1 SALDO DE MATERIA PRIMA
+		4.2 QUANTIDADE DE MATERIA PRIMA EXTRUSSADA POR PERIODO
+		
+	5.0 DO CONTAS Á RECEBER
+		5.1 VALOR Á RECEBER VENCIDO E VICENDOS
+		5.2 PREVISÃO DE RECEBIMENTO (TABELA COM JUROS)
+		5.3 CONTAS Á RECEBER VENCIDO E VICENDO POR REPRESENTANTE
+		5.4 CONSULTA DO CLIENTE (MOSTRA SE O CLIENTE TEM ALGUM BLOETO VENCIDO E HISTÓRICO
+		
 	1.0 – FATURAMENTO
 		1.1 VALOR VENDIDO POR PERIODO - ok
 		1.2 VALOR FATURADO POR PERIODO - ok
@@ -29,32 +42,22 @@ TO DO
 
 	2.0 – PEDIDOS
 		2.1 QUAIS PEDIDOS FALTAM FATURAR - ok
-		2.2 RESUMO DE RESULTADO DOS PEDIDOS POR PERIODO, DESPESA E RECEITA. - pensar como fazer no sistema ou no data studio e linkar com o sistema
-		2.3 RESUMO DE PEDIDOS POR CLIENTES (HISTORICO GERAL ENVOLVENDO PARCELAS DE CONTAS Á RECEBER) - pensar como fazer no sistema ou no data studio e linkar com o sistema
 
 	3.0 – DOS PRODUTOS
 		3.1 TOTAL DE PRODUÇÃO POR PERIODO - ok
 		3.2 CUSTO DE PRODUÇÃO DOS PRODUTOS (COM MÉDIA) - ok
-		3.3 % DE LUCRO BRUTO DOS PRODUTOS. - pergunta como e
 
 	4.0 – DA MATERIA PRIMA - todos no data studio
-		4.1 SALDO DE MATERIA PRIMA
-		4.2 QUANTIDADE DE MATERIA PRIMA EXTRUSSADA POR PERIODO
 
 	5.0 DO CONTAS Á RECEBER
-		5.1 VALOR Á RECEBER VENCIDO E VICENDOS
-		5.2 PREVISÃO DE RECEBIMENTO (TABELA COM JUROS)
-		5.3 CONTAS Á RECEBER VENCIDO E VICENDO POR REPRESENTANTE
-		5.4 CONSULTA DO CLIENTE (MOSTRA SE O CLIENTE TEM ALGUM BLOETO VENCIDO E HISTÓRICO
 
 	6.0 DO CONTAS Á PAGAR
-		6.1 VALOR TOTAL Á PAGAR E PAGO POR PERIODO
 
 	7.0 DOS REPRESENTANTES - todos no data studio criar link para pedido
-		7.1 VALOR TOTAL VENDIDO / FATURADO POR REPRESENTANTE.
 
 
-DONE
+- Exibir valor d parcela em contas a receber e a pagar
+- Exibir parcelas e nao o pagamento
 - Contas a receber nao precisa ser obrigatorio o anexo
 - Nome arquivo para nota fiscal
 - Situacao: A pagar, Vencido, Pago

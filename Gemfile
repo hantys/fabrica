@@ -12,6 +12,8 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'enum_help'
 gem 'cancancan', '~> 2.0'
+gem "rack", ">= 2.0.6"
+gem "loofah", ">= 2.2.3"
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jquery-rails'

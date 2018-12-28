@@ -27,7 +27,7 @@
           <th scope="col"><%= sort_link @q, :category, model_class.human_attribute_name(:category), default_order: :desc %></th>
           <th scope="col"><%= sort_link @q, :revenue, model_class.human_attribute_name(:revenue), default_order: :desc %></th>
           <th scope="col"><%= sort_link @q, :status, model_class.human_attribute_name(:status), default_order: :desc %></th>
-          <th scope="col"><%= sort_link @q, :total_value, model_class.human_attribute_name(:total_value), default_order: :desc %></th>
+          <th scope="col"><%= sort_link @q, :total_value, "Valor", default_order: :desc %></th>
           <th scope="col"><%= sort_link @q, :due_date, model_class.human_attribute_name(:due_date), default_order: :desc %></th>
           <th scope="col" class="d-print-none text-center">Selecione</th>
           <th scope="col" class="d-print-none text-center"><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -35,7 +35,7 @@
       </thead>
 
       <tbody>
-        <% @bill_payables.each do |bill_payable| %>
+        <% @bill_payables.includes(:bill_payable_installments).each do |bill_payable| %>
           <% bill_payable.bill_payable_installments.each do |bill_payable_installment| %>
             <tr id="bill_payable-item-<% bill_payable_installment.id %>">
               <%= render 'bill_payable_item', bill_payable: bill_payable, bill_payable_installment: bill_payable_installment %>
