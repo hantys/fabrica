@@ -62,6 +62,10 @@ group :development, :test do
   gem 'chromedriver-helper'
   gem 'rspec-json_expectations'
   gem 'json_matchers'
+  gem 'bullet' # https://github.com/flyerhzm/bullet
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-commands-rspec'
 end
 
 group :development do
@@ -80,10 +84,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "slack-notifier"
 
-  gem 'bullet' # https://github.com/flyerhzm/bullet
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'spring-commands-rspec'
+  
 end
 
 group :production do

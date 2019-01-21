@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :delivery_option do
-    name "MyString"
+    name {"MyString"}
   end
 end

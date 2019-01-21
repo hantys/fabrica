@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :type_of_payment do
-    name "MyString"
+    name {"MyString"}
   end
 end

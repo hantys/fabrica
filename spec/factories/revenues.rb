@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :revenue do
-    name "MyString"
-    references ""
+    name { "MyString"}
+  
   end
 end
