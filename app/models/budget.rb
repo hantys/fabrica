@@ -22,7 +22,7 @@ class Budget < ApplicationRecord
   after_save :set_discount
   after_create :set_cod_name
   before_update :verify_value_with_discount
-
+  before_save :verify_status
 
   validates :value, presence: true
   validates :deadline, presence: true
@@ -118,6 +118,22 @@ class Budget < ApplicationRecord
   end
 
   private
+
+    def verify_status
+      case status
+      when "rejected"
+        self.rejected_date = Time.now if rejected_date.nil?
+      when "authorized"
+        self.authorized_date = Time.now if authorized_date.nil?
+      when "billed"
+        self.billed_date = Time.now if billed_date.nil?
+      when "delivered"
+        self.delivered_date = Time.now if delivered_date.nil?
+      when "confirm"
+        self.confirm_date = Time.now if confirm_date.nil?
+      end
+    end
+
     def set_cod_name
       b = Budget.find self.id
       b.update cod_name: "#{b.cod}/#{Date.today.year}"

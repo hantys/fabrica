@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_23_113301) do
+ActiveRecord::Schema.define(version: 2019_01_27_064432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +172,11 @@ ActiveRecord::Schema.define(version: 2018_10_23_113301) do
     t.bigint "sub_delivery_option_id"
     t.text "obs", default: ""
     t.boolean "reserve", default: false
+    t.datetime "authorized_date"
+    t.datetime "rejected_date"
+    t.datetime "billed_date"
+    t.datetime "delivered_date"
+    t.datetime "confirm_date"
     t.index ["client_id"], name: "index_budgets_on_client_id"
     t.index ["deleted_at"], name: "index_budgets_on_deleted_at"
     t.index ["delivery_option_id"], name: "index_budgets_on_delivery_option_id"

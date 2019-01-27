@@ -271,6 +271,7 @@
                 <% when 'status' %>
                   <strong><%= model_class.human_attribute_name("#{key}") %></strong>
                   de <%= label_status_budget value[0] %> para <%= label_status_budget value[1] %>
+                  <%= value[1] %>
                   <br>
                 <% end %>
               <% end %>
