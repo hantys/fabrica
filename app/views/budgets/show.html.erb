@@ -101,7 +101,7 @@
       <strong>
         <%= model_class.human_attribute_name(:status) %>:
       </strong>
-        <%= label_status_budget @budget  %>
+        <%= label_status_budget @budget  %> - <%= @budget.send("#{@budget.status}_date") %>
       <hr>
       <% unless @modal %>
         <strong>
