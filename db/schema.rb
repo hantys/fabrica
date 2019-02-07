@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_27_064432) do
+ActiveRecord::Schema.define(version: 2019_01_29_121132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(version: 2019_01_27_064432) do
     t.datetime "billed_date"
     t.datetime "delivered_date"
     t.datetime "confirm_date"
+    t.datetime "waiting_date"
     t.index ["client_id"], name: "index_budgets_on_client_id"
     t.index ["deleted_at"], name: "index_budgets_on_deleted_at"
     t.index ["delivery_option_id"], name: "index_budgets_on_delivery_option_id"
