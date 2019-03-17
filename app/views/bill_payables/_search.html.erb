@@ -4,16 +4,28 @@
   <div class="row justify-content-md-center">
     <div class="col-4">
       <%= f.input :provider_contract_name_cont, label: model_class.human_attribute_name(:provider_contract), placeholder: 'Ex: Transporte de PVC', required: false %>
+      <%= f.input :provider_contract_provider_company_name_cont, label: "Nome do fornecedor", required: false %>
       <%= f.input :status_eq, label: model_class.human_attribute_name(:status), as: :select, placeholder: 'code', :as => :select, :collection => BillPayable.statuses.map {|x| [t("enums.bill_payable.status.#{x[0]}"), x[1]]}.sort_by {|a,b| a }, :include_blank => "Todas", input_html: {class: 'simple-select2'}, required: false %>
     </div>
     <div class="col-4">
       <%= f.input :bill_payable_installments_date_gteq, label: "#{model_class.human_attribute_name(:due_date)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
       <%= f.input :bill_payable_installments_date_lteq, label: "#{model_class.human_attribute_name(:due_date)} final", as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
     </div>
-    <div class="col-4">,
+    <div class="col-4">
     </div>
-    <%= f.button :submit, class: 'btn btn-success' %>
-    <%= link_to 'Limpar', bill_payables_path, class: 'btn btn-info ml-3' %>
+    <div class="d-flex justify-content-between w-100">
+      <div class="mb-2">
+        <%= link_to 'Exportar Excel', excel_path(:format => :xls, :params => params.permit!.to_h), class: 'btn btn-primary' %>
+      </div>
+      <div class="mb-2">
+        <%= f.button :submit, class: 'btn btn-success' %>
+        <%= link_to 'Limpar', bill_payables_path, class: 'btn btn-info ml-3' %>
+      </div>
+      <div class="mb-2">
+      </div>
+      <div class="mb-2">
+      </div>
+    </div>
   </div>
   <hr>
 <% end %>

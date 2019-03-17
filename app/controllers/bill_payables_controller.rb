@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class BillPayablesController < ApplicationController
-  before_action :set_bill_payable, only: [:show, :edit, :update, :destroy]
+  before_action :set_bill_payable, only: %i[show edit update destroy]
   load_and_authorize_resource
 
   # GET /bill_payables
@@ -9,6 +11,15 @@ class BillPayablesController < ApplicationController
     @modal_size = 'lg'
 
     @bill_payables = @q.result.includes(:provider_contract, :category, :revenue, :bill_payable_installments).accessible_by(current_ability).order(id: :desc).page(params[:page])
+  end
+
+  def payment_excel
+    @q = BillPayable.ransack(params[:q])
+    @bill_payables = @q.result.includes(:provider_contract, :category, :revenue, :bill_payable_installments).accessible_by(current_ability).order(id: :desc).page(params[:page])
+
+    respond_to do |format|
+      format.xls
+    end
   end
 
   def pays
@@ -21,9 +32,7 @@ class BillPayablesController < ApplicationController
     @pays = BillPayableInstallment.update(pays.keys, pays.values)
     aux = true
     @pays.each do |e|
-      if e.errors.present?
-        aux = false
-      end
+      aux = false if e.errors.present?
     end
     if aux
       redirect_to bill_payables_url, success: 'Parcelas pagas com sucesso.'
@@ -64,8 +73,7 @@ class BillPayablesController < ApplicationController
   end
 
   # GET /bill_payables/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /bill_payables
   # POST /bill_payables.json
@@ -112,13 +120,14 @@ class BillPayablesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bill_payable
-      @bill_payable = BillPayable.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def bill_payable_params
-      params.require(:bill_payable).permit!
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_bill_payable
+    @bill_payable = BillPayable.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def bill_payable_params
+    params.require(:bill_payable).permit!
+  end
 end

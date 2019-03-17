@@ -1,0 +1,129 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:x="urn:schemas-microsoft-com:office:excel"
+      xmlns="http://www.w3.org/TR/REC-html40"
+      xmlns:ss = "urn:schemas-microsoft-com:office:spreadsheet" />
+  <head>
+    <meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>
+    <meta name=ProgId content=Excel.Sheet/>
+    <meta name=Generator content="Microsoft Excel 11"/>
+    <style type="text/css">
+      @page {
+        mso-header-data : '';
+        margin: 0.75in 0.20in 0.5in 0.20in;
+        mso-header-margin: 0.25in;
+        mso-footer-margin:0.25in;
+        mso-page-orientation: landscape;
+      }
+      table{
+        page-break-inside: avoid;
+      }
+      td{
+        white-space:nowrap;
+      }
+    </style>
+
+    <!--[if gte mso 9]><xml>
+   <x:ExcelWorkbook>
+    <x:ExcelWorksheets
+     <x:ExcelWorksheet>
+      <x:Name>Gantt Detail</x:Name>
+      <x:WorksheetOptions>
+      <x:DefaultRowHeight>319</x:DefaultRowHeight>
+       <x:Print>
+        <x:FitHeight>15</x:FitHeight>
+        <x:ValidPrinterInfo/>
+        <x:Scale>74</x:Scale>
+        <x:HorizontalResolution>600</x:HorizontalResolution>
+        <x:VerticalResolution>600</x:VerticalResolution>
+       </x:Print>
+       <x:Selected/>
+       <x:FrozenNoSplit/>
+       <x:SplitHorizontal>5</x:SplitHorizontal>
+       <x:TopRowBottomPane>5</x:TopRowBottomPane>
+       <x:ActivePane>2</x:ActivePane>
+            <x:Panes>
+              <x:Pane>
+              <x:Number>3</x:Number>
+              </x:Pane>
+              <x:Pane>
+              <x:Number>2</x:Number>
+              </x:Pane>
+       <x:ProtectContents>False</x:ProtectContents>
+       <x:ProtectObjects>False</x:ProtectObjects>
+       <x:ProtectScenarios>False</x:ProtectScenarios>
+      </x:WorksheetOptions>
+     </x:ExcelWorksheet>
+    </x:ExcelWorksheets>
+    <x:WindowHeight>8580</x:WindowHeight>
+    <x:WindowWidth>12120</x:WindowWidth>
+    <x:WindowTopX>120</x:WindowTopX>
+    <x:WindowTopY>45</x:WindowTopY>
+    <x:ProtectStructure>False</x:ProtectStructure>
+    <x:ProtectWindows>False</x:ProtectWindows>
+   </x:ExcelWorkbook>
+   <x:ExcelName>
+    <x:Name>Print_Titles</x:Name>
+    <x:SheetIndex>1</x:SheetIndex>
+    <x:Formula>='Gantt Detail'!$3:$5</x:Formula>
+   </x:ExcelName>
+  </xml><![endif]-->
+
+  </head>
+  <body>
+    <h3>Relatório Pagamentos<h3>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Razão social</th>
+        <th>Contrato com Fornecedor</th>
+        <th>CPF/CNPJ</th>
+        <th>Código de barras</th>
+        <th>Banco</th>
+        <th>Agência</th>
+        <th>Conta</th>
+        <th>Variação</th>
+        <th>Data</th>
+        <th>Valor</th>
+        <th>Situação</th>
+      </tr>
+      <%= @soma_pago = 0 %>
+      <%= @soma_total = 0 %>
+      <% @bill_payables.each do |caixa|%>
+        <% caixa.bill_payable_installments.each do |item| %>
+          <tr>
+            <td align="center"><%= caixa.id %></td>
+            <td align="center"><%= caixa.provider_contract.try(:provider).try(:company_name) %></td>
+            <td align="center"><%= caixa.provider_contract.name %></td>
+            <td align="center"><%= caixa.provider_contract.provider.cpf.present? ? caixa.provider_contract.provider.cpf : caixa.provider_contract.provider.cnpj if caixa.provider_contract.provider.present? %></td>
+            <td style='text-align: center;'>
+              <%= item.code %> <br>
+            </td>
+            <td align="center"><%= item.try(:bank_name) %></td>
+            <td align="center"><%= item.try(:ag) %></td>
+            <td align="center"><%= item.try(:cc) %></td>
+            <td align="center"><%= item.try(:op) %></td>
+            <td>
+              <%=l item.date %>
+            </td>
+            <td>
+              <%= number_to_currency item.value %>
+              <% @soma_total += item.value %>
+            </td>
+            <td>
+              <%= item.status_i18n %>
+              <% @soma_pago += item.value if item.status == 'paid' %>
+            </td>
+          </tr>
+        <% end %>
+      <% end -%>
+      <tr>
+        <th>TOTAL PAGO</th>
+        <th><%= number_to_currency @soma_pago %></th>
+      </tr>
+      <tr>
+        <th>TOTAL</th>
+        <th><%= number_to_currency @soma_total %></th>
+      </tr>
+    </table>
+  </body>
+</html>

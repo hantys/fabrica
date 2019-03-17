@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class Ability
   include CanCan::Ability
-  
+
   def initialize(user)
     alias_action :create, :read, :update, :destroy, to: :crud
     alias_action :create, :update, :destroy, to: :save
@@ -14,23 +16,24 @@ class Ability
     if user.has_role? :admin
       can :crud, :all
       # cannot :update, ProductCustom
-      #cliente
-      can [:create_product_customs, :list_product_customs, :update_list_product_customs ], Client
-      #banco
+      # cliente
+      can %i[create_product_customs list_product_customs update_list_product_customs], Client
+      # banco
       can :credit_or_debit, Bank
       can :credit_or_debit_update, Bank
       # pagamento
+      can :payment_excel, BillPayable
       can :pays, BillPayable
       can :pays_update, BillPayable
       can :pay_item, BillPayable
       can :pay_item_update, BillPayable
-      cannot [:edit, :update], BillPayable, status: 2
+      cannot %i[edit update], BillPayable, status: 2
       # recebimento
       can :receive_item_update, BillReceivable
       can :receive_item, BillReceivable
       can :receives, BillReceivable
       can :receives_update, BillReceivable
-      cannot [:edit, :update], BillReceivable, status: 2
+      cannot %i[edit update], BillReceivable, status: 2
       # orcamento
       can :reserve_all_budget, Budget
       can :budget_pdf, Budget
@@ -46,31 +49,31 @@ class Ability
     if user.has_role? :manager
       can :crud, :all
       # cannot :update, ProductCustom
-      #banco
+      # banco
       can :credit_or_debit, Bank
       can :credit_or_debit_update, Bank
       # pagamento
       can :pays, BillPayable
       can :pay_item, BillPayable
       can :pay_item_update, BillPayable
-      cannot [:edit, :update], BillPayable, status: 2
+      cannot %i[edit update], BillPayable, status: 2
       # recebimento
       can :receive_item_update, BillReceivable
       can :receive_item, BillReceivable
       can :receives, BillReceivable
       can :receives_update, BillReceivable
-      cannot [:edit, :update], BillReceivable, status: 2
+      cannot %i[edit update], BillReceivable, status: 2
       # orcamento
       can :reserve_all_budget, Budget
       can :update_status, Budget
       can :budget_pdf, Budget
       can :order_service, Budget
-      cannot [:update, :destroy], Budget, status: [3,4]
+      cannot %i[update destroy], Budget, status: [3, 4]
       # produto
       can :product_cod, Product
       # sistema
-      cannot [:create, :read, :update, :destroy], DeliveryOption
-      cannot [:create, :read, :update, :destroy], TypeOfPayment
+      cannot %i[create read update destroy], DeliveryOption
+      cannot %i[create read update destroy], TypeOfPayment
       # relatorios
       can :reports_manager, :report
       # home
@@ -79,21 +82,21 @@ class Ability
     if user.has_role? :representative
       # orcamento
       # cannot :update, ProductCustom
-      can [:read, :update, :destroy], Budget, employee_id: user.employee.id
+      can %i[read update destroy], Budget, employee_id: user.employee.id
       can :budget_pdf, Budget
       can :update_status, Budget, status: [0]
-      cannot [:update, :destroy], Budget, status: [3,4]
+      cannot %i[update destroy], Budget, status: [3, 4]
       # produto
       can :read, [Product]
       can :product_cod, Product
       # cliente
-      can [:read, :update], Client, employee_id: user.employee.id
+      can %i[read update], Client, employee_id: user.employee.id
       can :create, [Budget, Client]
       # usuario
-      can [:read, :update], User, id: user.id
+      can %i[read update], User, id: user.id
       # home
       can :home_access, :home
     end
-    cannot [:edit, :update], Transfer
+    cannot %i[edit update], Transfer
   end
 end
