@@ -1,10 +1,14 @@
+# frozen_string_literal: true
+
 class ProvidersController < ApplicationController
-  before_action :set_provider, only: [:show, :edit, :update, :destroy]
+  before_action :set_provider, only: %i[show edit update destroy]
   load_and_authorize_resource
   # GET /providers
   # GET /providers.json
   def index
-    @providers = Provider.includes(:state, :city).accessible_by(current_ability).order(id: :desc).page params[:page]
+    @q = Provider.ransack(params[:q])
+
+    @providers = @q.result.includes(:state, :city).accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /providers/1
@@ -27,8 +31,7 @@ class ProvidersController < ApplicationController
   end
 
   # GET /providers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /providers
   # POST /providers.json
@@ -76,13 +79,14 @@ class ProvidersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_provider
-      @provider = Provider.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def provider_params
-      params.require(:provider).permit(:company_name, :fantasy_name, :cpf, :cnpj, :street, :number, :neighborhood, :cep, :ie, :bank, :ag, :cc, :variation, :state_id, :city_id, :phone1, :phone2)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_provider
+    @provider = Provider.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def provider_params
+    params.require(:provider).permit(:company_name, :fantasy_name, :cpf, :cnpj, :street, :number, :neighborhood, :cep, :ie, :bank, :ag, :cc, :variation, :state_id, :city_id, :phone1, :phone2)
+  end
 end

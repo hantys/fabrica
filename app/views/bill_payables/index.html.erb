@@ -25,6 +25,8 @@
 
           <th scope="col"><%= sort_link @q, :provider_contract_provider_name, "Fornecedor", default_order: :desc %></th>
 
+          <th scope="col">CPF/CNPJ</th>
+
           <th scope="col"><%= sort_link @q, :provider_contract_name, model_class.human_attribute_name(:provider_contract), default_order: :desc %></th>
           <th scope="col"><%= sort_link @q, :category, model_class.human_attribute_name(:category), default_order: :desc %></th>
           <th scope="col"><%= sort_link @q, :revenue, model_class.human_attribute_name(:revenue), default_order: :desc %></th>

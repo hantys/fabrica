@@ -1,0 +1,22 @@
+<%- model_class = Client -%>
+<%= search_form_for @q, url: clients_path, html: { class: 'form-horizonal d-print-none' } do |f| %>
+  <h3>Busca</h3>
+  <div class="row justify-content-md-center">
+    <div class="col-4">
+      <%= f.input :company_name_cont, label: "Nome do Cliente", required: false %>
+      <%= f.input :employee_name_cont, label: "Nome do Representante", required: false %>
+      <%= f.input :city_name_cont, label: model_class.human_attribute_name(:city), required: false %>
+    </div>
+    <div class="col-4">
+      <%= f.input :cpf_cont, label: model_class.human_attribute_name(:cpf), input_html: { class: 'cpf' }, required: false %>
+      <%= f.input :cnpj_cont, label: model_class.human_attribute_name(:cnpj), input_html: { class: 'cnpj' }, required: false %>
+    </div>
+    <div class="col-4">
+    </div>
+
+    <%= f.button :submit, class: 'btn btn-success' %>
+    <%= link_to 'Limpar', clients_path, class: 'btn btn-info ml-3' %>
+
+  </div>
+  <hr>
+<% end %>

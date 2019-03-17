@@ -1,5 +1,6 @@
 <td scope="row"><%= link_to bill_payable.id, bill_payable %></td>
 <td><%= link_to_modal bill_payable.provider_contract.provider.company_name, provider_path(bill_payable.provider_contract.provider), class: 'text-dark' %></td>
+<td><%= bill_payable.provider_contract.provider.cnpj %> <%= bill_payable.provider_contract.provider.cpf %></td>
 <td><%= link_to_modal bill_payable.provider_contract.name, provider_contract_path(bill_payable.provider_contract), class: 'text-dark' %></td>
 <td><%= bill_payable.category.try(:name) %></td>
 <td><%= bill_payable.revenue.try(:name) %></td>

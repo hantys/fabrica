@@ -4,6 +4,8 @@
   <%= link_to t('.new', :default => t("helpers.links.new")), new_provider_path, class: "btn btn-primary" %>
 </div>
 
+<%= render 'search' %>
+
 <%= paginate @providers if @providers.size > 20 %>
 <%= page_entries_info @providers, entry_name: 'item' %>
 <div class="table-responsive">
