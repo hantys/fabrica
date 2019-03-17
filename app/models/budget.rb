@@ -1,7 +1,7 @@
 class Budget < ApplicationRecord
   acts_as_paranoid
 
-  enum status: { waiting: 0, rejected: 1, authorized: 2, billed: 3, delivered: 4, confirm: 5 }
+  enum status: { waiting: 0, rejected: 1, authorized: 2, billed:  3, delivered: 4, confirm: 5 }
 
   belongs_to :user
   belongs_to :client, -> { with_deleted }
