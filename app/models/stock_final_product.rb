@@ -21,8 +21,8 @@ class StockFinalProduct < ApplicationRecord
   before_destroy :check_routine_trigger
 
   belongs_to :product, optional: true
-  belongs_to :derivative, class_name: 'Product', foreign_key: 'derivative_id', optional: true
-  belongs_to :hit, optional: true
+  belongs_to :derivative, class_name: "Product", :foreign_key => 'derivative_id', optional: true
+  belongs_to :hit, -> { with_deleted }, optional: true
   has_many :item_product_stocks, dependent: :destroy
 
   has_paper_trail

@@ -6,7 +6,7 @@ class StockFinalProductsController < ApplicationController
   def index
     @q = StockFinalProduct.ransack(params[:q])
 
-    @stock_final_products = @q.result.includes(:product, hit: [:product]).accessible_by(current_ability).order(id: :desc).page params[:page]
+    @stock_final_products = @q.result.includes(:product).accessible_by(current_ability).order(id: :desc).page params[:page]
   end
 
   # GET /stock_final_products/1
