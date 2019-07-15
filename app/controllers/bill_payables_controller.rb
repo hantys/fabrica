@@ -54,7 +54,7 @@ class BillPayablesController < ApplicationController
     @pay = BillPayableInstallment.find(params[:item_id])
     @bill_payable = @pay.bill_payable
     @modal = true
-    @bill_payable.update(bill_payable_params)
+    @bill_payable.update!(bill_payable_params)
   end
 
   # GET /bill_payables/1

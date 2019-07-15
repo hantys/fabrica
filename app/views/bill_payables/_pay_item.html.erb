@@ -36,6 +36,7 @@
               .datepicker{z-index:1151 !important;}
             </style>
               <%= bill_payable_installments_form.input :payday, as: :string, required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'}, value: Date.today } %>
+              <%#= bill_payable_installments_form.input :value %>
               <%= bill_payable_installments_form.input :interest %>
               <%= bill_payable_installments_form.input :status, as: :hidden, input_html: { value: 'paid' } %>
               <%= hidden_field_tag :modal, @modal  %>

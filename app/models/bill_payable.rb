@@ -80,7 +80,8 @@ class BillPayable < ApplicationRecord
     def verify_total
       value_item = 0
       self.bill_payable_installments.map { |e| value_item += e.value  }
-      if value_item > (provider_contract.total_value - provider_contract.partil_value)
+      # if value_item > (provider_contract.total_value - provider_contract.partil_value)
+      if value_item > (provider_contract.partil_value)
         errors.add :total_value, "Não pode ser menos que a soma das parcelas."
         false
         # Rails 5

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   skip_before_action :verify_authenticity_token
@@ -17,8 +19,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-   devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :email, :password, :password_confirmation, roles: []])
-   devise_parameter_sanitizer.permit(:sign_in, keys: [:login, :password, :password_confirmation])
-   devise_parameter_sanitizer.permit(:account_update, keys: [:username, :email, :password, :password_confirmation, :current_password])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :email, :password, :password_confirmation, roles: []])
+    devise_parameter_sanitizer.permit(:sign_in, keys: %i[login password password_confirmation])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[username email password password_confirmation current_password])
  end
 end
