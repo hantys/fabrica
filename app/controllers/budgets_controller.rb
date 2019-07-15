@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class BudgetsController < ApplicationController
-  before_action :set_budget, only: [:show, :edit, :update, :destroy]
-  before_action :set_budget_product, only: [:reserve_product, :updated_reserve_product]
-  load_and_authorize_resource except: [:find_product, :reserve_product, :updated_reserve_product]
+  before_action :set_budget, only: %i[show edit update destroy]
+  before_action :set_budget_product, only: %i[reserve_product updated_reserve_product]
+  load_and_authorize_resource except: %i[find_product reserve_product updated_reserve_product]
   # GET /budgets
   # GET /budgets.json
   def index
@@ -87,7 +89,7 @@ class BudgetsController < ApplicationController
       when 'billed'
         if @budget.billed_budget
           flash[:success] = 'Pedido atualizado!'
-          @new_bill =  new_bill_receivable_path(budget: @budget.id, value: @budget.value_with_discount)
+          @new_bill = new_bill_receivable_path(budget: @budget.id, value: @budget.value_with_discount)
         else
           flash[:error] = 'Você não tem estoque para faturar o pedido'
         end
@@ -99,7 +101,7 @@ class BudgetsController < ApplicationController
         end
       end
     elsif @budget.status == 'billed'
-      if 'delivered' == params[:status]
+      if params[:status] == 'delivered'
         if @budget.stock_withdrawal(current_user.id)
           flash[:success] = 'Saída de estoque realizada'
         else
@@ -123,8 +125,7 @@ class BudgetsController < ApplicationController
   end
 
   # GET /budgets/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /budgets
   # POST /budgets.json
@@ -186,21 +187,22 @@ class BudgetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_budget
-      @budget = Budget.find(params[:id])
-    end
 
-    def set_budget_product
-      @budget_product = BudgetProduct.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_budget
+    @budget = Budget.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def budget_product_params
-      params.require(:budget_product).permit(:reserve_qnt)
-    end
+  def set_budget_product
+    @budget_product = BudgetProduct.find(params[:id])
+  end
 
-    def budget_params
-      params.require(:budget).permit! #(:name, :client_id, :employee_id, :value, :deadline, :delivery_options, :payment_term, :type_of_payment, :discount, :discount_type)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def budget_product_params
+    params.require(:budget_product).permit(:reserve_qnt)
+  end
+
+  def budget_params
+    params.require(:budget).permit! # (:name, :client_id, :employee_id, :value, :deadline, :delivery_options, :payment_term, :type_of_payment, :discount, :discount_type)
+  end
 end
