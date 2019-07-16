@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BillPayable < ApplicationRecord
   acts_as_paranoid
 
@@ -17,7 +19,7 @@ class BillPayable < ApplicationRecord
 
   has_paper_trail
 
-  validate :verify_total
+  validate :verify_total, only: :create
   validates :total_value, numericality: { greater_than: 0 }
   validates :total_value, presence: true
   validates :bill_payable_installments, presence: true
@@ -32,94 +34,87 @@ class BillPayable < ApplicationRecord
   def due_date_verify
     data = []
     check = true
-    self.bill_payable_installments.map do |e|
+    bill_payable_installments.map do |e|
       if e.status == 'pending'
         data << e.date
         check = false
       end
     end
     if data.present?
-      self.due_date = data.sort.first
-      if self.due_date < Date.today
-        self.status = 1
-      else
-        self.status = 0
-      end
+      self.due_date = data.min
+      self.status = if due_date < Date.today
+                      1
+                    else
+                      0
+                    end
     else
-      if check
-        self.status = 2
-      end
+      self.status = 2 if check
     end
   end
 
   def set_due_date_and_status
     data = []
-    self.bill_payable_installments.map { |e| data << e.date }
-    self.due_date = data.sort.first
-    if self.due_date < Date.today
-      self.status = 1
-    else
-      self.status = 0
-    end
+    bill_payable_installments.map { |e| data << e.date }
+    self.due_date = data.min
+    self.status = if due_date < Date.today
+                    1
+                  else
+                    0
+                  end
   end
 
   private
-    def check_destroy
-      begin
-        ActiveRecord::Base.transaction do
-          provider_contract.update partil_value: (provider_contract.partil_value - self.total_value.round(2))
-        end
-      rescue Exception => e
-        errors.add :base, "Não pode ser apagado. Ocorreu algum problema"
-        false
-        # Rails 5
-        throw(:abort)
-      end
-    end
 
-    def verify_total
-      value_item = 0
-      self.bill_payable_installments.map { |e| value_item += e.value  }
-      # if value_item > (provider_contract.total_value - provider_contract.partil_value)
-      if value_item > (provider_contract.partil_value)
-        errors.add :total_value, "Não pode ser menos que a soma das parcelas."
-        false
-        # Rails 5
-        throw(:abort)
-      end
+  def check_destroy
+    ActiveRecord::Base.transaction do
+      provider_contract.update partil_value: (provider_contract.partil_value - total_value.round(2))
     end
+  rescue Exception => e
+    errors.add :base, 'Não pode ser apagado. Ocorreu algum problema'
+    false
+    # Rails 5
+    throw(:abort)
+  end
 
-    def set_partial_value
+  def verify_total
+    value_item = 0
+    bill_payable_installments.map { |e| value_item += e.value }
+    if value_item > (provider_contract.total_value - provider_contract.partil_value)
+      # if value_item > (provider_contract.partil_value)
+      errors.add :total_value, 'Não pode ser menos que a soma das parcelas.'
+      false
+      # Rails 5
+      throw(:abort)
+    end
+  end
+
+  def set_partial_value
+    provider_contract = self.provider_contract
+    ActiveRecord::Base.transaction do
+      provider_contract.update partil_value: (provider_contract.partil_value - total_value.round(2))
+    end
+  end
+
+  def set_value
+    total_bill = total_value.round(2)
+    value_item = bill_payable_installments.sum(:value).round(2)
+    interest_item = bill_payable_installments.sum(:interest).round(2)
+    ActiveRecord::Base.transaction do
+      update total_value: value_item unless total_bill == value_item
+      update interest: interest_item unless interest == interest_item
+
       provider_contract = self.provider_contract
-      ActiveRecord::Base.transaction do
-        provider_contract.update partil_value: (provider_contract.partil_value - self.total_value.round(2))
-      end
+      provider_contract.update partil_value: (provider_contract.partil_value + value_item)
     end
+  end
 
-    def set_value
-      total_bill = self.total_value.round(2)
-      value_item = self.bill_payable_installments.sum(:value).round(2)
-      interest_item = self.bill_payable_installments.sum(:interest).round(2)
-      ActiveRecord::Base.transaction do
-        unless total_bill == value_item
-          self.update total_value: value_item
-        end
-        unless self.interest == interest_item
-          self.update interest: interest_item
-        end
-
-        provider_contract = self.provider_contract
-        provider_contract.update partil_value: (provider_contract.partil_value + value_item)
-      end
+  def set_value_create
+    total_bill = total_value.round(2)
+    value_item = bill_payable_installments.sum(:value).round(2)
+    ActiveRecord::Base.transaction do
+      update total_value: value_item
+      provider_contract = self.provider_contract
+      provider_contract.update partil_value: (provider_contract.partil_value + value_item)
     end
-
-    def set_value_create
-      total_bill = self.total_value.round(2)
-      value_item = self.bill_payable_installments.sum(:value).round(2)
-      ActiveRecord::Base.transaction do
-        self.update total_value: value_item
-        provider_contract = self.provider_contract
-        provider_contract.update partil_value: ((provider_contract.partil_value) + value_item)
-      end
-    end
+  end
 end
