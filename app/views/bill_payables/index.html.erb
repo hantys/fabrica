@@ -8,7 +8,7 @@
 <%= form_tag pays_path do %>
   <div class="d-flex justify-content-between w-100">
     <div class="mb-2">
-      <%= paginate @bill_payables if @bill_payables.size > 20 %>
+      <%#= paginate @bill_payables if @bill_payables.size > 20 %>
       <%= page_entries_info @bill_payables, entry_name: 'item' %>
     </div>
     <div class="mb-2">
@@ -40,11 +40,19 @@
 
       <tbody>
         <% @bill_payables.includes(:bill_payable_installments).each do |bill_payable| %>
-          <% bill_payable.bill_payable_installments.each do |bill_payable_installment| %>
+          <%
+            aux = bill_payable.bill_payable_installments.order(date: :asc).where(status: 0)
+            bill_payable_installment =  if aux.present?
+                                          aux.first
+                                        else
+                                          bill_payable.bill_payable_installments.order(date: :asc).last
+                                        end
+          %>
+          <%# bill_payable.bill_payable_installments.each do |bill_payable_installment| %>
             <tr id="bill_payable-item-<% bill_payable_installment.id %>">
               <%= render 'bill_payable_item', bill_payable: bill_payable, bill_payable_installment: bill_payable_installment %>
             </tr>
-          <% end %>
+          <%# end %>
         <% end %>
       </tbody>
     </table>

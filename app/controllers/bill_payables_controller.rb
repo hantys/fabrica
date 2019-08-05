@@ -15,7 +15,7 @@ class BillPayablesController < ApplicationController
 
   def payment_excel
     @q = BillPayable.ransack(params[:q])
-    @bill_payables = @q.result.includes(:provider_contract, :category, :revenue, :bill_payable_installments).accessible_by(current_ability).order(id: :desc).page(params[:page])
+    @bill_payables = @q.result.includes(:provider_contract, :category, :revenue, :bill_payable_installments).accessible_by(current_ability).order(id: :desc)
 
     respond_to do |format|
       format.xls

@@ -89,7 +89,15 @@
       <%= @soma_pago = 0 %>
       <%= @soma_total = 0 %>
       <% @bill_payables.each do |caixa|%>
-        <% caixa.bill_payable_installments.each do |item| %>
+        <%
+            aux = caixa.bill_payable_installments.order(date: :asc).where(status: 0)
+            item =  if aux.present?
+                                          aux.first
+                                        else
+                                          caixa.bill_payable_installments.order(date: :asc).last
+                                        end
+          %>
+        <%# caixa.bill_payable_installments.each do |item| %>
           <tr>
             <td align="center"><%= caixa.id %></td>
             <td align="center"><%= caixa.provider_contract.try(:provider).try(:company_name) %></td>
@@ -114,7 +122,7 @@
               <% @soma_pago += item.value if item.status == 'paid' %>
             </td>
           </tr>
-        <% end %>
+        <%# end %>
       <% end -%>
       <tr>
         <th>TOTAL PAGO</th>
