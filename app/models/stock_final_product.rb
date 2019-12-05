@@ -130,24 +130,24 @@ class StockFinalProduct < ApplicationRecord
     if kind == 'raw_material'
       hit = Hit.find hit_id
       self.product_id = hit.product_id
-      hit.hit_items.includes(:raw_material).each do |hit_item|
-        stocks = hit_item.raw_material.stock_raw_materials.where('weight_out > 0').order(:id)
-        @i = 0
-        @weight = hit_item.weight
+      #hit.hit_items.includes(:raw_material).each do |hit_item|
+        #stocks = hit_item.raw_material.stock_raw_materials.where('weight_out > 0').order(:id)
+        #@i = 0
+        #@weight = hit_item.weight
 
-        while @weight > 0
-          stock = stocks[@i]
-          if @weight <= stock.weight_out
-            HitItemStock.create!(stock_raw_material_id: stock.id, hit_item: hit_item, weight: @weight)
-            @weight = 0
-          else
-            rest = @weight - stock.weight_out
-            HitItemStock.create!(stock_raw_material_id: stock.id, hit_item: hit_item, weight: (@weight - rest))
-            @weight = rest
-          end
-          @i += 1
-        end
-      end
+        #while @weight > 0
+        #  stock = stocks[@i]
+        #  if @weight <= stock.weight_out
+        #    HitItemStock.create!(stock_raw_material_id: stock.id, hit_item: hit_item, weight: @weight)
+        #    @weight = 0
+        #  else
+        #    rest = @weight - stock.weight_out
+        #    HitItemStock.create!(stock_raw_material_id: stock.id, hit_item: hit_item, weight: (@weight - rest))
+        #    @weight = rest
+        #  end
+        #  @i += 1
+        #end
+       #end
       hit.update used: true
     else
       # implementar nada para implementar
