@@ -228,7 +228,7 @@
                   <br>
                 <% when 'employee_id' %>
                   <strong><%= model_class.human_attribute_name("#{key}") %></strong>
-                  de <%= value[0].present? ? (Employee.find(value[0]).name) : 'Vazio' %> para <%= value[1].present? ? (Employee.find(value[1]).name) : 'Vazio' %>
+                  de <%= value[0].present? ? (Employee.with_deleted.find(value[0]).name) : 'Vazio' %> para <%= value[1].present? ? (Employee.find(value[1]).name) : 'Vazio' %>
                   <br>
                 <% when 'type_of_payment_id' %>
                   <strong><%= model_class.human_attribute_name("#{key}") %></strong>
