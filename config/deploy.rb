@@ -8,7 +8,7 @@ require 'mina/webpacker'
 require 'mina_sidekiq/tasks'
 
 set :application, 'fabrica'
-set :domain, '162.243.169.133'
+set :domain, '68.183.151.121' #'162.243.169.133'
 set :user, "deploy"
 
 set :deploy_to, "/var/www/fabrica"
@@ -26,7 +26,7 @@ set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/
 
 # set :force_asset_precompile, true
 task :environment do
-  invoke :'rvm:use', 'ruby-2.5.1'
+  invoke :'rvm:use', 'ruby-2.5.3'
 end
 
 task :setup do
@@ -82,7 +82,7 @@ task :deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
     invoke :'git:clone'
-    invoke :'sidekiq:quiet'
+    # invoke :'sidekiq:quiet'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
