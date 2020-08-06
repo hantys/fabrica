@@ -12,6 +12,7 @@
     "jquery": "^3.3.1",
     "jquery-mask-plugin": "^1.14.15",
     "jquery-ujs": "^1.2.2",
+    "node-sass": "^4.14.1",
     "popper.js": "^1.14.3",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
