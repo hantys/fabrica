@@ -20,8 +20,8 @@ class Budget < ApplicationRecord
 
   has_paper_trail ignore: %i[cod_name updated_at created_at id cod]
 
-  # after_save :set_value
-  # after_save :set_discount
+  after_save :set_value
+  after_save :set_discount
   after_create :set_cod_name
   before_update :verify_value_with_discount
   before_save :verify_status
