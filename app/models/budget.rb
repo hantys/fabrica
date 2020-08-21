@@ -142,24 +142,6 @@ class Budget < ApplicationRecord
       self.discount_items = 0
     end
   end
-Budget.all.each do |budget|
-  descount_total = budget.budget_products.sum(:total_value_with_discount).round(2)
-  if descount_total != budget.discount_items || (budget.value - budget.value_with_discount).round(2) != descount_total
-    if descount_total.to_f > 0
-      budget.update discount_items: descount_total.to_f.round(2), value_with_discount: (budget.value.round(2) - descount_total.to_f.round(2)).round(2)
-    elsif budget.discount.to_f > 0
-      if budget.discount_type
-        budget.update discount_items: 0, value_with_discount: (budget.value.to_f.round(2) - ((budget.value.round(2) * budget.discount.to_f.round(2)) / 100)).round(2)
-      else
-        budget.update discount_items: 0, value_with_discount: (budget.value.to_f.round(2) - budget.discount.to_f.round(2)).round(2)
-      end
-    else
-      if (budget.discount_items.to_f != 0) && (budget.descount_total == 0)
-        budget.update discount_items: 0
-      end
-    end
-  end
-end
 
   def set_discount
     descount_total = budget_products.sum(:total_value_with_discount).round(2)
