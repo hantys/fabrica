@@ -5,7 +5,7 @@ class Budget < ApplicationRecord
 
   enum status: { waiting: 0, rejected: 1, authorized: 2, billed: 3, delivered: 4, confirm: 5 }
 
-  belongs_to :user
+  belongs_to :user, -> { with_deleted }
   belongs_to :client, -> { with_deleted }
   belongs_to :employee, -> { with_deleted }
   belongs_to :delivery_option, -> { with_deleted }, optional: true
@@ -20,8 +20,8 @@ class Budget < ApplicationRecord
 
   has_paper_trail ignore: %i[cod_name updated_at created_at id cod]
 
-  after_save :set_value
-  after_save :set_discount
+  # after_save :set_value
+  # after_save :set_discount
   after_create :set_cod_name
   before_update :verify_value_with_discount
   before_save :verify_status
@@ -164,7 +164,7 @@ class Budget < ApplicationRecord
 
   def set_value
     unless value.round(2) == budget_products.sum(:total_value).round(2)
-      update value: budget_products.sum(:total_value).round(2)
+      update! value: budget_products.sum(:total_value).round(2)
     end
   end
 end
