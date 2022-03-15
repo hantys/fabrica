@@ -26,7 +26,7 @@ set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/
 
 # set :force_asset_precompile, true
 task :environment do
-  invoke :'rvm:use', 'ruby-2.7.1'
+  invoke :'rvm:use', 'ruby-2.5.3'
 end
 
 task :setup do
