@@ -21,7 +21,8 @@ set :forward_agent, true
 set :shared_dirs, fetch(:shared_dirs, []).push('log', 'node_modules', 'tmp', 'public/uploads', 'public/assets')
 set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/application.yml', 'config/secrets.yml')
 
-# set :rvm_use_path, '/usr/local/rvm/scripts/rvm'
+# set :rvm_use_path, '/usr/local/rvm/bin/rvm'
+set :rvm_use_path, '/usr/local/rvm/scripts/rvm'
 # set :keep_releases, 10
 
 # set :force_asset_precompile, true

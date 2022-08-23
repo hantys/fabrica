@@ -27,7 +27,7 @@
                 <td><%= event.index+1 %></td>
                 <td><%=t "paper_trail.#{event.event}" %></td>
                 <td><%= event.created_at.to_s(:custom_datetime) %></td>
-                <td><%= User.find(event.version_author).employee.name if event.terminator.present? %></td>
+                <td><%= User.with_deleted.find(event.version_author).employee.name if event.terminator.present? %></td>
                 <td>
                   <% if event.event == 'update' %>
                     <% event.changeset.to_a.each do |key, value| %>
