@@ -224,7 +224,7 @@
                   <br>
                 <% when 'user_id' %>
                   <strong><%= model_class.human_attribute_name("#{key}") %></strong>
-                  de <%= value[0].present? ? (User.find(value[0]).employee.name) : 'Vazio' %> para <%= value[1].present? ? (User.find(value[1]).employee.name) : 'Vazio' %>
+                  de <%= value[0].present? ? (User.with_deleted.find(value[0]).employee.name) : 'Vazio' %> para <%= value[1].present? ? (User.with_deleted.find(value[1]).employee.name) : 'Vazio' %>
                   <br>
                 <% when 'employee_id' %>
                   <strong><%= model_class.human_attribute_name("#{key}") %></strong>
