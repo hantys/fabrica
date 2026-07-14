@@ -10,15 +10,18 @@ services:
       - .:/app
       - bundle:/usr/local/bundle
       - node_modules:/app/node_modules
+      - ${HOME}/.ssh:/root/.ssh:ro
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: postgresql://fabrica:r8BATLUq21@68.183.151.121:5432/fabrica
+      # DATABASE_URL: postgresql://fabrica:r8BATLUq21@68.183.151.121:5432/fabrica
       RAILS_ENV: development
-      # DB_HOST: pg_fabrica
-      # POSTGRES_USER: postgres
-      # POSTGRES_PASSWORD: root
+      DB_HOST: pg_fabrica
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
       REDIS_URL: redis://redis_fabrica:6379/0
+      SSH_AUTH_SOCK: /run/host-services/ssh-auth.sock
     stdin_open: true
     tty: true
     depends_on:

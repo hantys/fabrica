@@ -26,4 +26,5 @@ create:
 	$(DOCKER_COMPOSE) exec app-fabrica rails db:create
 
 deploy:
-	$(DOCKER_COMPOSE) exec app-fabrica mina deploy -v
+	@ssh-add -l >/dev/null 2>&1 || ssh-add --apple-use-keychain 2>/dev/null || ssh-add
+	$(DOCKER_COMPOSE) exec app-fabrica bundle exec mina deploy -v
