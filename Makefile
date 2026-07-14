@@ -1,38 +1,29 @@
-run:
-	rails s -b 0.0.0.0 -p 3000 -e development
+DOCKER_COMPOSE ?= $(shell \
+		docker compose version >/dev/null 2>/dev/null \
+	&& echo docker compose \
+	|| echo docker-compose \
+	)
 
-webpack:
-	./bin/webpack-dev-server
+build:
+	$(DOCKER_COMPOSE) build
 
 start:
-	foreman start -f Procfile.dev
+	$(DOCKER_COMPOSE) up --build
 
-install:
-	@bundle install --jobs=50; yarn install
+stop:
+	$(DOCKER_COMPOSE) down
 
-update:
-	@bundle update --jobs=50
-
-create:
-	@rails db:create:all
-
-backup:
-	@sh backup.sh
-
-migrate:
-	@rails db:migrate
-
-seed:
-	@rails db:seed
+bash:
+	$(DOCKER_COMPOSE) exec app-fabrica bash
 
 console:
-	@rails console
+	$(DOCKER_COMPOSE) exec app-fabrica rails console
 
-teste:
-	@bin/rspec
+migrate:
+	$(DOCKER_COMPOSE) exec app-fabrica rails db:migrate
 
-reset:
-	@bundle install; yarn install; rails db:drop db:create db:migrate; sh backup.sh; rails db:migrate
+create:
+	$(DOCKER_COMPOSE) exec app-fabrica rails db:create
 
-rollback:
-	@rails db:rollback
+deploy:
+	$(DOCKER_COMPOSE) exec app-fabrica mina deploy -v

@@ -1,5 +1,16 @@
 # Fabrica
 
+## Docker
+
+```bash
+make docker-start
+make docker-create
+make docker-migrate
+```
+
+A aplicação fica disponível em `http://localhost:3000`. O Compose também inicia
+PostgreSQL na porta `5432` e Redis na porta `6379`.
+
 ## Ruby version
 
 * 2.5.1

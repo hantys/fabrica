@@ -24,11 +24,10 @@
             <td><%= label_status_bp bill_payable %></td>
             <td><%= number_to_currency bill_payable.total_value %></td>
             <td><%= bill_payable.status != 'paid' ? bill_payable.due_date : '-' %></td>
-            <% pays = bill_payable.bill_payable_installments.where(status: 0).order(:date) %>
-            <% pay = pays.first if pays.present? %>
+            <% pay = bill_payable.bill_payable_installments.select(&:pending?).min_by(&:date) %>
 
             <td class="d-print-none text-center">
-              <%= link_to "Pagar", pay_item_path(pay), class: 'btn btn-outline-success' if pays.present? %>
+              <%= link_to "Pagar", pay_item_path(pay), class: 'btn btn-outline-success' if pay.present? %>
             </td>
           </tr>
         <% end %>
@@ -58,15 +57,6 @@
               <th scope="row"><%= i+1 %></th>
               <th scope="row"><%= product.cod %></th>
               <td><%= link_to_modal product.name, product_path(product.id), class: 'text-dark' %></td>
-             <!--  <th scope="row">
-                <ul class="text-left">
-                  <% product.budgets_ids.each_with_index do |single, i| %>
-                    <%= i%4 == 0 ? '<li>'.html_safe : '' %>
-                      <%= link_to_modal Budget.find(single).cod_name, budget_path(single) %>
-                    <%= i%4 == 3 ? '</li>'.html_safe : ',' %>
-                  <% end %>
-                </ul>
-              </th> -->
               <td style="background-color: #c5ffe5 " class="d-print-none"><%= number_with_delimiter product.qnt.to_i, delimiter: ".", separator: "," %> itens</td>
               <td style="background-color: #fbffa2 " class="d-print-none"><%= number_with_delimiter product.qnt_pedidos.to_i, delimiter: ".", separator: "," %> itens</td>
               <td style="background-color: #ff9ea0 "><%= number_with_delimiter product.para_produzir.to_i, delimiter: ".", separator: "," %> itens</td>

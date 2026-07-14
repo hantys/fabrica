@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_29_121132) do
+ActiveRecord::Schema.define(version: 2026_07_14_161000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -594,10 +594,10 @@ ActiveRecord::Schema.define(version: 2019_01_29_121132) do
     t.datetime "deleted_at"
     t.bigint "employee_id"
     t.integer "roles_mask"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email"], name: "index_active_users_on_email", unique: true, where: "(deleted_at IS NULL)"
     t.index ["employee_id"], name: "index_users_on_employee_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["username"], name: "index_users_on_username", unique: true
+    t.index ["username"], name: "index_active_users_on_username", unique: true, where: "(deleted_at IS NULL)"
   end
 
   create_table "version_associations", force: :cascade do |t|
