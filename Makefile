@@ -27,4 +27,4 @@ create:
 
 deploy:
 	@ssh-add -l >/dev/null 2>&1 || ssh-add --apple-use-keychain 2>/dev/null || ssh-add
-	$(DOCKER_COMPOSE) exec app-fabrica bundle exec mina deploy -v
+	$(DOCKER_COMPOSE) exec -e LANG=C.UTF-8 -e LC_ALL=C.UTF-8 app-fabrica bundle exec mina deploy -v

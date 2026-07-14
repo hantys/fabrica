@@ -26,7 +26,7 @@ set :rvm_use_path, '/usr/local/rvm/scripts/rvm'
 # set :keep_releases, 10
 
 # set :force_asset_precompile, true
-task :environment do
+task :remote_environment do
   invoke :'rvm:use', 'ruby-2.5.3'
 end
 
