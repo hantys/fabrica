@@ -1,5 +1,5 @@
 <%- model_class = Budget -%>
-<%= search_form_for @q, url: budgets_path, html: { class: 'form-horizonal' } do |f| %>
+<%= search_form_for @q, url: budgets_path, remote: true, html: { class: 'form-horizonal', id: 'budget-search-form' } do |f| %>
   <h3>Busca</h3>
   <div class="row justify-content-md-center">
     <div class="col-4">
@@ -11,18 +11,43 @@
 ['Faturado', 3],
 ['Entregue', 4],
 ['Confirmado', 5]], :include_blank => "Todas", input_html: {class: 'simple-select2'}, required: false %>
-      <%= f.input :client_id_eq, label: "#{model_class.human_attribute_name(:client)}", as: :select, :collection => Client.accessible_by(current_ability).order(:fantasy_name).map { |e| [e.company_name, e.id] }, :include_blank => "Todos", input_html: {id: 'client', class: 'simple-select2'}, required: false %>
+      <% selected_client_options = @selected_client ? [["#{@selected_client.company_name} (#{@selected_client.fantasy_name})", @selected_client.id]] : [] %>
+      <%= f.input :client_id_eq,
+                  label: model_class.human_attribute_name(:client),
+                  as: :select,
+                  collection: selected_client_options,
+                  include_blank: 'Todos',
+                  input_html: {
+                    id: 'client',
+                    class: 'budget-filter-ajax-select2',
+                    data: { url: client_options_budgets_path, placeholder: 'Busque por nome ou fantasia' }
+                  },
+                  required: false %>
 
     </div>
     <div class="col-4">
       <%= f.input :created_at_gteq, label: "#{model_class.human_attribute_name(:created_at)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
       <%= f.input :created_at_lteq, label: "#{model_class.human_attribute_name(:created_at)} final", as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
-      <%= f.input :client_fantasy_name_cont, label: "#{model_class.human_attribute_name(:client)} nome fantasia", as: :select, :collection => Client.accessible_by(current_ability).order(:fantasy_name).map { |e| [e.fantasy_name, e.fantasy_name] }, :include_blank => "Todos", input_html: {class: 'simple-select2'}, required: false %>
+      <%= f.input :client_fantasy_name_cont,
+                  label: "#{model_class.human_attribute_name(:client)} nome fantasia",
+                  as: :string,
+                  placeholder: 'Digite parte do nome fantasia',
+                  required: false %>
     </div>
     <div class="col-4">
       <%= f.input :deadline_gteq, label: "#{model_class.human_attribute_name(:deadline)} inicial", as: :string, placeholder: 'Ex: 10/01/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
       <%= f.input :deadline_lteq, label: "#{model_class.human_attribute_name(:deadline)} final", as: :string, placeholder: 'Ex: 10/02/2018', required: false, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
-      <%= f.input :employee_id_eq, label: model_class.human_attribute_name(:employee), :as => :select, :collection => Employee.accessible_by(current_ability).order(:name).map { |e| [e.name, e.id] }, :include_blank => "Todos", input_html: {class: 'simple-select2'}, required: false %>
+      <% selected_employee_options = @selected_employee ? [[@selected_employee.name, @selected_employee.id]] : [] %>
+      <%= f.input :employee_id_eq,
+                  label: model_class.human_attribute_name(:employee),
+                  as: :select,
+                  collection: selected_employee_options,
+                  include_blank: 'Todos',
+                  input_html: {
+                    class: 'budget-filter-ajax-select2',
+                    data: { url: employee_options_budgets_path, placeholder: 'Busque pelo funcionário' }
+                  },
+                  required: false %>
     </div>
     <%= f.button :submit, class: 'btn btn-success' %>
     <%= link_to 'Limpar', budgets_path, class: 'btn btn-info ml-3' %>

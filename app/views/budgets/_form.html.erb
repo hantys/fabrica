@@ -37,7 +37,7 @@ end %>
 
   <div class="row">
     <div class="col-lg-6">
-      <%= f.association :client, collection: Client.accessible_by(current_ability).order(:company_name).map {|x| [x.company_name, x.id]}, prompt: "Escolha um cliente", input_html: { class: 'simple-select2' } %>
+      <%= f.association :client, collection: @client_options, prompt: "Escolha um cliente", input_html: { class: 'client-ajax-select2', data: { url: client_options_budgets_path, placeholder: 'Escolha um cliente' } } %>
 
       <%= f.input :deadline, as: :string, input_html: { class: 'date datepicker-here', data: { language: 'pt-BR'} } %>
 
@@ -57,7 +57,7 @@ end %>
       <div class="row item_product">
         <%= budget_products_form.input :total_value_with_discount, as: :hidden, input_html: { class: '  total_value_with_discount' } %>
         <div class="col-lg-2">
-          <%= budget_products_form.association :product, collection: Product.order(:name).map {|x| ["#{x.cod} / #{x.name}", x.id]} , prompt: 'Produto', input_html: { class: 'product simple-select2' } %>
+          <%= budget_products_form.association :product, collection: @product_options, prompt: 'Produto', input_html: { class: 'product product-ajax-select2', data: { url: product_options_budgets_path, placeholder: 'Produto' } } %>
         </div>
         <div class="col-lg-2">
           <%= budget_products_form.input :unit_value, placeholder: 'Valor unitário', readonly: true, input_html: { class: 'unit_value' } %>

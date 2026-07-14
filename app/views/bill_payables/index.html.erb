@@ -39,14 +39,12 @@
       </thead>
 
       <tbody>
-        <% @bill_payables.includes(:bill_payable_installments).each do |bill_payable| %>
+        <% @bill_payables.each do |bill_payable| %>
           <%
-            aux = bill_payable.bill_payable_installments.order(date: :asc).where(status: 0)
-            bill_payable_installment =  if aux.present?
-                                          aux.first
-                                        else
-                                          bill_payable.bill_payable_installments.order(date: :asc).last
-                                        end
+            installments = bill_payable.bill_payable_installments.sort_by do |installment|
+              installment.date || Date.new(1, 1, 1)
+            end
+            bill_payable_installment = installments.find(&:pending?) || installments.last
           %>
           <%# bill_payable.bill_payable_installments.each do |bill_payable_installment| %>
             <tr id="bill_payable-item-<% bill_payable_installment.id %>">

@@ -1,4 +1,32 @@
+init_budget_filter_selects = ->
+  $('.budget-filter-ajax-select2, .client-ajax-select2, .product-ajax-select2').each ->
+    select = $(this)
+    return if select.hasClass('select2-hidden-accessible')
+
+    select.select2
+      theme: 'bootstrap4'
+      allowClear: true
+      placeholder: select.data('placeholder')
+      minimumInputLength: 0
+      ajax:
+        url: select.data('url')
+        dataType: 'json'
+        delay: 250
+        data: (params) ->
+          q: params.term
+        processResults: (data) ->
+          data
+        cache: true
+
 jQuery ->
+  init_budget_filter_selects()
+
+  $(document).on 'ajax:beforeSend', '#budget-search-form', ->
+    $(this).find(':submit').prop('disabled', true).text('Buscando...')
+
+  $(document).on 'ajax:complete', '#budget-search-form', ->
+    $(this).find(':submit').prop('disabled', false).text('Buscar')
+
   $('#budget_product_reserve').on 'show.bs.modal', (event) ->
     button = $(event.relatedTarget)
     # Button that triggered the modal
@@ -186,11 +214,9 @@ $(document).on 'nested:fieldRemoved:budget_products', (event) ->
   setTotalDiscountBudget()
 
 $(document).on 'nested:fieldAdded', (event) ->
-  $('.simple-select2').select2
-    theme: 'bootstrap4'
-    allowClear: true
   # this field was just inserted into your form
   field = event.field
+  init_budget_filter_selects()
   # it's a jQuery object already! Now you can find date input
   totalValueWithDiscountField = field.find('.total_value_with_discount')
   budgetItemField = field.find('.product')

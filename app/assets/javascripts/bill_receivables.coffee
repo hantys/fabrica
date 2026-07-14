@@ -1,7 +1,28 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+init_budget_select = ->
+  select = $('.budget-ajax-select2')
+  return unless select.length
+
+  select.select2
+    theme: 'bootstrap4'
+    allowClear: true
+    placeholder: 'Escolha um Pedido'
+    minimumInputLength: 0
+    ajax:
+      url: select.data('url')
+      dataType: 'json'
+      delay: 250
+      data: (params) ->
+        q: params.term
+      processResults: (data) ->
+        data
+      cache: true
+
 jQuery ->
+  init_budget_select()
+
   $("#select_all").click ->
     count = 0
     $(".styled").each ->

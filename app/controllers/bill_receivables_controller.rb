@@ -1,15 +1,34 @@
 class BillReceivablesController < ApplicationController
   before_action :set_bill_receivable, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
+  load_and_authorize_resource except: :budget_options
 
   # GET /bill_receivables
   # GET /bill_receivables.json
   def index
     @q = BillReceivable.ransack(params[:q])
 
-    @bill_receivables = @q.result.includes(:category, :revenue, :budget).accessible_by(current_ability).order(id: :desc).page params[:page]
+    @bill_receivables = @q.result
+                            .eager_load(:category, :revenue, :budget)
+                            .preload(:bill_receivable_installments)
+                            .accessible_by(current_ability)
+                            .order(id: :desc)
+                            .page(params[:page])
+    @bill_receivables.load
     @modal_size = 'lg'
 
+  end
+
+  def budget_options
+    authorize! :read, Budget
+    budgets = Budget.accessible_by(current_ability)
+    term = params[:q].to_s.strip
+    budgets = budgets.where('cod_name ILIKE ?', "%#{term}%") if term.present?
+
+    results = budgets.order(id: :desc).limit(50).pluck(:id, :cod_name).map do |id, cod_name|
+      { id: id, text: cod_name }
+    end
+
+    render json: { results: results }
   end
 
   def receives
@@ -62,10 +81,12 @@ class BillReceivablesController < ApplicationController
   def new
     @bill_receivable = BillReceivable.new
     @bill_receivable.bill_receivable_installments.build
+    set_form_collections
   end
 
   # GET /bill_receivables/1/edit
   def edit
+    set_form_collections
   end
 
   # POST /bill_receivables
@@ -78,6 +99,7 @@ class BillReceivablesController < ApplicationController
         format.html { redirect_to @bill_receivable, notice: 'Conta a receber criada com sucesso.' }
         format.json { render :show, status: :created, location: @bill_receivable }
       else
+        set_form_collections
         format.html { render :new }
         format.json { render json: @bill_receivable.errors, status: :unprocessable_entity }
       end
@@ -92,6 +114,7 @@ class BillReceivablesController < ApplicationController
         format.html { redirect_to @bill_receivable, notice: 'Conta a receber atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @bill_receivable }
       else
+        set_form_collections
         format.html { render :edit }
         format.json { render json: @bill_receivable.errors, status: :unprocessable_entity }
       end
@@ -109,6 +132,16 @@ class BillReceivablesController < ApplicationController
   end
 
   private
+    def set_form_collections
+      selected_budget_id = params[:budget].presence || @bill_receivable.budget_id
+      @budget_options = Budget.accessible_by(current_ability)
+                              .where(id: selected_budget_id)
+                              .pluck(:cod_name, :id)
+      @category_options = Category.pluck(:name, :id)
+      @revenue_options = Revenue.pluck(:name, :id)
+      @bank_options = Bank.pluck(:name, :id)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_bill_receivable
       @bill_receivable = BillReceivable.find(params[:id])

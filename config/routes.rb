@@ -6,7 +6,11 @@ require 'sidekiq-scheduler/web'
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
   resources :category_products
-  resources :bill_receivables
+  resources :bill_receivables do
+    collection do
+      get :budget_options
+    end
+  end
   resources :bill_payables
   resources :provider_contracts
   resources :banks
@@ -20,7 +24,13 @@ Rails.application.routes.draw do
   resources :delivery_options
   resources :type_of_payments
   resources :products
-  resources :budgets
+  resources :budgets do
+    collection do
+      get :client_options
+      get :employee_options
+      get :product_options
+    end
+  end
   resources :hits
   resources :providers
   resources :clients

@@ -54,6 +54,31 @@ colateral de uma tarefa.
 6. Não adicione ferramentas de teste, lint, formatadores ou novas dependências sem
    necessidade explícita.
 
+## Padrão de desempenho para páginas de listagem
+
+Ao criar ou alterar páginas que possam exibir listas grandes:
+
+1. Nunca carregue a coleção completa. Entregue no máximo 50 registros por
+   requisição usando paginação no banco (`page(...).per(50)`).
+2. Faça filtros e ordenação no banco. A busca pelos demais registros deve usar
+   requisições AJAX e atualizar somente o bloco de resultados, sem recarregar a
+   página inteira.
+3. Campos de seleção com coleções grandes devem usar autocomplete remoto com
+   atraso de aproximadamente 250 ms. O endpoint deve aplicar autorização,
+   selecionar apenas as colunas necessárias com `pluck` e limitar a resposta a
+   50 opções. Nunca use `Model.all`, `map` ou uma coleção completa dentro da
+   view para montar esses campos.
+4. Preserve o valor selecionado ao reabrir um filtro ou formulário, carregando
+   somente o registro correspondente.
+5. Antecipe associações exibidas na lista com `includes`, `preload` ou
+   `eager_load` no controller para evitar consultas N+1.
+6. Extraia a tabela e a paginação para uma partial reutilizada pela resposta
+   HTML e pela resposta AJAX. Mostre estado de carregamento e trate respostas
+   vazias sem bloquear a interface.
+7. Antes e depois da alteração, confira tempo de resposta, consultas SQL,
+   quantidade de registros e tamanho do HTML. Só adicione índices por migration
+   quando os filtros e o plano da consulta demonstrarem essa necessidade.
+
 ## Segurança e operações
 
 - Nunca exponha, replique ou adicione credenciais, URLs com senha, tokens ou

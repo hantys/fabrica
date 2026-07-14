@@ -3,13 +3,70 @@
 class BudgetsController < ApplicationController
   before_action :set_budget, only: %i[show edit update destroy]
   before_action :set_budget_product, only: %i[reserve_product updated_reserve_product]
-  load_and_authorize_resource except: %i[find_product reserve_product updated_reserve_product]
+  load_and_authorize_resource except: %i[find_product reserve_product updated_reserve_product client_options employee_options product_options]
   # GET /budgets
   # GET /budgets.json
   def index
     @q = Budget.ransack(params[:q])
 
-    @budgets = @q.result.accessible_by(current_ability).order(id: :desc).page params[:page]
+    @budgets = @q.result
+                 .accessible_by(current_ability)
+                 .includes(:client, :employee, :delivery_option)
+                 .order(id: :desc)
+                 .page(params[:page])
+                 .per(50)
+    @budgets.load
+
+    load_selected_filters
+  end
+
+  def client_options
+    authorize! :read, Client
+    clients = Client.accessible_by(current_ability)
+    term = params[:q].to_s.strip
+    if term.present?
+      term = ActiveRecord::Base.sanitize_sql_like(term)
+      clients = clients.where('company_name ILIKE :term OR fantasy_name ILIKE :term', term: "%#{term}%")
+    end
+
+    results = clients.order(:company_name).limit(50).pluck(:id, :company_name, :fantasy_name).map do |id, company_name, fantasy_name|
+      name = fantasy_name.present? ? "#{company_name} (#{fantasy_name})" : company_name
+      { id: id, text: name }
+    end
+
+    render json: { results: results }
+  end
+
+  def employee_options
+    authorize! :read, Employee
+    employees = Employee.accessible_by(current_ability)
+    term = params[:q].to_s.strip
+    if term.present?
+      term = ActiveRecord::Base.sanitize_sql_like(term)
+      employees = employees.where('name ILIKE ?', "%#{term}%")
+    end
+
+    results = employees.order(:name).limit(50).pluck(:id, :name).map do |id, name|
+      { id: id, text: name }
+    end
+
+    render json: { results: results }
+  end
+
+  def product_options
+    authorize! :read, Product
+    products = Product.accessible_by(current_ability)
+    term = params[:q].to_s.strip
+    if term.present?
+      term = ActiveRecord::Base.sanitize_sql_like(term)
+      products = products.where('cod ILIKE :term OR name ILIKE :term', term: "%#{term}%")
+    end
+
+    results = products.order(:name).limit(50).pluck(:id, :cod, :name).map do |id, cod, name|
+      { id: id, text: "#{cod} / #{name}" }
+    end
+
+    render json: { results: results }
   end
 
   # GET /budgets/1
@@ -122,10 +179,13 @@ class BudgetsController < ApplicationController
   # GET /budgets/new
   def new
     @budget = Budget.new
+    load_form_options
   end
 
   # GET /budgets/1/edit
-  def edit; end
+  def edit
+    load_form_options
+  end
 
   # POST /budgets
   # POST /budgets.json
@@ -139,6 +199,7 @@ class BudgetsController < ApplicationController
         format.html { redirect_to @budget, success: 'Pedido criado com sucesso.' }
         format.json { render :show, status: :created, location: @budget }
       else
+        load_form_options
         format.html { render :new }
         format.json { render json: @budget.errors, status: :unprocessable_entity }
       end
@@ -154,6 +215,7 @@ class BudgetsController < ApplicationController
         format.html { redirect_to @budget, success: 'Pedido atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @budget }
       else
+        load_form_options
         format.html { render :edit }
         format.json { render json: @budget.errors, status: :unprocessable_entity }
       end
@@ -188,6 +250,12 @@ class BudgetsController < ApplicationController
 
   private
 
+  def load_selected_filters
+    query = params[:q] || {}
+    @selected_client = Client.accessible_by(current_ability).find_by(id: query[:client_id_eq]) if query[:client_id_eq].present?
+    @selected_employee = Employee.accessible_by(current_ability).find_by(id: query[:employee_id_eq]) if query[:employee_id_eq].present?
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_budget
     @budget = Budget.find(params[:id])
@@ -195,6 +263,20 @@ class BudgetsController < ApplicationController
 
   def set_budget_product
     @budget_product = BudgetProduct.find(params[:id])
+  end
+
+  def load_form_options
+    clients = Client.accessible_by(current_ability)
+    client_ids = clients.order(:company_name).limit(50).pluck(:id)
+    client_ids |= [@budget.client_id].compact
+    @client_options = clients.where(id: client_ids).order(:company_name).map { |client| [client.company_name, client.id] }
+
+    products = Product.accessible_by(current_ability)
+    product_ids = products.order(:name).limit(50).pluck(:id)
+    product_ids |= @budget.budget_products.map(&:product_id).compact
+    @product_options = products.where(id: product_ids).order(:name).map do |product|
+      ["#{product.cod} / #{product.name}", product.id]
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

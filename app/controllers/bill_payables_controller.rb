@@ -10,7 +10,13 @@ class BillPayablesController < ApplicationController
     @q = BillPayable.ransack(params[:q])
     @modal_size = 'lg'
 
-    @bill_payables = @q.result.includes(:provider_contract, :category, :revenue, :bill_payable_installments).accessible_by(current_ability).order(id: :desc).page(params[:page])
+    @bill_payables = @q.result
+                           .eager_load({ provider_contract: :provider }, :category, :revenue)
+                           .preload(:bill_payable_installments)
+                           .accessible_by(current_ability)
+                           .order(id: :desc)
+                           .page(params[:page])
+    @bill_payables.load
   end
 
   def payment_excel

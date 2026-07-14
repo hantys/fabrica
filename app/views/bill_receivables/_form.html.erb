@@ -18,9 +18,9 @@
         <div class="tab-pane fade <%= f.object.type_receivable == 'budget' ? 'show active' : '' %>" id="nav-type-receivable-budget" role="tabpanel" aria-labelledby="nav-budget-tab">
           
           <% if params[:budget].present? %>
-            <%= f.association :budget, collection: Budget.accessible_by(current_ability).order(:cod_name).map {|x| [x.cod_name, x.id]}, prompt: "Escolha um Pedido", selected: params[:budget], input_html: { class: 'simple-select2' } %>
+            <%= f.association :budget, collection: @budget_options, prompt: "Escolha um Pedido", selected: params[:budget], input_html: { class: 'budget-ajax-select2', data: { url: budget_options_bill_receivables_path } } %>
           <% else %>
-            <%= f.association :budget, collection: Budget.accessible_by(current_ability).order(:cod_name).map {|x| [x.cod_name, x.id]}, prompt: "Escolha um Pedido", input_html: { class: 'simple-select2' } %>
+            <%= f.association :budget, collection: @budget_options, prompt: "Escolha um Pedido", selected: f.object.budget_id, input_html: { class: 'budget-ajax-select2', data: { url: budget_options_bill_receivables_path } } %>
           <% end %>
           
 
@@ -55,8 +55,8 @@
       </span>
       <%= f.hidden_field :file_cache %>
 
-      <%= f.association :category, input_html: { class: 'simple-select2' } %>
-      <%= f.association :revenue, input_html: { class: 'simple-select2' } %>
+      <%= f.association :category, collection: @category_options, selected: f.object.category_id, input_html: { class: 'simple-select2' } %>
+      <%= f.association :revenue, collection: @revenue_options, selected: f.object.revenue_id, input_html: { class: 'simple-select2' } %>
       <%= f.input :obs %>
 
     </div>
@@ -74,7 +74,7 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="card card-body mb-3">
-            <%= bill_receivable_installments_form.association :bank, input_html: {class: 'simple-select2'}, prompt: "Escolha um Banco" %>
+            <%= bill_receivable_installments_form.association :bank, collection: @bank_options, selected: bill_receivable_installments_form.object.bank_id, input_html: {class: 'simple-select2'}, prompt: "Escolha um Banco" %>
 
             
             <% if params[:value].present? %>
