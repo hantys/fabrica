@@ -16,14 +16,17 @@ stop:
 bash:
 	$(DOCKER_COMPOSE) exec app-fabrica bash
 
+install:
+	$(DOCKER_COMPOSE) exec app-fabrica bundle install
+
 console:
-	$(DOCKER_COMPOSE) exec app-fabrica rails console
+	$(DOCKER_COMPOSE) exec -e DISABLE_SPRING=1 app-fabrica bundle exec rails console
 
 migrate:
-	$(DOCKER_COMPOSE) exec app-fabrica rails db:migrate
+	$(DOCKER_COMPOSE) exec app-fabrica bundle exec rails db:migrate
 
 create:
-	$(DOCKER_COMPOSE) exec app-fabrica rails db:create
+	$(DOCKER_COMPOSE) exec app-fabrica bundle exec rails db:create
 
 deploy:
 	@ssh-add -l >/dev/null 2>&1 || ssh-add --apple-use-keychain 2>/dev/null || ssh-add
